@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Builders DateGenerated="2021-02-16T07:00:28">
+  <Corporation>
+    <CorporateBuilderNumber>CorpDW</CorporateBuilderNumber>
+    <CorporateState>TX</CorporateState>
+    <CorporateName>David Weekley Homes</CorporateName>
+    <Builder>
+      <BuilderNumber>DavidWeekley</BuilderNumber>
+      <BrandName>David Weekley Homes</BrandName>
+      <ReportingName>David Weekley Homes</ReportingName>
+      <DefaultLeadsEmail LeadsPerMessage="1">homes@dwhomes.com</DefaultLeadsEmail>
+      <BuilderWebsite>https://www.davidweekleyhomes.com?CMP=bdx</BuilderWebsite>
+      <Subdivision Status="Active" SqftLow="1875" SqftHigh="3549">
+        <SubdivisionNumber>19080000</SubdivisionNumber>
+        <SubdivisionName>Sandbrock Ranch</SubdivisionName>
+        <MarketingChannel>NewHomeSource</MarketingChannel>
+        <MarketingChannel>Move</MarketingChannel>
+        <SubLeadsEmail LeadsPerMessage="1">Dallas-IA@dwhomes.com</SubLeadsEmail>
+        <CommunityStyle>MasterPlanned</CommunityStyle>
+        <CommunityStyle>Green</CommunityStyle>
+        <SalesOffice>
+          <Agent>Suzanne Couch</Agent>
+          <Agent>Andie Dowell</Agent>
+          <Address OutOfCommunity="0">
+            <Street1>1625 Ranger Road</Street1>
+            <City>Aubrey</City>
+            <State>TX</State>
+            <ZIP>76227</ZIP>
+            <Geocode>
+              <Latitude>33.267381</Latitude>
+              <Longitude>-96.893699</Longitude>
+            </Geocode>
+          </Address>
+          <Phone>
+            <AreaCode>877</AreaCode>
+            <Prefix>933</Prefix>
+            <Suffix>5539</Suffix>
+          </Phone>
+          <Hours>Mon-Sat 9:00 AM - 6:00 PM;Sun 12:00 PM - 6:00 PM;</Hours>
+        </SalesOffice>
+        <DrivingDirections>Going North on DNT, exit Hwy. 380, and turn leftGo approx. 4.5 miles to FM 1385 and turn rightLeft on Sandbrock Parkway (off FM 1385)Take circle around to Aubrey ParkwayRight on Ranger Road</DrivingDirections>
+        <Schools>
+          <DistrictName>Denton Independent School District</DistrictName>
+          <Elementary>Union Park Elementary</Elementary>
+          <Middle>Rodriguez Middle School</Middle>
+          <High>Braswell High School</High>
+        </Schools>
+        <SubAmenity Type="Clubhouse">1</SubAmenity>
+        <SubAmenity Type="Greenbelt">1</SubAmenity>
+        <SubAmenity Type="Park">1</SubAmenity>
+        <SubAmenity Type="Playground">1</SubAmenity>
+        <SubAmenity Type="Pool">1</SubAmenity>
+        <SubAmenity Type="Trails">1</SubAmenity>
+        <Service Type="HOA">
+          <ServiceName>Home Owners Association</ServiceName>
+        </Service>
+        <Service Type="Shopping">
+          <ServiceName>Local Shopping</ServiceName>
+        </Service>
+        <SubDescription>Beautiful David Weekley homes are now available in Sandbrock Ranch! Located just north of Dallas in Aubrey, this master-planned community offers a variety of award-winning floor plans on 50-foot homesites, all featuring the best in Design, Choice and Service from a builder with more than 40 years of experience. In Sandbrock Ranch, you’ll enjoy miles of tranquil trails, a sparkling community pool and much more:&lt;br/&gt;&amp;#8226;Carriage-house amenity center, fitness center and splash pad&lt;br/&gt;&amp;#8226;Fully stocked fishing lakes&lt;br/&gt;&amp;#8226;Walk and bike paths, parks and playground&lt;br/&gt;&amp;#8226;Event lawn and outdoor amphitheater&lt;br/&gt;&amp;#8226;Convenient access to the Dallas North Tollway and Highway 380&lt;br/&gt;&amp;#8226;Students attend Denton ISD schools, including Union Park Elementary, Rodriguez Middle and Braswell High schools&lt;br/&gt;&amp;#8226;Nearby shopping, dining and entertainment&lt;br/&gt;</SubDescription>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="0" Caption="The Forreston in Sandbrock Ranch">https://www.davidweekleyhomes.com/media/CommunityImage/8b821340-7540-433b-92a7-c88250d3d202.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="1" Caption="The Malinda in Sandbrock Ranch">https://www.davidweekleyhomes.com/media/CommunityImage/ba8aea5a-e062-4040-b778-e47bb6e3c825.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="2" Caption="The Forreston - Family Room">https://www.davidweekleyhomes.com/media/CommunityImage/467105c2-a033-4b88-8ae2-1b157d5c18b2.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="3" Caption="The Forreston - Kitchen">https://www.davidweekleyhomes.com/media/CommunityImage/6e12d8b5-ccd8-4890-a420-7a900e77dd71.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="4" Caption="The Forreston - Owner's Retreat">https://www.davidweekleyhomes.com/media/CommunityImage/b84e0620-7113-4a05-b7af-0ede1457ae4e.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="5" Caption="The Forreston - Owner's Bath">https://www.davidweekleyhomes.com/media/CommunityImage/dfbbfd0c-3a4c-4f6f-aa54-25b74b9931eb.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="6" Caption="The Malinda - Front Exterior">https://www.davidweekleyhomes.com/media/CommunityImage/8c20a44b-cd19-4f85-ac13-3101413cf9ce.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="7" Caption="The Malinda - Kitchen/Family Room">https://www.davidweekleyhomes.com/media/CommunityImage/019a59b0-b087-4531-bcb5-33322066afd3.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="8" Caption="The Malinda - Dining">https://www.davidweekleyhomes.com/media/CommunityImage/07bb504d-f8c4-4881-9a31-46b5d88691ab.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="9" Caption="The Malinda - Owner's Retreat">https://www.davidweekleyhomes.com/media/CommunityImage/d95c760e-64aa-4c20-9ad8-52f9ac440102.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="10" Caption="Sandbrock Ranch Monument">https://www.davidweekleyhomes.com/media/CommunityImage/7175dd79-79af-49b2-8fe7-2d4a4073a223.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="11" Caption="Sandbrock Ranch Amenity Center">https://www.davidweekleyhomes.com/media/CommunityImage/83191ec3-f1da-48f2-b435-2bfceeea026c.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="12" Caption="Sandbrock Ranch Amenity Center">https://www.davidweekleyhomes.com/media/CommunityImage/1de7a004-75e9-4458-ae41-90411aa83334.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="13" Caption="Sandbrock Ranch Amenity Center">https://www.davidweekleyhomes.com/media/CommunityImage/12985cff-34d4-4497-9a80-97b0e681fa76.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="14" Caption="Sandbrock Ranch Amenity Center">https://www.davidweekleyhomes.com/media/CommunityImage/a01a4834-163c-4425-8142-04f99295a44c.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="15" Caption="Sandbrock Ranch Amenity Center">https://www.davidweekleyhomes.com/media/CommunityImage/2abf4364-0259-41e8-99a4-f5ba2c765d7f.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="16" Caption="Carriage House - Pool">https://www.davidweekleyhomes.com/media/CommunityImage/a103c5c4-dd06-4103-82b6-c65f41921637.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="17" Caption="Sandbrock Ranch Amenity Center">https://www.davidweekleyhomes.com/media/CommunityImage/f71ff4cc-3b65-4dac-aa93-cb6c5b711dc3.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="18" Caption="Sandbrock Ranch Amenity Center">https://www.davidweekleyhomes.com/media/CommunityImage/5d5b13ba-d31c-4123-96ca-e3139ebf0423.jpg?maxwidth=800</SubImage>
+        <SubImage Type="Standard" ReferenceType="URL" SequencePosition="19" Caption="Sandbrock Ranch Amenity Center">https://www.davidweekleyhomes.com/media/CommunityImage/84378f0e-8aee-4305-8d18-424824db2308.jpg?maxwidth=800</SubImage>
+        <SubVideoTour SequencePosition="0">https://my.matterport.com/show/?m=JqbxmhBbWsY</SubVideoTour>
+        <SubVideoTour SequencePosition="1" Title="Sandbrock Ranch">https://vimeo.com/312992354</SubVideoTour>
+        <SubVideoTour SequencePosition="2" Title="Design, Choice, Service - David Weekley Homes">http://player.vimeo.com/video/58473088?api=1</SubVideoTour>
+        <SubVideoTour SequencePosition="3" Title="LifeDesign, FlexSpace, and more Enhance Your Life.">http://player.vimeo.com/video/58472557?api=1</SubVideoTour>
+        <SubVideoTour SequencePosition="4" Title="Make the choices to make it your dream home.">http://player.vimeo.com/video/58411069?api=1</SubVideoTour>
+        <SubVideoTour SequencePosition="5" Title="Backing what we build: Its the right thing to do.">http://player.vimeo.com/video/58483002?api=1</SubVideoTour>
+        <SubVideoTour SequencePosition="6" Title="Learn More About Our Personal Builder Program">http://player.vimeo.com/video/58479494?api=1</SubVideoTour>
+        <SubVideoTour SequencePosition="7" Title="The Design Process – David Weekley Homes">http://player.vimeo.com/video/89749037?api=1</SubVideoTour>
+        <SubVideoTour SequencePosition="8" Title="The key to having your new home live larger is mak">http://player.vimeo.com/video/179205173?api=1</SubVideoTour>
+        <SubVideoTour SequencePosition="9" Title="Our People Make the Difference">https://player.vimeo.com/video/303760185?api=1</SubVideoTour>
+        <SubWebsite>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch</SubWebsite>
+        <Promotion>
+          <PromoType>Consumer</PromoType>
+          <PromoHeadline>Anniversary Savings Event in Dallas/Ft. Worth</PromoHeadline>
+          <PromoDescription>Anniversary Savings Event in Dallas/Ft. Worth. Offer valid January, 1, 2021 to April, 1, 2021.</PromoDescription>
+          <StartDate>2021-01-01</StartDate>
+          <EndDate>2021-04-01</EndDate>
+          <PromoURL>https://www.davidweekleyhomes.com/promo/anniversary-savings-event-dallas-ft-worth</PromoURL>
+        </Promotion>
+        <GreenProgram Title="Our EnergySaver™ home allows you to live comfortably, invest wisely and help the environment." ReferenceType="URL">https://www.davidweekleyhomes.com/david-weekley-difference/energy-saver</GreenProgram>
+        <Plan Type="SingleFamily">
+          <PlanNumber>5454</PlanNumber>
+          <PlanName>Belton</PlanName>
+          <BasePrice>337990</BasePrice>
+          <BaseSqft>1875</BaseSqft>
+          <Stories>1</Stories>
+          <Baths>2</Baths>
+          <HalfBaths>0</HalfBaths>
+          <Bedrooms MasterBedLocation="Down">3</Bedrooms>
+          <Garage>2</Garage>
+          <Basement>1</Basement>
+          <Description>Welcome home to the dynamic beauty and effortless livability of The Belton. Your open concept floor plan provides a vibrant space that easily adapts to your interior design style. The epicurean kitchen offers a superior storage, meal prep, and presentation experience. Each spare bedroom supports growing minds and personalities by combining unique features and plenty of space to thrive. The covered patio acts as a glamorous entryway while mixing the comforts of home with outdoor relaxation. Retire to the blissful sanctuary of your expansive master bedroom, which includes a luxury bathroom and a deluxe walk in closet. Bonus features include extra garage storage space, mudroom, and an extra closet in the master bedroom. You’ll get the most out of each day in this 3 bedroom, 2 bathroom EnergySaver™ new home.</Description>
+          <PlanImages>
+            <ElevationImage ReferenceType="URL" SequencePosition="0" Caption="The Belton - A Exterior">https://www.davidweekleyhomes.com/media/ElevationPhoto/2e69ebab-62b5-44d6-b125-fc9fd004f45f.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="1" Caption="The Belton - A Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/c9396228-4187-4992-986a-f972796d9757.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="2" Caption="The Belton - B Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/c3fbabba-6c4d-43ae-9a24-07493a2fb8e5.jpg?maxwidth=800</ElevationImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/I6npx2?maxwidth=800</FloorPlanImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="0" Caption="The Belton - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/410b2fd9-4c4d-4e9c-a9b3-566b059d6536.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="1" Caption="The Belton - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/cede4144-eea9-4e07-b081-57a1a915107e.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="2" Caption="The Belton - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/c8081da5-420b-4de7-88d7-a9f47cb04305.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="3" Caption="The Belton - Dining">https://www.davidweekleyhomes.com/media/InteriorPhoto/fc7be24d-37b5-4c48-856b-6857ede95e1c.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="4" Caption="The Belton - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/4be69464-b29e-40d2-bf72-62bcb8296dfb.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="5" Caption="The Belton - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/eb75d999-bc87-46ba-a12b-92fd0625f626.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="6" Caption="The Belton - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/b68826b3-ed72-4106-8b3a-d7daeb0bbf9b.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="7" Caption="The Belton - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/90ae7155-240a-472c-a36f-88496bc674a2.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="8" Caption="The Belton - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/8c62f752-93fe-41c1-87cd-f9335d46c4bf.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="9" Caption="The Belton - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/e4e38029-d5e8-4a2a-a982-6778ba07b593.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="10" Caption="The Belton - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/cdd407ee-1db9-4252-95f3-9e95d935df47.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="11" Caption="The Belton - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/d04a6e64-19a3-4378-826b-d0b722753f93.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="12" Caption="The Belton - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/c9adfa46-69eb-48ed-9e43-7cfbe4054415.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="13" Caption="The Belton - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/c940b938-1105-4cd6-af43-a7611aa2bd59.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="14" Caption="The Belton - Owners Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/526a64a6-9b80-421b-8783-e29ace9dac66.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="15" Caption="The Belton - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/7bf9ac67-9602-4aad-90fa-c9d403bd2e1f.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="16" Caption="The Belton - Exterior Rear">https://www.davidweekleyhomes.com/media/InteriorPhoto/0e6f99d3-82f1-44c8-b343-99c278399cb3.jpg?maxwidth=800</InteriorImage>
+            <VirtualTour>http://tour.showcasephotographers.com/index.php?sbo=bb1810221</VirtualTour>
+            <PlanViewer>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/belton#First+Floor</PlanViewer>
+          </PlanImages>
+          <PlanWebsite>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/belton</PlanWebsite>
+        </Plan>
+        <Plan Type="SingleFamily">
+          <PlanNumber>5455</PlanNumber>
+          <PlanName>Paseo</PlanName>
+          <BasePrice>348990</BasePrice>
+          <BaseSqft>2111</BaseSqft>
+          <Stories>1</Stories>
+          <Baths>2</Baths>
+          <HalfBaths>0</HalfBaths>
+          <Bedrooms MasterBedLocation="Down">3</Bedrooms>
+          <Garage>2</Garage>
+          <Basement>1</Basement>
+          <Description>Craft the lifestyle of your dreams in the bold, effortless luxury of The Paseo new home plan. Explore your interior design skills in the glamorous open-concept floor plan that features a scenic backyard view from energy-efficient windows. The epicurean kitchen supports your culinary adventures and includes a presentation island and a large pantry. Both spare bedrooms provide a delightful space for growth and personalization. Create an organized home office or an inspiring art studio in the versatile study. Your walk-in closet and en suite bathroom complement the exquisite Owner’s Retreat. Experience the LifeDesign℠ benefits of this 3 bedroom, 2 bathroom new home plan.</Description>
+          <PlanImages>
+            <ElevationImage ReferenceType="URL" SequencePosition="0" Caption="The Paseo - H Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/10e82073-b982-4eb4-9ed9-52065596319d.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="1" Caption="The Paseo - I Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/26a79004-68f5-4773-ab3f-2aa78a5ec0d8.jpg?maxwidth=800</ElevationImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/bFnfij?maxwidth=800</FloorPlanImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="0" Caption="The Paseo - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/357bbed1-124d-45d3-89e0-aceb83ec4d83.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="1" Caption="The Paseo - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/78d0e202-212b-44d3-8ebb-1dbc8636405a.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="2" Caption="The Paseo - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/2e8c716f-8b22-4ec5-8da4-0858d2ac3dc1.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="3" Caption="The Paseo - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/ef19e2a7-86a8-4f94-9ede-18e1e5fd1b82.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="4" Caption="The Paseo - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/d7d2685e-5436-4cef-b2bc-d23234aa9698.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="5" Caption="The Paseo - Owners Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/a33d5d23-197d-4b89-bdb3-f959ffc80c5b.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="6" Caption="The Paseo - Mudroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/7d15b5a7-ce45-4cca-b3ea-70c7a69fcd27.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="7" Caption="The Paseo - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/f728266a-796f-4f44-9d30-a4b2c3bedc7a.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="8" Caption="The Paseo - Exterior Rear">https://www.davidweekleyhomes.com/media/InteriorPhoto/ff03ccb9-17e2-4189-acf8-ea206b988aa1.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="9" Caption="The Paseo - Family Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/21de7698-d648-4b29-bca3-e9bd8e1f429c.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="10" Caption="The Paseo - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/3dc9b8a6-68f7-4bd2-9c83-71b10b3609ff.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="11" Caption="The Paseo - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/c8b70b60-ac24-468f-a063-d17ef858f378.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="12" Caption="The Paseo - Owner's Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/5592e661-15a4-4136-87af-b47b9e68e28b.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="13" Caption="The Paseo - Patio">https://www.davidweekleyhomes.com/media/InteriorPhoto/89d1c51e-7641-441e-abd4-c0d4fd455fa6.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="14" Caption="The Paseo - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/3b1a1ae6-0eee-4344-af59-7afa437d83c0.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="15" Caption="The Paseo - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/1f5608d1-d338-4cf8-bf55-59a9245fa5d1.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="16" Caption="The Paseo - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/b380219c-542b-44d2-8ed9-2bcd39842345.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="17" Caption="The Paseo - Owner's Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/2951a450-4d90-4490-a360-8145b7a2c02d.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="18" Caption="The Paseo - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/1b2c18f2-5cbd-41da-9054-7bf857f55118.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="19" Caption="The Paseo - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/faa27834-b183-47e1-b018-44f9866c7e71.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="20" Caption="The Paseo - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/7501a896-3c80-468c-a310-9c8985892358.jpg?maxwidth=800</InteriorImage>
+            <PlanViewer>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/paseo#First+Floor</PlanViewer>
+          </PlanImages>
+          <PlanWebsite>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/paseo</PlanWebsite>
+          <Spec Type="SingleFamily">
+            <SpecNumber>19080106</SpecNumber>
+            <SpecHotHome Title="The  - Ready for Move-In 5/6/2021" Description="4121 Silver Spur Court, Aubrey, TX 76227: 4121 Silver Spur Court, Aubrey, TX 76227: &lt;p&gt;Welcome to your lovely new home in Sandbrock Ranch!">1</SpecHotHome>
+            <SpecAddress>
+              <SpecStreet1>4121 Silver Spur Court</SpecStreet1>
+              <SpecCity>Aubrey</SpecCity>
+              <SpecState>TX</SpecState>
+              <SpecZIP>76227</SpecZIP>
+            </SpecAddress>
+            <SpecMoveInDate>
+              <Month>2021-05</Month>
+            </SpecMoveInDate>
+            <SpecPrice>384817</SpecPrice>
+            <SpecSqft>2119</SpecSqft>
+            <SpecStories>1</SpecStories>
+            <SpecBaths>2</SpecBaths>
+            <SpecHalfBaths>0</SpecHalfBaths>
+            <SpecBedrooms MasterBedLocation="Down">3</SpecBedrooms>
+            <SpecGarage>2</SpecGarage>
+            <SpecBasement>1</SpecBasement>
+            <SpecDescription>4121 Silver Spur Court, Aubrey, TX 76227: 4121 Silver Spur Court, Aubrey, TX 76227: Welcome to your lovely new home in Sandbrock Ranch!</SpecDescription>
+            <SpecImages>
+              <SpecFloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/RThRRa?maxwidth=800</SpecFloorPlanImage>
+            </SpecImages>
+            <SpecWebsite>https://www.davidweekleyhomes.com/homes-ready-soon/tx/dallas-ft-worth/aubrey/sandbrock-ranch/19080106</SpecWebsite>
+          </Spec>
+          <SpecCount>1</SpecCount>
+        </Plan>
+        <Plan Type="SingleFamily">
+          <PlanNumber>5461</PlanNumber>
+          <PlanName>Bluebonnet</PlanName>
+          <BasePrice>351990</BasePrice>
+          <BaseSqft>2219</BaseSqft>
+          <Stories>1</Stories>
+          <Baths>2</Baths>
+          <HalfBaths>0</HalfBaths>
+          <Bedrooms MasterBedLocation="Down">3</Bedrooms>
+          <Garage>2</Garage>
+          <Basement>1</Basement>
+          <Description>Treat yourself to the captivating lifestyle experience of the beautiful and streamlined Bluebonnet luxury home plan. Craft an imaginative family game lounge in the retreat and a work from home office in the front study. Unique personalities and individual styles shine in the spacious spare bedrooms. Your delightful Owner’s Retreat includes a scenic backyard view, a pamper-ready bathroom, and a deluxe walk-in closet. Decorate and furnish your sunlit open floor plan to perfectly fit your interior design taste. The eat-in kitchen features a family breakfast island, a large pantry, and plenty of prep space for the resident chef. Your Home Team is ready to begin building this remarkable new home plan.</Description>
+          <PlanImages>
+            <ElevationImage ReferenceType="URL" SequencePosition="0" Caption="The Bluebonnet - C Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/3e8ee82f-c5b7-4359-bff5-41bb594df41c.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="1" Caption="The Bluebonnet - D Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/15a3092e-15c3-4718-845a-f708f5178b3c.jpg?maxwidth=800</ElevationImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/xjGQue?maxwidth=800</FloorPlanImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="0" Caption="The Bluebonnet - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/442f0d63-7ea7-4b31-8d47-7dd650d76c37.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="1" Caption="The Bluebonnet - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/a8cc6f11-5a3f-4b54-8bf5-15d178609947.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="2" Caption="The Bluebonnet - Dining">https://www.davidweekleyhomes.com/media/InteriorPhoto/e50ea51c-8242-4b16-a87b-76387702a0b1.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="3" Caption="The Bluebonnet - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/3fb1a002-439d-4b94-80ac-d21041236023.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="4" Caption="The Bluebonnet - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/71bffd1f-3563-4f49-8ad0-04f4f5f71945.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="5" Caption="The Bluebonnet - Owners Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/5045c4d8-a56f-4305-90ee-3e59a9b0a8e0.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="6" Caption="The Bluebonnet - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/e62e4023-978b-43dd-b2d6-a1eb213e5cbc.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="7" Caption="The Bluebonnet  - Bonus Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/73251c60-27e2-4643-aeff-45d158bfa7f9.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="8" Caption="The Bluebonnet - Covered Patio">https://www.davidweekleyhomes.com/media/InteriorPhoto/3cb7c2b1-4c1b-4cfd-856e-c887f5a2261f.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="9" Caption="The Bluebonnet - Exterior Rear">https://www.davidweekleyhomes.com/media/InteriorPhoto/29fbde9f-5304-4f8b-9941-fd1c8e69a677.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="10" Caption="The Bluebonnet - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/53afb66d-3ea8-4db7-912e-130111da7b9b.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="11" Caption="The Bluebonnet - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/ed7c658c-0644-4698-abf3-5129ed54bcfb.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="12" Caption="The Bluebonnet - Entry">https://www.davidweekleyhomes.com/media/InteriorPhoto/d8c1a61b-c5c8-4b30-8829-acc999352a3b.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="13" Caption="The Bluebonnet - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/3e17f859-a088-4e5a-99da-591b2faf493f.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="14" Caption="The Bluebonnet - Dining">https://www.davidweekleyhomes.com/media/InteriorPhoto/5b28439d-4f9a-414c-87f2-23fb66ccc096.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="15" Caption="The Bluebonnet - Covered Patio">https://www.davidweekleyhomes.com/media/InteriorPhoto/6186cf29-0472-43f4-95cc-8a85bc04d1a1.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="16" Caption="The Bluebonnet - Family Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/5f73b418-5118-4434-865e-57f2553e54d2.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="17" Caption="The Bluebonnet - Family Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/6e70890c-60c1-4599-b527-afb8a275681d.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="18" Caption="The Bluebonnet - Owner's Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/66298f55-3230-425b-a9cb-fa9c90a492b8.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="19" Caption="The Bluebonnet - Bonus Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/bf0aed3e-6b3b-43e1-9269-b57665a28868.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="20" Caption="The Bluebonnet - Bonus Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/b94269da-1f03-4d21-b47e-f01378140a7f.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="21" Caption="The Bluebonnet - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/2bdbfd5d-a5af-4d16-9d1e-fadfe7d7b4a2.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="22" Caption="The Bluebonnet - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/df919ae0-565f-454a-a93b-41b025b77c48.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="23" Caption="The Bluebonnet - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/491a1178-8f78-4b73-a3cb-49b663d1e755.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="24" Caption="The Bluebonnet - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/d064da8a-cf0b-4ab6-af10-a58e4a4a1828.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="25" Caption="The Bluebonnet - Owner's Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/3735d656-f8bc-4f1b-a39d-f513eb731347.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="26" Caption="The Bluebonnet - Owner's Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/88df17f1-b4e5-4383-8672-2470d8dc7eb4.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="27" Caption="The Bluebonnet - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/f8d9dfce-2b67-4d95-8bd1-f47cc8ececc5.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="28" Caption="The Bluebonnet - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/85291061-e538-4bfc-b36e-607cac9a8b47.jpg?maxwidth=800</InteriorImage>
+            <VirtualTour>https://my.matterport.com/show/?m=6sX9yDbQtKh</VirtualTour>
+            <PlanViewer>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/bluebonnet#First+Floor</PlanViewer>
+          </PlanImages>
+          <PlanWebsite>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/bluebonnet</PlanWebsite>
+          <Spec Type="SingleFamily">
+            <SpecNumber>19080109</SpecNumber>
+            <SpecAddress>
+              <SpecStreet1>4120 Silver Spur Court</SpecStreet1>
+              <SpecCity>Aubrey</SpecCity>
+              <SpecState>TX</SpecState>
+              <SpecZIP>76227</SpecZIP>
+            </SpecAddress>
+            <SpecMoveInDate>
+              <Month>2021-05</Month>
+            </SpecMoveInDate>
+            <SpecPrice>389511</SpecPrice>
+            <SpecSqft>2274</SpecSqft>
+            <SpecStories>1</SpecStories>
+            <SpecBaths>2</SpecBaths>
+            <SpecHalfBaths>0</SpecHalfBaths>
+            <SpecBedrooms MasterBedLocation="Down">3</SpecBedrooms>
+            <SpecGarage>2</SpecGarage>
+            <SpecBasement>1</SpecBasement>
+            <SpecDescription>This plan is a community favorite for so many reasons!! You'll love working from home in the extra large front office complete with French doors. When it's time to relax, you can create that culinary masterpiece in your dream kitchen with a window above the sink, an 8' island and more cabinet space than you can imagine. Don't worry, you won't miss any of the action--this open concept plans allows you to keep an eye on the game while you create. When it's time to take the fun outside--the extended covered patio is the perfect place to relax and listen to the lovely sounds of nature.  At the end of the day, your guests or little-one's can retreat to their master-sized secondary bedrooms while you escape to your private owner's retreat with over-sized shower and think to yourself, I'm so glad to call this place home.
+</SpecDescription>
+            <SpecImages>
+              <SpecFloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/8HkiRx?maxwidth=800</SpecFloorPlanImage>
+            </SpecImages>
+            <SpecWebsite>https://www.davidweekleyhomes.com/homes-ready-soon/tx/dallas-ft-worth/aubrey/sandbrock-ranch/19080109</SpecWebsite>
+          </Spec>
+          <SpecCount>1</SpecCount>
+        </Plan>
+        <Plan Type="SingleFamily">
+          <PlanNumber>6089</PlanNumber>
+          <PlanName>Forreston</PlanName>
+          <BasePrice>354990</BasePrice>
+          <BaseSqft>2255</BaseSqft>
+          <Stories>1</Stories>
+          <Baths>3</Baths>
+          <HalfBaths>0</HalfBaths>
+          <Bedrooms MasterBedLocation="Down">4</Bedrooms>
+          <Garage>2</Garage>
+          <Basement>1</Basement>
+          <Description>Superior quality and refined spaces make The Forreston an ideal new home plan for daily life and special occasions. Your Owner’s Retreat offers a delightful main room, a luxury bathroom, and a sprawling walk-in closet. The open family, dining, and study areas provide the design freedom to create your ultimate living space. Explore your cuisine frontier in the modern kitchen. The practical and stylish kitchen island is perfect for family breakfasts and party spreads. Each spare bedroom features plenty of closet and personal space. The guest suite includes a private bathroom and a deluxe closet. Contact our Internet Advisor to learn more about this elegant new home plan.</Description>
+          <PlanImages>
+            <ElevationImage ReferenceType="URL" SequencePosition="0" Caption="The Forreston - H Exterior">https://www.davidweekleyhomes.com/media/ElevationPhoto/03548fb0-e92c-4e7d-a0ec-940ea0964e58.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="1" Caption="The Forreston - H Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/d67a86a6-c9a7-4449-97ff-12e2975f5b87.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="2" Caption="The Forreston - I Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/5dac17d8-28f9-4003-a38b-a05b4fcb16ec.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="3" Caption="The Forreston - J Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/34a5a0f9-ce5a-41dd-b429-874efbadf828.jpg?maxwidth=800</ElevationImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/lBxke1?maxwidth=800</FloorPlanImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="0" Caption="The Forreston - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/edb25848-6c29-461e-9dbb-239cf159300c.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="1" Caption="The Forreston - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/9992287a-2ef9-4e5c-83d1-9438f7a165bb.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="2" Caption="The Forreston - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/954e880b-18a1-4a6b-afe4-eb07374b2f0b.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="3" Caption="The Forreston - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/ca2637ee-c78d-496e-9036-9e8395361c04.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="4" Caption="The Forreston - Covered Patio">https://www.davidweekleyhomes.com/media/InteriorPhoto/7224b5d0-d03b-481b-b3b9-2d096747c8e0.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="5" Caption="The Forreston - Entry">https://www.davidweekleyhomes.com/media/InteriorPhoto/8f6230ee-da93-4eb9-a9d2-61da324dc232.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="6" Caption="The Forreston - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/9b543e9d-b9d6-44fa-96ff-54ceba0f31ca.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="7" Caption="The Forreston - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/7f097c0e-05ce-47bc-b540-dacbbdc1de0a.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="8" Caption="The Forreston - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/604473e0-ffaf-47bb-b8a2-a9c67b0b40e0.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="9" Caption="The Forreston - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/68d2d04f-0382-4099-bc9e-fcf01e8fe593.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="10" Caption="The Forreston - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/933dfded-fb0a-41d3-90d1-6967d7678fad.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="11" Caption="The Forreston - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/fd556e47-6c1d-4fc2-855e-209c48342e2e.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="12" Caption="The Forreston - Dining">https://www.davidweekleyhomes.com/media/InteriorPhoto/1645adab-3967-41a1-a6d2-8ef67a5d63ad.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="13" Caption="The Forreston - Family Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/b33a12a7-5c6a-4eb9-8b07-221012b79138.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="14" Caption="The Forreston - Family Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/c44b43e5-b46f-4510-917a-38b994d2c702.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="15" Caption="The Forreston - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/1681fd4c-479a-4d52-9b91-e4b2d91d6278.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="16" Caption="The Forreston - Owner's Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/c31e9560-6b5b-4cf9-a1d1-27b921ed7e18.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="17" Caption="The Forreston - Owners Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/6057728e-0187-4d99-82af-53e5b4621df3.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="18" Caption="The Forreston - Owner's Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/b6971182-e0c7-42c3-9b62-573a9aefb4d2.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="19" Caption="The Forreston - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/cde2c483-2459-404d-a098-d5c231234ba7.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="20" Caption="The Forreston - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/e490b1b7-3de1-4399-b01b-5c3d1d97f356.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="21" Caption="The Forreston - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/b29f2123-66f1-4155-92db-2ad3b5bff408.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="22" Caption="The Forreston - Patio">https://www.davidweekleyhomes.com/media/InteriorPhoto/88b72d5b-49b9-4a98-bd05-c677f639fafe.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="23" Caption="The Forreston  - Covered Patio">https://www.davidweekleyhomes.com/media/InteriorPhoto/d904dc3e-ccd2-4bb6-8d23-a887a52f60ea.jpg?maxwidth=800</InteriorImage>
+            <VirtualTour>https://my.matterport.com/show/?m=ynRePkk9CAg</VirtualTour>
+            <PlanViewer>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/forreston#First+Floor</PlanViewer>
+          </PlanImages>
+          <PlanWebsite>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/forreston</PlanWebsite>
+        </Plan>
+        <Plan Type="SingleFamily">
+          <PlanNumber>5462</PlanNumber>
+          <PlanName>Clairmont</PlanName>
+          <BasePrice>369990</BasePrice>
+          <BaseSqft>2656</BaseSqft>
+          <Stories>2</Stories>
+          <Baths>2</Baths>
+          <HalfBaths>1</HalfBaths>
+          <Bedrooms MasterBedLocation="Down">4</Bedrooms>
+          <Garage>2</Garage>
+          <Basement>1</Basement>
+          <Description>Achieve the lifestyle you’ve been dreaming of in the open and bright Clairmont new home plan. Welcome guests and enjoy your outdoor leisure time from the timeless comfort of the covered porch. Your open concept floor plan offers a sunlit interior design space that adapts to your everyday life and special occasion needs. The chef’s specialty kitchen allows easy foot traffic through the separate zones dedicated to storage, prep, cooking, and presentation. Your sensational master bedroom features a luxury bathroom and deluxe walk in closet to promote a blissful beginning and end to each day. The lovely spare bedrooms include plenty of living and closet space to support growing minds and personalities. The upstairs retreat, loft, and downstairs study provide the FlexSpace℠ for you to craft the specialty rooms you’ve been dreaming of. Bonus features include a downstairs powder room and extra storage space in the 2-car garage. Imagine the design possibilities in this 2 story, 4 bedroom, 2.5 bathroom new home masterpiece.</Description>
+          <PlanImages>
+            <ElevationImage ReferenceType="URL" SequencePosition="0" Caption="The Clairmont - A Exterior">https://www.davidweekleyhomes.com/media/ElevationPhoto/cd887fbd-1652-41df-8d56-dad3d5c466f1.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="1" Caption="The Clairmont - A Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/c790162d-349c-4198-9a41-0f02c0388f68.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="2" Caption="The Clairmont - B Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/fdf7e9ee-f0eb-4867-83d5-2fcfff7e4702.jpg?maxwidth=800</ElevationImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/ijwpyJ?maxwidth=800</FloorPlanImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="1" Caption="2nd Floor">http://assets.davidweekleyhomes.com/MDtByL?maxwidth=800</FloorPlanImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="0" Caption="The Clairmont - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/0c8f9654-92fb-4160-90a0-5da7652fd34e.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="1" Caption="The Clairmont - Dining">https://www.davidweekleyhomes.com/media/InteriorPhoto/2f00664b-6853-4d34-9d4b-28adb9c7bea6.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="2" Caption="The Clairmont - Family Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/713b4b27-6a52-4972-bc49-55b96dc11162.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="3" Caption="The Clairmont - Entrance">https://www.davidweekleyhomes.com/media/InteriorPhoto/12fc0c13-c88f-4308-8439-075e190cff6e.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="4" Caption="The Clairmont - Owner's Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/1d663335-385b-4a3d-949a-6043158c9227.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="5" Caption="The Clairmont - Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/1ee54710-376c-422b-b409-7ec9a99ae15d.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="6" Caption="The Clairmont - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/7af32cd6-a5bd-4eae-8cda-4a63b98b9210.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="7" Caption="The Clairmont - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/c197ee27-4112-4a57-86be-f9e19b64746f.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="8" Caption="The Clairmont - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/65e172c7-eb7d-422e-bf5f-bb3c20c45c68.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="9" Caption="The Clairmont - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/c55ae06a-701a-4ebf-b1ed-a27b8cfe8351.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="10" Caption="The Clairmont - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/db24475d-bccf-4d3c-92aa-06c64beef50e.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="11" Caption="The Clairmont - Covered Patio">https://www.davidweekleyhomes.com/media/InteriorPhoto/06d826e0-c188-46da-8607-fc4a83a2e85d.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="12" Caption="The Clairmont - Exterior Rear">https://www.davidweekleyhomes.com/media/InteriorPhoto/7c249464-052e-4ab6-b3de-ef26aa1aa2eb.jpg?maxwidth=800</InteriorImage>
+            <PlanViewer>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/clairmont#First+Floor</PlanViewer>
+          </PlanImages>
+          <PlanWebsite>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/clairmont</PlanWebsite>
+          <Spec Type="SingleFamily">
+            <SpecNumber>19080097</SpecNumber>
+            <SpecHotHome Title="The  - Ready for Move-In 4/20/2021" Description="4020 Fox Trotter Drive, Aubrey, TX 76227: 4020 Fox Trotter Drive, Aubrey, TX 76227: &lt;p&gt;The Clairmont plan is the perfect 2-Story home, Enjoy time with family and friends in this open-concept kitchen &amp;amp; gathering space with amazing 18&amp;rsquo; ceiling.">1</SpecHotHome>
+            <SpecAddress>
+              <SpecStreet1>4020 Fox Trotter Drive</SpecStreet1>
+              <SpecCity>Aubrey</SpecCity>
+              <SpecState>TX</SpecState>
+              <SpecZIP>76227</SpecZIP>
+            </SpecAddress>
+            <SpecMoveInDate>
+              <Month>2021-04</Month>
+            </SpecMoveInDate>
+            <SpecPrice>419150</SpecPrice>
+            <SpecSqft>2656</SpecSqft>
+            <SpecStories>2</SpecStories>
+            <SpecBaths>2</SpecBaths>
+            <SpecHalfBaths>1</SpecHalfBaths>
+            <SpecBedrooms MasterBedLocation="Down">3</SpecBedrooms>
+            <SpecGarage>2</SpecGarage>
+            <SpecBasement>1</SpecBasement>
+            <SpecDescription>4020 Fox Trotter Drive, Aubrey, TX 76227: 4020 Fox Trotter Drive, Aubrey, TX 76227: The Clairmont plan is the perfect 2-Story home, Enjoy time with family and friends in this open-concept kitchen &amp; gathering space with amazing 18’ ceiling.</SpecDescription>
+            <SpecImages>
+              <SpecFloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="2nd Floor">http://assets.davidweekleyhomes.com/EGVjo3?maxwidth=800</SpecFloorPlanImage>
+              <SpecFloorPlanImage ReferenceType="URL" SequencePosition="1" Caption="1st Floor">http://assets.davidweekleyhomes.com/taLu7T?maxwidth=800</SpecFloorPlanImage>
+            </SpecImages>
+            <SpecWebsite>https://www.davidweekleyhomes.com/homes-ready-soon/tx/dallas-ft-worth/aubrey/sandbrock-ranch/19080097</SpecWebsite>
+          </Spec>
+          <SpecCount>1</SpecCount>
+        </Plan>
+        <Plan Type="SingleFamily">
+          <PlanNumber>6093</PlanNumber>
+          <PlanName>Brays</PlanName>
+          <BasePrice>375990</BasePrice>
+          <BaseSqft>2806</BaseSqft>
+          <Stories>2</Stories>
+          <Baths>2</Baths>
+          <HalfBaths>1</HalfBaths>
+          <Bedrooms MasterBedLocation="Down">4</Bedrooms>
+          <Garage>2</Garage>
+          <Basement>1</Basement>
+          <Description>Welcome to the streamlined comforts and bold luxuries of The Brays lifestyle home plan. Explore your interior design skills in the glamorous open-concept floor plan that includes soaring ceilings and a scenic backyard view. The glamorous kitchen features a sleek island, large pantry, and an abundance of cabinets and countertops. Design your ultimate home office or an innovative specialty room in the captivating front study. Your Owner’s Retreat provides a personal sanctuary bedroom, contemporary bathroom, and an extended walk-in closet. Gather together for family movie nights and create cherished memories in the cheerful upstairs retreat. Each spare bedroom presents walk-in closets and the living space for unique personalities to shine. Distinguished features include a downstairs powder room, central laundry room, and extra storage space in the 2-car garage. Let us Start Building your expertly-crafted new home plan while you plan your house-warming party.</Description>
+          <PlanImages>
+            <ElevationImage ReferenceType="URL" SequencePosition="0" Caption="The Brays - H Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/6da1b9ff-5dbd-4038-8cda-3b5f7262156c.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="1" Caption="The Brays - I Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/55c4491e-6558-4b00-9dc4-eec8b891e4bd.jpg?maxwidth=800</ElevationImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/KiQUXi?maxwidth=800</FloorPlanImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="1" Caption="2nd Floor">http://assets.davidweekleyhomes.com/Qhhwsn?maxwidth=800</FloorPlanImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="0" Caption="The Brays - Foyer">https://www.davidweekleyhomes.com/media/InteriorPhoto/ad5d96d9-01ac-481c-9821-83f5f07b0c89.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="1" Caption="The Brays - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/2196b7bd-bc8b-4b52-b7a5-cc9a2385c3e3.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="2" Caption="The Brays - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/52879473-d00a-43f9-983d-126720c0b295.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="3" Caption="The Brays - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/71de2d16-9b2d-42b8-b96f-96ed276fe6e5.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="4" Caption="The Brays - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/4608b483-24c0-46a8-9860-24d4f3f92ad7.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="5" Caption="The Brays - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/b5313481-afef-4f96-82c1-23387ab21eef.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="6" Caption="The Brays - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/ee184595-458b-4af5-af5b-463dc40af243.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="7" Caption="The Brays - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/8ebf1723-24c8-4eeb-bbac-25820ae00263.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="8" Caption="The Brays - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/0c9d3616-842a-4011-bf70-79132e6c187f.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="9" Caption="The Brays - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/3fe5908e-5deb-414e-8abf-c111d09caf0f.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="10" Caption="The Brays - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/d3827da9-aafa-4296-b2ea-fdb700b82799.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="11" Caption="The Brays - Owners Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/04c8cfe9-6320-4564-b2c3-b05369f03d44.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="12" Caption="The Brays - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/85d9d09e-6b43-40a8-9034-8c1ce756f9b4.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="13" Caption="The Brays - Bonus Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/e7a57a5c-c702-459d-97af-ff3064db0958.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="14" Caption="The Brays - Exterior Rear">https://www.davidweekleyhomes.com/media/InteriorPhoto/5389dcb3-9481-4f8b-ab6b-53a6781418d8.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="15" Caption="The Brays - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/f5b5161a-56d4-4719-a7d8-8634920ec775.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="16" Caption="The Brays - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/6b8ff1e6-8007-4aa4-8d84-ac9803fba6b1.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="17" Caption="The Brays - Owner's Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/281d3353-8e81-4ca8-8543-34986b6addef.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="18" Caption="The Brays - Owner's Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/ba9ba666-f04a-49fd-b525-65affb5411b7.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="19" Caption="The Brays - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/8705ced0-3750-4002-ac46-b1e5bc21f282.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="20" Caption="The Brays - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/8eee9afb-609c-497d-9c6b-ebd085af56b7.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="21" Caption="The Brays - Bonus Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/18cd28e5-baa3-4fee-82d7-0bf71eb5524e.jpg?maxwidth=800</InteriorImage>
+            <VirtualTour>https://my.matterport.com/models/P2Prgx4PRF2?organization=BbohgPu3M47§ion=media</VirtualTour>
+            <PlanViewer>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/brays#First+Floor</PlanViewer>
+          </PlanImages>
+          <PlanWebsite>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/brays</PlanWebsite>
+        </Plan>
+        <Plan Type="SingleFamily">
+          <PlanNumber>5457</PlanNumber>
+          <PlanName>Malinda</PlanName>
+          <BasePrice>386990</BasePrice>
+          <BaseSqft>2982</BaseSqft>
+          <Stories>2</Stories>
+          <Baths>3</Baths>
+          <HalfBaths>0</HalfBaths>
+          <Bedrooms MasterBedLocation="Down">4</Bedrooms>
+          <Garage>2</Garage>
+          <Basement>1</Basement>
+          <Description>Timeless beauty and innovative craftsmanship combine to make The Malinda luxury home plan. Play host and get the most out of everyday life in your elegant and inviting open-concept living spaces. The epicurean kitchen offers a superior storage, meal prep, and presentation experience. Create your ultimate home office in the downstairs study and a brilliant family fun parlor in the upstairs retreat. Each spare bedroom features ample closets, unique appeal, and plenty of room for personalization. Your inspired Owner’s Retreat provides a peaceful escape from the world with a pamper-ready bathroom and a deluxe walk-in closet. Explore the variety of LifeDesign℠ details that make this new home plan ideal for hosting friends and loved ones.</Description>
+          <PlanImages>
+            <ElevationImage ReferenceType="URL" SequencePosition="0" Caption="The Malinda - A Exterior">https://www.davidweekleyhomes.com/media/ElevationPhoto/b542c094-e1b2-4642-af7b-9993836434d1.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="1" Caption="The Malinda - A Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/7beef54a-743a-4247-af0f-6d1ace8635c0.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="2" Caption="The Malinda - B Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/f260090b-6f18-491c-9d55-487bcb7bf837.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="3" Caption="The Malinda - C Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/12ae0eb6-c5da-4b87-a54f-8bbc91145233.jpg?maxwidth=800</ElevationImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/eIQNcf?maxwidth=800</FloorPlanImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="1" Caption="2nd Floor">http://assets.davidweekleyhomes.com/PDUthY?maxwidth=800</FloorPlanImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="0" Caption="The Malinda - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/7d2a7293-393d-40f4-acf4-452e0208b474.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="1" Caption="The Malinda - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/99930fc6-1af2-47df-9529-b238d3c10194.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="2" Caption="The Malinda - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/1857a2eb-1318-4651-b112-146fb5bcb99a.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="3" Caption="Malinda - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/1bc875bb-f1af-4392-8ae5-983d4f0c7418.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="4" Caption="The Malinda - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/5d747a95-3a0b-4c43-a596-d56f16fcec58.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="5" Caption="The Malinda - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/d20f439e-f1f5-4aab-b949-49f177016e07.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="6" Caption="The Malinda - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/58d992b9-6aa9-462c-b078-d9db78c265be.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="7" Caption="The Malinda - Owners Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/12b6c1f8-96db-44f9-807a-a9232e0fc0f6.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="8" Caption="The Malinda - Owner's Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/8fb417d7-f6d9-4a26-a9a6-c9a7ac2b0665.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="9" Caption="The Malinda - Bonus Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/2f0a2661-ca7e-4580-958a-74a69a308a0f.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="10" Caption="The Malinda - Outdoor Living">https://www.davidweekleyhomes.com/media/InteriorPhoto/d197348b-6184-436a-bcf8-849130e44714.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="11" Caption="The Malinda - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/46bc0872-c6df-4e3e-99fe-99f0b7b4d2f5.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="12" Caption="The Malinda - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/945c5e5e-469f-42ef-991f-12d3632cc966.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="13" Caption="The Malinda - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/1cd267bf-cd73-4a61-9653-9b779eb5c060.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="14" Caption="The Malinda - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/e5281fc9-58f0-4776-ba0a-14a257c9be0d.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="15" Caption="The Malinda - Dining">https://www.davidweekleyhomes.com/media/InteriorPhoto/7a1b4f21-b661-44e7-a038-84dfc5933ae8.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="16" Caption="The Malinda - Dining">https://www.davidweekleyhomes.com/media/InteriorPhoto/39191344-c6a6-40df-941a-261989500e40.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="17" Caption="The Malinda - Family Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/9f4a8317-740f-4c62-8380-d6ab46b6b804.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="18" Caption="The Malinda - Family Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/10ed7f12-0e8e-438d-92be-9ea840a5405f.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="19" Caption="The Malinda - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/b0de1971-6070-4217-a6db-4e4c7e0469de.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="20" Caption="The Malinda - Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/f04bd6b6-3ddc-4f94-aebc-7410a74e8b06.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="21" Caption="The Malinda - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/9c4f114f-b77f-4e75-a907-07a91fbd7e6d.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="22" Caption="The Malinda - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/e260decc-1b38-4043-a23b-5e20d79313b4.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="23" Caption="The Malinda - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/ece22f08-0243-4587-8794-52d10ba6614e.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="24" Caption="The Malinda - Owner's Retreat">https://www.davidweekleyhomes.com/media/InteriorPhoto/0026910e-9de3-4c10-b453-302ef4c54e3e.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="25" Caption="The Malinda - Owner's Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/8641e43f-6d88-4b82-b388-6b601f0afd4b.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="26" Caption="The Malinda - Patio">https://www.davidweekleyhomes.com/media/InteriorPhoto/07848667-cf6c-438a-8db8-3085a595f749.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="27" Caption="The Malinda - Study">https://www.davidweekleyhomes.com/media/InteriorPhoto/5babea61-a410-4ad6-821c-9eb3b97d4bcd.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="28" Caption="The Malinda - Kitchen">https://www.davidweekleyhomes.com/media/InteriorPhoto/52bd1e24-15ee-4f77-897f-4aac018976a0.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="29" Caption="The Malinda - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/08265c3d-8314-4bcf-8bd1-96faf1420d74.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="30" Caption="The Malinda - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/8755b954-78d3-433f-bea0-dd11f85ad33b.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="31" Caption="The Malinda - Owner's Bath">https://www.davidweekleyhomes.com/media/InteriorPhoto/c8760864-b251-480e-af77-6f93bb77c692.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="32" Caption="The Malinda - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/26586b98-1985-439c-9241-97f2e8dbfe9b.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="33" Caption="The Malinda - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/cf2abc5b-c59b-4403-8091-6e3e53f64bfe.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="34" Caption="The Malinda - Bonus Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/7603dba0-39f4-4c25-b069-5372fc46ce21.jpg?maxwidth=800</InteriorImage>
+            <VirtualTour>https://my.matterport.com/show/?m=JqbxmhBbWsY</VirtualTour>
+            <PlanViewer>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/malinda#First+Floor</PlanViewer>
+          </PlanImages>
+          <PlanWebsite>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/malinda</PlanWebsite>
+        </Plan>
+        <Plan Type="SingleFamily">
+          <PlanNumber>5458</PlanNumber>
+          <PlanName>Walmsley</PlanName>
+          <BasePrice>390990</BasePrice>
+          <BaseSqft>3303</BaseSqft>
+          <Stories>2</Stories>
+          <Baths>4</Baths>
+          <HalfBaths>0</HalfBaths>
+          <Bedrooms MasterBedLocation="Down">5</Bedrooms>
+          <Garage>2</Garage>
+          <Basement>1</Basement>
+          <Description>Superior craftsmanship and classic appeal make The Walmsley an amazing dream home. Invent the perfect specialty rooms for your family in the sunlit study and open retreat. Each spare bedroom and guest suite presents unique features to accommodate every unique resident. Your spacious master suite provides a beautiful place to begin and end each day and includes a personal-spa bathroom and a sprawling walk in closet. Enjoy collaborative culinary adventures in the showroom-style kitchen, which features a sleek island, a pair of pantries, and a superb culinary atmosphere. Bonus storage spaces are just one more reason you’ll love Living Weekley in this 2 story, 5 bedroom, 4 bathroom new home.</Description>
+          <PlanImages>
+            <ElevationImage ReferenceType="URL" SequencePosition="0" Caption="The Walmsley - A Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/19960beb-db43-49d6-9087-16d588f06a17.jpg?maxwidth=800</ElevationImage>
+            <ElevationImage ReferenceType="URL" SequencePosition="1" Caption="The Walmsley - B Exterior">https://www.davidweekleyhomes.com/media/ElevationRendering/b7b1810b-64a6-476d-8b2e-523bb0f40bbd.jpg?maxwidth=800</ElevationImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="0" Caption="1st Floor">http://assets.davidweekleyhomes.com/7BjkqP?maxwidth=800</FloorPlanImage>
+            <FloorPlanImage ReferenceType="URL" SequencePosition="1" Caption="2nd Floor">http://assets.davidweekleyhomes.com/KhSavl?maxwidth=800</FloorPlanImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="0" Caption="The Walmsley - Dining Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/a7938350-7921-4bad-bfaa-e90309455ca7.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="1" Caption="The Walmsley - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/be62c0db-7588-4cca-8392-758b91855f50.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="2" Caption="The Walmsley - Living Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/b743ca8e-52ee-43a3-b4da-ef6ec042c820.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="3" Caption="The Walmsley - Bonus Room">https://www.davidweekleyhomes.com/media/InteriorPhoto/216be3d8-6490-4141-bbdc-c1967f19dafd.jpg?maxwidth=800</InteriorImage>
+            <InteriorImage ReferenceType="URL" SequencePosition="4" Caption="The Walmsley - Bedroom">https://www.davidweekleyhomes.com/media/InteriorPhoto/3488187f-84b5-43c4-b79a-5ce76f884c6a.jpg?maxwidth=800</InteriorImage>
+            <VirtualTour>http://tour.showcasephotographers.com/index.php?sbo=sw2012142</VirtualTour>
+            <PlanViewer>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/walmsley#First+Floor</PlanViewer>
+          </PlanImages>
+          <PlanWebsite>https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch/walmsley</PlanWebsite>
+        </Plan>
+        <PlanCount>8</PlanCount>
+      </Subdivision>
+      <SubsCount>1</SubsCount>
+    </Builder>
+  </Corporation>
+</Builders>
