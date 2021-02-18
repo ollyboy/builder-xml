@@ -1,6 +1,6 @@
 <?php
 
-// XML extract, map & generatee results csv's and logs
+// XML extract, map & generate results csv's and logs
 
 const MAXRECS = 500000; // max lines to process
 $sendConsole = false; // log to console if true
@@ -11,7 +11,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1); // Do send to output
 ini_set('log_errors', 1 ); // send errors to log
 
-$val=array(); // will be used globally for speed
+// will be used globally for speed
+$val=array(); 
 $key=array();
 $newKey=array();
 $progressiveKeySub=array();  // list of progress
@@ -19,32 +20,19 @@ $currentKeySub=array();
 $uniqueFoundKey=array();
 $key_map=array();
 $keyTrigger=array();
+$todoWork = array(); // for Send processes to read and action
 
+/* EXAMPLE
+static $client_source = array (
 
-static $xml_source = array (
-"David | https://www.davidweekleyhomes.com/feeds/sandbrockranch/sandbrockranch.xml",
-"Perry | https://assets.perryhomes.com/_perrydatafeed/feed.xml",  
-"Highland | http://admin.hhomesltd.com/xmlFeed/CommunityXml/290"
-);
-
-/*
-static $perry_key_map = array (  // for level, find value, replace
-
-"2,4,5,6,7,8,9,10,11,12|Corporation|2|CorporateBuilderNumber",
-"6,7,8,9,10,11,12|Subdivision|6|SubdivisionNumber",
-"4,5,6,7,8,9,10,11,12|Builder|4|BuilderNumber",
-"8,9,10,11,12|Plan|8|PlanNumber"
+"David | https://www.davidweekleyhomes.com/feeds/sandbrockranch/sandbrockranch.xml|XML",
+"Perry | https://assets.perryhomes.com/_perrydatafeed/feed.xml|XML",  
+"Highland | http://admin.hhomesltd.com/xmlFeed/CommunityXml/290|XML"
 
 );
+*/
 
-static $david_key_map = array (  // for level, find value, replace
-
-"2,4,5,6,7,8,9,10,11,12|Corporation|2|CorporateBuilderNumber",
-"6,7,8,9,10,11,12|Subdivision|6|SubdivisionNumber",
-"4,5,6,7,8,9,10,11,12|Builder|4|BuilderNumber",
-"8,9,10,11,12|Plan|8|PlanNumber"
-
-);
+/* EXAMPLE
 static $highland_key_map = array (  // for level, find value, replace
 
 "2,4,5,6,7,8,9,10,11,12|Corporation|2|CorporateBuilderNumber",
@@ -56,19 +44,20 @@ static $highland_key_map = array (  // for level, find value, replace
 );
 */
 
-// Mainline, read scope,  loop the Corps gettng XML 
+// Mainline, read scope, loop the Corps getting XML/JSON
 //
-$tmpXmlsource = get_support_barLin ( "xml.client.source" ); // get the scope of work
-if ( sizeof( $tmpXmlsource ) > 0 ) {
-   $xml_source = $tmpXmlsource;  // done this way as we may want hard code above as backup
-}
+$errlog = false;
+$client_source = get_support_barLin ( "client.source" ); // get the scope of work
+if ( sizeof( $client_source ) == 0 ) {
+   do_fatal ( "Can't find essential client.source" );
+} 
 
-foreach ( $xml_source as $scope ) { // Loop - Perry, Highland , David etc 
+foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc 
   
   // control/limit output files
   //
   $firstRun = false;  // New XML source, assume false
-  $strangeResult = false; // Stange combo of counters origonal identical deleted different
+  $strangeResult = false; // Strange combo of counters original identical deleted different
   $ProductionMode = false; // Just generate hints if false
   $jobAbandon = false;
   
@@ -77,9 +66,14 @@ foreach ( $xml_source as $scope ) { // Loop - Perry, Highland , David etc
   $parts = array_map ( 'trim' , explode ("|" , $scope ));
   $name = $parts[0];
   $URL = $parts[1]; 
-  if ( $name == "" || $URL == "" ) { $name="invalid"; $URL = "Not given"; $jobAbandon = true; }
+  if ( isset ( $parts[2])) { $format = strtolower($parts[2]); } else { $format="xml"; }
+  if ( isset ( $parts[3])) { $flags = $parts[3]; } else { $flags="none"; }
+  if ( $name == "" || $URL == "" ) { 
+    $name="invalid"; $URL = "Not given"; $jobAbandon = true; 
+    do_error ( "bad line [" . $scope . "] in client.source" );
+  }
 
-  // open files, global file handles will be used
+  // open job files, global file handles will be used
   //
   $errtmp = $name . ".error.log";
   if ( file_exists($errtmp)) unlink ( $errtmp );
@@ -89,32 +83,24 @@ foreach ( $xml_source as $scope ) { // Loop - Perry, Highland , David etc
   if ( file_exists($protmp)) unlink ( $protmp );
   $prolog = fopen ( $protmp , "w" );
 
+  $bldtmp = $name . ".build.log";
+  if ( file_exists($bldtmp)) unlink ( $bldtmp );
+  $bldlog = fopen ( $bldtmp , "w" );
+
   $csvtmp = $name . ".latest.csv";
   if ( file_exists( $csvtmp ) && filesize( $csvtmp ) > 0 ) rename ( $csvtmp , $name . ".previous.csv" ); 
   if ( file_exists( $csvtmp )) unlink ( $csvtmp ); // should not need
   $csvlog = fopen ( $csvtmp , "w" );
 
-  // from here we can use log files, get the scope of work
-  //
-  if ( sizeof ( $tmpXmlsource ) > 0 ) do_note ( "Got xml.client.source from file");
-  else do_error ( "Using internal XML source list");
-
-  $todoWork = array(); // for Send processes to read and action
-  $key_map = array(); // XMLs have different levels and content, need a map
- 
-  /*
-  if     ( $name ) == "Perry" )  { $key_map = $perry_key_map; 
-  elseif ( $name == "Highland" ) { $key_map = $highland_key_map;
-  elseif ( $name == "David" )    { $key_map = $perry_key_map;
-  else do_error ( "No key map for " . $name );
-  */
   $mapName = $name . ".key.map"; // ie Perry.key.map
-  $tmp_key_map = array();
+  $tmp_key_map = array(); // reset each loop
   $tmp_key_map = get_support_barLin ( $mapName );
   //if ( sizeof($tmp_key_map) == 0 ) $tmp_key_map = get_support_barLin ( strtolower($name) . ".key.map" );
   //if ( sizeof($tmp_key_map) == 0 ) $tmp_key_map = get_support_barLin ( ucwords ( strtolower($name) ) . ".key.map" );
   if ( sizeof($tmp_key_map) == 0 ) {
     do_error ( "Can't find " . $mapName . " Check name has correct case");
+    // $jobAbandon = true; TODO maybe turn back on
+    $key_map=array();
   } else {
     do_note ( "Found " . $mapName );
     $key_map = $tmp_key_map ;
@@ -129,21 +115,23 @@ foreach ( $xml_source as $scope ) { // Loop - Perry, Highland , David etc
     }
   }
 
-  do_note ( "Processing -- " . $name . " -- " . $URL);
-
+  // call the web resource
+  //
+  if ( $jobAbandon == true ) $getURLs = false; // override 
   if ( $getURLs ) {
+    do_note ( "Calling -- " . $name . " -- " . $URL . " " .  date("Y-m-d H:i:s") );
     //
     // Call the website, careful with redirects and
-    $xmlstr = get_xml_from_url ( $URL );
+    $xmlstr = get_from_url ( $URL );
     if ( is_string( $xmlstr ) && strlen ( $xmlstr ) > 0 ) {
-      if ( file_exists($name . ".xml")) {
-        rename ( $name . ".xml" , $name . ".xml" . ".old" ); // ie Perry.xml.old
+      if ( file_exists($name . "." . $format )) {
+        rename ( $name . "." . $format , $name . "." . $format . ".old" ); // ie Perry.xml.old
       } else {
-        do_note ( "First run for $name");
+        do_note ( "First run for " . $name . " " . $format);
         $firstRun = true; 
       }
-      if ( file_put_contents( $name . ".xml", $xmlstr ) === false ){
-        do_error ( "Could not write xml file for " . $URL ); 
+      if ( file_put_contents( $name . "." . $format , $xmlstr ) === false ){
+        do_error ( "Could not write " . $format . " file for " . $URL ); 
         $jobAbandon = true;
       }
     } else {
@@ -152,31 +140,54 @@ foreach ( $xml_source as $scope ) { // Loop - Perry, Highland , David etc
     }
   }
 
+
   // Check the XML is ok
   //
-  $objXmlDocument = simplexml_load_file( $name . ".xml"); 
-  if ($objXmlDocument === false ) {
-    do_error ( "Parsing XML file " . $name ) ;
-    $jobAbandon = true;
-    foreach(libxml_get_errors() as $error) {
+  $objXmlDocument = ""; $objJsonDocument = "";
+  if ( $jobAbandon == true ) $format="na"; // override
+  else  do_note ( "Processing -- " . $name . " -- " . $URL . " " .  date("Y-m-d H:i:s") );
+  // 
+  if ( $format == "xml" ) {
+    if ( !function_exists ( "simplexml_load_file" )) do_fatal ( "Missing function. Need: sudo apt-get install php7.2-xml");
+    $objXmlDocument = simplexml_load_file( $name . ".xml"); 
+    if ($objXmlDocument === false ) {
+      do_error ( "Parsing XML file " . $name ) ;
+      foreach(libxml_get_errors() as $error) {
         do_error ( "XML error: " . $error->message );
+      }
+      $jobAbandon = true;
+    }
+  } elseif ( $format == "json" ) {
+    $xmlstrif = file_get_contents( $name . "." . $format );
+    if ( is_string( $xmlstrif ) && strlen( $xmlstrif) > 0 ) {
+      $objJsonDocument= $xmlstr;      
+    } else {
+      do_error ( "No JSON returned" ); $objJsonDocument= ""; $jobAbandon = true;
     }
   }
-  // Convert XML to JSON and then into an array
+
+  // Convert XML to JSON if needed
   //
-  $objJsonDocument = json_encode($objXmlDocument);
-  if ( $objJsonDocument == false ) do_error ( "JSON encode failed" );
-  $arrOutput = json_decode($objJsonDocument, TRUE);
-  if ( $arrOutput == false ) do_error ( "JSON decode failed" );
+  if ( $format == "xml" ) {
+    if ( $objXmlDocument == "" ) do_error ( "JSON encode source empty " . $format );
+    $objJsonDocument = json_encode($objXmlDocument);
+    if ( $objJsonDocument === false ) { do_error ( "JSON encode from XML failed [" . json_last_error_msg ( ) . "]" ); $jobAbandon = true; }
+  }
+  //
+  if ( $format == "xml" || $format == "json" ) {
+    if ( $objJsonDocument == "" ) do_error ( "JSON decode source empty " . $format );
+    $arrOutput = json_decode($objJsonDocument, TRUE);
+    if ( $arrOutput == false ) { do_error ( "JSON decode failed [" . json_last_error_msg ( ) ."]" ); $jobAbandon = true; }
+  }
 
   // Iterate through the JSON converted array, collect useful key:value pairs
   // Apply the pairs to build keys for lower layers
   //
-  if ( is_array( $arrOutput ) && sizeof ( $arrOutput ) > 0 ) {
+  if ( is_array( $arrOutput ) && sizeof ( $arrOutput ) > 0 && $jobAbandon == false ) {
 
     build_key_trigger (); // build necessary arrays from map
     $depth = array_depth ( $arrOutput );
-    do_note ( "XML " . $name . " has depth " . $depth );
+    do_note ( "JSON " . $name . " has depth " . $depth );
     deep_loop ( $arrOutput ); // Hard work here
     //print_r ( $uniqueFoundKey );
     fixedcsv_from_array ( $name . ".hints.csv" , $uniqueFoundKey );
@@ -184,7 +195,7 @@ foreach ( $xml_source as $scope ) { // Loop - Perry, Highland , David etc
     //print_r ( $progressiveKeySub );
     //print_r ( $currentKeySub );
   } else {
-    do_error ( "XML>array " . $name . " failed" );
+    do_error ( "JSON>array " . $name . " failed" );
     $jobAbandon = true;
   }
 
@@ -192,6 +203,7 @@ foreach ( $xml_source as $scope ) { // Loop - Perry, Highland , David etc
 
   // Do net change here
   if ( $jobAbandon == false ) add_change_csv ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
+  else ( do_error ( "Job abandoned for " . $name ));
 
   close_log_files ();
 
@@ -206,7 +218,7 @@ function get_support_barLin ( $name ) {
 
   $out=array();
   // get things like Perry.key.map , xml.client.source
-  if ( !file_exists( $name )) { do_note ( "Cant find support file " . $name ); return ( $out ); } // blank
+  if ( !file_exists( $name )) { do_error ( "Can't find support file " . $name ); return ( $out ); } // blank
   $out = explode( "\n", file_get_contents( $name ));
   foreach ( $out as $k => $v ) if ( strlen ( $v ) < 2 ) unset ($out[$k]); // get rid of junk
   return ( $out );
@@ -215,7 +227,7 @@ function get_support_barLin ( $name ) {
 function fixedcsv_from_array ( $name , $array ) {
 
   $fh = fopen( $name , 'w' );
-  if ( !$fh ) { do_error ( "fixed csv, cant open" . $name ); return (0); }
+  if ( !$fh ) { do_error ( "fixed csv, Can't open" . $name ); return (0); }
   foreach ( $array as $k => $v ) {
 	  if (  trim($k) != "" && trim($v) != "" ) fputcsv ( $fh , make_fixed ( $k , $v )); 
   }
@@ -230,9 +242,9 @@ function add_change_csv ( $name, $new , $old ) {  // assume the last column is d
   if ( filesize ( $old ) < 2 ) { do_note ( "No data in " . $old ); return(0); }
   //
   $nf = fopen( $new , 'r' );
-  if ( !$nf ) { do_error ( "cant open" . $new ); return (0); }
+  if ( !$nf ) { do_error ( "Can't open" . $new ); return (0); }
   $of = fopen( $old , 'r');
-  if ( !$of ) { do_error ( "cant open" . $old ); fclose ( $nf) ; return(0); }
+  if ( !$of ) { do_error ( "Can't open" . $old ); fclose ( $nf) ; return(0); }
 
   $nc_file = $name . "." . time() . ".new.csv";
   $sc_file = $name . ".same.csv";
@@ -240,13 +252,13 @@ function add_change_csv ( $name, $new , $old ) {  // assume the last column is d
   $xc_file = $name . "." . time() . ".changed.csv";
 
   $nc = fopen( $nc_file , 'w');
-  if ( !$nc ) { do_error ( "cant open new csv"); }
+  if ( !$nc ) { do_error ( "Can't open new csv"); }
   $sc = fopen( $sc_file , 'w'); // note no time stamp
-  if ( !$sc ) { do_error ( "cant open same csv"); }
+  if ( !$sc ) { do_error ( "Can't open same csv"); }
   $dc = fopen( $dc_file , 'w');
-  if ( !$dc ) { do_error ( "cant open delete csv"); }
+  if ( !$dc ) { do_error ( "Can't open delete csv"); }
   $xc = fopen( $xc_file , 'w');
-  if ( !$xc ) { do_error ( "cant open change csv"); }
+  if ( !$xc ) { do_error ( "Can't open change csv"); }
 
   $new_store = array(); $old_store = array ();
   $origonal = 0 ; $identical = 0 ; $deleted = 0; $different=0;
@@ -310,7 +322,6 @@ function add_change_csv ( $name, $new , $old ) {  // assume the last column is d
   return (1);
 }
 
-
 function close_work_files () {
 
   global $csvlog;
@@ -319,13 +330,13 @@ function close_work_files () {
 
 }
 
-
 function close_log_files () {
 
-  global $errlog, $prolog;
+  global $errlog, $prolog, $bldlog;
 
   if ( isset ( $errlog ) && $errlog !== false ) fclose ( $errlog ); 
   if ( isset ( $prolog ) && $prolog !== false ) fclose ( $prolog ); 
+  if ( isset ( $bldlog ) && $bldlog !== false ) fclose ( $bldlog );
 
 }
 
@@ -333,6 +344,7 @@ function do_error ( $txt ) {
 
   global $errlog, $sendConsole;
 
+  if ( $errlog == false ) $errlog = fopen ( "global.err.log" , "w" );
   if ( $sendConsole ) print ( "ERROR: " . $txt . "\n");
   fwrite ( $errlog , "ERROR: " . $txt . "\n" );
 }
@@ -341,6 +353,7 @@ function do_fatal ( $txt ) {
 
   global $errlog, $sendConsole;
 
+  if ( $errlog == false ) $errlog = fopen ( "global.err.log" , "w" );
   if ( $sendConsole ) print ( "FATAL: " . $txt . "\n");
   fwrite ( $errlog , "FATAL: " . $txt . "\n" );
   close_work_files ();
@@ -352,8 +365,18 @@ function do_note ( $txt ) {
 
   global $prolog, $sendConsole;
 
+  if ( $prolog == false ) $prolog = fopen ( "global.err.log" , "w" );
   if ( $sendConsole ) print ( "NOTE: " . $txt . "\n");
   fwrite ( $prolog , $txt . "\n" );
+}
+
+function do_build ( $txt ) {
+
+  global $bldlog, $sendConsole;
+
+  if ( $bldlog == false ) $bldlog = fopen ( "global.err.log" , "w" );
+  if ( $sendConsole ) print ( "NOTE: " . $txt . "\n");
+  fwrite ( $bldlog , $txt . "\n" );
 }
 
 function build_key_trigger (){
@@ -397,22 +420,22 @@ function get_prefered_key ( $name , $level ) {
   return ( substr( $combo, 0, -1) );
 }
 
-function get_xml_from_url($url){
+function get_from_url($url){
     
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true );
-    $xmlstr = curl_exec($ch);
-    if ( is_string( $xmlstr )) {
-      if ( strlen ( trim ( $xmlstr )) == 0 ) do_error ( "Curl response: [" . curl_error($ch) . "] Zero size retun results" );
-      else do_note ( "Curl URL response size was " . strlen ( $xmlstr ) );
+    $str = curl_exec($ch);
+    if ( is_string( $str )) {
+      if ( strlen ( trim ( $str )) == 0 ) do_error ( "Curl response: [" . curl_error($ch) . "] Zero size retun results" );
+      else do_note ( "Curl URL response size was " . strlen ( $str ) );
     } else {
-      do_error ( "Curl response: [" . curl_error($ch) . "]" ); $xmlstr = "";
+      do_error ( "Curl response: [" . curl_error($ch) . "]" ); $str = "";
     }
     curl_close($ch);
-    return $xmlstr;
+    return $str;
 }
 
 function array_depth(array $array) {
@@ -442,7 +465,7 @@ function record_natural_key ( $level ) {
 
 }
 
-function do_lev ( $level ) { // we are at level in XML array weher there are key:value pairs
+function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
 
   global $val, $key, $newKey, $keyTrigger, $progressiveKeySub, $currentKeySub, $uniqueFoundKey, $csvlog;
 
@@ -453,7 +476,7 @@ function do_lev ( $level ) { // we are at level in XML array weher there are key
   if ( isset ( $keyTrigger[$level])) {
     //print ( "Dolevel lev=$level trig=" . $keyTrigger[$level] . " Key=" . $key[$level] . "\n");
     if ( strpos ( $keyTrigger[$level] , $key[$level] ) !== false ) {
-      do_note ( "-- At " . $level . " hit NewKey [" . $key[$level] . "] settng val as [" . $val[$level] . "]" );
+      do_note ( "-- At " . $level . " hit NewKey [" . $key[$level] . "] setting val as [" . $val[$level] . "]" );
       $newKey[$level] = $val[$level];
       record_natural_key ( $level );
     } else {
@@ -473,7 +496,7 @@ function do_lev ( $level ) { // we are at level in XML array weher there are key
 
   // write the csv in a fixed column format
   //
-  if ( strpos ( $saveKeyNew , "@attributes") === false ) { // cant use these as they come before key trigger
+  if ( strpos ( $saveKeyNew , "@attributes") === false ) { // Can't use these as they come before key trigger
     fputcsv ( $csvlog , make_fixed ( $saveKeyNew , $val[$level] ));
   }
 
@@ -484,7 +507,7 @@ function do_lev ( $level ) { // we are at level in XML array weher there are key
     if (strlen ( $val[$level] ) > 40 ) { $tmp = substr( $val[$level], 0, 40) . "..more.."; }
     else { $tmp = $val[$level]; }
     //
-    do_note ( "[" . $level . "] " . $saveKey . " | " . $saveKeyNew . " -> " . $tmp );
+    do_build ( "[" . $level . "] " . $saveKey . " | " . $saveKeyNew . " -> " . $tmp );
 
     $tmpKey="Lev-" . $level . "^";
     $keyBits = explode ( "^" , $saveKey );
