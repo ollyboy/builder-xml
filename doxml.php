@@ -264,8 +264,10 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
           $target = trim ( $res[0]); // reset the target file name
           if ( file_exists($name . "." . $format )) {
             rename ( $name . "." . $format , $name . "." . $format . ".old" ); // ie Denton.csvbar.old
+          } else {
+            $firstRun = true; 
           }
-          copy ( $target , $name . "." . $format );  // leave the unzip in the /tmp folder
+          rename ( $target , $name . "." . $format ); 
           //
         } else { 
           if ( isset ( $unzip_errors[$err] )) $err = $unzip_errors[$err];
@@ -280,7 +282,7 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
     if ( !$jobAbandon ) {
       if ( strpos ( $format, "bar" ) !== false ) $delim ='|'; else $delim =',';
       $header=""; // means get header from line 1 oof csv 
-      $arrOutput = explode_csv ( $target , $flags , $delim , "" ); // blank
+      $arrOutput = explode_csv ( $name . "." . $format , $flags , $delim , "" ); // blank
     }
   }
 
@@ -321,8 +323,8 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
   close_work_files ();
 
   // Do net change here
-  if ( $jobAbandon == false ) add_change_csv ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
-  else ( do_error ( "Job abandoned for " . $name ));
+  if ( $jobAbandon == false && $firstRun == false ) add_change_csv ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
+  else ( do_error ( "Add change csv's skipped " . $name ));
 
   close_log_files ();
 
