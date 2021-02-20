@@ -2,9 +2,8 @@
 
 // XML extract, map & generate results csv's and logs
 
-const MAXRECS = 500000; // max lines to process
-$sendConsole = false; // log to console if true
-$getURLs = true; // make an new call for XML, false will process the existing xml if it exists
+const MAXRECS = 10000000; // max lines to process
+ini_set("auto_detect_line_endings", true);
 
 libxml_use_internal_errors(TRUE);
 error_reporting(E_ALL);
@@ -21,6 +20,27 @@ $uniqueFoundKey=array();
 $key_map=array();
 $keyTrigger=array();
 $todoWork = array(); // for Send processes to read and action
+
+
+$unzip_errors = array(
+  0 => 'all good',
+  1 => 'eror but processing completed successfully anyway. Maybe unsupported compression method or unknown password.',
+  2 => 'some broken zipfiles created by other archivers have simple work-arounds.',
+  3 => 'a severe error in the zipfile format was detected. Processing probably failed immediately.',
+  4 => 'unzip was unable to allocate memory for one or more buffers during program initialization.',
+  5 => 'unzip was unable to allocate memory or unable to obtain a tty to read the decryption password(s).',
+  6 => 'unzip was unable to allocate memory during decompression to disk.',
+  7 => 'unzip was unable to allocate memory during in-memory decompression.',
+  8 => '[currently not used]',
+  9 => 'the specified zipfiles were not found.',
+  10 => 'invalid options were specified on the command line.',
+  11 => 'no matching files were found.',
+  50 => 'the disk is (or was) full during extraction.',
+  51 => 'the end of the ZIP archive was encountered prematurely.',
+  80 => 'the user aborted unzip prematurely with control-C (or similar)',
+  81 => 'testing or extraction of one or more files failed due to unsupported compression methods or unsupported decryption.',
+  82 => 'no files were found due to bad decryption password(s).' 
+);
 
 /* EXAMPLE
 static $client_source = array (
@@ -44,24 +64,55 @@ static $highland_key_map = array (  // for level, find value, replace
 );
 */
 
-// Mainline, read scope, loop the Corps getting XML/JSON
+/*
+  $cmd='nohup /usr/bin/php batchCons.php >> ' . $consquePath . 'batchCons.log &'; // nohup already redirects std error
+  exec( $cmd , $res , $err );
+  $result = implode ( "|" , $res );
+  if ( $err != 0 )   flexPrint ( "ERROR: Con/pack build. returned [$result] [$err]\n" );
+*/
+
+// Mainline, read scope, loop the Corps getting XML/JSON 
 //
 $errlog = false;
 $client_source = get_support_barLin ( "client.source" ); // get the scope of work
 if ( sizeof( $client_source ) == 0 ) {
    do_fatal ( "Can't find essential client.source" );
 } 
+$ProductionMode = true; // Just generate hints if false
+$sendConsole = false; // log to console if true
+$getURLs = true; // make an new call for XML, false will process the existing xml if it exists
+$excludeImage = false;
+//
+// set flags and see if run is limited to a small set of jobs
+//
+$revised_client_source=array();
+foreach( $argv as $v ) {
+  $value =trim ( strtolower( $v )); 
+  if ( $value  == "production") $ProductionMode = true; // Just generate hints if false
+  if ( $value  == "development") $ProductionMode = false; 
+  if ( $value  == "console") $sendConsole = true;
+  if ( $value  == "noimage") $excludeImage = true;
+  if ( $value  == "skipurl") $getURLs = false;
+  foreach ( $client_source as $scope ) {
+    $parts = array_map ( 'trim' , explode ("|" , $scope ));
+    if ( strtolower ( $parts[0] ) == $value ) $revised_client_source[] = $scope; // names match
+  }
+}
+if ( count ( $revised_client_source) > 0 ) $client_source = $revised_client_source;
 
+/// main work 
 foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc 
   
   // control/limit output files
   //
   $firstRun = false;  // New XML source, assume false
   $strangeResult = false; // Strange combo of counters original identical deleted different
-  $ProductionMode = false; // Just generate hints if false
   $jobAbandon = false;
   
   // whats todo for this job
+  //
+  // format can be xml, json, fixed , csvbar , csvcomma - fixed will need a rules filre ie name.fixed.rules
+  // flags can be none/null or zip, dont really need zip as the file extension will be checked
   //
   $parts = array_map ( 'trim' , explode ("|" , $scope ));
   $name = $parts[0];
@@ -72,6 +123,9 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
     $name="invalid"; $URL = "Not given"; $jobAbandon = true; 
     do_error ( "bad line [" . $scope . "] in client.source" );
   }
+  if ( strpos ( $URL , ".zip") !== false ) $flags .= ",.zip"; // maybe added twice
+  if ( strpos ( $URL , ".Zip") !== false ) $flags .= ",.zip";
+  if ( strpos ( $URL , ".ZIP") !== false ) $flags .= ",.zip";
 
   // open job files, global file handles will be used
   //
@@ -118,8 +172,8 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
   // call the web resource
   //
   if ( $jobAbandon == true ) $getURLs = false; // override 
-  if ( $getURLs ) {
-    do_note ( "Calling -- " . $name . " -- " . $URL . " " .  date("Y-m-d H:i:s") );
+  if ( $getURLs && ( $format == "xml" ||  $format == "json" )) {
+    do_note ( "Calling xml/json -- " . $name . " -- " . $URL . " " .  date("Y-m-d H:i:s") );
     //
     // Call the website, careful with redirects and
     $xmlstr = get_from_url ( $URL );
@@ -140,14 +194,15 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
     }
   }
 
-
-  // Check the XML is ok
+  // Process XML or get csv
   //
-  $objXmlDocument = ""; $objJsonDocument = "";
-  if ( $jobAbandon == true ) $format="na"; // override
-  else  do_note ( "Processing -- " . $name . " -- " . $URL . " " .  date("Y-m-d H:i:s") );
+  $objXmlDocument = ""; $objJsonDocument = ""; $arrOutput=array();
+  if ( $jobAbandon == true ) $format="na-abandon"; // override
+  //
+  else  do_note ( "Processing " . $format . " -- " . $name . " -- " . $URL . " -- " .  date("Y-m-d H:i:s") );
   // 
   if ( $format == "xml" ) {
+    //
     if ( !function_exists ( "simplexml_load_file" )) do_fatal ( "Missing function. Need: sudo apt-get install php7.2-xml");
     $objXmlDocument = simplexml_load_file( $name . ".xml"); 
     if ($objXmlDocument === false ) {
@@ -158,13 +213,77 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
       $jobAbandon = true;
     }
   } elseif ( $format == "json" ) {
+    //
     $xmlstrif = file_get_contents( $name . "." . $format );
     if ( is_string( $xmlstrif ) && strlen( $xmlstrif) > 0 ) {
       $objJsonDocument= $xmlstr;      
     } else {
       do_error ( "No JSON returned" ); $objJsonDocument= ""; $jobAbandon = true;
     }
+  } elseif ( $format == "fixed" ) {
+
+  } elseif ( $format == "csvbar" ||  $format == "csvcomma"  || $format == "csv") {
+    //
+    $extn = ".csv";
+    if ( strpos ( $flags, ".zip" ) !== false ) $extn = ".zip";
+    $target = '/tmp/' . $name . $extn;
+    //
+    // get the file
+    //
+    if ( !$jobAbandon && $getURLs) {
+      $cmd='wget -q -nv -O ' . $target . ' ' . $URL ; // bring file down
+      exec( $cmd , $res , $err );
+      $result = implode ( "|" , $res );
+      // 0 No problems occurred, 1 Generic error code
+      // 2 Parse error — for instance, when parsing command-line options, the .wgetrc or .netrc…
+      // 3 File I/O error, 4 Network failure, 5 SSL verification failure, 6 Username/password authentication failure
+      // 7 Protocol errors, 8 Server issued an error response
+      if ( $err == 0 ) { do_note ( $cmd . " completed OK [" . $result . "] returned[" . $err . "]" ); }
+      else { do_error ( $cmd . " Failed [" . $result . "] returned[" . $err . "]" ); $jobAbandon = true; }
+      //
+      if ( !$jobAbandon  && $extn == ".zip") {
+        $cmd='unzip -qo ' . $target; // do the unzip, quite, overwrite
+        exec( $cmd , $res , $err );
+        $result = implode ( "|" , $res );
+        if ( $err == 0 ) { do_note ( $cmd . " completed OK [" . $result . "] returned[" . $err . "]" ); }
+        else { 
+          if ( isset ( $unzip_errors[$err] )) $err = $unzip_errors[$err];
+          do_error ( $cmd . " Failed [" . $result . "] returned[" . $err . "]" ); $jobAbandon = true; 
+        }
+      }
+    }
+    // find unzip file names
+    //
+    if ( !$jobAbandon && $extn == ".zip" && $getURLs ) {
+      $cmd='zipinfo -1 /tmp/' . $name . $extn;
+      exec( $cmd , $res , $err );
+      $result = implode ( "|" , $res );
+      if ( $err == 0 ) { 
+        do_note ( $cmd . " completed OK [" . $result . "] returned[" . $err . "]" ); 
+        if ( sizeof ( $res ) == 1 ) {
+          $target = trim ( $res[0]); // reset the target file name
+          if ( file_exists($name . "." . $format )) {
+            rename ( $name . "." . $format , $name . "." . $format . ".old" ); // ie Denton.csvbar.old
+          }
+          copy ( $target , $name . "." . $format );  // leave the unzip in the /tmp folder
+          //
+        } else { 
+          if ( isset ( $unzip_errors[$err] )) $err = $unzip_errors[$err];
+          do_error ( $cmd . " multiple files [" . $result . "] returned[" . $err . "]" ); $jobAbandon = true; $unzipname="na";
+        }
+      } else {
+        do_error ( $cmd . " Failed [" . $result . "]" ); $jobAbandon = true; 
+      }
+    }  
+    // ok read the unzipped to array
+    //
+    if ( !$jobAbandon ) {
+      if ( strpos ( $format, "bar" ) !== false ) $delim ='|'; else $delim =',';
+      $header=""; // means get header from line 1 oof csv 
+      $arrOutput = explode_csv ( $target , $flags , $delim , "" ); // blank
+    }
   }
+
 
   // Convert XML to JSON if needed
   //
@@ -187,7 +306,7 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
 
     build_key_trigger (); // build necessary arrays from map
     $depth = array_depth ( $arrOutput );
-    do_note ( "JSON " . $name . " has depth " . $depth );
+    do_note ( $format . " " . $name . " has depth " . $depth );
     deep_loop ( $arrOutput ); // Hard work here
     //print_r ( $uniqueFoundKey );
     fixedcsv_from_array ( $name . ".hints.csv" , $uniqueFoundKey );
@@ -195,7 +314,7 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
     //print_r ( $progressiveKeySub );
     //print_r ( $currentKeySub );
   } else {
-    do_error ( "JSON>array " . $name . " failed" );
+    do_error ( $format . " to array " . $name . " failed" );
     $jobAbandon = true;
   }
 
@@ -212,6 +331,56 @@ foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc
 }
 
 // --- end of mainline ---
+
+function explode_csv ( $target , $flags , $delim , $header) {
+
+  $parts = array_map ( 'trim' , explode ("," , $flags ));
+  if ( trim($header) == "" ) { $headerline1 = true; }
+  else { 
+    $headerline1 = false;
+    $header = array_map ( 'trim' , explode ("," , $header )); // convert to array
+  }
+
+  $key=array(); $val=array(); $ent=array(); $output=array();
+
+  $parts = array_unique($parts);
+  foreach ( $parts as $v ) {
+    $v = strtolower($v);
+    if ( $v[0] == "k") { $key[ intval( str_replace( "k" , "" , $v )) ] = true; }
+    if ( $v[0] == "v") { $val[ intval( str_replace( "v" , "" , $v )) ] = true; }
+    //if ( $v[0] == "e") $ent[] = $v[1];
+  }
+
+  if ( empty($key)) { do_error ( "No keys for " . $target); return ($output); }
+  if ( empty($val)) { do_error ( "No values for " . $target); return ($output); }
+  //if ( sizof($entity) != 1 ) { do_error ( "One only enity allowed " . $target); return ($output); }
+
+  if ( ! file_exists( $target )) { do_error ( "File not found " . $target); return ($output); }
+  do_note ( "Start read to array " . $target ); 
+  $fptmp = fopen ( $target , 'r');
+  $lineCount = 1;
+  while (($line = fgetcsv($fptmp, 0, $delim, '"' , "\\" )) !== FALSE) {
+    if (sizeof ( $line ) > 1) {
+      if ( $lineCount == 1 ) {
+        if ( $headerline1 ) $csvheader = $line; else $csvheader = $header; // must be array
+        foreach ( $csvheader as $i => $j) {
+          do_note ( "csv column v" . $i . " is [$j]");
+        }
+      } else {
+        $keybuild = ""; $i=0; $colarray=array();
+        for ( $i=0; $i < sizeof ($line ); $i++ ) { // for each cell
+          if ( isset ( $val[$i] )) $colarray [ $csvheader[$i] ] = $line[$i];
+          if ( isset ( $key[$i] )) $keybuild .= $line[$i-1] ."^";
+        }
+        $output[ $keybuild ] = $colarray;
+      }
+      $lineCount++;
+    }
+  }
+  fclose($fptmp);
+  do_note ( "End read to array " . $target . " had " . $lineCount . " lines"); 
+  return ( $output );
+}
 
 
 function get_support_barLin ( $name ) {
@@ -467,7 +636,7 @@ function record_natural_key ( $level ) {
 
 function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
 
-  global $val, $key, $newKey, $keyTrigger, $progressiveKeySub, $currentKeySub, $uniqueFoundKey, $csvlog;
+  global $val, $key, $newKey, $keyTrigger, $progressiveKeySub, $currentKeySub, $uniqueFoundKey, $csvlog, $excludeImage;
 
   $saveKey=""; $saveKeyNew ="";
   static $count = 0;
@@ -500,28 +669,30 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
     fputcsv ( $csvlog , make_fixed ( $saveKeyNew , $val[$level] ));
   }
 
-  if ( strpos ( $val[$level] , ".png") !== false || strpos ( $val[$level] , ".jpg") !== false ) {
-    // found image asset
-  } else {
-    //
-    if (strlen ( $val[$level] ) > 40 ) { $tmp = substr( $val[$level], 0, 40) . "..more.."; }
-    else { $tmp = $val[$level]; }
-    //
-    do_build ( "[" . $level . "] " . $saveKey . " | " . $saveKeyNew . " -> " . $tmp );
+  if ( trim ( $val[$level] ) != "" ) { 
+    if ( ( strpos ( $val[$level] , ".png") !== false || strpos ( $val[$level] , ".jpg") !== false ) && $excludeImage == true) {
+      // found image asset
+    } else {
+      //
+      if (strlen ( $val[$level] ) > 40 ) { $tmp = substr( $val[$level], 0, 40) . "..more.."; }
+      else { $tmp = $val[$level]; }
+      //
+      do_build ( "[" . $level . "] " . $saveKey . " | " . $saveKeyNew . " -> " . $tmp );
 
-    $tmpKey="Lev-" . $level . "^";
-    $keyBits = explode ( "^" , $saveKey );
-    foreach ( $keyBits as $k => $v) {
-      if ( is_numeric($v) ) $tmpKey .= "##^";  //get rid of numbers just for reporting
-      else $tmpKey .= $v . "^";
-    }
-    $tmpKey = substr($tmpKey, 0, -1); // strip last char
-    if ( isset ( $uniqueFoundKey[$tmpKey] )) { 
-      if ( strpos ( $uniqueFoundKey[$tmpKey] , $tmp ) === false && strlen ( $uniqueFoundKey[$tmpKey] ) < 60 ) { // dont repeat, not too many
-        $uniqueFoundKey[$tmpKey] .= " , " . $tmp ;
+      $tmpKey="Lev-" . $level . "^";
+      $keyBits = explode ( "^" , $saveKey );
+      foreach ( $keyBits as $k => $v) {
+        if ( is_numeric($v) ) $tmpKey .= "##^";  //get rid of numbers just for reporting
+        else $tmpKey .= $v . "^";
       }
-    } else { 
-      $uniqueFoundKey[$tmpKey] = $tmp;
+      $tmpKey = substr($tmpKey, 0, -1); // strip last char
+      if ( isset ( $uniqueFoundKey[$tmpKey] )) { 
+        if ( strpos ( $uniqueFoundKey[$tmpKey] , $tmp ) === false && strlen ( $uniqueFoundKey[$tmpKey] ) < 60 ) { // dont repeat, not too many
+          $uniqueFoundKey[$tmpKey] .= " , " . $tmp ;
+        }
+      } else { 
+        $uniqueFoundKey[$tmpKey] = $tmp;
+      }
     }
   }
 
@@ -597,7 +768,7 @@ foreach ( $arrOutput as $key[1] => $val[1] ) {
                        if ( go_deeper ( 12 )) {
                         foreach ( $val[12] as $key[13] => $val[13] ) {
                          if ( go_deeper ( 13 )) {
-                          do_error ( "XML structure is too deep" );
+                          do_error ( "Array structure is too deep" );
                          } else { do_lev ( 13 ); }
                         }
                        } else { do_lev ( 12 ); }

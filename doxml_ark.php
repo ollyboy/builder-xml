@@ -1,0 +1,841 @@
+<?php
+
+// XML extract, map & generate results csv's and logs
+
+const MAXRECS = 10000000; // max lines to process
+ini_set("auto_detect_line_endings", true);
+
+libxml_use_internal_errors(TRUE);
+error_reporting(E_ALL);
+ini_set('display_errors', 1); // Do send to output
+ini_set('log_errors', 1 ); // send errors to log
+
+// will be used globally for speed
+$val=array(); 
+$key=array();
+$newKey=array();
+$progressiveKeySub=array();  // list of progress
+$currentKeySub=array();
+$uniqueFoundKey=array();
+$key_map=array();
+$keyTrigger=array();
+$todoWork = array(); // for Send processes to read and action
+
+
+$unzip_errors = array(
+  0 => 'all good',
+  1 => 'eror but processing completed successfully anyway. Maybe unsupported compression method or unknown password.',
+  2 => 'some broken zipfiles created by other archivers have simple work-arounds.',
+  3 => 'a severe error in the zipfile format was detected. Processing probably failed immediately.',
+  4 => 'unzip was unable to allocate memory for one or more buffers during program initialization.',
+  5 => 'unzip was unable to allocate memory or unable to obtain a tty to read the decryption password(s).',
+  6 => 'unzip was unable to allocate memory during decompression to disk.',
+  7 => 'unzip was unable to allocate memory during in-memory decompression.',
+  8 => '[currently not used]',
+  9 => 'the specified zipfiles were not found.',
+  10 => 'invalid options were specified on the command line.',
+  11 => 'no matching files were found.',
+  50 => 'the disk is (or was) full during extraction.',
+  51 => 'the end of the ZIP archive was encountered prematurely.',
+  80 => 'the user aborted unzip prematurely with control-C (or similar)',
+  81 => 'testing or extraction of one or more files failed due to unsupported compression methods or unsupported decryption.',
+  82 => 'no files were found due to bad decryption password(s).' 
+);
+
+/* EXAMPLE
+static $client_source = array (
+
+"David | https://www.davidweekleyhomes.com/feeds/sandbrockranch/sandbrockranch.xml|XML",
+"Perry | https://assets.perryhomes.com/_perrydatafeed/feed.xml|XML",  
+"Highland | http://admin.hhomesltd.com/xmlFeed/CommunityXml/290|XML"
+
+);
+*/
+
+/* EXAMPLE
+static $highland_key_map = array (  // for level, find value, replace
+
+"2,4,5,6,7,8,9,10,11,12|Corporation|2|CorporateBuilderNumber",
+"5,6,7,8,9,10,11,12|Subdivision|5|SubdivisionNumber",
+"3,4,5,6,7,8,9,10,11,12|Builder|3|BuilderNumber",
+"7,8,9,10,11,12|Plan|7|PlanNumber",
+"8,9,10,11,12|Spec|8|SpecNumber,SpecMLSNumber"
+
+);
+*/
+
+/*
+  $cmd='nohup /usr/bin/php batchCons.php >> ' . $consquePath . 'batchCons.log &'; // nohup already redirects std error
+  exec( $cmd , $res , $err );
+  $result = implode ( "|" , $res );
+  if ( $err != 0 )   flexPrint ( "ERROR: Con/pack build. returned [$result] [$err]\n" );
+*/
+
+// Mainline, read scope, loop the Corps getting XML/JSON 
+//
+$errlog = false;
+$client_source = get_support_barLin ( "client.source" ); // get the scope of work
+if ( sizeof( $client_source ) == 0 ) {
+   do_fatal ( "Can't find essential client.source" );
+} 
+$ProductionMode = true; // Just generate hints if false
+$sendConsole = false; // log to console if true
+$getURLs = true; // make an new call for XML, false will process the existing xml if it exists
+$excludeImage = false;
+//
+// set flags and see if run is limited to a small set of jobs
+//
+$revised_client_source=array();
+foreach( $argv as $v ) {
+  $value =trim ( strtolower( $v )); 
+  if ( $value  == "production") $ProductionMode = true; // Just generate hints if false
+  if ( $value  == "development") $ProductionMode = false; 
+  if ( $value  == "console") $sendConsole = true;
+  if ( $value  == "noimage") $excludeImage = true;
+  if ( $value  == "skipurl") $getURLs = false;
+  foreach ( $client_source as $scope ) {
+    $parts = array_map ( 'trim' , explode ("|" , $scope ));
+    if ( strtolower ( $parts[0] ) == $value ) $revised_client_source[] = $scope; // names match
+  }
+}
+if ( count ( $revised_client_source) > 0 ) $client_source = $revised_client_source;
+
+/// main work 
+foreach ( $client_source as $scope ) { // Loop - Perry, Highland , David etc 
+  
+  // control/limit output files
+  //
+  $firstRun = false;  // New XML source, assume false
+  $strangeResult = false; // Strange combo of counters original identical deleted different
+  $jobAbandon = false;
+  
+  // whats todo for this job
+  //
+  // format can be xml, json, fixed , csvbar , csvcomma - fixed will need a rules filre ie name.fixed.rules
+  // flags can be none/null or zip, dont really need zip as the file extension will be checked
+  //
+  $parts = array_map ( 'trim' , explode ("|" , $scope ));
+  $name = $parts[0];
+  $URL = $parts[1]; 
+  if ( isset ( $parts[2])) { $format = strtolower($parts[2]); } else { $format="xml"; }
+  if ( isset ( $parts[3])) { $flags = $parts[3]; } else { $flags="none"; }
+  if ( $name == "" || $URL == "" ) { 
+    $name="invalid"; $URL = "Not given"; $jobAbandon = true; 
+    do_error ( "bad line [" . $scope . "] in client.source" );
+  }
+  if ( strpos ( $URL , ".zip") !== false ) $flags .= ",.zip"; // maybe added twice
+  if ( strpos ( $URL , ".Zip") !== false ) $flags .= ",.zip";
+  if ( strpos ( $URL , ".ZIP") !== false ) $flags .= ",.zip";
+
+  // open job files, global file handles will be used
+  //
+  $errtmp = $name . ".error.log";
+  if ( file_exists($errtmp)) unlink ( $errtmp );
+  $errlog = fopen ( $errtmp , "w" );
+
+  $protmp = $name . ".progress.log";
+  if ( file_exists($protmp)) unlink ( $protmp );
+  $prolog = fopen ( $protmp , "w" );
+
+  $bldtmp = $name . ".build.log";
+  if ( file_exists($bldtmp)) unlink ( $bldtmp );
+  $bldlog = fopen ( $bldtmp , "w" );
+
+  $csvtmp = $name . ".latest.csv";
+  if ( file_exists( $csvtmp ) && filesize( $csvtmp ) > 0 ) rename ( $csvtmp , $name . ".previous.csv" ); 
+  if ( file_exists( $csvtmp )) unlink ( $csvtmp ); // should not need
+  $csvlog = fopen ( $csvtmp , "w" );
+
+  $mapName = $name . ".key.map"; // ie Perry.key.map
+  $tmp_key_map = array(); // reset each loop
+  $tmp_key_map = get_support_barLin ( $mapName );
+  //if ( sizeof($tmp_key_map) == 0 ) $tmp_key_map = get_support_barLin ( strtolower($name) . ".key.map" );
+  //if ( sizeof($tmp_key_map) == 0 ) $tmp_key_map = get_support_barLin ( ucwords ( strtolower($name) ) . ".key.map" );
+  if ( sizeof($tmp_key_map) == 0 ) {
+    do_error ( "Can't find " . $mapName . " Check name has correct case");
+    // $jobAbandon = true; TODO maybe turn back on
+    $key_map=array();
+  } else {
+    do_note ( "Found " . $mapName );
+    $key_map = $tmp_key_map ;
+    if ( identical_exist ( $mapName , $mapName . ".bak" )) {
+      do_note ( "Previous map same which is good " . $mapName );
+    } else {
+      do_note ( "Map has changed! " . $mapName );
+      $firstRun = true; 
+      if ( !copy( $mapName, $mapName . ".bak") ) {
+        do_error ( "Failed to backup " . $mapName );
+      }
+    }
+  }
+
+  // call the web resource
+  //
+  if ( $jobAbandon == true ) $getURLs = false; // override 
+  if ( $getURLs && ( $format == "xml" ||  $format == "json" )) {
+    do_note ( "Calling xml/json -- " . $name . " -- " . $URL . " " .  date("Y-m-d H:i:s") );
+    //
+    // Call the website, careful with redirects and
+    $xmlstr = get_from_url ( $URL );
+    if ( is_string( $xmlstr ) && strlen ( $xmlstr ) > 0 ) {
+      if ( file_exists($name . "." . $format )) {
+        rename ( $name . "." . $format , $name . "." . $format . ".old" ); // ie Perry.xml.old
+      } else {
+        do_note ( "First run for " . $name . " " . $format);
+        $firstRun = true; 
+      }
+      if ( file_put_contents( $name . "." . $format , $xmlstr ) === false ){
+        do_error ( "Could not write " . $format . " file for " . $URL ); 
+        $jobAbandon = true;
+      }
+    } else {
+      do_error ( "Could not read from" . $URL ); 
+      $jobAbandon = true;
+    }
+  }
+
+  // Process XML or get csv
+  //
+  $objXmlDocument = ""; $objJsonDocument = ""; $arrOutput=array();
+  if ( $jobAbandon == true ) $format="na-abandon"; // override
+  //
+  else  do_note ( "Processing " . $format . " -- " . $name . " -- " . $URL . " -- " .  date("Y-m-d H:i:s") );
+  // 
+  if ( $format == "xml" ) {
+    //
+    if ( !function_exists ( "simplexml_load_file" )) do_fatal ( "Missing function. Need: sudo apt-get install php7.2-xml");
+    $objXmlDocument = simplexml_load_file( $name . ".xml"); 
+    if ($objXmlDocument === false ) {
+      do_error ( "Parsing XML file " . $name ) ;
+      foreach(libxml_get_errors() as $error) {
+        do_error ( "XML error: " . $error->message );
+      }
+      $jobAbandon = true;
+    }
+  } elseif ( $format == "json" ) {
+    //
+    $xmlstrif = file_get_contents( $name . "." . $format );
+    if ( is_string( $xmlstrif ) && strlen( $xmlstrif) > 0 ) {
+      $objJsonDocument= $xmlstr;      
+    } else {
+      do_error ( "No JSON returned" ); $objJsonDocument= ""; $jobAbandon = true;
+    }
+  } elseif ( $format == "fixed" ) {
+
+  } elseif ( $format == "csvbar" ||  $format == "csvcomma"  || $format == "csv") {
+    //
+    $extn = ".csv";
+    if ( strpos ( $flags, ".zip" ) !== false ) $extn = ".zip";
+    $target = '/tmp/' . $name . $extn;
+    //
+    // get the file
+    //
+    if ( !$jobAbandon && $getURLs) {
+      $cmd='wget -q -nv -O ' . $target . ' ' . $URL ; // bring file down
+      exec( $cmd , $res , $err );
+      $result = implode ( "|" , $res );
+      // 0 No problems occurred, 1 Generic error code
+      // 2 Parse error — for instance, when parsing command-line options, the .wgetrc or .netrc…
+      // 3 File I/O error, 4 Network failure, 5 SSL verification failure, 6 Username/password authentication failure
+      // 7 Protocol errors, 8 Server issued an error response
+      if ( $err == 0 ) { do_note ( $cmd . " completed OK [" . $result . "] returned[" . $err . "]" ); }
+      else { do_error ( $cmd . " Failed [" . $result . "] returned[" . $err . "]" ); $jobAbandon = true; }
+      //
+      if ( !$jobAbandon  && $extn == ".zip") {
+        $cmd='unzip -qo ' . $target; // do the unzip, quite, overwrite
+        exec( $cmd , $res , $err );
+        $result = implode ( "|" , $res );
+        if ( $err == 0 ) { do_note ( $cmd . " completed OK [" . $result . "] returned[" . $err . "]" ); }
+        else { 
+          if ( isset ( $unzip_errors[$err] )) $err = $unzip_errors[$err];
+          do_error ( $cmd . " Failed [" . $result . "] returned[" . $err . "]" ); $jobAbandon = true; 
+        }
+      }
+    }
+    // find unzip file names
+    //
+    if ( !$jobAbandon && $extn == ".zip" && $getURLs ) {
+      $cmd='zipinfo -1 /tmp/' . $name . $extn;
+      exec( $cmd , $res , $err );
+      $result = implode ( "|" , $res );
+      if ( $err == 0 ) { 
+        do_note ( $cmd . " completed OK [" . $result . "] returned[" . $err . "]" ); 
+        if ( sizeof ( $res ) == 1 ) {
+          $target = trim ( $res[0]); // reset the target file name
+          if ( file_exists($name . "." . $format )) {
+            rename ( $name . "." . $format , $name . "." . $format . ".old" ); // ie Denton.csvbar.old
+          }
+          copy ( $target , $name . "." . $format );  // leave the unzip in the /tmp folder
+          //
+        } else { 
+          if ( isset ( $unzip_errors[$err] )) $err = $unzip_errors[$err];
+          do_error ( $cmd . " multiple files [" . $result . "] returned[" . $err . "]" ); $jobAbandon = true; $unzipname="na";
+        }
+      } else {
+        do_error ( $cmd . " Failed [" . $result . "]" ); $jobAbandon = true; 
+      }
+    }  
+    // ok read the unzipped to array
+    //
+    if ( !$jobAbandon ) {
+      if ( strpos ( $format, "bar" ) !== false ) $delim ='|'; else $delim =',';
+      $header=""; // means get header from line 1 oof csv 
+      $arrOutput = explode_csv ( $target , $flags , $delim , "" ); // blank
+    }
+  }
+
+
+  // Convert XML to JSON if needed
+  //
+  if ( $format == "xml" ) {
+    if ( $objXmlDocument == "" ) do_error ( "JSON encode source empty " . $format );
+    $objJsonDocument = json_encode($objXmlDocument);
+    if ( $objJsonDocument === false ) { do_error ( "JSON encode from XML failed [" . json_last_error_msg ( ) . "]" ); $jobAbandon = true; }
+  }
+  //
+  if ( $format == "xml" || $format == "json" ) {
+    if ( $objJsonDocument == "" ) do_error ( "JSON decode source empty " . $format );
+    $arrOutput = json_decode($objJsonDocument, TRUE);
+    if ( $arrOutput == false ) { do_error ( "JSON decode failed [" . json_last_error_msg ( ) ."]" ); $jobAbandon = true; }
+  }
+
+  // Iterate through the JSON converted array, collect useful key:value pairs
+  // Apply the pairs to build keys for lower layers
+  //
+  if ( is_array( $arrOutput ) && sizeof ( $arrOutput ) > 0 && $jobAbandon == false ) {
+
+    build_key_trigger (); // build necessary arrays from map
+    $depth = array_depth ( $arrOutput );
+    do_note ( $format . " " . $name . " has depth " . $depth );
+    deep_loop ( $arrOutput ); // Hard work here
+    //print_r ( $uniqueFoundKey );
+    fixedcsv_from_array ( $name . ".hints.csv" , $uniqueFoundKey );
+    //cache_set($name . ".progress.array", $uniqueFoundKey ); // read this to generate maps
+    //print_r ( $progressiveKeySub );
+    //print_r ( $currentKeySub );
+  } else {
+    do_error ( $format . " to array " . $name . " failed" );
+    $jobAbandon = true;
+  }
+
+  close_work_files ();
+
+  // Do net change here
+  if ( $jobAbandon == false ) add_change_csv ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
+  else ( do_error ( "Job abandoned for " . $name ));
+
+  close_log_files ();
+
+  if ( filesize( $errtmp ) == 0 ) unlink ( $errtmp ); // remove if not error logged
+
+}
+
+// --- end of mainline ---
+
+function explode_csv ( $target , $flags , $delim , $header) {
+
+  $parts = array_map ( 'trim' , explode ("," , $flags ));
+  if ( trim($header) == "" ) { $headerline1 = true; }
+  else { 
+    $headerline1 = false;
+    $header = array_map ( 'trim' , explode ("," , $header )); // convert to array
+  }
+
+  $key=array(); $val=array(); $ent=array(); $output=array();
+
+  $parts = array_unique($parts);
+  foreach ( $parts as $v ) {
+    $v = strtolower($v);
+    if ( $v[0] == "k") { $key[ intval( str_replace( "k" , "" , $v )) ] = true; }
+    if ( $v[0] == "v") { $val[ intval( str_replace( "v" , "" , $v )) ] = true; }
+    //if ( $v[0] == "e") $ent[] = $v[1];
+  }
+
+  if ( empty($key)) { do_error ( "No keys for " . $target); return ($output); }
+  if ( empty($val)) { do_error ( "No values for " . $target); return ($output); }
+  //if ( sizof($entity) != 1 ) { do_error ( "One only enity allowed " . $target); return ($output); }
+
+  if ( ! file_exists( $target )) { do_error ( "File not found " . $target); return ($output); }
+  do_note ( "Start read to array " . $target ); 
+  $fptmp = fopen ( $target , 'r');
+  $lineCount = 1;
+  while (($line = fgetcsv($fptmp, 0, $delim, '"' , "\\" )) !== FALSE) {
+    if (sizeof ( $line ) > 1) {
+      if ( $lineCount == 1 ) {
+        if ( $headerline1 ) $csvheader = $line; else $csvheader = $header; // must be array
+        foreach ( $csvheader as $i => $j) {
+          do_note ( "csv column v" . $i . " is [$j]");
+        }
+      } else {
+        $keybuild = ""; $i=0; $colarray=array();
+        for ( $i=0; $i < sizeof ($line ); $i++ ) { // for each cell
+          if ( isset ( $val[$i] )) $colarray [ $csvheader[$i] ] = $line[$i];
+          if ( isset ( $key[$i] )) $keybuild .= $line[$i-1] ."^";
+        }
+        $output[ $keybuild ] = $colarray;
+      }
+      $lineCount++;
+    }
+  }
+  fclose($fptmp);
+  do_note ( "End read to array " . $target . " had " . $lineCount . " lines"); 
+  return ( $output );
+}
+
+
+function get_support_barLin ( $name ) {
+
+  $out=array();
+  // get things like Perry.key.map , xml.client.source
+  if ( !file_exists( $name )) { do_error ( "Can't find support file " . $name ); return ( $out ); } // blank
+  $out = explode( "\n", file_get_contents( $name ));
+  foreach ( $out as $k => $v ) if ( strlen ( $v ) < 2 ) unset ($out[$k]); // get rid of junk
+  return ( $out );
+}
+
+function fixedcsv_from_array ( $name , $array ) {
+
+  $fh = fopen( $name , 'w' );
+  if ( !$fh ) { do_error ( "fixed csv, Can't open" . $name ); return (0); }
+  foreach ( $array as $k => $v ) {
+	  if (  trim($k) != "" && trim($v) != "" ) fputcsv ( $fh , make_fixed ( $k , $v )); 
+  }
+  fclose ( $fh );
+}
+
+function add_change_csv ( $name, $new , $old ) {  // assume the last column is data and files are same fixed width
+
+  if ( !file_exists( $new ) ) { do_error ( "Does not exist " . $new ); return(0); }
+  if ( !file_exists( $old ) ) { do_note ( "Does not exist " . $old ); return(0); }
+  if ( filesize ( $new ) < 2 ) { do_error ( "No data in " . $new ); return(0); }
+  if ( filesize ( $old ) < 2 ) { do_note ( "No data in " . $old ); return(0); }
+  //
+  $nf = fopen( $new , 'r' );
+  if ( !$nf ) { do_error ( "Can't open" . $new ); return (0); }
+  $of = fopen( $old , 'r');
+  if ( !$of ) { do_error ( "Can't open" . $old ); fclose ( $nf) ; return(0); }
+
+  $nc_file = $name . "." . time() . ".new.csv";
+  $sc_file = $name . ".same.csv";
+  $dc_file = $name . "." . time() . ".deleted.csv";
+  $xc_file = $name . "." . time() . ".changed.csv";
+
+  $nc = fopen( $nc_file , 'w');
+  if ( !$nc ) { do_error ( "Can't open new csv"); }
+  $sc = fopen( $sc_file , 'w'); // note no time stamp
+  if ( !$sc ) { do_error ( "Can't open same csv"); }
+  $dc = fopen( $dc_file , 'w');
+  if ( !$dc ) { do_error ( "Can't open delete csv"); }
+  $xc = fopen( $xc_file , 'w');
+  if ( !$xc ) { do_error ( "Can't open change csv"); }
+
+  $new_store = array(); $old_store = array ();
+  $origonal = 0 ; $identical = 0 ; $deleted = 0; $different=0;
+  //
+  while (($data = fgetcsv($nf)) !== FALSE ) {
+    if ( is_array( $data ) && sizeof ( $data ) > 1 ) {
+      $last = array_pop($data); // get the value
+      $tmp = trim ( implode( "^", $data ));
+      $new_store[$tmp] = $last; // use the rest as a key
+    }
+  }
+  while (($data = fgetcsv($of)) !== FALSE ) {
+    if ( is_array( $data )  && sizeof ( $data ) > 1 ) {
+      $last = array_pop($data); // get the value
+      $tmp = trim ( implode( "^", $data ));
+      $old_store[$tmp] = $last; // use the rest as a key
+    }
+  }
+  // ok now do tests
+  //
+  foreach ( $new_store as $k => $v ) {
+    if ( isset ( $old_store[$k] )) {  // have same key
+      if ( $old_store[$k] == $v ) {
+        $identical++;
+        if ( $sc !== false ) fputcsv ( $sc , make_fixed ( $k , $v ));  // the same
+      } else {
+        if ( strpos ( $k , "DateGenerated" ) === false ) {
+          $different++;
+          do_note ( "DIFF [" . $k . "] New=" . $v . " Old=" . $old_store[$k] );
+          if ( $xc !== false ) fputcsv ( $xc , make_fixed ( $k , $v ));  // the new different
+        } else {
+          do_note ( "Bypass Diff test [" . $k . "] New=" . $v . " Old=" . $old_store[$k] );
+        }
+      }
+      unset ( $old_store[$k] ); // get rid of it 
+    } else {
+      // new key not seen
+      $origonal++;
+      do_note ( "NEW [" . $k . "] Val=" . $v );
+      if ( $nc !== false ) fputcsv ( $nc , make_fixed ( $k , $v ));  // not seen before
+    }
+  }
+  foreach ( $old_store as $k => $v ) {
+    $deleted++;
+    do_note ( "GONE [" . $k . "] Val=" . $v );
+    if ( $dc !== false ) fputcsv ( $dc , make_fixed ( $k , $v ));  // still in old but not in new
+    }
+  //
+  do_note ( "Compare " . $new . " to " . $old . " New=" . $origonal . " Same=" . $identical . " Deleted=" . $deleted . " Diff=" . $different );
+
+  if ( $nc !== false ) { fclose ( $nc ); }
+  if ( $sc !== false ) { fclose ( $sc ); }
+  if ( $dc !== false ) { fclose ( $dc ); }
+  if ( $xc !== false ) { fclose ( $xc ); }
+
+  if ( file_exists( $nc_file ) && filesize( $nc_file ) == 0 ) unlink ( $nc_file );
+  if ( file_exists( $sc_file ) && filesize( $sc_file ) == 0 ) unlink ( $sc_file );
+  if ( file_exists( $dc_file ) && filesize( $dc_file ) == 0 ) unlink ( $dc_file );
+  if ( file_exists( $xc_file ) && filesize( $xc_file ) == 0 ) unlink ( $xc_file );
+
+  return (1);
+}
+
+function close_work_files () {
+
+  global $csvlog;
+
+  if ( isset ( $csvlog ) && $csvlog !== false ) fclose ( $csvlog ); 
+
+}
+
+function close_log_files () {
+
+  global $errlog, $prolog, $bldlog;
+
+  if ( isset ( $errlog ) && $errlog !== false ) fclose ( $errlog ); 
+  if ( isset ( $prolog ) && $prolog !== false ) fclose ( $prolog ); 
+  if ( isset ( $bldlog ) && $bldlog !== false ) fclose ( $bldlog );
+
+}
+
+function do_error ( $txt ) {
+
+  global $errlog, $sendConsole;
+
+  if ( $errlog == false ) $errlog = fopen ( "global.err.log" , "w" );
+  if ( $sendConsole ) print ( "ERROR: " . $txt . "\n");
+  fwrite ( $errlog , "ERROR: " . $txt . "\n" );
+}
+
+function do_fatal ( $txt ) {
+
+  global $errlog, $sendConsole;
+
+  if ( $errlog == false ) $errlog = fopen ( "global.err.log" , "w" );
+  if ( $sendConsole ) print ( "FATAL: " . $txt . "\n");
+  fwrite ( $errlog , "FATAL: " . $txt . "\n" );
+  close_work_files ();
+  close_log_files ();
+  exit(0);
+}
+
+function do_note ( $txt ) {
+
+  global $prolog, $sendConsole;
+
+  if ( $prolog == false ) $prolog = fopen ( "global.err.log" , "w" );
+  if ( $sendConsole ) print ( "NOTE: " . $txt . "\n");
+  fwrite ( $prolog , $txt . "\n" );
+}
+
+function do_build ( $txt ) {
+
+  global $bldlog, $sendConsole;
+
+  if ( $bldlog == false ) $bldlog = fopen ( "global.err.log" , "w" );
+  if ( $sendConsole ) print ( "NOTE: " . $txt . "\n");
+  fwrite ( $bldlog , $txt . "\n" );
+}
+
+function build_key_trigger (){
+
+  global $key_map, $keyTrigger;
+
+  foreach ( $key_map as $k => $v ) { 
+    $parts = array_map('trim', explode ( "|" , $v));
+    if ( sizeof( $parts ) > 2 ) {
+      if ( isset ( $keyTrigger [ $parts[2] ])) $keyTrigger [ $parts[2] ] .= " , " . $parts[3];
+      else $keyTrigger [ $parts[2] ] = $parts[3];  
+    }
+  }
+  foreach ( $keyTrigger as $k => $v) do_note ( "Trigger target [" . $v . "] from level [" . $k . "]" );
+}
+
+
+function get_prefered_key ( $name , $level ) {
+
+  global $key_map, $currentKeySub;
+
+  $combo = "";
+  foreach ( $key_map as $k => $v ) { 
+    $parts = array_map('trim', explode ( "|" , $v));
+    if ( sizeof( $parts ) > 2 ) {
+      $forLev = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
+      $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
+      foreach ( $sources as $k1 => $v1 ) { 
+        foreach ( $forLev as $k2 => $v2 ) { // for each level
+          if ( count ( $parts ) > 3 && $v2 == $level && strval($name) == $parts[1] ) { // 
+            if ( isset ( $currentKeySub[ $v1 ] )) {
+              //print ( "Natural key for $name $level set to " . $currentKeySub[$parts[3]] . "\n");
+              $combo .= $currentKeySub[$v1] . "~"; // get latest value
+            }
+          }
+        }
+      }
+    }
+  }
+  if ( $combo == "" ) return ( $name ); // not found
+  return ( substr( $combo, 0, -1) );
+}
+
+function get_from_url($url){
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true );
+    $str = curl_exec($ch);
+    if ( is_string( $str )) {
+      if ( strlen ( trim ( $str )) == 0 ) do_error ( "Curl response: [" . curl_error($ch) . "] Zero size retun results" );
+      else do_note ( "Curl URL response size was " . strlen ( $str ) );
+    } else {
+      do_error ( "Curl response: [" . curl_error($ch) . "]" ); $str = "";
+    }
+    curl_close($ch);
+    return $str;
+}
+
+function array_depth(array $array) {
+    
+    $max_depth = 1;
+    foreach ($array as $v) {
+        if (is_array($v)) {
+            $depth = array_depth($v) + 1;
+            if ($depth > $max_depth) {
+                $max_depth = $depth;
+            }
+        }
+    }
+    return $max_depth;
+}
+
+
+function record_natural_key ( $level ) {
+
+  global $val, $key, $newKey, $keyTrigger, $progressiveKeySub, $currentKeySub;
+
+  // keep a list, we may use for table adjust
+  if ( !isset ($progressiveKeySub[$key[$level]])) $progressiveKeySub[$key[$level]] = $newKey[$level] . " | " . $level; 
+  else $progressiveKeySub[$key[$level]] .= " , " . $newKey[$level] . " | " . $level;
+
+  $currentKeySub[$key[$level]] = $newKey[$level]; // latest only
+
+}
+
+function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
+
+  global $val, $key, $newKey, $keyTrigger, $progressiveKeySub, $currentKeySub, $uniqueFoundKey, $csvlog, $excludeImage;
+
+  $saveKey=""; $saveKeyNew ="";
+  static $count = 0;
+
+  $count++;
+  if ( isset ( $keyTrigger[$level])) {
+    //print ( "Dolevel lev=$level trig=" . $keyTrigger[$level] . " Key=" . $key[$level] . "\n");
+    if ( strpos ( $keyTrigger[$level] , $key[$level] ) !== false ) {
+      do_note ( "-- At " . $level . " hit NewKey [" . $key[$level] . "] setting val as [" . $val[$level] . "]" );
+      $newKey[$level] = $val[$level];
+      record_natural_key ( $level );
+    } else {
+      if ( !isset ($newKey[$level] )) {
+        $newKey[$level] = $key[$level];
+        record_natural_key ( $level );
+      }
+    }
+  }
+  // Build up the key
+  for ( $i=1; $i<= $level; $i++ ) {
+    $saveKey .= $key[$i] . "^"; 
+    $saveKeyNew .= get_prefered_key ( $key[$i] , $level ). "^";
+  }
+  $saveKey = substr($saveKey , 0, -1); // get rid of excess delimiter
+  $saveKeyNew = substr($saveKeyNew , 0, -1);
+
+  // write the csv in a fixed column format
+  //
+  if ( strpos ( $saveKeyNew , "@attributes") === false ) { // Can't use these as they come before key trigger
+    fputcsv ( $csvlog , make_fixed ( $saveKeyNew , $val[$level] ));
+  }
+
+  if ( trim ( $val[$level] ) != "" ) { 
+    if ( ( strpos ( $val[$level] , ".png") !== false || strpos ( $val[$level] , ".jpg") !== false ) && $excludeImage == true) {
+      // found image asset
+    } else {
+      //
+      if (strlen ( $val[$level] ) > 40 ) { $tmp = substr( $val[$level], 0, 40) . "..more.."; }
+      else { $tmp = $val[$level]; }
+      //
+      do_build ( "[" . $level . "] " . $saveKey . " | " . $saveKeyNew . " -> " . $tmp );
+
+      $tmpKey="Lev-" . $level . "^";
+      $keyBits = explode ( "^" , $saveKey );
+      foreach ( $keyBits as $k => $v) {
+        if ( is_numeric($v) ) $tmpKey .= "##^";  //get rid of numbers just for reporting
+        else $tmpKey .= $v . "^";
+      }
+      $tmpKey = substr($tmpKey, 0, -1); // strip last char
+      if ( isset ( $uniqueFoundKey[$tmpKey] )) { 
+        if ( strpos ( $uniqueFoundKey[$tmpKey] , $tmp ) === false && strlen ( $uniqueFoundKey[$tmpKey] ) < 60 ) { // dont repeat, not too many
+          $uniqueFoundKey[$tmpKey] .= " , " . $tmp ;
+        }
+      } else { 
+        $uniqueFoundKey[$tmpKey] = $tmp;
+      }
+    }
+  }
+
+  if ( $count > MAXRECS ) {
+    //print_r ( $uniqueFoundKey );
+    //print_r ( $progressiveKeySub );
+    //print_r ( $currentKeySub );
+    do_fatal ( "Hit max records at " . $count );
+  }
+}
+
+function make_fixed ( $keyString , $fact ) {
+
+  // key in first 14 columns, variable in 15, value in 16
+  $fixedFormat = array(); 
+  $tmp = explode ( "^" , $keyString );
+  $tmpsize = sizeof ($tmp);
+  for ( $i=0; $i<15; $i++ ) {
+    if ( $i < $tmpsize - 1 ) {
+      $fixedFormat[$i] = $tmp[$i];
+    } else {
+      $fixedFormat[$i] = "";
+    }
+  }
+  $fixedFormat[15] = $tmp[$tmpsize-1];
+  $fixedFormat[16] = $fact;
+  return ( $fixedFormat );
+}
+
+function go_deeper ( $level ) {
+
+  global $val, $key, $newKey, $progressiveKeySub;
+
+  if ( !isset ($newKey[$level] )) {
+    do_note ( "-- No Key " . $level . " Set NewKey [" . $key[$level] . "]");
+    $newKey[$level] = $key[$level];
+    record_natural_key ( $level );
+  }
+
+  if ( is_array ( $val[ $level ] )) return ( true );
+  return ( false );
+}
+
+
+function deep_loop ( $arrOutput ) {
+
+global $val, $key;
+
+$alt2="";
+foreach ( $arrOutput as $key[1] => $val[1] ) {
+ if ( go_deeper ( 1 )) {
+  foreach ( $val[1] as $key[2] => $val[2] ) { 
+   if ( go_deeper ( 2 )) {
+    foreach ( $val[2] as $key[3] => $val[3] ) {
+     if ( go_deeper ( 3 )) {
+      foreach ( $val[3] as $key[4] => $val[4] ) {
+       if ( go_deeper ( 4 )) {
+        foreach ( $val[4] as $key[5] => $val[5] ) {
+         if ( go_deeper ( 5 )) {
+          foreach ( $val[5] as $key[6] => $val[6] ) {
+           if ( go_deeper ( 6 )) {
+            foreach ( $val[6] as $key[7] => $val[7] ) {
+             if ( go_deeper ( 7 )) {
+              foreach ( $val[7] as $key[8] => $val[8] ) {
+               if ( go_deeper ( 8 )) {
+                foreach ( $val[8] as $key[9] => $val[9] ) {
+                 if ( go_deeper ( 9 )) {
+                  foreach ( $val[9] as $key[10] => $val[10] ) {
+                   if ( go_deeper ( 10 )) {
+                    foreach ( $val[10] as $key[11] => $val[11] ) {
+                     if ( go_deeper ( 11 )) {
+                      foreach ( $val[11] as $key[12] => $val[12] ) {
+                       if ( go_deeper ( 12 )) {
+                        foreach ( $val[12] as $key[13] => $val[13] ) {
+                         if ( go_deeper ( 13 )) {
+                          do_error ( "Array structure is too deep" );
+                         } else { do_lev ( 13 ); }
+                        }
+                       } else { do_lev ( 12 ); }
+                      } 
+                     } else { do_lev ( 11 ); }
+                    }
+                   } else { do_lev ( 10 ); }
+                  } 
+                 } else { do_lev ( 9 ); }
+                }
+               } else { do_lev ( 8 ); }
+              }
+             } else { do_lev ( 7 ); }
+            }
+           } else { do_lev ( 6 ); }
+          }
+         } else { do_lev ( 5 ); }
+        }
+       } else { do_lev ( 4 ); }
+      }
+     } else { do_lev ( 3 ); }
+    }
+   } else { do_lev ( 2 ); }
+  }
+ } else { do_lev ( 1 ); }
+}
+//
+} // end function
+
+
+function cache_set( $key, $val ) {  // Super fast Object store using PHPs file cache. 
+   //
+   $val = var_export($val, true);
+   $val = str_replace('stdClass::__set_state', '(object)', $val);
+   // Write to temp file first to ensure atomicity
+   $tmp = "/tmp/$key." . uniqid('', true) . '.tmp';
+   file_put_contents($tmp, '<?php $val = ' . $val . ';', LOCK_EX);
+   rename($tmp, $key );
+}
+//
+function cache_get( $key ) {
+   
+   @include "$key";
+   return isset($val) ? $val : false;
+}
+
+function identical_exist ( $fileOne, $fileTwo ) { // faster than md5 as will return as soon as diff is found
+
+    if (!file_exists($fileOne)) return false;
+    if (!file_exists($fileTwo)) return false;
+    if (filetype($fileOne) !== filetype($fileTwo)) return false;
+    if (filesize($fileOne) !== filesize($fileTwo)) return false;
+ 
+    if (! $fp1 = fopen($fileOne, 'rb')) return false;
+    if (! $fp2 = fopen($fileTwo, 'rb')) { fclose($fp1); return false; }
+ 
+    $same = true;
+    while (! feof($fp1) and ! feof($fp2)) {
+      if (fread($fp1, 4096) !== fread($fp2, 4096)) {
+          $same = false;
+          break;
+      }
+    }
+    if (feof($fp1) !== feof($fp2)) $same = false; 
+    fclose($fp1);
+    fclose($fp2);
+    return $same;
+}
+
+?>
