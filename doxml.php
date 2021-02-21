@@ -340,6 +340,10 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   if ( $jobAbandon == false && $firstRun == false ) generate_change_csvs ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
   else ( do_note ( "Add change csv's skipped " . $name ));
 
+  if ( $firstRun == true  && $jobAbandon == false ) {
+    copy ( $name . "." . $format , $name . "." . time() . ".new." . $format ); // everything will be new
+  }
+
   if ( $jobAbandon == false ) { 
     global_note ( "Completed " . $format . " -- " . $name . " -- " .  date("Y-m-d H:i:s") );
   } else {
@@ -363,10 +367,13 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
 function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into a useful array
 
   $parts = array_map ( 'trim' , explode ("," , $flags ));
-  if ( trim($header) == "" ) { $headerline1 = true; }
+  if ( trim($header) == "" ) { 
+    $headerline1 = true; 
+    $csvheader = 'ERROR Must get from file'; } // set a bad value, should be overwritten
   else { 
     $headerline1 = false;
-    $header = array_map ( 'trim' , explode ("," , $header )); // convert to array
+    $csvheader = array_map ( 'trim' , explode ("," , $header )); // convert to array
+    if ( sizeof ( $csvheader ) < 2 ) $csvheader = 'ERROR header to short'; 
   }
 
   $key=array(); $val=array(); $output=array();
@@ -374,8 +381,8 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
   $parts = array_unique($parts);
   foreach ( $parts as $v ) {
     $v = strtolower($v);
-    if ( $v[0] == "k") { $key[ intval( str_replace( "k" , "" , $v )) ] = true; }
-    if ( $v[0] == "v") { $val[ intval( str_replace( "v" , "" , $v )) ] = true; }
+    if ( $v[0] == "k") { $key[ intval( str_replace( "k" , "" , $v )) ] = $v; } // warning, key[X] X starts from 1
+    if ( $v[0] == "v") { $val[ intval( str_replace( "v" , "" , $v )) ] = $v; }
   }
 
   if ( empty($key)) { do_error ( "No keys for " . $target); return ($output); }
@@ -384,26 +391,49 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
   if ( ! file_exists( $target )) { do_error ( "File not found " . $target); return ($output); }
   do_note ( "Start read to array " . $target ); 
   $fptmp = fopen ( $target , 'r');
-  $lineCount = 1;
+  $lineCount = 1; $sample=array(); $tmpKeyList=""; $tmpValList="";
   while (($line = fgetcsv($fptmp, 0, $delim, '"' , "\\" )) !== FALSE) {
-    if (sizeof ( $line ) > 1) {
-      if ( $lineCount == 1 ) {
-        if ( $headerline1 ) $csvheader = $line; else $csvheader = $header; // must be array
-        foreach ( $csvheader as $i => $j) {
-          do_note ( "csv column v" . $i . " is [$j]");
-        }
+    if ( sizeof ( $line ) > 1 ) {
+      // good lines
+      if ( $lineCount == 1 && $headerline1 ) {
+        $csvheader = $line; 
       } else {
+        // not header line, process the data
+        if ( $lineCount < 21 ) {
+          foreach ( $csvheader as $i => $j ) {
+            if ( isset ( $sample[$j] )) $sample[$j] .= " , " . $line[$i];
+            else $sample[$j] = $line[$i];
+          }
+        }
+        // always do this for non header
         $keybuild = ""; $i=0; $colarray=array();
         for ( $i=0; $i < sizeof ($line ); $i++ ) { // for each cell
-          if ( isset ( $val[$i] )) $colarray [ $csvheader[$i] ] = $line[$i];
-          if ( isset ( $key[$i] )) $keybuild .= $line[$i-1] ."^";
+          $point=$i+1; // val array smallest is [1] => v1 , same for key
+          if ( isset ( $val[$point] )) { if ( isset ( $csvheader[$i] )) $colarray [ $csvheader[$i] ] = $line[$i]; }
+          if ( isset ( $key[$point] )) { if ( isset ( $csvheader[$i] )) $keybuild .= $line[$i] ."^"; }
         }
-        $output[ $keybuild ] = $colarray;
+        if ( $keybuild != "" ) $output[ substr( $keybuild, 0, -1) ] = $colarray; // get rid of last ^
       }
       $lineCount++;
     }
   }
   fclose($fptmp);
+
+  // Show keys and samples
+  foreach ( $csvheader as $i => $j) { //  keys are like [8] => k8 [10] => k10 [11] => k11
+    $point=$i+1;
+    if ( isset ( $key[$point] )) $tmpKeyList .= "(" . $point .") " . $j . " , "; 
+    if ( isset ( $val[$point] )) $tmpValList .= "(" . $point .") " . $j . " , ";
+  }
+  do_note ( "Keys components are : " . $tmpKeyList . "\n" );
+  do_note ( "Values collected are: " . $tmpValList . "\n" );
+
+  $k=1;
+  foreach ( $sample as $i => $j ) {
+    do_note ( "Col: v" . $k . " [" . $i . "] e.g: " . $j );
+    $k++;
+  }
+
   do_note( "End read to array " . $target . " had " . $lineCount . " lines"); 
   return ( $output );
 }
@@ -500,7 +530,7 @@ function generate_change_csvs ( $name, $new , $old ) {  // assume the last colum
   }
   foreach ( $old_store as $k => $v ) {
     $deleted++;
-    do_note ( "GONE [" . $k . "] Val=" . $v );
+    do_build ( "GONE [" . $k . "] Val=" . $v );
     if ( $dc !== false ) fputcsv ( $dc , make_fixed ( $k , $v ));  // still in old but not in new
     }
   //
@@ -585,7 +615,7 @@ function do_build ( $txt ) { // noisy progress logs
 
   if ( $buildLogArgv == false ) return;
   if ( $bldlog == false ) $bldlog = fopen ( "global.err.log" , "w" );
-  if ( $sendConsArgv ) print ( "NOTE: " . $txt . "\n");
+  // if ( $sendConsArgv ) print ( "NOTE: " . $txt . "\n");  // Dont log to console as too much text
   fwrite ( $bldlog , $txt . "\n" );
 }
 
@@ -602,7 +632,6 @@ function build_key_trigger (){ // helper for JSON level headings to csv key
   }
   foreach ( $keyTrigger as $k => $v) do_note ( "Trigger target [" . $v . "] from level [" . $k . "]" );
 }
-
 
 function get_prefered_key ( $name , $level ) {
 
