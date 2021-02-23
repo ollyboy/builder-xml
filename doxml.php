@@ -72,13 +72,14 @@ static $highland_key_map = array (  // for level, find value, replace
 $errlog = false;
 $clientSource = get_support_barLin ( "client.source" ); // get the scope of work, returns empty if not found
 if ( sizeof( $clientSource ) == 0 ) {
-   do_fatal ( "Can't find essential client.source" );
+  do_fatal ( "Can't find essential work scope file: client.source" ); // will exit
 } 
+
 $prodModeArgv = true; // Just generate hints if false
 $sendConsArgv = false; // log to console if true
 $getURLsArgv  = true; // make an new call for XML, false will process the existing xml if it exists
-$excImageArgv = false; // dont include iimages in hints
-$buildLogArgv = false; // maybe dont generate build log
+$excImageArgv = false; // don't include images in hints
+$buildLogArgv = false; // maybe don't generate build log
 $keyMapSame=false;
 
 // set flags and see if run is limited to a small set of jobs
@@ -97,8 +98,31 @@ foreach( $argv as $v ) {
     if ( strtolower ( $parts[0] ) == $value ) $revisedClientSource[] = $scope; // names match
   }
 }
-if ( count ( $revisedClientSource) > 0 ) $clientSource = $revisedClientSource;
+if ( count ( $revisedClientSource ) > 0 ) $clientSource = $revisedClientSource;  // shorter list
 
+$clientSourceOld = get_support_barLin ( "client.source.bak" );
+$hit = array(); $sorceScopeUnchanged=false;
+foreach ( $clientSource as $k => $v ) {
+  foreach ( $clientSourceOld as $k2 => $v2 ) {
+    if ( $v == $v2 ) $hit[$k] = true;
+  }
+}
+if ( sizeof ( $revisedClientSource ) == sizeof ( $hit )) {
+  $sorceScopeUnchanged=true;
+  do_note ( "Revised scope from command line same which is good");
+} else {
+  $sorceScopeUnchanged=false;
+  do_note ( "Revised scope from command line different");
+}
+
+if ( identical_exist ( "client.source" , "client.source.bak" )) {
+  do_note ( "Previous work scope file same which is good");
+} else {
+  do_note ( "Overall Work scope file client.source changed or is new!" );
+  if ( !copy( "client.source" , "client.source.bak" ) ) {
+    do_error ( "Failed to backup client.source file" );
+  }
+}
 /// main work loop
 //
 foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must have unique name
@@ -341,7 +365,7 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   else ( do_note ( "Add change csv's skipped " . $name ));
 
   if ( $firstRun == true  && $jobAbandon == false ) {
-    copy ( $name . "." . $format , $name . "." . time() . ".new." . $format ); // everything will be new
+    copy ( $name . ".latest.csv" , $name . "." . time() . ".new.csv" ); // everything will be new
   }
 
   if ( $jobAbandon == false ) { 
@@ -399,7 +423,7 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
         $csvheader = $line; 
       } else {
         // not header line, process the data
-        if ( $lineCount < 21 ) {
+        if ( $lineCount < 6 ) {
           foreach ( $csvheader as $i => $j ) {
             if ( isset ( $sample[$j] )) $sample[$j] .= " , " . $line[$i];
             else $sample[$j] = $line[$i];
@@ -457,6 +481,7 @@ function fixedcsv_from_array ( $name , $array ) { // special fixed column generi
 	  if (  trim($k) != "" && trim($v) != "" ) fputcsv ( $fh , make_fixed ( $k , $v )); 
   }
   fclose ( $fh );
+  return(1);
 }
 
 function generate_change_csvs ( $name, $new , $old ) {  // assume the last column is data and files are same fixed width
