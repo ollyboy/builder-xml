@@ -111,16 +111,14 @@ foreach ( $clientSource as $k => $v ) {
 }
 if ( sizeof ( $revisedClientSource ) == sizeof ( $hit )) {
   $sorceScopeUnchanged=true;
-  do_note ( "Revised scope from command line same which is good");
 } else {
   $sorceScopeUnchanged=false;
-  do_note ( "Revised scope from command line different");
 }
 
 if ( identical_exist ( "client.source" , "client.source.bak" )) {
-  do_note ( "Previous work scope file same which is good");
+  $peviousScopeUnchanged = true;
 } else {
-  do_note ( "Overall Work scope file client.source changed or is new!" );
+  $peviousScopeUnchanged = false;
   if ( !copy( "client.source" , "client.source.bak" ) ) {
     do_error ( "Failed to backup client.source file" );
   }
@@ -175,6 +173,19 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   if ( file_exists( $csvResult )) unlink ( $csvResult ); // should not need
   $csv_out = fopen ( $csvResult , "w" );
 
+  // Send start up messages - dont do before here
+  //
+  if ( $sorceScopeUnchanged ) {
+    do_note ( "Revised scope from command line same which is good");
+  } else {
+    do_note ( "Revised scope from command line different");
+  }
+  if ( $peviousScopeUnchanged ) {
+    do_note ( "Previous work scope file same which is good");
+  } else {
+    do_note ( "Overall Work scope file client.source changed or is new!" );
+  }
+
   // Get the maps for convert JSON/XML to csv
   //
   $mapName = $name . ".key.map"; // ie Perry.key.map
@@ -203,7 +214,7 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
 
   // Call the web resource
   //
-  if ( strpos ( $URL, "http:") === false ){
+  if ( strpos ( $URL, "http") === false ){
     global_note ( "No Web call -- " . $name . " -- " . $URL . " " .  date("Y-m-d H:i:s") );
     $getURLsArgv = false; // must be file provided?
   }
@@ -371,7 +382,18 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   //
   if ( $jobAbandon == false && $firstRun == false && $skipDiff == false ) {
     global_note ( "Calc Diffs " . $format . " -- " . $name . " -- " .  date("Y-m-d H:i:s") );
-    generate_change_csvs ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
+    $res=generate_change_csvs ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
+    if ( is_string($res)) {
+      $listArr=explode ("|" , $res );
+      $fp = fopen ( "global.todo" , "a");
+      if ( $fp !== false && count($listArr) > 0 ){
+        foreach ( $listArr as $line ) {
+          fwrite ( $fp, $line . "\n" );
+        } 
+      }
+      fclose($fp);
+      do_note ( "Sent [" .$res. "] to global.todo for API processing");
+    }
   }
   else {
     do_note ( "Add change csv's skipped " . $name );
@@ -406,8 +428,8 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
   $parts = array_map ( 'trim' , explode ("," , $flags ));
   if ( trim($header) == "" ) { 
     $headerline1 = true; 
-    $csvheader = 'ERROR Must get from file'; } // set a bad value, should be overwritten
-  else { 
+    $csvheader = 'ERROR Must get from file'; // set a bad value, should be overwritten
+  } else { 
     $headerline1 = false;
     $csvheader = array_map ( 'trim' , explode ("," , $header )); // convert to array
     if ( sizeof ( $csvheader ) < 2 ) $csvheader = 'ERROR header to short'; 
@@ -523,6 +545,7 @@ function generate_change_csvs ( $name, $new , $old ) {  // assume the last colum
   if ( !file_exists( $old ) ) { do_note ( "Does not exist " . $old ); return(0); }
   if ( filesize ( $new ) < 2 ) { do_error ( "No data in " . $new ); return(0); }
   if ( filesize ( $old ) < 2 ) { do_note ( "No data in " . $old ); return(0); }
+  if ( identical_exist ( $new, $old )) { do_note ( "Nothing to do " . $new . " " . $old . " are identical"); return (0); }
   //
   $nf = fopen( $new , 'r' );
   if ( !$nf ) { do_error ( "Can't open" . $new ); return (0); }
@@ -597,13 +620,15 @@ function generate_change_csvs ( $name, $new , $old ) {  // assume the last colum
   if ( $dc !== false ) { fclose ( $dc ); }
   if ( $xc !== false ) { fclose ( $xc ); }
 
-  if ( file_exists( $nc_file ) && filesize( $nc_file ) == 0 ) unlink ( $nc_file );
-  if ( file_exists( $sc_file ) && filesize( $sc_file ) == 0 ) unlink ( $sc_file );
-  if ( file_exists( $dc_file ) && filesize( $dc_file ) == 0 ) unlink ( $dc_file );
-  if ( file_exists( $xc_file ) && filesize( $xc_file ) == 0 ) unlink ( $xc_file );
-  if ( identical_exist( $csvResult , $sc_file )) unlink ( $sc_file ); // if same = output
+  $work_todo = "";  // bar list of chnage files
+  if ( file_exists( $nc_file )) { if ( filesize( $nc_file ) == 0 ) { unlink ( $nc_file ); } else { $work_todo .= $nc_file . "|"; } }
+  if ( file_exists( $sc_file )) { if ( filesize( $sc_file ) == 0 ) { unlink ( $sc_file ); } } // dont send same
+  if ( file_exists( $dc_file )) { if ( filesize( $dc_file ) == 0 ) { unlink ( $dc_file ); } else { $work_todo .= $dc_file . "|"; } }
+  if ( file_exists( $xc_file )) { if ( filesize( $xc_file ) == 0 ) { unlink ( $xc_file ); } else { $work_todo .= $xc_file . "|"; } }
+  if ( identical_exist( $csvResult , $sc_file )) { unlink ( $sc_file ); do_error ( "Identical last/previous should have avoided same=current" ); }// if same = output
+  $work_todo = rtrim($work_todo, "|");
 
-  return (1);
+  return ( $work_todo );
 }
 
 function close_work_files () { // ie latest.csv
@@ -762,16 +787,25 @@ function record_natural_key ( $level ) { // build up the natural/desired key
 
 function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
 
+
   global $val, $key, $newKey, $keyTrigger, $progressiveKeySub, $currentKeySub, $uniqueFoundKey, $csv_out, $excImageArgv;
 
-  $saveKey=""; $saveKeyNew ="";
+  static $old_lev = 0;
+  if ( $old_lev != $level ) {
+    do_build ( "* do_lev changed from $old_lev to $level");
+    $old_lev = $level;
+  }
   static $count = 0;
 
-  $count++;
+  // Do not try to do any key work if no data
+  if ( is_array ( $val[$level] )) return; 
+
+  // Update the key as we go
+  $saveKey=""; $saveKeyNew ="";
   if ( isset ( $keyTrigger[$level])) {
     //print ( "Dolevel lev=$level trig=" . $keyTrigger[$level] . " Key=" . $key[$level] . "\n");
     if ( strpos ( $keyTrigger[$level] , $key[$level] ) !== false ) {
-      do_note ( "-- At " . $level . " hit NewKey [" . $key[$level] . "] setting val as [" . $val[$level] . "]" );
+      do_build ( "-- At " . $level . " hit NewKey [" . $key[$level] . "] setting val as [" . $val[$level] . "]" );
       $newKey[$level] = $val[$level];
       record_natural_key ( $level );
     } else {
@@ -781,6 +815,7 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
       }
     }
   }
+
   // Build up the key
   for ( $i=1; $i<= $level; $i++ ) {
     $saveKey .= $key[$i] . "^"; 
@@ -796,6 +831,7 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
 
   // Hints processing
   if ( trim ( $val[$level] ) != "" ) { 
+    $count++;
     if ( ( strpos ( $val[$level] , ".png") !== false || strpos ( $val[$level] , ".jpg") !== false ) && $excImageArgv == true) {
       // found image asset
     } else {
@@ -852,8 +888,15 @@ function go_deeper ( $level ) {
 
   global $val, $key, $newKey, $progressiveKeySub;
 
+  static $old_lev = 0;
+  if ( $old_lev != $level ) {
+    do_build ( "+ go_deeper changed from $old_lev to $level");
+    $old_lev = $level;
+    //do_lev ( $level );  // re-process keys on way up and down
+  }
+
   if ( !isset ($newKey[$level] )) {
-    do_note ( "-- No Key " . $level . " Set NewKey [" . $key[$level] . "]");
+    do_build ( "-- No Key " . $level . " Set NewKey [" . $key[$level] . "]");
     $newKey[$level] = $key[$level];
     record_natural_key ( $level );
   }
