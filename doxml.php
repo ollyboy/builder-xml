@@ -2,7 +2,7 @@
 
 // XML JSON Zip extract, map & generate results csv's and logs
 
-const MAXRECS = 10000000; // max lines to process
+const MAXRECS = 50000000; // max lines to process
 ini_set("auto_detect_line_endings", true);
 
 libxml_use_internal_errors(TRUE);
@@ -201,7 +201,12 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
 
   // Call the web resource
   //
+  if ( strpos ( $URL, "http:") === false ){
+    global_note ( "No Web call -- " . $name . " -- " . $URL . " " .  date("Y-m-d H:i:s") );
+    $getURLsArgv = false; // must be file provided?
+  }
   if ( $jobAbandon == true ) $getURLsArgv = false; // override 
+  //
   if ( $getURLsArgv && ( $format == "xml" ||  $format == "json" )) {
     global_note ( "Calling xml/json -- " . $name . " -- " . $URL . " " .  date("Y-m-d H:i:s") );
     //
@@ -315,13 +320,14 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
         do_error ( $cmd . " Failed [" . $result . "]" ); $jobAbandon = true; 
       }
     }  
-    // ok read the unzipped to array
-    //
-    if ( !$jobAbandon ) {
-      if ( strpos ( $format, "bar" ) !== false ) $delim ='|'; else $delim =',';
-      $header=""; // means get header from line 1 of csv - TODO read from file if no header in csv 
-      $arrOutput = explode_csv ( $name . "." . $format , $flags , $delim , "" ); // make the raw csv look like a JSON converted array
-    }
+  }
+
+  // ok read the unzipped to array
+  //
+  if ( !$jobAbandon && ( $format == "csvbar" ||  $format == "csvcomma"  || $format == "csv") ) {
+    if ( strpos ( $format, "bar" ) !== false ) $delim ='|'; else $delim =',';
+    $header=""; // means get header from line 1 of csv - TODO read from file if no header in csv 
+    $arrOutput = explode_csv ( $name . "." . $format , $flags , $delim , "" ); // make the raw csv look like a JSON converted array
   }
 
   // Convert XML to JSON if needed
@@ -361,8 +367,13 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
 
   // Do net change assessment
   //
-  if ( $jobAbandon == false && $firstRun == false ) generate_change_csvs ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
-  else ( do_note ( "Add change csv's skipped " . $name ));
+  if ( $jobAbandon == false && $firstRun == false ) {
+    global_note ( "Calc Diffs " . $format . " -- " . $name . " -- " .  date("Y-m-d H:i:s") );
+    generate_change_csvs ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
+  }
+  else {
+    do_note ( "Add change csv's skipped " . $name );
+  }
 
   if ( $firstRun == true  && $jobAbandon == false ) {
     copy ( $name . ".latest.csv" , $name . "." . time() . ".new.csv" ); // everything will be new
@@ -407,6 +418,15 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
     $v = strtolower($v);
     if ( $v[0] == "k") { $key[ intval( str_replace( "k" , "" , $v )) ] = $v; } // warning, key[X] X starts from 1
     if ( $v[0] == "v") { $val[ intval( str_replace( "v" , "" , $v )) ] = $v; }
+    if ( $v[0] == "s") { 
+      $tmp = str_replace( "s" , "" , $v );
+      $set = array_map ( 'trim' , explode ("-" , $tmp ));
+      if ( sizeof ( $set ) == 2 ) {
+        for ( $i=$set[0] ; $i <= $set[1] ; $i++ ) {
+          $val[$i] = $v;
+        }
+      }
+    }
   }
 
   if ( empty($key)) { do_error ( "No keys for " . $target); return ($output); }
@@ -419,14 +439,22 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
   while (($line = fgetcsv($fptmp, 0, $delim, '"' , "\\" )) !== FALSE) {
     if ( sizeof ( $line ) > 1 ) {
       // good lines
+      if ( $lineCount == 1 ) { $refLinesize = count ( $line ); }
       if ( $lineCount == 1 && $headerline1 ) {
         $csvheader = $line; 
       } else {
+        if ( count ( $line ) != $refLinesize ) do_error ( "WARN line size at $lineCount different ref=" . $refLinesize . " this=" . count ( $line ) ); 
         // not header line, process the data
-        if ( $lineCount < 6 ) {
+        if ( $lineCount < 100000 ) {
           foreach ( $csvheader as $i => $j ) {
-            if ( isset ( $sample[$j] )) $sample[$j] .= " , " . $line[$i];
-            else $sample[$j] = $line[$i];
+            if ( isset ( $sample[$j] )) { 
+              if ( strlen ( $sample[$j] ) < 120 && strpos ( $sample[$j] , $line[$i] ) === false  && trim( $line[$i] ) != "") {
+                $sample[$j] .= " , " . $line[$i]; 
+                }
+              }
+            else {
+              $sample[$j] = $line[$i];
+            }
           }
         }
         // always do this for non header
@@ -443,6 +471,7 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
   }
   fclose($fptmp);
 
+  if ( count ( $csvheader ) != $refLinesize ) do_error ( "WARN Size header and data different . ref=" . $refLinesize . " head=" . count ( $csvheader) ); 
   // Show keys and samples
   foreach ( $csvheader as $i => $j) { //  keys are like [8] => k8 [10] => k10 [11] => k11
     $point=$i+1;
@@ -452,16 +481,16 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
   do_note ( "Keys components are : " . $tmpKeyList . "\n" );
   do_note ( "Values collected are: " . $tmpValList . "\n" );
 
+
   $k=1;
-  foreach ( $sample as $i => $j ) {
-    do_note ( "Col: v" . $k . " [" . $i . "] e.g: " . $j );
+  foreach ( $sample as $i => $j ) { // everything keys and values
+    do_note ( "col:" . $k . " [" . $i . "] e.g: " . $j );
     $k++;
   }
 
   do_note( "End read to array " . $target . " had " . $lineCount . " lines"); 
   return ( $output );
 }
-
 
 function get_support_barLin ( $name ) { // process support files, bar delimited, multiple elements via comma delimiter
 
