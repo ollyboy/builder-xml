@@ -81,6 +81,7 @@ $getURLsArgv  = true; // make an new call for XML, false will process the existi
 $excImageArgv = false; // don't include images in hints
 $buildLogArgv = false; // maybe don't generate build log
 $keyMapSame=false;
+$skipDiff =false;
 
 // set flags and see if run is limited to a small set of jobs
 //
@@ -93,6 +94,7 @@ foreach( $argv as $v ) {
   if ( $value  == "noimage") $excImageArgv = true;
   if ( $value  == "skipurl") $getURLsArgv = false;
   if ( $value  == "buildlog") $buildLogArgv = true;
+  if ( $value  == "skipdiff") $skipDiff =true;
   foreach ( $clientSource as $scope ) {
     $parts = array_map ( 'trim' , explode ("|" , $scope ));
     if ( strtolower ( $parts[0] ) == $value ) $revisedClientSource[] = $scope; // names match
@@ -367,7 +369,7 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
 
   // Do net change assessment
   //
-  if ( $jobAbandon == false && $firstRun == false ) {
+  if ( $jobAbandon == false && $firstRun == false && $skipDiff == false ) {
     global_note ( "Calc Diffs " . $format . " -- " . $name . " -- " .  date("Y-m-d H:i:s") );
     generate_change_csvs ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
   }
