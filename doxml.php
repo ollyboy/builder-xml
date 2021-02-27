@@ -3,6 +3,7 @@
 // XML JSON Zip extract, map & generate results csv's and logs
 
 const MAXRECS = 50000000; // max lines to process
+//const MAXRECS = 50000; // max lines to process
 ini_set("auto_detect_line_endings", true);
 
 libxml_use_internal_errors(TRUE);
@@ -15,7 +16,7 @@ ini_set('log_errors', 1 ); // send errors to log
 $val=array(); 
 $key=array();
 $newKey=array();
-$progressiveKeySub=array();  // list of progress
+//$progressiveKeySub=array();  // list of progress
 $currentKeySub=array();
 $uniqueFoundKey=array();
 $key_map=array();
@@ -80,8 +81,10 @@ $sendConsArgv = false; // log to console if true
 $getURLsArgv  = true; // make an new call for XML, false will process the existing xml if it exists
 $excImageArgv = false; // don't include images in hints
 $buildLogArgv = false; // maybe don't generate build log
-$keyMapSame=false;
-$skipDiff =false;
+$skipDiffArgv =false;
+$skipHintArgv = false;
+
+$keyMapSame=false; // internal check 
 
 // set flags and see if run is limited to a small set of jobs
 //
@@ -94,7 +97,8 @@ foreach( $argv as $v ) {
   if ( $value  == "noimage") $excImageArgv = true;
   if ( $value  == "skipurl") $getURLsArgv = false;
   if ( $value  == "buildlog") $buildLogArgv = true;
-  if ( $value  == "skipdiff") $skipDiff =true;
+  if ( $value  == "skipdiff") $skipDiffArgv =true;
+  if ( $value  == "skiphints") $skipHintArgv =true;
   foreach ( $clientSource as $scope ) {
     $parts = array_map ( 'trim' , explode ("|" , $scope ));
     if ( strtolower ( $parts[0] ) == $value ) $revisedClientSource[] = $scope; // names match
@@ -190,16 +194,14 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   //
   $mapName = $name . ".key.map"; // ie Perry.key.map
   $tmpKeyMap = array(); // reset each loop
-  $tmpKeyMap = get_support_barLin ( $mapName );
-  //if ( sizeof($tmpKeyMap) == 0 ) $tmpKeyMap = get_support_barLin ( strtolower($name) . ".key.map" );
-  //if ( sizeof($tmpKeyMap) == 0 ) $tmpKeyMap = get_support_barLin ( ucwords ( strtolower($name) ) . ".key.map" );
+  $tmpKeyMap = get_support_barLin ( $mapName ); // array of lines like 6,7,8,9|Plan|6|PlanNumber,PlanName
   if ( sizeof($tmpKeyMap) == 0 ) {
     if ( $format=="xml" || $format=="json" ) { do_error ( "Can't find " . $mapName . " Check name has correct case"); }
     // $jobAbandon = true; TODO maybe turn back on
     $key_map=array();
   } else {
     do_note ( "Found " . $mapName );
-    $key_map = $tmpKeyMap ;
+    $key_map = $tmpKeyMap ; // array of lines like 6,7,8,9|Plan|6|PlanNumber,PlanName
     if ( identical_exist ( $mapName , $mapName . ".bak" )) {
       do_note ( "Previous map same which is good " . $mapName );
       $keyMapSame=true;
@@ -362,6 +364,9 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   // Iterate through the JSON converted array, collect useful key:value pairs
   // Apply the pairs to build keys for lower layers
   //
+
+
+
   if ( is_array( $arrOutput ) && sizeof ( $arrOutput ) > 0 && $jobAbandon == false ) {
 
     build_key_trigger (); // build necessary arrays from map
@@ -380,7 +385,7 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
 
   // Do net change assessment
   //
-  if ( $jobAbandon == false && $firstRun == false && $skipDiff == false ) {
+  if ( $jobAbandon == false && $firstRun == false && $skipDiffArgv == false ) {
     global_note ( "Calc Diffs " . $format . " -- " . $name . " -- " .  date("Y-m-d H:i:s") );
     $res=generate_change_csvs ( $name, $name . ".latest.csv" , $name . ".previous.csv" );
     if ( is_string($res)) {
@@ -523,7 +528,7 @@ function get_support_barLin ( $name ) { // process support files, bar delimited,
   if ( !file_exists( $name )) return ( $out );
   $out = explode( "\n", file_get_contents( $name ));
   foreach ( $out as $k => $v ) if ( strlen ( $v ) < 2 ) unset ($out[$k]); // get rid of junk
-  return ( $out );
+  return ( $out ); // array of lines like 6,7,8,9|Plan|6|PlanNumber,PlanName
 }
 
 function fixedcsv_from_array ( $name , $array ) { // special fixed column generic output no matter what source file
@@ -702,7 +707,8 @@ function do_build ( $txt ) { // noisy progress logs
 
 function build_key_trigger (){ // helper for JSON level headings to csv key
 
-  global $key_map, $keyTrigger;
+  
+  global $key_map, $keyTrigger;  // Key_map is 3,4,5,6,7,8,9|Builder|3|BrandName
 
   foreach ( $key_map as $k => $v ) { 
     $parts = array_map('trim', explode ( "|" , $v));
@@ -714,12 +720,42 @@ function build_key_trigger (){ // helper for JSON level headings to csv key
   foreach ( $keyTrigger as $k => $v) do_note ( "Trigger target [" . $v . "] from level [" . $k . "]" );
 }
 
-function get_prefered_key ( $name , $level ) {
+function get_prefered_key ( $name , $level ) { 
+
+  // pass in the trigger ie "spec" get back the actual values from the source array ie 
+  // SpecStreet1,SpecCity,SpecState,SpecZIP >> Smith~New-york~NY~10010
 
   global $key_map, $currentKeySub;
+  static $forlev = array();
+  static $sources = array();
+
+  if ( count ( $forlev ) == 0 ) { // load on first call
+    foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
+      $parts = array_map('trim', explode ( "|" , $v));
+      if ( sizeof( $parts ) == 4 ) {
+        $forLev = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
+        $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
+      } else {
+        do_error ( "Bad key_map -  $v ");
+      }
+    }
+  }
 
   $combo = "";
-  foreach ( $key_map as $k => $v ) { 
+  foreach ( $sources as $k1 => $v1 ) { 
+    foreach ( $forLev as $k2 => $v2 ) { // for each level
+      if ( $v2 == $level && strval($name) == $parts[1] ) { // 
+        if ( isset ( $currentKeySub[ $v1 ] )) {
+          //print ( "Natural key for $name $level set to " . $currentKeySub[$parts[3]] . "\n");
+          $combo .= $currentKeySub[$v1] . "~"; // get latest value
+        }
+      }
+    }
+  }
+
+  /*
+  $combo = "";
+  foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
     $parts = array_map('trim', explode ( "|" , $v));
     if ( sizeof( $parts ) > 2 ) {
       $forLev = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
@@ -736,6 +772,8 @@ function get_prefered_key ( $name , $level ) {
       }
     }
   }
+  */
+  
   if ( $combo == "" ) return ( $name ); // not found
   return ( substr( $combo, 0, -1) );
 }
@@ -775,11 +813,11 @@ function array_depth(array $array) {  // How deeps is the JSON converted to matr
 
 function record_natural_key ( $level ) { // build up the natural/desired key
 
-  global $val, $key, $newKey, $keyTrigger, $progressiveKeySub, $currentKeySub;
+  global $key, $newKey, /* $progressiveKeySub,*/ $currentKeySub;
 
   // keep a list, we may use for table adjust
-  if ( !isset ($progressiveKeySub[$key[$level]])) $progressiveKeySub[$key[$level]] = $newKey[$level] . " | " . $level; 
-  else $progressiveKeySub[$key[$level]] .= " , " . $newKey[$level] . " | " . $level;
+  //if ( !isset ($progressiveKeySub[$key[$level]])) $progressiveKeySub[$key[$level]] = $newKey[$level] . " | " . $level; 
+  //else $progressiveKeySub[$key[$level]] .= " , " . $newKey[$level] . " | " . $level;
 
   $currentKeySub[$key[$level]] = $newKey[$level]; // latest only
 
@@ -788,7 +826,8 @@ function record_natural_key ( $level ) { // build up the natural/desired key
 function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
 
 
-  global $val, $key, $newKey, $keyTrigger, $progressiveKeySub, $currentKeySub, $uniqueFoundKey, $csv_out, $excImageArgv;
+  global $val, $key, $newKey, $keyTrigger, /* $progressiveKeySub, */ $currentKeySub, $uniqueFoundKey, $csv_out, 
+         $skipHintArgv, $excImageArgv;
 
   static $old_lev = 0;
   if ( $old_lev != $level ) {
@@ -798,28 +837,35 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
   static $count = 0;
 
   // Do not try to do any key work if no data
-  if ( is_array ( $val[$level] )) return; 
+  //if ( is_array ( $val[$level] )) return; 
 
   // Update the key as we go
   $saveKey=""; $saveKeyNew ="";
-  if ( isset ( $keyTrigger[$level])) {
-    //print ( "Dolevel lev=$level trig=" . $keyTrigger[$level] . " Key=" . $key[$level] . "\n");
-    if ( strpos ( $keyTrigger[$level] , $key[$level] ) !== false ) {
-      do_build ( "-- At " . $level . " hit NewKey [" . $key[$level] . "] setting val as [" . $val[$level] . "]" );
-      $newKey[$level] = $val[$level];
-      record_natural_key ( $level );
-    } else {
+  //
+  if ( isset ( $keyTrigger[$level])) {  // ie found [4] => legaldesc,subblock,sublot
+    //
+    if ( strpos ( $keyTrigger[$level] , $key[$level] ) !== false ) { // rule trigger
+      do_build ( "++ Hit trigger at " . $level . " for [" . $key[$level] . "] Setting val to [" . $val[$level] 
+        . "]" . " Driver was [" . $keyTrigger[$level] . "]" );
+      $newKey[$level] = $val[$level]; 
+      record_natural_key ( $level );  // set $currentKeySub [$key[$level]] = $newKey[$level];
+    /* } else {
       if ( !isset ($newKey[$level] )) {
+        do_build ( "-- Missed trigger and no key at " . $level . " for [" . $key[$level] . "]" );
+        //if ( strtolower($key[$level]) == 'row' ) $key[$level] = $key[$level] . "-L" . $level; // make useful for replace 
         $newKey[$level] = $key[$level];
         record_natural_key ( $level );
       }
+    */
     }
   }
 
   // Build up the key
   for ( $i=1; $i<= $level; $i++ ) {
+    //if ( strtolower($key[$i]) == 'row' ) $key[$i] = $key[$i] . "-L" . $i; // make useful for replace 
     $saveKey .= $key[$i] . "^"; 
-    $saveKeyNew .= get_prefered_key ( $key[$i] , $level ). "^";
+    // input trigger ie "spec" get back actual values Smith St~New-york~NY~10010  
+    $saveKeyNew .= get_prefered_key ( $key[$i] , $level ). "^";  // uses $currentKeySub  
   }
   $saveKey = substr($saveKey , 0, -1); // get rid of excess delimiter
   $saveKeyNew = substr($saveKeyNew , 0, -1);
@@ -830,8 +876,8 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
   }
 
   // Hints processing
-  if ( trim ( $val[$level] ) != "" ) { 
-    $count++;
+  if ( !$skipHintArgv && trim ( $val[$level] ) != "" ) { 
+
     if ( ( strpos ( $val[$level] , ".png") !== false || strpos ( $val[$level] , ".jpg") !== false ) && $excImageArgv == true) {
       // found image asset
     } else {
@@ -857,7 +903,8 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
       }
     }
   }
-
+  
+  $count++;
   if ( $count > MAXRECS ) {
     //print_r ( $uniqueFoundKey );
     //print_r ( $progressiveKeySub );
@@ -895,8 +942,9 @@ function go_deeper ( $level ) {
     //do_lev ( $level );  // re-process keys on way up and down
   }
 
-  if ( !isset ($newKey[$level] )) {
-    do_build ( "-- No Key " . $level . " Set NewKey [" . $key[$level] . "]");
+  if ( !isset ($newKey[$level] )) { 
+    if ( strtolower($key[$level]) == 'row' ) $key[$level] = $key[$level] . "-L" . $level; // make useful for replace 
+    do_build ( "== No NewKey " . $level . " Set to [" . $key[$level] . "]");
     $newKey[$level] = $key[$level];
     record_natural_key ( $level );
   }
