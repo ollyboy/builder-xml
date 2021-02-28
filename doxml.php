@@ -67,7 +67,6 @@ static $highland_key_map = array (  // for level, find value, replace
 );
 */
 
-
 // Mainline, read scope, loop the Corps getting XML/JSON 
 //
 $errlog = false;
@@ -89,22 +88,30 @@ $keyMapSame=false; // internal check
 // set flags and see if run is limited to a small set of jobs
 //
 $revisedClientSource=array();
-foreach( $argv as $v ) {
+foreach( $argv as $cnt => $v ) {
   $value =trim ( strtolower( $v )); 
-  if ( $value  == "production") $prodModeArgv = true; // Just generate hints if false
-  if ( $value  == "development") $prodModeArgv = false; 
-  if ( $value  == "console") $sendConsArgv = true;
-  if ( $value  == "noimage") $excImageArgv = true;
-  if ( $value  == "skipurl") $getURLsArgv = false;
-  if ( $value  == "buildlog") $buildLogArgv = true;
-  if ( $value  == "skipdiff") $skipDiffArgv =true;
-  if ( $value  == "skiphints") $skipHintArgv =true;
-  foreach ( $clientSource as $scope ) {
-    $parts = array_map ( 'trim' , explode ("|" , $scope ));
-    if ( strtolower ( $parts[0] ) == $value ) $revisedClientSource[] = $scope; // names match
+  if ( $cnt == 0 ) {} // ignore
+  elseif ( $value  == "production") $prodModeArgv = true; // Just generate hints if false
+  elseif ( $value  == "development") $prodModeArgv = false; 
+  elseif ( $value  == "console") $sendConsArgv = true;
+  elseif ( $value  == "noimage") $excImageArgv = true;
+  elseif ( $value  == "skipurl") $getURLsArgv = false;
+  elseif ( $value  == "buildlog") $buildLogArgv = true;
+  elseif ( $value  == "skipdiff") $skipDiffArgv =true;
+  elseif ( $value  == "skiphints") $skipHintArgv =true;
+  else {
+    $hit = false;
+    foreach ( $clientSource as $scope ) {
+      $parts = array_map ( 'trim' , explode ("|" , $scope ));
+      if ( strtolower ( $parts[0] ) == $value ) { $revisedClientSource[] = $scope; $hit = true; }// names match
+    }
+    if ( ! $hit ) {
+      print ( "Unknown command line parameter [" . $v . "] \nAllowed: [Name from client.source] production development noimage skipurl buildlog skipdiff skiphints\n" );
+      exit (0);
+    }
   }
 }
-if ( count ( $revisedClientSource ) > 0 ) $clientSource = $revisedClientSource;  // shorter list
+if ( count ( $revisedClientSource ) > 0 ) $clientSource = $revisedClientSource;  // shorter list taken from command line
 
 $clientSourceOld = get_support_barLin ( "client.source.bak" );
 $hit = array(); $sorceScopeUnchanged=false;
@@ -423,6 +430,7 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   if ( file_exists( $buildFile ) && filesize( $buildFile ) == 0 ) unlink ( $buildFile );
   if ( file_exists( $csvResult ) && filesize( $csvResult ) == 0 ) unlink ( $csvResult );
 
+  exit(1);
 }
 
 // --- end of mainline ---
