@@ -11,17 +11,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1); // Do send to output
 ini_set('log_errors', 1 ); // send errors to log
 
-// These will be used globally for speed
-//
-$val=array(); 
-$key=array();
-$newKey=array();
-//$progressiveKeySub=array();  // list of progress
-$currentKeySub=array();
-$uniqueFoundKey=array();
-$key_map=array();
-$keyTrigger=array();
-$todoWork = array(); // for Send processes to read and action
 
 // Unzip error codes
 //
@@ -137,6 +126,18 @@ if ( identical_exist ( "client.source" , "client.source.bak" )) {
 /// main work loop
 //
 foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must have unique name
+
+  // These will be used globally for speed
+  //
+  $val=array(); 
+  $key=array();
+  $newKey=array();
+  //$progressiveKeySub=array();  // list of progress
+  $currentKeySub=array();
+  $uniqueFoundKey=array();
+  $key_map=array();
+  $keyTrigger=array();
+  $todoWork = array(); // for Send processes to read and action
   
   // control/limit output files
   //
@@ -155,6 +156,9 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   $URL = $parts[1]; 
   if ( isset ( $parts[2])) { $format = strtolower($parts[2]); } else { $format="xml"; }
   if ( isset ( $parts[3])) { $flags = $parts[3]; } else { $flags="none"; }
+  if ( isset ( $parts[4])) { $filter = $parts[4]; } else { $filter=""; }
+  check_filter ( "" , "" ); // reset the filter 
+
   if ( $name == "" || $URL == "" ) { 
     $name="invalid"; $URL = "Not given"; $jobAbandon = true; 
     do_error ( "bad line [" . $scope . "] in client.source" );
@@ -371,9 +375,6 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   // Iterate through the JSON converted array, collect useful key:value pairs
   // Apply the pairs to build keys for lower layers
   //
-
-
-
   if ( is_array( $arrOutput ) && sizeof ( $arrOutput ) > 0 && $jobAbandon == false ) {
 
     build_key_trigger (); // build necessary arrays from map
@@ -430,8 +431,8 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   if ( file_exists( $buildFile ) && filesize( $buildFile ) == 0 ) unlink ( $buildFile );
   if ( file_exists( $csvResult ) && filesize( $csvResult ) == 0 ) unlink ( $csvResult );
 
-  exit(1);
 }
+exit(1);
 
 // --- end of mainline ---
 
@@ -518,7 +519,6 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
   do_note ( "Keys components are : " . $tmpKeyList . "\n" );
   do_note ( "Values collected are: " . $tmpValList . "\n" );
 
-
   $k=1;
   foreach ( $sample as $i => $j ) { // everything keys and values
     do_note ( "col:" . $k . " [" . $i . "] e.g: " . $j );
@@ -541,6 +541,7 @@ function get_support_barLin ( $name ) { // process support files, bar delimited,
 
 function fixedcsv_from_array ( $name , $array ) { // special fixed column generic output no matter what source file
 
+
   $fh = fopen( $name , 'w' );
   if ( !$fh ) { do_error ( "fixed csv, Can't open" . $name ); return (0); }
   foreach ( $array as $k => $v ) {
@@ -549,6 +550,43 @@ function fixedcsv_from_array ( $name , $array ) { // special fixed column generi
   fclose ( $fh );
   return(1);
 }
+
+function check_filter ( $key , $filter ) { 
+
+  // function fixedcsv_from_array ( $name , $array ) { // special fixed column generic output no matter what source file
+  // LEWISVILLE, HIGHTOP + cert_land_hstd_val,addrs_name
+  static $filter_code = "";
+  //
+  if ( $filter == "" ) { $filter_code = ""; return (true); }  // if no filter then always true and therfore save record
+  //
+  $res=false;
+  if ( strlen ( $filter_code ) == 0 ) {
+    // create filters
+    do_note ( "Filter is [" . $filter . "]" );
+    $lines = array_map ( "trim", explode ( "+" , $filter )); // get sets for
+    foreach ( $lines as $k => $v ) {
+      $sets = array_map ( "trim", explode ( "," , $v ));
+      $filter_comp="";
+      foreach ( $sets as $k2 => $v2 ) {
+        $filter_comp .= " strpos( \$key , \"" . $v2 . "\" ) !== false || ";
+      }
+      $filter_comp = " ( " . substr( $filter_comp, 0, -3) . " ) ";
+      if ( $filter_code == "" ) { $filter_code = $filter_comp; }
+      else { $filter_code .= " && " . $filter_comp; }
+    }
+    //
+    $filter_code = "\$res=" . $filter_code . ";";
+    do_note ( "Filter code [" . $filter_code . "]" ); 
+  }
+  try {
+    $i = eval( $filter_code );
+  } catch (ParseError $e) {
+    // Report error somehow
+    do_fatal ( "Could not eval [" . $filter_code . "] error:" . $e ); 
+  }
+  return ( $res ); 
+}
+
 
 function generate_change_csvs ( $name, $new , $old ) {  // assume the last column is data and files are same fixed width
 
@@ -760,27 +798,6 @@ function get_prefered_key ( $name , $level ) {
       }
     }
   }
-
-  /*
-  $combo = "";
-  foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
-    $parts = array_map('trim', explode ( "|" , $v));
-    if ( sizeof( $parts ) > 2 ) {
-      $forLev = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
-      $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
-      foreach ( $sources as $k1 => $v1 ) { 
-        foreach ( $forLev as $k2 => $v2 ) { // for each level
-          if ( count ( $parts ) > 3 && $v2 == $level && strval($name) == $parts[1] ) { // 
-            if ( isset ( $currentKeySub[ $v1 ] )) {
-              //print ( "Natural key for $name $level set to " . $currentKeySub[$parts[3]] . "\n");
-              $combo .= $currentKeySub[$v1] . "~"; // get latest value
-            }
-          }
-        }
-      }
-    }
-  }
-  */
   
   if ( $combo == "" ) return ( $name ); // not found
   return ( substr( $combo, 0, -1) );
@@ -834,7 +851,7 @@ function record_natural_key ( $level ) { // build up the natural/desired key
 function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
 
 
-  global $val, $key, $newKey, $keyTrigger, /* $progressiveKeySub, */ $currentKeySub, $uniqueFoundKey, $csv_out, 
+  global $val, $key, $newKey, $keyTrigger, /* $progressiveKeySub, */ $currentKeySub, $uniqueFoundKey, $csv_out, $filter,
          $skipHintArgv, $excImageArgv;
 
   static $old_lev = 0;
@@ -857,14 +874,6 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
         . "]" . " Driver was [" . $keyTrigger[$level] . "]" );
       $newKey[$level] = $val[$level]; 
       record_natural_key ( $level );  // set $currentKeySub [$key[$level]] = $newKey[$level];
-    /* } else {
-      if ( !isset ($newKey[$level] )) {
-        do_build ( "-- Missed trigger and no key at " . $level . " for [" . $key[$level] . "]" );
-        //if ( strtolower($key[$level]) == 'row' ) $key[$level] = $key[$level] . "-L" . $level; // make useful for replace 
-        $newKey[$level] = $key[$level];
-        record_natural_key ( $level );
-      }
-    */
     }
   }
 
@@ -880,7 +889,9 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
 
   // write the csv in a fixed column format
   if ( strpos ( $saveKeyNew , "@attributes") === false ) { // Can't use these as they come before key trigger
-    fputcsv ( $csv_out , make_fixed ( $saveKeyNew , $val[$level] ));
+    if ( check_filter ( $saveKeyNew , $filter )) { 
+      fputcsv ( $csv_out , make_fixed ( $saveKeyNew , $val[$level] ));
+    }
   }
 
   // Hints processing
