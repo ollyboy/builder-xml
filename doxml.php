@@ -11,6 +11,39 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1); // Do send to output
 ini_set('log_errors', 1 ); // send errors to log
 
+/* 
+
+example Builder records from Runway
+
+Perry Homes
+Highland Homes
+Coventry Homes
+David Weekley Homes
+Trendmaker
+Toll Brothers
+
+Project - Phase - Lot
+
+Project - Phase - Lot Design - Plan Elevation P2P Address
+
+Pomona - Phase 4 - 12-01-23 2213 Forest Trace Ln Manvel Texas 77578
+Pomona - Phase 2A - 6-1-30  2329 Olive Forest Lane Manvel Texas 77578
+Pomona - Phase 1 - 2-2-22   2811 Maple Oak Ln Manvel Texas 77578
+Pomona - Phase 1 - 2-2-34   4319 Cottonwood Creek Ln Manvel Texas 77578
+Pomona - Phase 2A - 5-1-17  2308 Ridgewood Manor Court Manvel Texas 77578
+Pomona - Phase 4 - 11-1-13  2118 Plum Creek Dr Manvel Texas 77578
+Pomona - Phase 1 - 2-1-13   4314 Cottonwood Creek Ln Manvel Texas 77578
+Pomona - Phase 1 - 2-1-27   4423 Willow Crest Ln Manvel Texas 77578
+Pomona - Phase 1 - 2-1-9    4330 Cottonwood Creek Ln Manvel Texas 77578
+Pomona - Phase 1 - 2-2-10   2703 Maple Oak Ln Manvel Texas 77578
+Pomona - Phase 1 - 2-2-54   4555 Juniper Ridge Ln Manvel Texas 77578
+Pomona - Phase 2A - 5-1-13  2324 Ridgewood Manor Court Manvel Texas 77578
+Pomona - Phase 2A - 5-1-23  2313 Ridgewood Manor Court Manvel Texas 77578
+Pomona - Phase 2A - 5-1-9   4509 Hawthorne Crescent Lane Manvel Texas 77578
+Pomona - Phase 2B - 8-1-10  2303 Olive Heights Manvel Texas 77578
+Pomona - Phase 2B - 8-1-26  24726 Birch Knoll Trail Manvel Texas 77578
+
+*/
 
 // Unzip error codes
 //
@@ -55,6 +88,26 @@ static $highland_key_map = array (  // for level, find value, replace
 
 );
 */
+
+/*
+unit | situs_unit
+house | situs_num
+prefix | situs_street_prefx
+street | situs_street
+suffix | situs_street_suffix
+city | situs_city
+zip | situs_zip
+state | 
+owner | py_owner_name , appr_owner_name , legal_desc
+acreage_val | legal_acreage, land_acres
+land_val | land_hstd_val, land_non_hstd_val
+improved_val | imprv_hstd_val, imprv_non_hstd_val
+use_val | ag_use_val
+market_val | ag_market
+appraised_val | appraised_val
+assessed_val | assessed_val
+*/
+
 
 // Mainline, read scope, loop the Corps getting XML/JSON 
 //
