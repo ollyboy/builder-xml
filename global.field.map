@@ -1,12 +1,15 @@
 unit | situs_unit
-house | situs_num
+*house | situs_num
 prefix | situs_street_prefx
 street | situs_street
 suffix | situs_street_suffix
-city | situs_city
-zip | situs_zip
+*city | situs_city
+zip |  situs_zip
 state | 
-owner | py_owner_name , appr_owner_name , legal_desc
+*owner | py_owner_name , appr_owner_name
+legal | legal_desc
+*block | block
+*lot | tract_or_lot
 acreage_val | legal_acreage, land_acres
 land_val | land_hstd_val, land_non_hstd_val
 improved_val | imprv_hstd_val, imprv_non_hstd_val
@@ -14,4 +17,3 @@ use_val | ag_use_val
 market_val | ag_market
 appraised_val | appraised_val
 assessed_val | assessed_val
-
