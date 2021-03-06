@@ -24,7 +24,7 @@ const PROJ_PHASE_SEC_BLK_LOT_POS = 3; //
 
 // convert to common format
 
-// sort order of map and data file is essentual !
+// sort order of map and data file is essential !
 
 $stockList = "client.stocklist.csv";
 $latestCsv = 'Brazoria.latest.csv';
@@ -74,7 +74,7 @@ function brazoria_key_gen ( $owner, $legal , $block , $lot ) {
 
   $owner = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $owner ) );
   $legal = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $legal ) );
-  $owner = preg_replace('!\s+!', ' ', $owner ); // convert mutiple spaces to single
+  $owner = preg_replace('!\s+!', ' ', $owner ); // convert multiple spaces to single
   $legal = preg_replace('!\s+!', ' ', $legal );
   //
   $tmp = explode ( " " , $legal);
@@ -165,13 +165,13 @@ while (($line = fgetcsv($file)) !== FALSE) {
     // first key is short address
     $stock[ $key ][0] = $addrs; $stock[ $key ][1] = $project; 
     $stock[ $key ][2] = $phase; $stock[ $key ][3] = $section; 
-    $stock[ $key ][4] = $block; $stock[ $key ][5] = $lot; 
+    $stock[ $key ][4] = $block; $stock[ $key ][5] = $lot; $stock[ $key ][6] = "no-match";
     //
     $key = $project ."^". $phase ."^". $section ."^". $block ."^". $lot; // redefine key
     if ( isset ( $stock[$key])) { print ( "Error duplicate key $key exists\n"); }
     $stock[ $key ][0] = $addrs; $stock[ $key ][1] = $project; // same again
     $stock[ $key ][2] = $phase; $stock[ $key ][3] = $section; 
-    $stock[ $key ][4] = $block; $stock[ $key ][5] = $lot; 
+    $stock[ $key ][4] = $block; $stock[ $key ][5] = $lot; $stock[ $key ][6] = "no-match";
     //
     $key = $project ."^". "na" ."^". $section ."^". $block ."^". $lot; // redefine key again, for trying match without phase
     if ( isset ( $stock[$key])) { 
@@ -180,7 +180,7 @@ while (($line = fgetcsv($file)) !== FALSE) {
     } else {
       $stock[ $key ][0] = $addrs; $stock[ $key ][1] = $project;
       $stock[ $key ][2] = $phase; $stock[ $key ][3] = $section; // do keep phase in payload
-      $stock[ $key ][4] = $block; $stock[ $key ][5] = $lot; 
+      $stock[ $key ][4] = $block; $stock[ $key ][5] = $lot; $stock[ $key ][6] = "no-match";
     }
   }
   $i++;
@@ -188,9 +188,6 @@ while (($line = fgetcsv($file)) !== FALSE) {
 fclose($file);
 print ( "Found $i lines in $stockList\n");
 
-foreach ( $stock as $k => $v ) {
-  print ( "[" . $k . "] - " . $v[0] . " Proj:" . $v[1] . " Phase:" . $v[2] . " Sec:" . $v[3] . " Blk:" . $v[4] ." Lot:" . $v[5] ."\n" );
-}
 
 /* look for fixed key and value in latestCsv
 [0]                               [15]         [16]
@@ -206,7 +203,7 @@ while (($line = fgetcsv($file)) !== FALSE) {
    	  if ( count ($line) != 17 ) { print ( "Line in $latestCsv is bad got " . count ($line) . "\n"); exit (0); }
       // only work on lines with 17 fields ie 16 keys + value
    	  $key = "";
-   	  for ( $i =0 ; $i < 15 ; $i++ ) { $key .= $line[$i]; } // re-creat key
+   	  for ( $i =0 ; $i < 15 ; $i++ ) { $key .= $line[$i]; } // re-create key
    	  $target = $line[15];
    	  $val = $line[16]; 
    	  //print ( "$key - $target - $val\n");
@@ -248,8 +245,9 @@ fclose($file);
 owner^HAPPY GROUP LIMITED LIABILITY COMPANY , street^SMITH RANCH , suffix^RD , *city^PEARLAND , legal^A0304 H T & B R R BLOCK 1 TRACT 1 (PT) (PEARLAND OFFICE PARK) 4.7619% COMMON AREA BLDG 1 UNIT 103 , land_val^15100 , improved_val^57980 , appraised_val^73080 , assessed_val^73080 , acreage_val^3102 , *house^2743
 */
 
+//print_r ( $matrix );
 
-foreach ( $matrix as $k => $v ) {    // wher $v is array [ dest_tag ] => $value $k is non-usable key
+foreach ( $matrix as $k => $v ) {    // where $v is array [ dest_tag ] => $value $k is non-usable key
   //sort ($v);
   //$tmp = implode ( "," , $v );
   //print ( $tmp . "\n");
@@ -259,7 +257,7 @@ foreach ( $matrix as $k => $v ) {    // wher $v is array [ dest_tag ] => $value 
     $result .= $k2 . "^" . $v2 . " , ";
   }
   //
-  $testKey = ""; $hit=0;
+  $testKey = ""; $hit=0; $found=false;
   if ( isset ( $v["*house"] )) { $testKey .= $v["*house"] ; $hit++; }
   if ( isset ( $v["prefix"] )) { $testKey .= " " . $v["prefix"] ; $hit++; }
   if ( isset ( $v["street"] )) { $testKey .= " " . $v["street"] ; $hit++; }
@@ -268,25 +266,41 @@ foreach ( $matrix as $k => $v ) {    // wher $v is array [ dest_tag ] => $value 
   if ( $hit >= 3 ) {
     $testKey = addr_conv ( $testKey );
     //print ( "trying [" . $testKey . "]\n");
-    if ( isset ( $matrix [$testKey])) {
-      print ( "Yay hit addrs for $testKey\n");
+    if ( isset ( $stock [$testKey])) {
+      print ( "Yay hit addrs for $testKey - " . $stock [$testKey][0] . "\n");
+      $found=false;
+      $stock[ $testKey ][6] = "addrs-match";
     }
   }
-  $owner="" ; $legal="" ; $lot="" ; $block = "" ;
-  if ( isset ( $v["owner"] )) { $owner = $v["owner"]; }
-  if ( isset ( $v["*lot"] ))  { $lot = $v["*lot"]; }
-  if ( isset ( $v["legal"] )) { $legal = $v["legal"]; }
-  if ( isset ( $v["*block"] )) { $block = $v["*block"]; }
+  
+  $owner="" ; $legal="" ; $lot="" ; $block = "" ; $hit=0;
+  if ( isset ( $v["*owner"] )) { $owner = $v["*owner"]; $hit++; }
+  if ( isset ( $v["*lot"] ))   { $lot =   $v["*lot"];   $hit++; }
+  if ( isset ( $v["legal"] ))  { $legal = $v["legal"];  $hit++; }
+  if ( isset ( $v["*block"] )) { $block = $v["*block"]; $hit++; }
   //
-  $out = brazoria_key_gen ( $owner, $legal , $block , $lot );
-
-  if ( isset ( $matrix [$out])) {
-    print ( "Yay hit ID for $out\n");
+  $out="";
+  if ( $hit >= 3 /* && found == false */) {
+    $out = brazoria_key_gen ( $owner, $legal , $block , $lot );
+    //print ( "trying [" . $out . "]\n");
+    if ( isset ( $stock [$out])) {
+      print ( "Yay hit ID for $out - " . $stock [$out][0] . "\n");
+      $found=false;
+      if ( $stock[ $out ][6] == "no-match" ) { $stock[ $out ][6] = "ID-match"; }
+      else { $stock[ $out ][6] .= " , ID-match";}
+    }
   }
-
-  if ( $good_line ) print ( $result . " " . $out . "\n");
+  if ( $good_line ) print ( $result . " " . $out . " " . $owner . "\n");
 }
 print ( "Done at $recs \n");
 
+$i=0; $j=0;
+foreach ( $stock as $k => $v ) {
+  print ( "[" . $k . "] - " . $v[0] . " Proj:" . $v[1] . " Phase:" . $v[2] . " Sec:" . $v[3] . 
+          " Blk:" . $v[4] ." Lot:" . $v[5] . " STATUS:" . $v[6] ."\n" );
+  $i++;
+  if ( $stock[ $k ][6] == "no-match" ) $j++;
+}
+print ( "Processed $i records. $j had no match\n");
 
 // end
