@@ -75,7 +75,7 @@ function brazoria_key_gen ( $owner, $legal , $block , $lot ) {
   $owner = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $owner ) );
   $legal = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $legal ) );
   $block = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $block ) );
-  $lot =   strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  ,   $lot ) );
+  $lot =   strtoupper ( preg_replace("/[^0-9A-Z )(\/]/", " "  ,   $lot ) );
 
   $owner = trim( preg_replace('!\s+!', ' ', $owner )); // convert multiple spaces to single
   $legal = trim( preg_replace('!\s+!', ' ', $legal ));
@@ -109,6 +109,7 @@ function brazoria_key_gen ( $owner, $legal , $block , $lot ) {
   }
   if ( ( $block == "" || $block == "na" ) &&  $maybe_block != "na" ) $block = $maybe_block;
   if ( ( $lot == "" || $lot == "na" ) &&  $maybe_lot != "na" ) $lot = $maybe_lot;
+  //
   $tmp = array_map( "trim" , explode ( " " , trim($lot) ));
   if ( count ($tmp ) > 1) {
     $newLot = "";
@@ -129,11 +130,11 @@ function brazoria_key_gen ( $owner, $legal , $block , $lot ) {
       if ( strlen( preg_replace("/[0-9]/","", $bit)) < 2 || strpos ( $bit , ",") !== false ) {
         $newLot .= $bit . ",";
       } else {
-        print ( "WARN bad lot $bit ref\n" );
+        //print ( "WARN bad lot $bit ref\n" );
       }
     }
-    $newLot = rtrim ( $newLot , "," );
-    print ( "multi-lot [" . $lot . "] is [" . $newLot . "]\n");
+    $lot = rtrim ( $newLot , "," );
+    //print ( "multi-lot [" . $lot . "] is [" . $newLot . "]\n");
   }
   if ( $proj == "na")  $proj = $proj2; // try the alternative 
 
@@ -375,10 +376,21 @@ foreach ( $combined as $k => $v ) {
     print ( "Single Part ID solution for $k " . $v[0] . "\n" );
   } else {
     print ( "Mixed solution for $k " . $v[0] . "\n" );
+    print_r ( $v );
+    /*
+        [6] => Array
+        (
+            [0] => 4718 MESQUITE TERRACE DR MANVEL TEXAS 77578
+            [1] => POMONA
+            [2] => 2b
+            [3] => 7
+            [4] => 1
+            [5] => 9
+            dont compare 6 status*/
   }
   $j++;
 }
-print ( "Total %j stock. $i with no solution\n");
+print ( "Total $j stock. $i with no solution\n");
 /*
 $i=0; $j=0;
 foreach ( $stock1 as $k => $v ) {
