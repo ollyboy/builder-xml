@@ -1,8 +1,8 @@
 <?php
 // 
-$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsummary/list?estatecpid=5461250835140678175472718324864485801591535604064';
-//$url = 'https://r6api.runway.com.au/runwaywsrest/landapi/landsummary/list';
-//$url = 'https://r6api.runway.com.au/runwaywsrest/landapi/estatesummary/list';
+//$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsummary/list?estatecpid=5461250835140678175472718324864485801591535604064';
+$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsummary/list';
+//$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/estatesummary/list';
 
 // Initializes a new cURL session
 $curl = curl_init($url);
@@ -19,7 +19,7 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, [
 $response = curl_exec($curl);
 if (curl_errno($curl)) {
     $error_msg = curl_error($curl);
-    print ( "ERROR - $err_msg\n");
+    print ( "ERROR - $error_msg\n");
 }
 // Close cURL session
 curl_close($curl);
@@ -31,22 +31,26 @@ if ( strlen ( $response ) == 0 ) {
 
 $arrOutput = json_decode($response, TRUE);
  
-//print_r ( $response );
+//print_r ( $arrOutput );
 
 foreach ( $arrOutput as $k => $v ) {
-	print ( $v['currentstatusname'] ."^". 
-		    $v['estateproductname'] ."^".
-		    $v['productname'] ."^".  // SS-21
-        $v['productnumber'] ."^". // 21
-        $v['stageproductname'] ."^". //Phase 1
-        $v['address']['unitnumber'] ."^".
-        $v['address']['street1'] ."^". // 814 Lawndale Street
-        $v['address']['suburb'] ."^".  // Celina
-        $v['address']['city'] ."^". // Celina
-        $v['address']['state'] ."^". //Texas
-        $v['address']['district'] ."^".
-        $v['address']['postcode'] ."^". //75009
-        $v['specHome'] ."^". // false
+  //
+  $status = $v['currentstatusname'];
+  if ( $status == "Sold" || $status == "Closed") {
+     print ( $v['currentstatusname'] ."|". 
+		$v['estateproductname'] ."|".
+		$v['productname'] ."|".  // SS-21
+        $v['productnumber'] ."|". // 21
+        $v['stageproductname'] ."|". //Phase 1
+        $v['address']['unitnumber'] ."|".
+        $v['address']['street1'] ."|". // 814 Lawndale Street
+        $v['address']['suburb'] ."|".  // Celina
+        $v['address']['city'] ."|". // Celina
+        $v['address']['state'] ."|". //Texas
+        $v['address']['district'] ."|".
+        $v['address']['postcode'] ."|". //75009
+        $v['specHome'] ."|". // false
         $v['allocatedBuilderName'] . "\n" );
-
+  }
 }
+// end
