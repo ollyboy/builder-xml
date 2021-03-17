@@ -148,7 +148,7 @@ foreach( $argv as $cnt => $v ) {
       if ( strtolower ( $parts[0] ) == $value ) { $revisedClientSource[] = $scope; $hit = true; }// names match
     }
     if ( ! $hit ) {
-      print ( "Unknown command line parameter [" . $v . "] \nAllowed: [Name from client.source] production development noimage skipurl buildlog skipdiff skiphints\n" );
+      print ( "Unknown command line parameter [" . $v . "] \nAllowed: [Name from client.source] production development console noimage skipurl buildlog skipdiff skiphints\n" );
       exit (0);
     }
   }
@@ -825,33 +825,21 @@ function get_prefered_key ( $name , $level ) {
   // SpecStreet1,SpecCity,SpecState,SpecZIP >> Smith~New-york~NY~10010
 
   global $key_map, $currentKeySub;
-  static $forlev = array();
-  static $sources = array();
+  $sources = array();
 
-  if ( count ( $forlev ) == 0 ) { // load on first call
-    foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
-      $parts = array_map('trim', explode ( "|" , $v));
-      if ( sizeof( $parts ) == 4 ) {
-        $forLev = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
-        $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
-      } else {
-        do_error ( "Bad key_map -  $v ");
-      }
-    }
+  foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
+    $parts = array_map('trim', explode ( "|" , $v));
+    if ( sizeof( $parts ) == 4 && strval($name) == trim ($parts[1] ) && strval($level) == trim ($parts[2] )) {
+      $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
+    } 
   }
 
   $combo = "";
   foreach ( $sources as $k1 => $v1 ) { 
-    foreach ( $forLev as $k2 => $v2 ) { // for each level
-      if ( $v2 == $level && strval($name) == $parts[1] ) { // 
-        if ( isset ( $currentKeySub[ $v1 ] )) {
-          //print ( "Natural key for $name $level set to " . $currentKeySub[$parts[3]] . "\n");
-          $combo .= $currentKeySub[$v1] . "~"; // get latest value
-        }
-      }
-    }
+    if ( isset ( $currentKeySub[$v1] )) $combo .= $currentKeySub[$v1] . "~"; // get latest value
   }
   
+  do_build ( ">>called for $name $level - passing back [$combo]");
   if ( $combo == "" ) return ( $name ); // not found
   return ( substr( $combo, 0, -1) );
 }
@@ -899,6 +887,8 @@ function record_natural_key ( $level ) { // build up the natural/desired key
 
   $currentKeySub[$key[$level]] = $newKey[$level]; // latest only
 
+  foreach ( $currentKeySub as $k => $v ) do_build ( "##1 $k ## $v ##");
+
 }
 
 function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
@@ -939,6 +929,8 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
   }
   $saveKey = substr($saveKey , 0, -1); // get rid of excess delimiter
   $saveKeyNew = substr($saveKeyNew , 0, -1);
+
+  do_build ( "##2 $saveKeyNew ##");
 
   // write the csv in a fixed column format
   if ( strpos ( $saveKeyNew , "@attributes") === false ) { // Can't use these as they come before key trigger
