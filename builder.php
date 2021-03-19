@@ -6,6 +6,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1); // Do send to output
 ini_set('log_errors', 1 ); // send errors to log
 
+//$hit_m = words_match ( "50 POMONA" , "50 POMONA 60" , "debug");
+//exit;
 
 $clientSource = get_support_barLin ( "client.source" ); // get the scope of work, returns empty if not found
 if ( sizeof( $clientSource ) == 0 ) {
@@ -37,9 +39,16 @@ if ( count ( $revisedClientSource ) > 0 ) $clientSource = $revisedClientSource; 
 //
 // Get the Runway source data, make useful keys
 $planList = "builder.plans.csv";
-$plan1=array(); // reset
+$runwayPlans=array(); // reset
 $combined = array();
-build_plan_keys ( $planList, $plan1 );
+build_plan_keys ( $planList, $runwayPlans );
+
+$fieldMap =  "builder.field.map";
+$mapArr = array();
+$mapArr = adj_map ( $fieldMap ); // get the fieldmap, rotate to useful format
+print ( "NOTE Field map size is " . count($mapArr) ."\n");
+
+$builderData=array(); $priority=array(); $combined = array();// here as they need to add for each builder
 
 foreach ( $clientSource as $scope ) {
 
@@ -48,22 +57,23 @@ foreach ( $clientSource as $scope ) {
 
   // sort order of map and data file is essential !
   $latestCsv = $name . ".latest.csv";
-  $fieldMap =  "builder.field.map";
  
-  //print ( "NOTE Stock size is " . count($combined) . " Key sets are " . count($plan1) . "\n");
+  //print ( "NOTE Stock size is " . count($combined) . " Key sets are " . count($runwayPlans) . "\n");
 
-  $builderData=array(); $priority=array();
-  build_maxtix_from_csv ( $latestCsv , $mapArr , $priorty,
-                          $builderData ); // set these
+  build_maxtix_from_csv ( $latestCsv , $mapArr , 
+                          $builderData , $priorty, ); // set these
 
   print ( "NOTE Builder $name size is " . count( $builderData ) ."\n");
 
-  $noMatch = match_plans ( $builderData , $plan1, // pass in these 
+  $noMatch = match_plans ( $builderData , $runwayPlans, // pass in these 
                            $combined ); // update this
 
+  //print_r ( $builderData ); 
   //print_r ( $combined );
+  //print_r ( $runwayPlans );
 
 
+  /*
   $i=0; $j=0; $noSolution = array();
   foreach ( $combined as $k => $v ) {
 
@@ -105,123 +115,10 @@ foreach ( $clientSource as $scope ) {
   foreach ( $noSolution as $k => $v ){
     print ( "NOSOL :: $k :: " . $v[0] . "\n" );
   }
+  */
 }
 // end of mainline
 
-
-function brazoria_key_gen ( $owner, $subdivision , $legal , $block , $lot ) {
-  // legal = POMONA SEC 15 (A0563 HT&BRR) BLK 1 LOT 14
-  // *owner= POMONA PHASE 2A LLC,  POMONA PHASE 4  LLC
-  // *owner^POMONA PHASE 2A LLC , street^COUNTY ROAD 84 , suffix^OFF , legal^A0417 A C H & B TRACT 15C ACRES 0.255 , acreage_val^2550 , *lot^15C
-  // POMONA SEC 4 (A0298 HT&BRR & A0540 ACH&B) BLK 4 LOT 14 , *block^4 , *lot^14
-  // *owner^POMONA PHASE 2A LLC , street^CROIX PKWY/COUNTY ROAD 84 , legal^A0417 A C H & B TRACT 27B ACRES 3.682 , acreage_val^36820 , *lot^27B
-  // subdivision^COLONY NO 20 , *block^138 , *lot^3 , legal^COLONY NO 20 BLK 138 LOT 3
-  $proj="na";
-  $proj2="na"; // second/alt definition
-  $proj3="na";
-  $phase="na";
-  $phase2="na";
-  $phase3="na";
-  $section="na";
-  $maybe_block="na";
-  $maybe_lot="na";
-
-  $owner = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $owner ) );
-  $subdivision = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $subdivision ) );
-  $legal = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $legal ) );
-  $block = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $block ) );
-  $lot =   strtoupper ( preg_replace("/[^0-9A-Z )(\/]/", " "  ,   $lot ) );
-
-  $subdivision = trim( preg_replace('!\s+!', ' ', $subdivision ));
-  $owner = trim( preg_replace('!\s+!', ' ', $owner )); // convert multiple spaces to single
-  $legal = trim( preg_replace('!\s+!', ' ', $legal ));
-  $block = trim( preg_replace('!\s+!', ' ', $block ));
-  $lot =   trim( preg_replace('!\s+!', ' ',   $lot ));
-  //
-
-  //print ( "---- $owner ---- $legal ---- $block ---- $lot ---- \n");
-  $tmp = explode ( " " , $legal);
-  foreach ( $tmp as $pos => $bit ) {
-    if ( $bit == "SEC" ) {
-      if ( isset ( $tmp[$pos + 1 ] )) { $section = $tmp[$pos + 1 ]; } else { $section = "out-of-range"; }// next word
-      $proj="";
-      for ( $i=0 ; $i<$pos ; $i++ ) $proj .= $tmp[$i] . " "; // all the words before section
-      $proj = trim ( $proj );
-      if ( $proj == "" ) $proj = "out-of-range";
-    }
-    if ( $bit == "PHASE" ) {
-      if ( isset ( $tmp[$pos + 1 ] )) { $phase = $tmp[$pos + 1 ]; } else { $phase = "out-of-range"; }// next word
-      $proj="";
-      for ( $i=0 ; $i<$pos ; $i++ ) $proj .= $tmp[$i] . " "; // all the words before phase
-      $proj = trim ( $proj );
-      if ( $proj == "" ) $proj = "out-of-range";
-    }
-    if ( $bit == "BLK") if ( isset ( $tmp[$pos + 1 ] ))  { $maybe_block = $tmp[$pos + 1 ]; } else { $maybe_block = "out-of-range"; }
-    if ( $bit == "LOT") if ( isset ( $tmp[$pos + 1 ] ))  { $maybe_lot   = $tmp[$pos + 1 ]; } else { $maybe_lot = "out-of-range"; }
-  }
-
-  $tmp = explode ( " " , $owner);
-  foreach ( $tmp as $pos => $bit ) {
-    if ( $bit == "PHASE" ) {
-      if ( isset ( $tmp[$pos + 1 ] )) { $phase2 = $tmp[$pos + 1 ]; } else  { $phase2 = "out-of-range"; } // next word
-      $proj2="";
-      for ( $i=0 ; $i<$pos ; $i++ ) $proj2 .= $tmp[$i] . " "; // all the words before phase
-      $proj2 = trim ( $proj2 );
-      if ( $proj2 == "" ) $proj2 = "out-of-range2";
-    }
-  }
-
-  $tmp = explode ( " " , str_replace ( " NO " , " " , $subdivision )); // ie subdivision^COLONY NO 14
-  if ( count ($tmp) == 1 ) { 
-    $proj3 = $tmp[0]; 
-  } elseif ( count ($tmp) == 2 ) {
-    if ( is_numeric($tmp[1] )) { $proj3 = $tmp[0]; $phase3 = $tmp[1]; }
-    else { $proj3 = $tmp[0] . " " . $tmp[1]; }  
-  } elseif ( count ($tmp) == 3 ) {
-    $proj3 = $tmp[0] . " " . $tmp[1]; 
-    $phase3 = $tmp[2];
-  } elseif ( count ($tmp) == 4 ) {
-    $proj3 = $tmp[0] . " " . $tmp[1] . " " . $tmp[2]; 
-    $phase3 = $tmp[3]; // subdivision^GARDEN RIDGE ESTATES 1
-  } 
-
-  if ( ( $block == "" || $block == "na" ) &&  $maybe_block != "na" ) $block = $maybe_block;
-  if ( ( $lot == "" || $lot == "na" ) &&  $maybe_lot != "na" ) $lot = $maybe_lot;
-  //
-  $tmp = array_map( "trim" , explode ( " " , trim($lot) ));
-  if ( count ($tmp ) > 1) {
-    $newLot = "";
-    foreach ( $tmp as $bit ) {
-      if ( strpos ( $bit , "TO") !== false ) { // ie 12TO27
-        $tmp2 = str_replace("TO", " ", $bit );
-        $tmp3 = explode ( " ", trim($tmp2) );
-        if ( count ( $tmp3 ) == 2 ) {
-          $tmp4 = range ( $tmp3[0], $tmp3[1]);
-          if ( count ($tmp4) < 50 ) { 
-            $bit=""; // reset as we will rebuild it
-            foreach ( $tmp4 as $i ) $bit .= $i . ","; // can be 1-30 A-D but not A1-
-          }
-          $bit = rtrim ( $bit , "," );
-        }
-      }
-      // only allow one letter or the "," string above
-      if ( strlen( preg_replace("/[0-9]/","", $bit)) < 2 || strpos ( $bit , ",") !== false ) {
-        $newLot .= $bit . ",";
-      } else {
-        //print ( "WARN bad lot $bit ref\n" );
-      }
-    }
-    $lot = rtrim ( $newLot , "," );
-    //print ( "multi-lot [" . $lot . "] is [" . $newLot . "]\n");
-  }
-  if ( $proj == "na")  $proj = $proj2; // try the alternative 
-  if ( $phase == "na")  $phase = $phase2; 
-
-  if ( $proj == "na")  $proj = $proj3; // and again
-  if ( $phase == "na")  $phase = $phase3; 
-
-return ( $proj ."^". $phase ."^". $section ."^". $block ."^". $lot );
-}
 
 
 function adj_map ( $fieldMap ) { // get the fieldmap, rotate to useful format
@@ -247,7 +144,7 @@ function adj_map ( $fieldMap ) { // get the fieldmap, rotate to useful format
 }
 
 
-function build_plan_keys ( $planList, &$plan1 ) { // Get the Runway source data, make useful keys
+function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source data, make useful keys
  //
  //
  if ( !file_exists( $planList )) { print ( "ERROR No fixed Csv file $planList found\n"); return (0); }
@@ -288,21 +185,21 @@ function build_plan_keys ( $planList, &$plan1 ) { // Get the Runway source data,
       $key = $owner . "^" . $name;
       //if ( $name != $design ) { print ( "WARN for $key plan design is $design\n"); }
       $key2 = $range . "^" . $front;
-      if ( isset ( $plan1[$key]) ) { 
+      if ( isset ( $runwayPlans[$key]) ) { 
         //print ( "WARN duplicate owner+name key [$key] exists\n");
-        if ( isset ( $plan1[$key][$key2] )) {
+        if ( isset ( $runwayPlans[$key][$key2] )) {
           print ( "ERROR duplicate owner+name+range+front key [$key][$key2]\n");
         } else {
-          $plan1[$key][$key2]["price"] = $price;
-          $plan1[$key][$key2]["front"] = $front;
-          $plan1[$key][$key2]["design"] = $design;
-          $plan1[$key][$key2]["status"] = "no-match";
+          $runwayPlans[$key][$key2]["price"] = $price;
+          $runwayPlans[$key][$key2]["front"] = $front;
+          $runwayPlans[$key][$key2]["design"] = $design;
+          $runwayPlans[$key][$key2]["rec_status"] = "no-match";
         }
       } else {
-        $plan1[$key][$key2]["price"] = $price;
-        $plan1[$key][$key2]["front"] = $front;
-        $plan1[$key][$key2]["design"] = $design;
-        $plan1[$key][$key2]["status"] = "no-match";
+        $runwayPlans[$key][$key2]["price"] = $price;
+        $runwayPlans[$key][$key2]["front"] = $front;
+        $runwayPlans[$key][$key2]["design"] = $design;
+        $runwayPlans[$key][$key2]["rec_status"] = "no-match";
       }
     } 
   } else {
@@ -316,11 +213,11 @@ function build_plan_keys ( $planList, &$plan1 ) { // Get the Runway source data,
    print ( "NOTE Builder [" . $k . "] has $v recs\n");
  }
  $multi=0; $uniq=0;
- foreach ( $plan1 as $k => $v ) {
+ foreach ( $runwayPlans as $k => $v ) {
    $count = count ( $v );
    if ( $count > 1 ) {
      $multi++;
-     print ( "NOTE Builder/Plan [" . $k . "] has $count recs\n");
+     //print ( "NOTE Builder/Plan [" . $k . "] has $count recs\n");
   } else {
      $uniq++;
   } 
@@ -336,6 +233,12 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority ) 
   [0]                               [15]         [16]
    000000118181,MN,02020,,,,,,,,,,,,,assessed_val,000000000000000
    000000118181,MN,02020,,,,,,,,,,,,,land_acres,00000000000000000000
+
+   [PERRYCORP^PERRY~PERRY HOMES^1^770~Devonshire 60'~Devonshire   Reserve^133^P3397W^19] => Array
+        (
+            [price] => 498900
+            [size] => 3397
+        )
   */
   $old_key = ""; $key_cnt =1; $old_cnt = -1; $recs=1;
   if ( !file_exists( $latestCsv )) { print ( "ERROR No fixed Csv file $latestCsv found\n"); exit (0); }
@@ -345,19 +248,26 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority ) 
    	  if ( count ($line) != 17 ) { print ( "ERROR Line $recs in $latestCsv is bad got " . count ($line) . "\n"); }
       else {
         // only work on lines with 17 fields ie 16 keys + value
+        //"David Weekley Homes","DavidWeekley~David Weekley Homes","Sandbrock Ranch",Belton,0,,,,,,,,,,,BasePrice,356990
    	    $key = "";
-   	    for ( $i =0 ; $i < 15 ; $i++ ) { $key .= $line[$i]; } // re-create key
+   	    for ( $i =0 ; $i < 15 ; $i++ ) { $key .= $line[$i] ."^"; } // re-create key
+        $key = rtrim ( $key, "^" );
    	    $target = $line[15];
    	    $val = $line[16]; 
    	    //print ( "$key - $target - $val\n");
-   	    if ( $old_key != $key ) {
+   	    
+        /*
+        if ( $old_key != $key ) {
    	 	  //print ( "New $key after $key_cnt\n"); 
-   	 	  if ( $old_cnt != $key_cnt && $old_cnt > 1 ) { print ( "WARN Records in $latestCsv vary $old_cnt $key_cnt\n"); /*exit (0);*/ }
+   	 	  if ( $old_cnt != $key_cnt && $old_cnt > 1 ) { print ( "WARN Records in $latestCsv vary $old_cnt $key_cnt\n"); }
           $old_cnt = $key_cnt;
    	 	    $old_key = $key;
    	 	    $key_cnt = 1;
    	    }
+        */
+
    	    //process the record
+        //
         if ( isset ( $mapArr[$target] ) ) { 
           // we found source ie situs_unit etc
           $dest_tag = $mapArr[$target][0];
@@ -368,13 +278,15 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority ) 
               // this is a higher priority value store
               print ( "NOTE Set higher $target with $val to $dest_tag\n");
               $matrix[ $key ][ $dest_tag ] = ltrim($val, "0"); // save the value
+              $matrix[ $key ][ "rec_status" ] = "no-match";             
               $priority[ $key ][ $dest_tag ] = $dest_priority ; // save the value priority
             }
-     		  // alreay have a value
-     	    } else {
+     	    } else { // new $key
+            //print ( "$key - $target - $val\n");
             if ( ltrim($val, "0") != ""  ) {
-           	  $matrix[$key][$dest_tag ] = ltrim($val, "0"); // save the value
-              $priority[$key][$dest_tag ] = $dest_priority ; // save the value priority
+           	  $matrix[$key][$dest_tag] = $val; // ltrim($val, "0"); // save the value
+              $priority[$key][$dest_tag] = $dest_priority ; // save the value priority
+              //print ( "$key -> " . $matrix[$key][$dest_tag] . " -> " . $priority[$key][$dest_tag] . "\n");
             }
           }
      	  }
@@ -387,111 +299,138 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority ) 
   print ( "NOTE Matrix from $latestCsv done at $recs \n");
 }
 
-/*
-owner^HAPPY GROUP LIMITED LIABILITY COMPANY , street^SMITH RANCH , suffix^RD , *city^PEARLAND , legal^A0304 H T & B R R BLOCK 1 TRACT 1 (PT) (PEARLAND OFFICE PARK) 4.7619% COMMON AREA BLDG 1 UNIT 103 , land_val^15100 , improved_val^57980 , appraised_val^73080 , assessed_val^73080 , acreage_val^3102 , *house^2743
-*/
 
-//print_r ( $matrix );
+function get_unique_words ( $str ) {
 
-function match_stock ( $matrix , $plan1 , $plan2 , $plan3, &$combined ) {
+  $s = preg_replace("/[^0-9A-Z ]/", " " , strtoupper ( $str ) );
+  $s = str_replace ( "HOMES" , "" , $s );
+  $tmp = array_map ( 'trim' , explode (" " , $s));
+  return ( trim( implode ( " " , array_unique($tmp))) );
+}
 
- $noMatch = array();
- foreach ( $matrix as $k => $v ) {    // where $v is array [ dest_tag ] => $value $k is non-usable key
+function words_match ( $these , $areIn , $mode="" ) {
 
-  //print ( "Processing [" . $k . "]\n");
-  $good_line = false; $result="";
-
-  foreach ( $v as $k2 => $v2 ) {
-    if ( strpos( $k2 , "*" ) !== false ) {  $good_line = true; }// ie has important fields
-    $result .= $k2 . "^" . $v2 . " , ";
-  }
+  // will match "60" to MUSTANG LAKES 60"
+  // will match "1234" to "P1234W"
+  $t = trim ( preg_replace("/[^0-9A-Z ]/", " " , strtoupper ( $these ))); // get rid of junk
+  $a = trim ( preg_replace("/[^0-9A-Z ]/", " " , strtoupper ( $areIn )));
   //
-  if ( isset ( $v["appraised_val"] )) $hasValues = true; // dont want records that dont have valuation
-  else $hasValues = false;
+  if ( $t == "" || $a == "") {
+    print ( "ERROR word match [$t] [$a]\n");
+    return ( false );
+  }
+  if ( $mode != "" ) { print ( "DEBUG word match [$t] [$a]\n"); }
 
-  $testKey = ""; $hit=0; $found=false;
-  if ( isset ( $v["*house"] )) { $testKey .= $v["*house"] ; $hit++; }
-  if ( isset ( $v["prefix"] )) { $testKey .= " " . $v["prefix"] ; $hit++; }
-  if ( isset ( $v["street"] )) { $testKey .= " " . $v["street"] ; $hit++; }
-  if ( isset ( $v["suffix"] )) { $testKey .= " " . $v["suffix"] ; $hit++; }
-  //if ( isset ( $v["*city" ] )) { $testKey .= " " . $v["*city"] ; $hit++; }
+  $t= explode ( " " , preg_replace('!\s+!', ' ', $t )); // get rid of double spaces
+  $a= explode ( " " , preg_replace('!\s+!', ' ', $a ));
 
-  if ( $hit >= 3 && $hasValues ) {
-    $testKey = addr_conv ( $testKey );
-    //print ( "trying [" . $testKey . "]\n");
-    if ( isset ( $plan1 [$testKey])) {
-      //print ( "Yay hit addrs for $testKey - " . $plan1 [$testKey][0] . "\n");
-      $found=true;
-      $plan1[ $testKey ][6] = "addrs-match";
-      $fullAddr = $plan1[ $testKey ][0];
-      if ( isset ( $combined [ $fullAddr ][1])) {
-        print ( "ERROR match 1 - duplicate full address " . $fullAddr . "\n" );
+  $rtn = true;
+  foreach ( $t as $tv ) { //  [50 POMONA] 
+    $hit=false;
+    foreach ( $a as $av ) { // [POMONA 50]
+      if ( strpos ( $av , $tv ) !== false ) {
+        $hit=true;
+        //print ( "-[$av]--[$tv]--hit\n");
       } else {
-        $combined [ $fullAddr ][1] = $v; 
-        $combined [ $fullAddr ][2] = $plan1 [$testKey];
+        //print ( "-[$av]--[$tv]--miss\n");
       }
     }
+    if ( !$hit ) $rtn = false;
   }
-  
-  $owner="" ; $legal="" ; $lot="" ; $block = "" ; $hit=0; $subdivision="";
-  if ( isset ( $v["*owner"] )) { $owner = $v["*owner"]; $hit++; }
-  if ( isset ( $v["*lot"] ))   { $lot =   $v["*lot"];   $hit++; }
-  if ( isset ( $v["legal"] ))  { $legal = $v["legal"];  $hit++; }
-  if ( isset ( $v["*block"] )) { $block = $v["*block"]; $hit++; }
-  if ( isset ( $v["subdivision"] )) { $subdivision = $v["subdivision"]; $hit++; }
+  if ( $mode != "" ) {
+    if ( $rtn ) { print ( "--good--\n"); } else { print ( "--bad--\n"); }
+  }
+  return ( $rtn );
+}
+
+function match_plans ( &$matrix , &$runwayPlans, &$combined ) {
+
+ /* matrix...
+     [PERRYCORP^PERRY~PERRY HOMES^1^770~Devonshire 60'~Devonshire   Reserve^133^P3393W^17] => Array
+        (
+            [price] => 506900
+            [size] => 3393
+        )
+    runway...
+      [COVENTRY^5959] => Array
+        (
+            [Coventry 55 - Pomona^55'] => Array
+                (
+                    [price] => 446990
+                    [front] => 55'
+                    [design] => Worth
+                    [status] => no-match
+                )
+
+        )
+ */
+
+$noMatch = array();
+$runPass = false; // first pass through the runway data
+foreach ( $matrix as $b_k => $b_v ) {   
+  // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
+  $tmp = explode ( "^", $b_k );
+  $b_builder = get_unique_words ( $tmp[1]);
+  $b_model = get_unique_words ( $tmp[3]);
+  $b_plan = trim ( $tmp[5] );
+  // keep a unique list off builder models/communities ie 
+  if (isset ( $b_model_list[$b_model] )) { $b_model_list[$b_model]++; } else { $b_model_list[$b_model]=1; }
+  if (isset ( $b_builder_list[$b_builder] )) { $b_builder_list[$b_builder]++; } else { $b_builder_list[$b_builder]=1; }
   //
+  foreach ( $runwayPlans as $r_k => $r_v ) { 
+    //
+    $tmp = explode ( "^" , $r_k );
+    $r_builder = strtoupper ( trim ( $tmp[0]));
+    $r_plan = strtoupper ( trim ( $tmp[1]));
+    if ( !$runPass ) {
+      if ( isset ( $r_builder_list[$r_builder] )) { $r_builder_list[$r_builder]++; } else { $r_builder_list[$r_builder]=1; }
+    }
+    //
+    $hit_b = words_match ( $r_builder , $b_builder ); // ok to go on??
+    $hit_p = words_match ( $r_plan , $b_plan );
+    //
+    if ( $hit_b && $hit_p ) {
+       // ok at least the builder and plan OK
+      $r_planCnt = count( $r_v ); // how many varients for Builder+Plan
+      foreach ( $r_v as $r_k2 => $r_v2 ) {
+        $tmp = get_unique_words ( $r_k2 ); // input like - Coventry 55 - Pomona^55'
+        $r_model = str_replace ( $r_builder, "" , $tmp ); // get rid of builder if its used
+        $r_model  = preg_replace("/[^0-9A-Z ]/", " " , strtoupper ( $r_model)); // get rid of junk
+        $r_model  = trim( preg_replace('!\s+!', ' ', $r_model )); // get rid of extra spaces
+        if ( count ( explode ( " " , $r_model )) < 2 ){
+          $r_model_use = "poor"; // doesnt carry width and community
+          $r_bad_key = $r_model . "^" . $r_k;
+          if (!isset ( $r_model_unusable[ $r_bad_key ] )) {
+            $r_model_unusable[ $r_bad_key ]=true; // will get set lots of times
+            print ( "WARN Runway Model [$r_model] for [$r_k] is likely useable\n");
+          }   
+        } else {
+          $r_model_use = "ok";
+          if (!isset ( $r_model_list[ $r_model ] )) { $r_model_list[ $r_model ] = true; }
+        }
+        //
+        $hit_m = words_match ( $r_model , $b_model);
+        //
+        if ( $hit_m && $r_model_use == "ok" ) {
+          //  should Hit: [PERRYCORP^PERRY HOMES^1^Pomona 50'^46^P2628W^20] [PERRY^2628] [Perry 50 - Pomona^50'] cnt=1
+          print ( "Hit: [$b_k] [$r_k] [$r_k2] cnt=$r_planCnt\n");
+          //print ( "Via: $r_builder , $b_builder | $r_model , $b_model | $r_plan , $b_plan \n");
+        }
+      }
+    }
+  }
+  $runPass = true; // we have done one loop through runway data
+}  
+print ( "\n");
+foreach ( $r_builder_list as $k => $v ) print ( "Builder Runway [$k] has $v recs\n");
+print ( "\n");
+foreach ( $b_builder_list as $k => $v ) print ( "Builder Source [$k] has $v recs\n");
+print ( "\n");
+foreach ( $r_model_list as $k => $v ) print   ( "Model Runway   [$k] has $v recs\n");
+print ( "\n");
+foreach ( $b_model_list as $k => $v ) print   ( "Model Builder  [$k] has $v recs\n");
 
-  $out="";
-  if ( $hit >= 3 && $hasValues /* && found == false */) {
-    $out = brazoria_key_gen ( $owner, $subdivision, $legal , $block , $lot ); // $owner, $subdivision , $legal , $block , $lot 
-    //print ( "trying [" . $out . "]\n");
-    if ( isset ( $plan2 [ $out ])) {
-      //print ( "Yay hit ID for $out - " . $plan2 [$out][0] . "\n");
-      $found=true;
-      if ( strpos ( $plan2[ $out ][6] , "no-match" ) !== false ) { $plan2[ $out ][6] = "ID-match"; }
-      else { $plan2[ $out ][6] .= " , ID-match";}
-      //
-      $fullAddr = $plan2[ $out ][0];
-      if ( isset ( $combined [ $fullAddr ][3]) ) { // not the [2] we are looking for dups here
-        $cur = $combined [ $fullAddr ][3]["appraised_val"];
-        $new = $v["appraised_val"];
-        if ( $cur != $new) print ( "ERROR Diff apprasied $cur $new. Address " . $fullAddr . "\n" );
-        //print ( "WARN match 2 duplicate full address " . $fullAddr . "\n" );
-      } else {
-        $combined [ $fullAddr ][3] = $v; 
-        $combined [ $fullAddr ][4] = $plan2 [$out];
-      }
-    }
-    if ( isset ( $plan3 [ $out ])) {
-      //print ( "Yay hit ID for $out - " . $plan3 [$out][0] . "\n");
-      $found=true;
-      if ( strpos ( $plan3[ $out ][6] , "no-match" ) !== false ) { $plan3[ $out ][6] = "ID-match"; }
-      else { $plan3[ $out ][6] .= " , ID-match";}
-      //
-      $fullAddr = $plan3[ $out ][0];
-      if ( isset ( $combined [ $fullAddr ][5]) ) { // not the [2] we are looking for dups here
-        print ( "WARN match 3 duplicate full address " . $fullAddr . "\n" );
-        // TODO we get these due to dual ownership
-        // [legal] => POMONA SEC 4 (A0298 HT&BRR & A0540 ACH&B) BLK 4 LOT 13, Undivided Interest 33.3400000000%
-        //[appraised_val] => 114933
-        //[assessed_val] => 114933)
-        $cur = $combined [ $fullAddr ][5]["appraised_val"];
-        $new = $v["appraised_val"];
-        if ( $cur != $new) print ( "ERROR Diff apprasied $cur $new. Address " . $fullAddr . "\n" );
-        //print_r ( $combined [ $fullAddr ][5] );
-        //print_r ( $v );
-      } else {
-        $combined [ $fullAddr ][5] = $v; 
-        $combined [ $fullAddr ][6] = $plan3 [$out];
-      }
-    }
-  }
-  if ( $found == false && $good_line ) { 
-    $noMatch[$out] = $result; 
-    //print ( "MISSED " . $result . " [" . $out . "]\n");
-  }
- }
- return ( $noMatch );
+return ( $noMatch );
 }
 
 

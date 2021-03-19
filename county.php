@@ -47,7 +47,7 @@ foreach ( $clientSource as $scope ) {
   // sort order of map and data file is essential !
   $stockList = "listing.csv";
   $latestCsv = $name . ".latest.csv";
-  $fieldMap =  "global.field.map";
+  $fieldMap =  "county.field.map";
 
   $mapArr = array();
   $mapArr = adj_map ( $fieldMap ); // get the fieldmap, rotate to useful format
@@ -166,11 +166,11 @@ function brazoria_key_gen ( $owner, $subdivision , $legal , $block , $lot ) {
   $maybe_block="na";
   $maybe_lot="na";
 
-  $owner = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $owner ) );
-  $subdivision = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $subdivision ) );
-  $legal = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $legal ) );
-  $block = strtoupper ( preg_replace("/[^0-9A-Z ]/", " "  , $block ) );
-  $lot =   strtoupper ( preg_replace("/[^0-9A-Z )(\/]/", " "  ,   $lot ) );
+  $owner = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $owner ) );
+  $subdivision = preg_replace("/[^0-9A-Z ]/", " "  , strtoupper ( $subdivision ) );
+  $legal = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $legal ) );
+  $block = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $block ) );
+  $lot =   preg_replace("/[^0-9A-Z )(\/]/", " "  ,   strtoupper (  $lot ) );
 
   $subdivision = trim( preg_replace('!\s+!', ' ', $subdivision ));
   $owner = trim( preg_replace('!\s+!', ' ', $owner )); // convert multiple spaces to single

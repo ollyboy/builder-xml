@@ -823,14 +823,19 @@ function get_prefered_key ( $name , $level ) {
 
   // pass in the trigger ie "spec" get back the actual values from the source array ie 
   // SpecStreet1,SpecCity,SpecState,SpecZIP >> Smith~New-york~NY~10010
+  // base case 2,4,5,6,7,8,9,10,11,12|Corporation|2|CorporateBuilderNumber
+  //
+  //  currentKeySub has -- BuilderNumber => BRITTON
+  //                       SubdivisionNumber => 633
 
   global $key_map, $currentKeySub;
-  $sources = array();
 
+  $sources = array(); // maybe no replace
   foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
     $parts = array_map('trim', explode ( "|" , $v));
-    if ( sizeof( $parts ) == 4 && strval($name) == trim ($parts[1] ) && strval($level) == trim ($parts[2] )) {
+    if ( sizeof( $parts ) == 4 && strval($name) == trim ($parts[1] )) {
       $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
+      //$levels = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
     } 
   }
 
@@ -887,8 +892,11 @@ function record_natural_key ( $level ) { // build up the natural/desired key
 
   $currentKeySub[$key[$level]] = $newKey[$level]; // latest only
 
-  foreach ( $currentKeySub as $k => $v ) do_build ( "##1 $k ## $v ##");
-
+  foreach ( $currentKeySub as $k => $v ) do_build ( "##1 $k => $v ##");
+  // HomestoreID => HomestoreID
+  // BuilderNumber => BRITTON
+  // Status => Status
+  // SubdivisionNumber => 633
 }
 
 function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
