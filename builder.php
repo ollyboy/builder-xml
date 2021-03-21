@@ -143,7 +143,6 @@ function adj_map ( $fieldMap ) { // get the fieldmap, rotate to useful format
   return ( $mapArr );
 }
 
-
 function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source data, make useful keys
  //
  //
@@ -367,12 +366,40 @@ function match_plans ( &$matrix , &$runwayPlans, &$combined ) {
 
 $noMatch = array();
 $runPass = false; // first pass through the runway data
+$b_model_list = array(); $r_model_list = array(); $b_builder_list= array(); $r_builder_list = array();
 foreach ( $matrix as $b_k => $b_v ) {   
   // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
+  //      David Weekley Homes^DavidWeekley~David Weekley Homes^Sandbrock Ranch^Belton^0
   $tmp = explode ( "^", $b_k );
-  $b_builder = get_unique_words ( $tmp[1]);
-  $b_model = get_unique_words ( $tmp[3]);
-  $b_plan = trim ( $tmp[5] );
+  if (!$runPass ) {
+    if ( count ($tmp ) == 7 ) { // perry style XML
+      $b_pos = 1; $m_pos = 3; $p_pos = 5; 
+    } elseif ( count ($tmp ) == 5) { // David style XML
+      $b_pos = 1; $m_pos = 2; $p_pos = 3; 
+    } else {
+      print ( "ERROR Unkown format builder feed for [$b_k]\n");
+      exit;
+    }
+  }
+  $b_builder = get_unique_words ( $tmp[ $b_pos ]);
+  $b_model = str_replace ( "FT.", "" , strtoupper ($tmp[ $m_pos ] ));
+  //$b_model = str_replace ( "PLAN", "" , $b_model );
+  $b_model = get_unique_words ( $b_model); 
+  $b_plan = trim ( $tmp[ $p_pos ] );
+
+  // get rid of "feet" and words like plan, convert numbers to nearest 5 
+  $a = explode ( " " , $b_model );
+  $out="";
+  foreach ( $a as $k => $v ) {
+    if ( is_numeric ($v) && $v >= 30 && $v <= 100 ) { $v=round($v/5) * 5; } 
+    $out .= $v . " ";
+  }
+  $b_model = trim ( $out );
+  if ( !isset ( $model_u_list [ $tmp[ $m_pos ] ])) {
+    print ( "Builder Model is [$b_model] from [" . $tmp[ $m_pos ] . "]\n");
+    $model_u_list [ $tmp[ $m_pos ] ]=true;
+  }
+
   // keep a unique list off builder models/communities ie 
   if (isset ( $b_model_list[$b_model] )) { $b_model_list[$b_model]++; } else { $b_model_list[$b_model]=1; }
   if (isset ( $b_builder_list[$b_builder] )) { $b_builder_list[$b_builder]++; } else { $b_builder_list[$b_builder]=1; }
@@ -413,7 +440,10 @@ foreach ( $matrix as $b_k => $b_v ) {
         //
         if ( $hit_m && $r_model_use == "ok" ) {
           //  should Hit: [PERRYCORP^PERRY HOMES^1^Pomona 50'^46^P2628W^20] [PERRY^2628] [Perry 50 - Pomona^50'] cnt=1
-          print ( "Hit: [$b_k] [$r_k] [$r_k2] cnt=$r_planCnt\n");
+          $runwayPrice = $runwayPlans[$r_k][$r_k2]["price"];
+          $builderPrice= $matrix[$b_k]["price"];
+          if ( $builderPrice == $runwayPrice ) { $res="Match"; } else { $res="DIFF!"; }
+          print ( "Hit $res: [$b_k] [$r_k] [$r_k2] cnt=$r_planCnt " . ( $builderPrice - $runwayPrice) . "\n");
           //print ( "Via: $r_builder , $b_builder | $r_model , $b_model | $r_plan , $b_plan \n");
         }
       }
