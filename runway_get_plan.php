@@ -33,7 +33,6 @@ $arrOutput = json_decode($response, TRUE);
  
 //print_r ( $arrOutput );
 
-
 foreach ( $arrOutput as $k => $v ) {
   //
   print (
@@ -43,8 +42,13 @@ foreach ( $arrOutput as $k => $v ) {
   $v['designproductname'] ."|".
   $v['rangeproductname'] ."|".
   $v['productDepthFormatted'] ."|". // => 58' 1.0"
+  $v['productSizeFormatted'] ."|".  //=> 2853.0
   $v['productprice'] ."|".   // => 279990
   $v['canfitonwidthFormatted'] ."|".
+  $v['noofbedrooms']  ."|".
+  $v['noofbathrooms']  ."|".
+  $v['noofcarparks']  ."|".
+  $v['noofstoreys']  ."|".
   $v['productnumber'] ."|".
   $v['productname'] . "\n" );
 

@@ -13,10 +13,9 @@ ini_set('log_errors', 1 ); // send errors to log
 Perry Homes^50' | Pecan Square 50
 */
 
-
-$clientSource = get_support_barLin ( "client.source" ); // get the scope of work, returns empty if not found
+$clientSource = get_support_barLin ( "builder.source" ); // get the scope of work, returns empty if not found
 if ( sizeof( $clientSource ) == 0 ) {
-  print ( "ERROR Can't find essential work scope file: client.source\n" ); // will exit
+  print ( "ERROR Can't find essential work scope file: builder.source\n" ); // will exit
   exit(0);
 } 
 
@@ -145,20 +144,26 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
   7442764071122001811146627814426341431563782391223|Available|Perry Homes|2999W|Perry Homes|69' 3.0"|516900|50'||2999W
   8650470234284843631366440023637771871596171723351|Available|David Weekley Homes|Woodbank|David Weekley Homes 40 - Harvest|76' 9.0"|294990|40'||5433
   */
-  if ( count ($line) > 8 ) {
+  if ( count ($line) > 14 ) {
     //
     $i++;
     //
-    $ID =     trim( $line[0]); //$v['clientproductid'] ."|".
-    $status = trim( $line[1]); // $v['currentstatusname'] ."|".
-    $owner =  trim( $line[2]); // $v['ownername'] ."|".
-    $design = trim( $line[3]); // $v['designproductname'] ."|".
-    $range =  trim( $line[4]); // $v['rangeproductname'] ."|".
-    $frontTxt = trim( $line[5]); // $v['productDepthFormatted'] ."|". // => 58' 1.0"
-    $price =  trim( $line[6]); // $v['productprice'] ."|".   // => 279990
-    $front =  trim( $line[7]); // $v['canfitonwidthFormatted'] ."|".
-    $number = trim( $line[8]); // $v['productnumber'] ."|".
-    $name =   trim( $line[9]); //  $v['productname'] . "\n" );
+    // must match to runway_get_plan.php
+    $ID =      trim( $line[0]); //$v['clientproductid'] ."|".
+    $status =  trim( $line[1]); // $v['currentstatusname'] ."|".
+    $owner =   trim( $line[2]); // $v['ownername'] ."|".
+    $design =  trim( $line[3]); // $v['designproductname'] ."|".
+    $range =   trim( $line[4]); // $v['rangeproductname'] ."|".
+    $frontTxt= trim( $line[5]); // $v['productDepthFormatted'] ."|". // => 58' 1.0"
+    $size =    trim( $line[6]); // $v['productSizeFormatted']
+    $price =   trim( $line[7]); // $v['productprice'] ."|".   // => 279990
+    $front =   trim( $line[8]); // $v['canfitonwidthFormatted'] ."|".
+    $beds =    trim( $line[9]);  // $v['noofbedrooms']  ."|".
+    $baths =   trim( $line[10]); // $v['noofbathrooms']  ."|".
+    $carParks= trim( $line[11]); // $v['noofcarparks']  ."|".
+    $storeys = trim( $line[12]); // $v['noofstoreys']  ."|".
+    $number =  trim( $line[13]); // $v['productnumber'] ."|".
+    $name =    trim( $line[14]); //  $v['productname'] . "\n" );
     //
     if ( $status == "Available" ) {
 
@@ -199,24 +204,21 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
         }
       }
       // Fix up bad keying
+
       if ( $key2 == "Perry Homes^50" ) $key2 = "Pecan Square 50"; // hard legacy map
       //
+      $save=true;
       if ( isset ( $runwayPlans[$key]) ) { 
         //print ( "WARN duplicate owner+name key [$key] exists\n");
         if ( isset ( $runwayPlans[$key][$key2] )) {
           print ( "ERROR duplicate owner+name+range+front key [$key][$key2]\n");
-        } else {
-          $runwayPlans[$key][$key2]["ID"] = $ID;
-          $runwayPlans[$key][$key2]["price"] = $price;
-          $runwayPlans[$key][$key2]["front"] = $front;
-          $runwayPlans[$key][$key2]["design"] = $design;
-          $runwayPlans[$key][$key2]["rec_status"] = "no-match";
-          $runwayPlans[$key][$key2]["match_key"] = "NA";
-
+          $save=false;
         }
-      } else {
+      } 
+      if ( $save ) {
         $runwayPlans[$key][$key2]["ID"] = $ID;
         $runwayPlans[$key][$key2]["price"] = $price;
+        $runwayPlans[$key][$key2]["size"] = $size;
         $runwayPlans[$key][$key2]["front"] = $front;
         $runwayPlans[$key][$key2]["design"] = $design;
         $runwayPlans[$key][$key2]["rec_status"] = "no-match";
@@ -386,14 +388,15 @@ foreach ( $matrix as $b_k => $b_v ) {
   // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
   //      David Weekley Homes^DavidWeekley~David Weekley Homes^Sandbrock Ranch^Belton^0
   //      CORPHIGHLAND^37~Highland Homes~Highland^865~Sandbrock Ranch: 45ft. lots ^0^Plan Corby~Plan Corby^0
-  //
+  //      0      1         2                   3               4     5    6
+  //      CORP ^ BUILDER ^ multi-build-option ^MODEL/COMMUNITY^multi^PLAN^always multi-plan 
   $tmp = explode ( "^", $b_k );
   if (!$runPass ) {
-    if ( count ($tmp ) == 7 ) { // perry style XML
+    if ( count ($tmp ) == 7 ) { // perry style XML, multi builders, multi community
       $b_pos = 1; $m_pos = 3; $p_pos = 5; 
-    } elseif ( count ($tmp ) == 5) { // David style XML
+    } elseif ( count ($tmp ) == 5) { // David style XML, single builder, single community
       $b_pos = 1; $m_pos = 2; $p_pos = 3; 
-    } elseif ( count ($tmp ) == 6) { // Highland style XML
+    } elseif ( count ($tmp ) == 6) { // Highland SandBrock style XML, single builder, multi community
       $b_pos = 1; $m_pos = 2; $p_pos = 4; 
     } else {
       print ( "ERROR Unkown format builder feed for [$b_k]\n");
@@ -445,17 +448,16 @@ foreach ( $matrix as $b_k => $b_v ) {
     $hit_b = words_match ( $r_builder , $b_builder ); // builders match !
 
     if ( !$runPass && $hit_b ) { //only plans where builders match
-      if ( isset ( $r_plan_list[$r_plan] )) { $r_plan_list[$r_plan]++; } else { $r_plan_list[$r_plan]=1; }
+      if ( isset ( $r_plan_list[$r_plan] )) { $r_plan_list[$r_plan]++; } 
+      else { $r_plan_list[$r_plan]=1; }
     }
     $hit_p = false;
     if ( $hit_b ) {
        $hit_p = words_match ( $r_plan , $b_plan ); // runway plan is within builder plan or matches
-       $matrix[$b_k]["rec_status"] = "Builder-match";
     }
     //
-    //print ( "DEBUG $r_builder == $b_builder $r_plan == $b_plan\n");
     if ( $hit_b && $hit_p ) {
-      //print ( "DEBUG Runway>Builder [$r_builder] == [$b_builder]  Runway>Plan [$r_plan] == [$b_plan]\n");
+      print ( "DEBUG Builder+Plan match! [$r_builder] == [$b_builder] [$r_plan] == [$b_plan]\n");
       $matrix[$b_k]["rec_status"] = "Builder+Plan-match";
        // ok at least the builder and plan OK
       $r_planCnt = count( $r_v ); // how many varients for Builder+Plan
@@ -479,15 +481,22 @@ foreach ( $matrix as $b_k => $b_v ) {
           if (!isset ( $r_model_list[ $r_model ] )) { $r_model_list[ $r_model ] = true; }
         }
         //
-        //print ( "DEBUG Runway>Model [$r_model] == [$b_model]\n");
+        print ( "DEBUG Runway>Model [$r_model] == [$b_model]\n");
         $hit_m = words_match ( $r_model , $b_model);
+        if ( !$hit_m  && $r_planCnt == 1 ) {
+          // maybe the builder does not state the frontage ie run[45 WOLF RANCH] == build[WOLF RANCH]
+          $hit_m = words_match ( $b_model , $r_model );
+        }
         //
         if ( $hit_m && $r_model_use == "ok" ) {
           //  should Hit: [PERRYCORP^PERRY HOMES^1^Pomona 50'^46^P2628W^20] [PERRY^2628] [Perry 50 - Pomona^50'] cnt=1
           $runwayPrice = $runwayPlans[$r_k][$r_k2]["price"];
           $builderPrice= $matrix[$b_k]["price"];
+          $runwaySize = $runwayPlans[$r_k][$r_k2]["size"];
+          $builderSize= $matrix[$b_k]["size"];
           if ( $builderPrice == $runwayPrice ) { $res="Price-Match"; } else { $res="Price-diff"; }
-          print ( "Hit $res: [$b_k] [$r_k] [$r_k2] cnt=$r_planCnt " . ( $builderPrice - $runwayPrice) . "\n");
+          if ( $builderSize == $runwaySize ) { $res2="Size-Match"; } else { $res2="Size-diff"; }
+          print ( "Hit $res $res2: [$b_k] [$r_k] [$r_k2] cnt=$r_planCnt " . "B=" . $builderPrice . " R=" . $runwayPrice . " Gap=" . ( $builderPrice - $runwayPrice) . " $builderSize == $runwaySize\n");
           //
           if ( strpos ( $runwayPlans[$r_k][$r_k2]["rec_status"] , "Price" ) !== false ) {
             // Already has a Price assesement, not good

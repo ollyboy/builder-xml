@@ -109,14 +109,9 @@ assessed_val | assessed_val
 */
 
 
-// Mainline, read scope, loop the Corps getting XML/JSON 
+// Mainline, read scope, loop the builders or counties getting XML/JSON 
 //
 $errlog = false;
-$clientSource = get_support_barLin ( "client.source" ); // get the scope of work, returns empty if not found
-if ( sizeof( $clientSource ) == 0 ) {
-  do_fatal ( "Can't find essential work scope file: client.source" ); // will exit
-} 
-
 $prodModeArgv = true; // Just generate hints if false
 $sendConsArgv = false; // log to console if true
 $getURLsArgv  = true; // make an new call for XML, false will process the existing xml if it exists
@@ -124,8 +119,18 @@ $excImageArgv = false; // don't include images in hints
 $buildLogArgv = false; // maybe don't generate build log
 $skipDiffArgv =false;
 $skipHintArgv = false;
+$keyMapSame =false; // internal check 
 
-$keyMapSame=false; // internal check 
+// read in the source list
+//
+$clientArgv ="builder.source";  // get data for builders unless instructed otherwise
+foreach( $argv as $cnt => $v ) {
+  if ( trim ( strtolower( $v )) == "county" ) $clientArgv = "county.source";
+}
+$clientSource = get_support_barLin ( $clientArgv ); // get the scope of work, returns empty if not found
+if ( sizeof( $clientSource ) == 0 ) {
+  do_fatal ( "Can't find essential work scope file: " .  $clientArgv ); // will exit
+} 
 
 // set flags and see if run is limited to a small set of jobs
 //
@@ -141,6 +146,7 @@ foreach( $argv as $cnt => $v ) {
   elseif ( $value  == "buildlog") $buildLogArgv = true;
   elseif ( $value  == "skipdiff") $skipDiffArgv =true;
   elseif ( $value  == "skiphints") $skipHintArgv =true;
+  elseif ( $value  == "county") {} // already read in but dont want to error
   else {
     $hit = false;
     foreach ( $clientSource as $scope ) {
@@ -148,14 +154,15 @@ foreach( $argv as $cnt => $v ) {
       if ( strtolower ( $parts[0] ) == $value ) { $revisedClientSource[] = $scope; $hit = true; }// names match
     }
     if ( ! $hit ) {
-      print ( "Unknown command line parameter [" . $v . "] \nAllowed: [Name from client.source] production development console noimage skipurl buildlog skipdiff skiphints\n" );
+      print ( "Unknown command line parameter [" . $v . "] \nAllowed: [Name] county production development console noimage skipurl buildlog skipdiff skiphints\n" );
       exit (0);
     }
   }
 }
+
 if ( count ( $revisedClientSource ) > 0 ) $clientSource = $revisedClientSource;  // shorter list taken from command line
 
-$clientSourceOld = get_support_barLin ( "client.source.bak" );
+$clientSourceOld = get_support_barLin ( $clientArgv . ".bak" );
 $hit = array(); $sorceScopeUnchanged=false;
 foreach ( $clientSource as $k => $v ) {
   foreach ( $clientSourceOld as $k2 => $v2 ) {
@@ -168,12 +175,12 @@ if ( sizeof ( $revisedClientSource ) == sizeof ( $hit )) {
   $sorceScopeUnchanged=false;
 }
 
-if ( identical_exist ( "client.source" , "client.source.bak" )) {
+if ( identical_exist ( $clientArgv , $clientArgv . ".bak" )) {
   $peviousScopeUnchanged = true;
 } else {
   $peviousScopeUnchanged = false;
-  if ( !copy( "client.source" , "client.source.bak" ) ) {
-    do_error ( "Failed to backup client.source file" );
+  if ( !copy( $clientArgv , $clientArgv . ".bak" ) ) {
+    do_error ( "Failed to backup $clientArgv" );
   }
 }
 /// main work loop
@@ -251,12 +258,13 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   if ( $peviousScopeUnchanged ) {
     do_note ( "Previous work scope file same which is good");
   } else {
-    do_note ( "Overall Work scope file client.source changed or is new!" );
+    do_note ( "Overall Work scope file $clientArgv changed or is new!" );
   }
 
   // Get the maps for convert JSON/XML to csv
   //
-  $mapName = $name . ".key.map"; // ie Perry.key.map
+  $tmp = explode ( "-" , trim($name) ); // ie David-SandBrock, Perry
+  $mapName = $tmp[0] . ".key.map"; // ie Perry.key.map David.key.map
   $tmpKeyMap = array(); // reset each loop
   $tmpKeyMap = get_support_barLin ( $mapName ); // array of lines like 6,7,8,9|Plan|6|PlanNumber,PlanName
   if ( sizeof($tmpKeyMap) == 0 ) {
