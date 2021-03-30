@@ -233,7 +233,7 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
  print ( "NOTE Found $i lines in $planList, $j are avaiable status\n");
  //
  foreach ( $ownerList as $k => $v ) {
-   print ( "NOTE Runway Builder [" . $k . "] has $v recs\n");
+   print ( "NOTE Runway Owner/Builder [" . $k . "] has $v recs\n");
  }
  $multi=0; $uniq=0;
  foreach ( $runwayPlans as $k => $v ) {
@@ -408,15 +408,15 @@ foreach ( $matrix as $b_k => $b_v ) {
   // tidy builder XML data
   //
   $b_builder = str_replace ( "HOMES" , "" , strtoupper ($tmp[ $b_pos ]));
-  $b_builder = get_unique_words ( $tmp[ $b_pos ]);
-  //
-  $b_model = str_replace ( "FT.", "" , strtoupper ($tmp[ $m_pos ] ));
-  $b_model = str_replace ( " LOTS", "" , $b_model );
-  $b_model = get_unique_words ( $b_model); 
-  //
+  $b_builder = get_unique_words ( $b_builder );
+
   $b_plan = strtoupper ( $tmp[ $p_pos ] );
   $b_plan = trim( str_replace ( "PLAN", "" , $b_plan ));
   $b_plan = get_unique_words ( $b_plan); 
+
+  $b_model = str_replace ( "FT.", "" , strtoupper ($tmp[ $m_pos ] ));
+  $b_model = str_replace ( " LOTS", "" , $b_model );
+  $b_model = get_unique_words ( $b_model); 
   // get rid of "feet" and words like plan, convert numbers to nearest 5 
   $a = explode ( " " , $b_model );
   $out="";
@@ -426,7 +426,7 @@ foreach ( $matrix as $b_k => $b_v ) {
   }
   $b_model = trim ( $out );
   if ( !isset ( $model_u_list [ $tmp[ $m_pos ] ])) {
-    print ( "DEBUG Unique Builder Model is [$b_model] from [" . $tmp[ $m_pos ] . "]\n");
+    print ( "DEBUG Builder feed Model generate is [$b_model] from [" . $tmp[ $m_pos ] . "]\n");
     $model_u_list [ $tmp[ $m_pos ] ]=true;
   }
 
@@ -457,7 +457,7 @@ foreach ( $matrix as $b_k => $b_v ) {
     }
     //
     if ( $hit_b && $hit_p ) {
-      print ( "DEBUG Builder+Plan match! [$r_builder] == [$b_builder] [$r_plan] == [$b_plan]\n");
+      //print ( "DEBUG Builder+Plan match! [$r_builder] == [$b_builder] [$r_plan] == [$b_plan]\n");
       $matrix[$b_k]["rec_status"] = "Builder+Plan-match";
        // ok at least the builder and plan OK
       $r_planCnt = count( $r_v ); // how many varients for Builder+Plan
@@ -481,7 +481,7 @@ foreach ( $matrix as $b_k => $b_v ) {
           if (!isset ( $r_model_list[ $r_model ] )) { $r_model_list[ $r_model ] = true; }
         }
         //
-        print ( "DEBUG Runway>Model [$r_model] == [$b_model]\n");
+        //print ( "DEBUG Runway>Model [$r_model] == [$b_model]\n");
         $hit_m = words_match ( $r_model , $b_model);
         if ( !$hit_m  && $r_planCnt == 1 ) {
           // maybe the builder does not state the frontage ie run[45 WOLF RANCH] == build[WOLF RANCH]
@@ -496,7 +496,8 @@ foreach ( $matrix as $b_k => $b_v ) {
           $builderSize= $matrix[$b_k]["size"];
           if ( $builderPrice == $runwayPrice ) { $res="Price-Match"; } else { $res="Price-diff"; }
           if ( $builderSize == $runwaySize ) { $res2="Size-Match"; } else { $res2="Size-diff"; }
-          print ( "Hit $res $res2: [$b_k] [$r_k] [$r_k2] cnt=$r_planCnt " . "B=" . $builderPrice . " R=" . $runwayPrice . " Gap=" . ( $builderPrice - $runwayPrice) . " $builderSize == $runwaySize\n");
+          print ( "Hit $res $res2: [$b_k] [$r_k] [$r_k2] cnt=$r_planCnt " . "B=$" . $builderPrice . " R=$" . $runwayPrice . " PriceGap=" . ( $builderPrice - $runwayPrice) . 
+            " Bsiz=$builderSize Rsiz=$runwaySize\n");
           //
           if ( strpos ( $runwayPlans[$r_k][$r_k2]["rec_status"] , "Price" ) !== false ) {
             // Already has a Price assesement, not good
@@ -516,18 +517,18 @@ foreach ( $matrix as $b_k => $b_v ) {
   }
   $runPass = true; // we have done one loop through runway data
 }  
-print ( "--Builders--\n");
-foreach ( $r_builder_list as $k => $v ) print ( "Builder Runway [$k] has $v recs\n");
+print ( "--Builder--\n");
+foreach ( $r_builder_list as $k => $v ) print ( "Runway Builder  [$k] has $v recs\n");
 print ( "..\n");
-foreach ( $b_builder_list as $k => $v ) print ( "Builder Source [$k] has $v recs\n");
-print ( "--Plans--\n");
-foreach ( $r_plan_list as $k => $v ) print   ( "Plan Runway   [$k] has $v recs\n");
-print ( "..\n");
-foreach ( $b_plan_list as $k => $v ) print   ( "Plan Builder  [$k] has $v recs\n");
+foreach ( $b_builder_list as $k => $v ) print ( "Builder Builder [$k] has $v recs\n");
+//print ( "--Plans--\n");
+//foreach ( $r_plan_list as $k => $v ) print   ( "Runway Plan [$k] has $v recs\n");
+//print ( "..\n");
+//foreach ( $b_plan_list as $k => $v ) print   ( "Builder Plan [$k] has $v recs\n");
 print ( "--Models--\n");
-foreach ( $r_model_list as $k => $v ) print   ( "Model Runway   [$k] has $v recs\n");
+foreach ( $r_model_list as $k => $v ) print   ( "Runway Model [$k] has $v recs\n");
 print ( "..\n");
-foreach ( $b_model_list as $k => $v ) print   ( "Model Builder  [$k] has $v recs\n");
+foreach ( $b_model_list as $k => $v ) print   ( "Builder Model [$k] has $v recs\n");
 
 return ( $noMatch );
 }
