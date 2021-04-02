@@ -10,6 +10,7 @@ $clientArgv ="runway.source";  // get developers
 $clientSource = get_support_barLin ( $clientArgv ); // get the scope of work, returns empty if not found
 if ( sizeof( $clientSource ) == 0 ) {
   print ( "ERROR Can't find essential work scope file: $clientArgv\n" ); // will exit
+  exit(0);
 } 
 
 // set flags and see if run is limited to a small set of jobs
