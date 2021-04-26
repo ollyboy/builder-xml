@@ -98,6 +98,7 @@ foreach ( $runwaySource as $runwayScope ) {
             "builderPrice" .",". "runwayPrice" .",".
             "builderSize" .",".  "runwaySize" . "\n");
   fclose($fh);
+
   foreach ( $builderSource as $scope ) {
 
     $parts = array_map ( 'trim' , explode ("|" , $scope ));
@@ -123,6 +124,7 @@ foreach ( $runwaySource as $runwayScope ) {
   }  
   
   // show impact on runway array after all builders processed
+  print ( "\nNOTE --- Sending results to $devName.match.csv ---\n");
   $summary = array();
   foreach ( $runwayPlans as $k => $v ) {
     $tmp = explode ("^" , $k ); // [COVENTRY^5959]
@@ -204,26 +206,28 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
   7442764071122001811146627814426341431563782391223|Available|Perry Homes|2999W|Perry Homes|69' 3.0"|516900|50'||2999W
   8650470234284843631366440023637771871596171723351|Available|David Weekley Homes|Woodbank|David Weekley Homes 40 - Harvest|76' 9.0"|294990|40'||5433
   */
-  if ( count ($line) > 14 ) {
+  if ( count ($line) > 16 ) {
     //
     $i++;
     //
     // must match to runway_get_plan.php
-    $ID =      trim( $line[0]); //$v['clientproductid'] ."|".
-    $status =  trim( $line[1]); // $v['currentstatusname'] ."|".
-    $owner =   trim( $line[2]); // $v['ownername'] ."|".
-    $design =  trim( $line[3]); // $v['designproductname'] ."|".
-    $range =   trim( $line[4]); // $v['rangeproductname'] ."|".
-    $frontTxt= trim( $line[5]); // $v['productDepthFormatted'] ."|". // => 58' 1.0"
-    $size =    trim( $line[6]); // $v['productSizeFormatted']
-    $price =   trim( $line[7]); // $v['productprice'] ."|".   // => 279990
-    $front =   trim( $line[8]); // $v['canfitonwidthFormatted'] ."|".
-    $beds =    trim( $line[9]);  // $v['noofbedrooms']  ."|".
-    $baths =   trim( $line[10]); // $v['noofbathrooms']  ."|".
-    $carParks= trim( $line[11]); // $v['noofcarparks']  ."|".
-    $storeys = trim( $line[12]); // $v['noofstoreys']  ."|".
-    $number =  trim( $line[13]); // $v['productnumber'] ."|".
-    $name =    trim( $line[14]); //  $v['productname'] . "\n" );
+    $ID =      trim( $line[0]);  //$v['clientproductid'] ."|".
+    $status =  trim( $line[1]);  // $v['currentstatusname'] ."|".
+    $owner =   trim( $line[2]);  // $v['ownername'] ."|".
+    $design =  trim( $line[3]);  // $v['designproductname'] ."|".
+    $range =   trim( $line[4]);  // $v['rangeproductname'] ."|".
+    $branch  = trim( $line[5]);  // branch
+    $estates = trim( $line[6]);  // comma seperated estates
+    $frontTxt= trim( $line[7]);  // $v['productDepthFormatted'] ."|". // => 58' 1.0"
+    $size =    trim( $line[8]);  // $v['productSizeFormatted']
+    $price =   trim( $line[9]);  // $v['productprice'] ."|".   // => 279990
+    $front =   trim( $line[10]); // $v['canfitonwidthFormatted'] ."|".
+    $beds =    trim( $line[11]); // $v['noofbedrooms']  ."|".
+    $baths =   trim( $line[12]); // $v['noofbathrooms']  ."|".
+    $carParks= trim( $line[13]); // $v['noofcarparks']  ."|".
+    $storeys = trim( $line[14]); // $v['noofstoreys']  ."|".
+    $number =  trim( $line[15]); // $v['productnumber'] ."|".
+    $name =    trim( $line[16]); //  $v['productname'] . "\n" );
     //
     if ( $status == "Available" ) {
 
@@ -237,18 +241,45 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
 
       $rawFront=$front;
       $front = preg_replace("/[^0-9\.]/", '', $front); // ie 55' goes to 55
-      if ( is_numeric ( $front ) && $front > 10 && $front < 200 ) { $front = round($front / 5) * 5; }
-      else { print ( "WARN Runway $owner $name frontage error - [$front] generated from [$rawFront]\n"); }
+      if ( is_numeric ( $front ) && $front > 20 && $front < 120 ) { $front = round($front / 5) * 5; }
+      else { print ( "WARN Runway $owner,$design,$name,$range - frontage error - [$front] generated from [$rawFront]\n"); }
 
       // convert the range frontage to nearest 5
       $tmp =  explode ( " " , trim($range) ); $newRange="";
       foreach ( $tmp as $bit) {
-        if ( is_numeric ($bit ) && $bit > 30 && $bit < 100 ) {
+        if ( is_numeric ($bit ) && $bit > 20 && $bit < 120 ) {
           $bit = round($bit / 5) * 5;
         }
         $newRange .= $bit . " ";
       }
       $range = trim ( $newRange);
+
+      // check if branch or estates add extra value
+      if ( $estates == "" ){
+        // no estates
+        if ( $branch != "" && strpos( strtoupper($range), strtoupper($branch) ) === false ) {
+          $range = $range . " " . $branch; // branch exists and its not in
+        }
+      } else {
+        // we have estates
+        $tmp876 = array_map ( 'trim' , explode ( "," , $estates ));
+        foreach ( $tmp876 as $a6 => $v6 ) {
+          if ( strpos( strtoupper($range) , strtoupper($v6) ) === false ) {
+            $range = $range . " " . $v6;
+          }
+        }
+      }
+      // normally use the name but it may be a plan that has both desc and number
+      if ( $name != $design ) {
+        $newName ="";
+        $tmp443 =  array_map ( "trim" , explode ( " ", $design ));
+        foreach ( $tmp443 as $a8 => $k8 ){
+          if ( !is_numeric ($k8 ) ) $newName .= $k8 . " ";
+        }
+        $newName = trim ( $newName );
+        print ( "WARN Runway $owner - Design[$design] not equal Name[$name] setting to [$newName]\n");
+        if ( $newName != "" ) $name = $newName ;
+      }
 
       // key should be $owner + name.
 
@@ -392,7 +423,9 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               $a = explode ( " " , $b_model );
               $out="";
               foreach ( $a as $k => $v ) {
-                if ( is_numeric ($v) && $v >= 30 && $v <= 100 ) { $v=round($v/5) * 5; } 
+                // in runway we round to neaest 5, for build go up to 10
+                //if ( is_numeric ($v) && $v >= 20 && $v <= 120 ) { $v=round($v/5) * 5; } // round to nearest 5
+                if ( is_numeric ($v) && $v >= 20 && $v <= 120 ) { $v=ceil($v/10) * 10; } // up to nearest 10
                 $out .= $v . " ";
               }
               $b_model = trim ( $out );
@@ -495,6 +528,7 @@ function runway_model ( $mod ,  $bld ) {
   }
   $r_model = str_replace ( "HOMES" , "" , $r_model ); // get rid of word HOMES
   $r_model = str_replace ( "LIVE SMART" , "" , $r_model ); // get rid of word HOMES
+  $r_model = str_replace ( "RUNWAY INTEGRATION TEST", "" , $r_model );
   //$r_model  = trim( preg_replace('!\s+!', ' ', $r_model )); // get rid of extra spaces
   $tmp = array_map ( 'trim' , explode ( " " , $r_model )); $rebuild="";
   foreach ( $tmp as $part ) {
@@ -505,6 +539,7 @@ function runway_model ( $mod ,  $bld ) {
 
 function match_plans ( $devName, $buildName, &$matrix , &$runwayPlans, $buildPlanCnt ) {
 
+global $debugModeArgv;
  /* matrix...
      [PERRYCORP^PERRY~PERRY HOMES^1^770~Devonshire 60'~Devonshire   Reserve^133^P3393W^17] => Array
         (
@@ -594,13 +629,13 @@ foreach ( $matrix as $b_k => $b_v ) {
           if (!isset ( $r_model_good[ $r_model ] )) { $r_model_good[ $r_model ] = true; }
         }
         //
-        print ( "DEBUG Model R[$r_model] == B[$b_model] Plan R[$r_plan] == B[$b_plan]\n");
         $hit_m = words_match ( $r_model , $b_model);
         if ( $hit_m ) $hit_m_cnt++;
         if ( !$hit_m  && $r_planCnt == 1 ) {
           // maybe the builder does not state the frontage ie run[45 WOLF RANCH] == build[WOLF RANCH]
           $hit_m = words_match ( $b_model , $r_model );
         }
+        if ( $debugModeArgv && !$hit_m ) print ( "DEBUG Trying Model R[$r_model] == B[$b_model] Plan R[$r_plan] == B[$b_plan]\n");
         //
         if ( ( $hit_m && $r_model_use == "ok" ) || ( $r_planCnt == 1 && $b_planCnt == 1 && $r_model_use != "ok")) {
           if ( ! $hit_m ) { $htype="Risky"; } else { $htype="Hit!"; }
@@ -618,7 +653,7 @@ foreach ( $matrix as $b_k => $b_v ) {
           if ( $builderSize == $runwaySize ) { $res2="Size-Match"; } else { $res2="Size-diff"; }
           //print ( "DEBUG $htype $res $res2: B[$b_k] R[$r_k][$r_k2] cnt=$r_planCnt " . "B=$" . $builderPrice . " R=$" . $runwayPrice . " PriceGap=" . ( $builderPrice - $runwayPrice) . 
           //  " Bsiz=$builderSize Rsiz=$runwaySize\n");
-          print ( "DEBUG $htype $res $res2: B[$b_builder][$b_plan][$b_model] R[$r_builder][$r_plan][$r_model] cnt=$r_planCnt " . "B=$" . $builderPrice . " R=$" . $runwayPrice . 
+          print ( "NOTE $htype $res $res2: B[$b_builder][$b_plan][$b_model] R[$r_builder][$r_plan][$r_model] cnt=$r_planCnt " . "B=$" . $builderPrice . " R=$" . $runwayPrice . 
             " PriceGap=" . ( $builderPrice - $runwayPrice) . " Bsiz=$builderSize Rsiz=$runwaySize\n");
           //
           $fh=fopen ( $devName . ".match.csv" , "a" );
@@ -652,10 +687,10 @@ foreach ( $matrix as $b_k => $b_v ) {
 foreach ( $r_builder_list as $k => $v ) print ( "SUMMARY: Runway Builder  [$k] has $v recs\n");
 //print ( "..\n");
 foreach ( $b_builder_list as $k => $v ) print ( "SUMMARY: Builder Builder [$k] has $v recs\n");
-//print ( "--Plans--\n");
+print ( "--Plans--\n");
 //foreach ( $r_plan_list as $k => $v ) print   ( "Runway Plan [$k] has $v recs\n");
 //print ( "..\n");
-//foreach ( $b_plan_list as $k => $v ) print   ( "Builder Plan [$k] has $v recs\n");
+foreach ( $b_plan_list as $k => $v ) print   ( "Builder Plan [$k] has $v recs\n");
 //print ( "--Model Summary--\n");
 if ( count( $r_model_good) == 0 && count ( $r_model_unusable ) == 0 ) { print ( "SUMMARY: No Runway models checked as no builder and plans matched\n"); }
 else {
