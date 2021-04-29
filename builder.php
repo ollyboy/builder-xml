@@ -44,12 +44,15 @@ foreach( $argv as $cnt => $v ) {
 }
 if ( count ( $revisedRunwaySource ) > 0 ) $runwaySource = $revisedRunwaySource;  // shorter list taken from command line
 //
+$env = "NA";
 $debugModeArgv = false; 
 $revisedClientSource=array(); // we will not use unless valid builders are passed as args
 foreach( $argv as $cnt => $v ) {
   $value =trim ( strtolower( $v )); 
   if ( $cnt == 0 ) {} // ignore
   elseif ( $value  == "debug") $debugModeArgv = true; 
+  elseif ( $value  == "prod-post") $env = "XXX"; 
+  elseif ( $value  == "demo-post") $env = "DEMO"; 
   else {
     $hit = false;
     foreach ( $builderSource as $scope ) {
@@ -80,9 +83,9 @@ foreach ( $runwaySource as $runwayScope ) {
   print ( "\nNOTE --- Processing Runway developer --- $devName\n");
   build_plan_keys ( $planList, $runwayPlans );
  
-  // what fields will we collect - should be outsde loop but leave here in case we have specfic maps
+  // what fields will we collect - should be outside loop but leave here in case we have specific maps
   $fieldMap =  "builder.field.map"; 
-  $mapArr = adj_map ( $fieldMap ); // get the fieldmap, rotate to useful format
+  $mapArr = adj_map ( $fieldMap ); // get the field-map, rotate to useful format
   if ( !is_array( $mapArr ) || count($mapArr) == 0 ) {
      print ( "ERROR No $fieldMap or it's empty\n");
      exit (0);
@@ -170,6 +173,57 @@ foreach ( $runwaySource as $runwayScope ) {
 // end of mainline
 
 
+function send_price ( $env , $builderName , $planCpId , $clientId , $planCost ) {
+
+
+  // API end point
+  $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/demo/external/housedetailsupdate";
+  $x_api_key = "0CmmBaaTCr3thPCAEQ4rf3oHaS8cB8lw9rnKjQLx";
+  $data = array (
+    "env" => $env,
+    "builderName" => $builderName,
+    "planCpId" => $planCpId,
+    "clientId" => $clientId,
+    "planCost" => $planCost 
+  );  
+  // 
+  $content = json_encode( $data);
+  $curl = curl_init($url);
+  //
+  curl_setopt($curl, CURLOPT_HEADER, false);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($curl, CURLOPT_FAILONERROR, true);
+  curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json', 
+    'x-api-key: ' . $x_api_key
+  ]);
+  curl_setopt($curl, CURLOPT_POST, true);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+  //
+  $response = curl_exec($curl);
+  //
+  $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+  if ( $status != 201 ) {
+    print ("ERROR: call to URL $url failed with status[$status], response[$response], curl_error[" . curl_error($curl) . "], curl_errno[" . curl_errno($curl) . "]\n" );
+    print_r ( $data );
+    print ( "\n");
+    print_r ( $content);
+    print ( "\n^--- array + json above ---^\n" );
+  }
+  //
+  curl_close($curl);
+
+  // convert to array
+  if ( strlen ( $response ) == 0 ) {
+     print ( "ERROR $url - No response\n"); 
+     return ( false );
+  }
+
+  return ( json_decode($response, TRUE) );
+
+}
+
 function adj_map ( $fieldMap ) { // get the fieldmap, rotate to useful format
   //
   $map=array(); $mapArr=array();
@@ -206,28 +260,30 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
   7442764071122001811146627814426341431563782391223|Available|Perry Homes|2999W|Perry Homes|69' 3.0"|516900|50'||2999W
   8650470234284843631366440023637771871596171723351|Available|David Weekley Homes|Woodbank|David Weekley Homes 40 - Harvest|76' 9.0"|294990|40'||5433
   */
-  if ( count ($line) > 16 ) {
+  if ( count ($line) > 18 ) {
     //
     $i++;
     //
     // must match to runway_get_plan.php
-    $ID =      trim( $line[0]);  //$v['clientproductid'] ."|".
-    $status =  trim( $line[1]);  // $v['currentstatusname'] ."|".
-    $owner =   trim( $line[2]);  // $v['ownername'] ."|".
-    $design =  trim( $line[3]);  // $v['designproductname'] ."|".
-    $range =   trim( $line[4]);  // $v['rangeproductname'] ."|".
-    $branch  = trim( $line[5]);  // branch
-    $estates = trim( $line[6]);  // comma seperated estates
-    $frontTxt= trim( $line[7]);  // $v['productDepthFormatted'] ."|". // => 58' 1.0"
-    $size =    trim( $line[8]);  // $v['productSizeFormatted']
-    $price =   trim( $line[9]);  // $v['productprice'] ."|".   // => 279990
-    $front =   trim( $line[10]); // $v['canfitonwidthFormatted'] ."|".
-    $beds =    trim( $line[11]); // $v['noofbedrooms']  ."|".
-    $baths =   trim( $line[12]); // $v['noofbathrooms']  ."|".
-    $carParks= trim( $line[13]); // $v['noofcarparks']  ."|".
-    $storeys = trim( $line[14]); // $v['noofstoreys']  ."|".
-    $number =  trim( $line[15]); // $v['productnumber'] ."|".
-    $name =    trim( $line[16]); //  $v['productname'] . "\n" );
+    $planCpId =   trim( $line[0]); //$v['clientproductid'] ."|". ---  $planCpId 
+    $clientId =   trim( $line[1]); //$v['clientid'] . "|" --- $clientId for put
+    $clientCpId = trim( $line[2]); //['clientcompanyid'] . "|".
+    $status =  trim( $line[3]);  // $v['currentstatusname'] ."|".
+    $owner =   trim( $line[4]);  // $v['ownername'] ."|".
+    $design =  trim( $line[5]);  // $v['designproductname'] ."|".
+    $range =   trim( $line[6]);  // $v['rangeproductname'] ."|".
+    $branch  = trim( $line[7]);  // branch
+    $estates = trim( $line[8]);  // comma seperated estates
+    $frontTxt= trim( $line[9]);  // $v['productDepthFormatted'] ."|". // => 58' 1.0"
+    $size =    trim( $line[10]);  // $v['productSizeFormatted']
+    $price =   trim( $line[11]);  // $v['productprice'] ."|".   // => 279990
+    $front =   trim( $line[12]); // $v['canfitonwidthFormatted'] ."|".
+    $beds =    trim( $line[13]); // $v['noofbedrooms']  ."|".
+    $baths =   trim( $line[14]); // $v['noofbathrooms']  ."|".
+    $carParks= trim( $line[15]); // $v['noofcarparks']  ."|".
+    $storeys = trim( $line[16]); // $v['noofstoreys']  ."|".
+    $number =  trim( $line[17]); // $v['productnumber'] ."|".
+    $name =    trim( $line[18]); //  $v['productname'] . "\n" );
     //
     if ( $status == "Available" ) {
 
@@ -236,6 +292,7 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
       if ( isset ( $ownerList[ $owner ])) { $ownerList[ $owner ]++; }
       else { $ownerList[ $owner ] = 1; }
       
+      $rawOwner = $owner;
       // Homes is sometimes used and sometimes not
       $owner = str_replace ( " HOMES" , "" , strtoupper ( $owner ));
 
@@ -313,7 +370,9 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
         }
       } 
       if ( $save ) {
-        $runwayPlans[$key][$key2]["ID"] = $ID;
+        $runwayPlans[$key][$key2]["planCpId"] = $planCpId;
+        $runwayPlans[$key][$key2]["clientId"] = $clientId;
+        $runwayPlans[$key][$key2]["rawBuilder"] = $rawOwner;
         $runwayPlans[$key][$key2]["price"] = $price;
         $runwayPlans[$key][$key2]["size"] = $size;
         $runwayPlans[$key][$key2]["front"] = $front;
@@ -327,7 +386,7 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
   }
  }
  fclose($file);
- print ( "NOTE Found $i lines in Runway $planList, $j are avaiable status\n");
+ print ( "NOTE Found $i lines in Runway $planList, $j are available status\n");
  //
  foreach ( $ownerList as $k => $v ) {
    //print ( "DEBUG Runway Owner/Builder [" . $k . "] has $v recs\n");
@@ -400,7 +459,7 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
             } elseif ( count ($tmp ) == 6) { // Highland SandBrock style XML, single builder, multi community
               $b_pos = 1; $m_pos = 2; $p_pos = 4; 
             } else {
-              print ( "ERROR Unkown format builder feed for [$key]\n");
+              print ( "ERROR Unknown format builder feed for [$key]\n");
             }
         
             if ( $b_pos == 0 ||  $m_pos == 0 || $p_pos == 0 ) {
@@ -540,6 +599,8 @@ function runway_model ( $mod ,  $bld ) {
 function match_plans ( $devName, $buildName, &$matrix , &$runwayPlans, $buildPlanCnt ) {
 
 global $debugModeArgv;
+global $env;
+
  /* matrix...
      [PERRYCORP^PERRY~PERRY HOMES^1^770~Devonshire 60'~Devonshire   Reserve^133^P3393W^17] => Array
         (
@@ -611,7 +672,7 @@ foreach ( $matrix as $b_k => $b_v ) {
       //print ( "DEBUG Builder+Plan match! [$r_builder] == [$b_builder] [$r_plan] == [$b_plan]\n");
       if ( $matrix[$b_k]["rec_status"] == "Builder-match" ) $matrix[$b_k]["rec_status"] = "Builder+Plan-match";
        // ok at least the builder and plan OK
-      $r_planCnt = count( $r_v ); // how many varients for Builder+Plan
+      $r_planCnt = count( $r_v ); // how many variants for Builder+Plan
       foreach ( $r_v as $r_k2 => $r_v2 ) {
         //
         $r_model = runway_model ( $r_k2 , $r_builder ); // input like - Coventry 55 - Pomona^55'
@@ -645,6 +706,9 @@ foreach ( $matrix as $b_k => $b_v ) {
              $matrix[$b_k]["rec_status"] = "Builder+Plan+Model-match";
           }
           //  should Hit: [PERRYCORP^PERRY HOMES^1^Pomona 50'^46^P2628W^20] [PERRY^2628] [Perry 50 - Pomona^50'] cnt=1
+          $planCpId = $runwayPlans[$r_k][$r_k2]["planCpId"];
+          $clientId = $runwayPlans[$r_k][$r_k2]["clientId"];
+          $rawBuilder= $runwayPlans[$r_k][$r_k2]["rawBuilder"];
           $runwayPrice = $runwayPlans[$r_k][$r_k2]["price"];
           $builderPrice= $matrix[$b_k]["price"];
           $runwaySize = $runwayPlans[$r_k][$r_k2]["size"];
@@ -664,9 +728,15 @@ foreach ( $matrix as $b_k => $b_v ) {
             $builderPrice .",". $runwayPrice .",".
             $builderSize .",".  $runwaySize . "\n");
           fclose($fh);
+
+          if ( $env == "DEMO" && $res2 == "Size-Match" && $res == "Price-diff") {
+            // post the new price
+            $rtn = send_price ( $env , $rawBuilder , $planCpId , $clientId , $builderPrice );
+            print ( "DEBUG POSTED $env , $rawBuilder , $planCpId , $clientId , $builderPrice => [$rtn]\n");
+          }
           //
           if ( strpos ( $runwayPlans[$r_k][$r_k2]["rec_status"] , "Price" ) !== false ) {
-            // Already has a Price assesement, not good
+            // Already has a Price assessment, not good
             $runwayPlans[$r_k][$r_k2]["rec_status"] .= " AND DUP " . $res;
             $runwayPlans[$r_k][$r_k2]["match_key"] .= " AND DUP " . $b_builder . " - " . $b_model . " - " . $b_plan;
             $matrix[$b_k]["rec_status"] .= " AND DUP " . $res . " " . $res2;

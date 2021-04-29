@@ -197,7 +197,9 @@ foreach ( $clientSource as $scope ) { //  Developer
   }
 
   fprintf( $fh, 
-  $v['clientproductid'] ."|".
+  $v['clientproductid'] ."|".  // $planCpId  for put$
+  $v['clientid'] . "|" .       // $clientId for put
+  $v['clientcompanyid'] . "|".
   $v['currentstatusname'] ."|". // Draft, Avaiable
   $v['ownername'] ."|". // DR Horton, American Legion Homes
   $v['designproductname'] ."|". // plan number or name
