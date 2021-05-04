@@ -176,7 +176,7 @@ foreach ( $runwaySource as $runwayScope ) {
 function send_price ( $env , $builderName , $planCpId , $clientId , $planCost ) {
 
   // API end point
-  $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/demo/external/homedetailupdate";
+  $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/demo/external/housedetailsupdate";
   //$x_api_key = "0CmmBaaTCr3thPCAEQ4rf3oHaS8cB8lw9rnKjQLx"; 
   $x_api_key = "OJ6CmJRgVd6ikQSsMv0c88xFmv8Xh1xC6AtJ6tCI";
   $data = array (
@@ -204,27 +204,23 @@ function send_price ( $env , $builderName , $planCpId , $clientId , $planCost ) 
   //
   $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-  if ( $status != 200 ) {
+  if ( $status != 201 ) {
     print ("ERROR: call to URL $url failed with status[$status], response[$response], curl_error[" . curl_error($curl) . "], curl_errno[" . curl_errno($curl) . "]\n" );
-    /* print_r ( $data );
+    print_r ( $data );
     print ( "\n");
     print_r ( $content);
-    print ( "\n^--- array + json above ---^\n" ); */
+    print ( "\n^--- array + json above ---^\n" );
   }
   //
   curl_close($curl);
 
   // convert to array
-  if ( $response == false || strlen ( $response ) == 0 ) { // is still a json string
-     return ( "FAIL - No Response" );
+  if ( strlen ( $response ) == 0 ) {
+     print ( "ERROR $url - No response\n"); 
+     return ( false );
   }
-  $messArr=json_decode( $response, TRUE );
-  if ( isset ( $messArr["success"])) {
-    if ( $messArr["success"] == true ) return ( "Success" );
-    else return ( "FAIL - Not Success - " . $messArr["responseMessage"] );
-  } else {
-    return ( "FAIL - Unknown Response" );
-  }
+
+  return ( json_decode($response, TRUE) );
 
 }
 
@@ -764,7 +760,7 @@ foreach ( $b_builder_list as $k => $v ) print ( "SUMMARY: Builder Builder [$k] h
 print ( "--Plans--\n");
 //foreach ( $r_plan_list as $k => $v ) print   ( "Runway Plan [$k] has $v recs\n");
 //print ( "..\n");
-//:foreach ( $b_plan_list as $k => $v ) print   ( "Builder Plan [$k] has $v recs\n");
+foreach ( $b_plan_list as $k => $v ) print   ( "Builder Plan [$k] has $v recs\n");
 //print ( "--Model Summary--\n");
 if ( count( $r_model_good) == 0 && count ( $r_model_unusable ) == 0 ) { print ( "SUMMARY: No Runway models checked as no builder and plans matched\n"); }
 else {

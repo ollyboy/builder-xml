@@ -109,23 +109,28 @@ assessed_val | assessed_val
 */
 
 
-// Mainline, read scope, loop the Corps getting XML/JSON 
+// Mainline, read scope, loop the builders or counties getting XML/JSON 
 //
 $errlog = false;
-$clientSource = get_support_barLin ( "client.source" ); // get the scope of work, returns empty if not found
-if ( sizeof( $clientSource ) == 0 ) {
-  do_fatal ( "Can't find essential work scope file: client.source" ); // will exit
-} 
-
 $prodModeArgv = true; // Just generate hints if false
 $sendConsArgv = false; // log to console if true
 $getURLsArgv  = true; // make an new call for XML, false will process the existing xml if it exists
 $excImageArgv = false; // don't include images in hints
 $buildLogArgv = false; // maybe don't generate build log
-$skipDiffArgv =false;
+$skipDiffArgv = true;
 $skipHintArgv = false;
+$keyMapSame =false; // internal check 
 
-$keyMapSame=false; // internal check 
+// read in the source list
+//
+$clientArgv ="builder.source";  // get data for builders unless instructed otherwise
+foreach( $argv as $cnt => $v ) {
+  if ( trim ( strtolower( $v )) == "county" ) $clientArgv = "county.source";
+}
+$clientSource = get_support_barLin ( $clientArgv ); // get the scope of work, returns empty if not found
+if ( sizeof( $clientSource ) == 0 ) {
+  do_fatal ( "Can't find essential work scope file: " .  $clientArgv ); // will exit
+} 
 
 // set flags and see if run is limited to a small set of jobs
 //
@@ -139,8 +144,9 @@ foreach( $argv as $cnt => $v ) {
   elseif ( $value  == "noimage") $excImageArgv = true;
   elseif ( $value  == "skipurl") $getURLsArgv = false;
   elseif ( $value  == "buildlog") $buildLogArgv = true;
-  elseif ( $value  == "skipdiff") $skipDiffArgv =true;
+  elseif ( $value  == "dodiff") $skipDiffArgv =false;
   elseif ( $value  == "skiphints") $skipHintArgv =true;
+  elseif ( $value  == "county") {} // already read in but dont want to error
   else {
     $hit = false;
     foreach ( $clientSource as $scope ) {
@@ -148,14 +154,15 @@ foreach( $argv as $cnt => $v ) {
       if ( strtolower ( $parts[0] ) == $value ) { $revisedClientSource[] = $scope; $hit = true; }// names match
     }
     if ( ! $hit ) {
-      print ( "Unknown command line parameter [" . $v . "] \nAllowed: [Name from client.source] production development noimage skipurl buildlog skipdiff skiphints\n" );
+      print ( "Unknown command line parameter [" . $v . "] \nAllowed: [Name] county production development console noimage skipurl buildlog dodiff skiphints\n" );
       exit (0);
     }
   }
 }
+
 if ( count ( $revisedClientSource ) > 0 ) $clientSource = $revisedClientSource;  // shorter list taken from command line
 
-$clientSourceOld = get_support_barLin ( "client.source.bak" );
+$clientSourceOld = get_support_barLin ( $clientArgv . ".bak" );
 $hit = array(); $sorceScopeUnchanged=false;
 foreach ( $clientSource as $k => $v ) {
   foreach ( $clientSourceOld as $k2 => $v2 ) {
@@ -168,12 +175,12 @@ if ( sizeof ( $revisedClientSource ) == sizeof ( $hit )) {
   $sorceScopeUnchanged=false;
 }
 
-if ( identical_exist ( "client.source" , "client.source.bak" )) {
+if ( identical_exist ( $clientArgv , $clientArgv . ".bak" )) {
   $peviousScopeUnchanged = true;
 } else {
   $peviousScopeUnchanged = false;
-  if ( !copy( "client.source" , "client.source.bak" ) ) {
-    do_error ( "Failed to backup client.source file" );
+  if ( !copy( $clientArgv , $clientArgv . ".bak" ) ) {
+    do_error ( "Failed to backup $clientArgv" );
   }
 }
 /// main work loop
@@ -251,12 +258,13 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   if ( $peviousScopeUnchanged ) {
     do_note ( "Previous work scope file same which is good");
   } else {
-    do_note ( "Overall Work scope file client.source changed or is new!" );
+    do_note ( "Overall Work scope file $clientArgv changed or is new!" );
   }
 
   // Get the maps for convert JSON/XML to csv
   //
-  $mapName = $name . ".key.map"; // ie Perry.key.map
+  $tmp = explode ( "-" , trim($name) ); // ie David-SandBrock, Perry
+  $mapName = $tmp[0] . ".key.map"; // ie Perry.key.map David.key.map
   $tmpKeyMap = array(); // reset each loop
   $tmpKeyMap = get_support_barLin ( $mapName ); // array of lines like 6,7,8,9|Plan|6|PlanNumber,PlanName
   if ( sizeof($tmpKeyMap) == 0 ) {
@@ -823,35 +831,28 @@ function get_prefered_key ( $name , $level ) {
 
   // pass in the trigger ie "spec" get back the actual values from the source array ie 
   // SpecStreet1,SpecCity,SpecState,SpecZIP >> Smith~New-york~NY~10010
+  // base case 2,4,5,6,7,8,9,10,11,12|Corporation|2|CorporateBuilderNumber
+  //
+  //  currentKeySub has -- BuilderNumber => BRITTON
+  //                       SubdivisionNumber => 633
 
   global $key_map, $currentKeySub;
-  static $forlev = array();
-  static $sources = array();
 
-  if ( count ( $forlev ) == 0 ) { // load on first call
-    foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
-      $parts = array_map('trim', explode ( "|" , $v));
-      if ( sizeof( $parts ) == 4 ) {
-        $forLev = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
-        $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
-      } else {
-        do_error ( "Bad key_map -  $v ");
-      }
-    }
+  $sources = array(); // maybe no replace
+  foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
+    $parts = array_map('trim', explode ( "|" , $v));
+    if ( sizeof( $parts ) == 4 && strval($name) == trim ($parts[1] )) {
+      $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
+      //$levels = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
+    } 
   }
 
   $combo = "";
   foreach ( $sources as $k1 => $v1 ) { 
-    foreach ( $forLev as $k2 => $v2 ) { // for each level
-      if ( $v2 == $level && strval($name) == $parts[1] ) { // 
-        if ( isset ( $currentKeySub[ $v1 ] )) {
-          //print ( "Natural key for $name $level set to " . $currentKeySub[$parts[3]] . "\n");
-          $combo .= $currentKeySub[$v1] . "~"; // get latest value
-        }
-      }
-    }
+    if ( isset ( $currentKeySub[$v1] )) $combo .= $currentKeySub[$v1] . "~"; // get latest value
   }
   
+  do_build ( ">>called for $name $level - passing back [$combo]");
   if ( $combo == "" ) return ( $name ); // not found
   return ( substr( $combo, 0, -1) );
 }
@@ -899,6 +900,11 @@ function record_natural_key ( $level ) { // build up the natural/desired key
 
   $currentKeySub[$key[$level]] = $newKey[$level]; // latest only
 
+  foreach ( $currentKeySub as $k => $v ) do_build ( "##1 $k => $v ##");
+  // HomestoreID => HomestoreID
+  // BuilderNumber => BRITTON
+  // Status => Status
+  // SubdivisionNumber => 633
 }
 
 function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
@@ -939,6 +945,8 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
   }
   $saveKey = substr($saveKey , 0, -1); // get rid of excess delimiter
   $saveKeyNew = substr($saveKeyNew , 0, -1);
+
+  do_build ( "##2 $saveKeyNew ##");
 
   // write the csv in a fixed column format
   if ( strpos ( $saveKeyNew , "@attributes") === false ) { // Can't use these as they come before key trigger

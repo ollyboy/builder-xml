@@ -117,7 +117,7 @@ $sendConsArgv = false; // log to console if true
 $getURLsArgv  = true; // make an new call for XML, false will process the existing xml if it exists
 $excImageArgv = false; // don't include images in hints
 $buildLogArgv = false; // maybe don't generate build log
-$skipDiffArgv =false;
+$skipDiffArgv = true;
 $skipHintArgv = false;
 $keyMapSame =false; // internal check 
 
@@ -144,7 +144,7 @@ foreach( $argv as $cnt => $v ) {
   elseif ( $value  == "noimage") $excImageArgv = true;
   elseif ( $value  == "skipurl") $getURLsArgv = false;
   elseif ( $value  == "buildlog") $buildLogArgv = true;
-  elseif ( $value  == "skipdiff") $skipDiffArgv =true;
+  elseif ( $value  == "dodiff") $skipDiffArgv =false;
   elseif ( $value  == "skiphints") $skipHintArgv =true;
   elseif ( $value  == "county") {} // already read in but dont want to error
   else {
@@ -154,7 +154,7 @@ foreach( $argv as $cnt => $v ) {
       if ( strtolower ( $parts[0] ) == $value ) { $revisedClientSource[] = $scope; $hit = true; }// names match
     }
     if ( ! $hit ) {
-      print ( "Unknown command line parameter [" . $v . "] \nAllowed: [Name] county production development console noimage skipurl buildlog skipdiff skiphints\n" );
+      print ( "Unknown command line parameter [" . $v . "] \nAllowed: [Name] county production development console noimage skipurl buildlog dodiff skiphints\n" );
       exit (0);
     }
   }
