@@ -51,7 +51,7 @@ foreach( $argv as $cnt => $v ) {
   $value =trim ( strtolower( $v )); 
   if ( $cnt == 0 ) {} // ignore
   elseif ( $value  == "debug") $debugModeArgv = true; 
-  elseif ( $value  == "prod-post") $env = "XXX"; 
+  elseif ( $value  == "prod-post") $env = "PROD"; 
   elseif ( $value  == "demo-post") $env = "DEMO"; 
   else {
     $hit = false;
@@ -487,8 +487,8 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               $out="";
               foreach ( $a as $k => $v ) {
                 // in runway we round to neaest 5, for build go up to 10
-                //if ( is_numeric ($v) && $v >= 20 && $v <= 120 ) { $v=round($v/5) * 5; } // round to nearest 5
-                if ( is_numeric ($v) && $v >= 20 && $v <= 120 ) { $v=ceil($v/10) * 10; } // up to nearest 10
+                if ( is_numeric ($v) && $v >= 20 && $v <= 120 ) { $v=round($v/5) * 5; } // round to nearest 5
+                //if ( is_numeric ($v) && $v >= 20 && $v <= 120 ) { $v=ceil($v/10) * 10; } // up to nearest 10
                 $out .= $v . " ";
               }
               $b_model = trim ( $out );
@@ -630,6 +630,9 @@ $b_builder_list= array(); $r_builder_list = array();
 $b_plan_list=array(); $r_plan_list=array();
 $hit_b_cnt=0; $hit_p_cnt=0; $hit_m_cnt=0;
 //
+$okUpdate = false;
+if ( ( $env == "DEMO" || $env == "PROD" ) && strpos( strtoupper($devName), strtoupper ( $env )) !== false ) $okUpdate = true;
+//
 foreach ( $matrix as $b_k => $b_v ) {   
 
   $b_builder = $matrix[ $b_k ][ "tidy_builder" ]; 
@@ -733,7 +736,7 @@ foreach ( $matrix as $b_k => $b_v ) {
             $builderSize .",".  $runwaySize . "\n");
           fclose($fh);
 
-          if ( $env == "DEMO" && $res2 == "Size-Match" && $res == "Price-diff") {
+          if ( $okUpdate && $res2 == "Size-Match" && $res == "Price-diff") {
             // post the new price
             $rtn = send_price ( $env , $rawBuilder , $planCpId , $clientId , $builderPrice );
             print ( "DEBUG POSTED $env , $rawBuilder , $planCpId , $clientId , $builderPrice => [$rtn]\n");

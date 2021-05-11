@@ -317,7 +317,7 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
         do_note ( "URL source content has changed!");
       }
     } else {
-      do_error ( "Could not read from" . $URL ); 
+      do_error ( "Could not read from " . $URL ); 
       $jobAbandon = true;
       unset ( $xmlstr );
     }
@@ -862,7 +862,8 @@ function get_from_url($url) { // Get data stream from URL
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla Chrome Safari');
+    //curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true );
     $str = curl_exec($ch);
     if ( is_string( $str )) {
