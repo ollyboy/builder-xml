@@ -929,7 +929,7 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
   //
   if ( isset ( $keyTrigger[$level])) {  // ie found [4] => legaldesc,subblock,sublot
     //
-    if ( strpos ( $keyTrigger[$level] , $key[$level] ) !== false ) { // rule trigger
+    if ( strpos ( $keyTrigger[$level] , (string) $key[$level] ) !== false ) { // rule trigger
       do_build ( "++ Hit trigger at " . $level . " for [" . $key[$level] . "] Setting val to [" . $val[$level] 
         . "]" . " Driver was [" . $keyTrigger[$level] . "]" );
       $newKey[$level] = $val[$level]; 

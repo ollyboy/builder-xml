@@ -331,15 +331,18 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
         }
       }
       // normally use the name but it may be a plan that has both desc and number
-      if ( $name != $design ) {
+      if ( trim($name) != trim($design) ) {
         $newName ="";
         $tmp443 =  array_map ( "trim" , explode ( " ", $design ));
         foreach ( $tmp443 as $a8 => $k8 ){
-          if ( !is_numeric ($k8 ) ) $newName .= $k8 . " ";
+          if ( !is_numeric ($k8 ) && strlen($k8) > 2 ) $newName .= $k8 . " ";
         }
         $newName = trim ( $newName );
-        print ( "WARN Runway $owner - Design[$design] not equal Name[$name] setting to [$newName]\n");
-        if ( $newName != "" ) $name = $newName ;
+        //
+        if ( $newName != "" ) {
+          print ( "WARN Runway $owner - Design[$design] not equal Name[$name] setting to [$newName]\n");
+          $name = $newName ;
+        }
       }
 
       // key should be $owner + name.

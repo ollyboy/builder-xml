@@ -39,8 +39,8 @@ else
   echo
 fi
 
-GMAIL_USER="store@swann.camera"
-GMAIL_PASS="bentwealth60"
+GMAIL_USER=""
+GMAIL_PASS=""
 
 if [ -z "$GMAIL_USER" ]; then echo "No gmail username given. Exiting."; exit -1; fi
 if [ -z "$GMAIL_PASS" ]; then echo "No gmail password given. Exiting."; exit -1; fi
