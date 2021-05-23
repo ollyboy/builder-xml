@@ -112,6 +112,9 @@ foreach ( $runwaySource as $runwayScope ) {
     build_maxtix_from_csv ( $latestCsv , $mapArr , 
                           $builderData , $priorty, $buildPlanCnt ); // set these
 
+    //print_r ( $builderData );
+    //print_r ( $priorty);
+
     match_plans ( $devName, $buildName, $builderData , $runwayPlans, $buildPlanCnt ); // update all these these
   
     // show impact on builder array
@@ -300,10 +303,17 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
       // Homes is sometimes used and sometimes not
       $owner = str_replace ( " HOMES" , "" , strtoupper ( $owner ));
 
-      $rawFront=$front;
-      $front = preg_replace("/[^0-9\.]/", '', $front); // ie 55' goes to 55
-      if ( is_numeric ( $front ) && $front > 20 && $front < 120 ) { $front = round($front / 5) * 5; }
-      else { print ( "WARN Runway $owner,$design,$name,$range - frontage error - [$front] generated from [$rawFront]\n"); }
+      $rawFront=$front; // remember it
+      $front  = preg_replace("/[^0-9\.]/", '', $front); // ie 55' goes to 55
+      if ( is_numeric ( $front ) ) { 
+        $front = round($front / 5) * 5;
+      } else {
+        print ( "ERROR Runway $owner,$design,$name,$range - Bad front numeric convert- [$front] generated from [$rawFront]\n");
+        $front = 0;
+      }
+      if ( $front < 20 || $front > 120 ) {
+        print ( "ERROR Runway $owner,$design,$name,$range - frontage out of scope - [$front] generated from [$rawFront]\n");
+      }
 
       // convert the range frontage to nearest 5
       $tmp =  explode ( " " , trim($range) ); $newRange="";
@@ -332,16 +342,18 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
       }
       // normally use the name but it may be a plan that has both desc and number
       if ( trim($name) != trim($design) ) {
-        $newName ="";
+        $newDesign = "";
         $tmp443 =  array_map ( "trim" , explode ( " ", $design ));
         foreach ( $tmp443 as $a8 => $k8 ){
-          if ( !is_numeric ($k8 ) && strlen($k8) > 2 ) $newName .= $k8 . " ";
+          $wdtmp = preg_replace("/[^a-zA-Z]/", '', $k8 );
+          //if ( !is_numeric ($k8 ) && strlen($k8) > 1 ) $newName .= $k8 . " ";
+          if ( strlen($wdtmp) > 0 ) $newDesign .= $k8 . " ";
         }
-        $newName = trim ( $newName );
+        $newDesign = trim ( $newDesign );
         //
-        if ( $newName != "" ) {
-          print ( "WARN Runway $owner - Design[$design] not equal Name[$name] setting to [$newName]\n");
-          $name = $newName ;
+        if ( $newDesign != "" ) {
+          print ( "WARN Runway $owner - Design[$design] not equal Name[$name] setting to [$newDesign]\n");
+          $name = $newDesign  ;
         }
       }
 
@@ -747,9 +759,9 @@ foreach ( $matrix as $b_k => $b_v ) {
           //
           if ( strpos ( $runwayPlans[$r_k][$r_k2]["rec_status"] , "Price" ) !== false ) {
             // Already has a Price assessment, not good
-            $runwayPlans[$r_k][$r_k2]["rec_status"] .= " AND DUP " . $res;
-            $runwayPlans[$r_k][$r_k2]["match_key"] .= " AND DUP " . $b_builder . " - " . $b_model . " - " . $b_plan;
-            $matrix[$b_k]["rec_status"] .= " AND DUP " . $res . " " . $res2;
+            $runwayPlans[$r_k][$r_k2]["rec_status"] .= " (AND DUP) " . $res;
+            $runwayPlans[$r_k][$r_k2]["match_key"] .= " (AND DUP) " . $b_builder . " - " . $b_model . " - " . $b_plan;
+            $matrix[$b_k]["rec_status"] .= " (AND DUP) " . $res . " " . $res2;
             print ( "ERROR Duplicate result $res: B[$b_k] R[$r_k][$r_k2] r_planCnt=$r_planCnt b_planCnt=$b_planCnt " . $runwayPlans[$r_k][$r_k2]["match_key"] . "\n");
           } else {
             $runwayPlans[$r_k][$r_k2]["rec_status"] = $res;

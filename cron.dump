@@ -1,0 +1,5 @@
+# Run this script at 12 midnight once a day
+
+5 0 * * * /usr/bin/bash /home/ec2-user/builder-xml/doprice.sh >> /tmp/dp-cron.log 2>&1
+
+# end cron
