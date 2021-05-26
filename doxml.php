@@ -264,7 +264,11 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   // Get the maps for convert JSON/XML to csv
   //
   $tmp = explode ( "-" , trim($name) ); // ie David-SandBrock, Perry
-  $mapName = $tmp[0] . ".key.map"; // ie Perry.key.map David.key.map
+  if ( isset ( $tmp[1] ) && file_exists( $name . ".key.map") ) {
+    $mapName = $name . ".key.map";     // we have an override 
+  } else {
+    $mapName = $tmp[0] . ".key.map"; // ie Perry.key.map David.key.map
+  }
   $tmpKeyMap = array(); // reset each loop
   $tmpKeyMap = get_support_barLin ( $mapName ); // array of lines like 6,7,8,9|Plan|6|PlanNumber,PlanName
   if ( sizeof($tmpKeyMap) == 0 ) {

@@ -301,7 +301,10 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
       
       $rawOwner = $owner;
       // Homes is sometimes used and sometimes not
-      $owner = str_replace ( " HOMES" , "" , strtoupper ( $owner ));
+      $owner = trim ( str_replace ( " HOMES" , "" , strtoupper ( $owner )));
+      if ( $owner == "" ) {
+        print ( "ERROR Runway $design,$name,$range - No Owner generated from [$rawOwner]\n");
+      }
 
       $rawFront=$front; // remember it
       $front  = preg_replace("/[^0-9\.]/", '', $front); // ie 55' goes to 55
@@ -316,6 +319,7 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
       }
 
       // convert the range frontage to nearest 5
+      $rawRange = $range;
       $tmp =  explode ( " " , trim($range) ); $newRange="";
       foreach ( $tmp as $bit) {
         if ( is_numeric ($bit ) && $bit > 20 && $bit < 120 ) {
@@ -324,6 +328,9 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
         $newRange .= $bit . " ";
       }
       $range = trim ( $newRange);
+      if ( $range = "" ) {
+        print ( "ERROR Runway $owner,$design,$name - No Range generated from [$rawRange]\n");
+      }
 
       // check if branch or estates add extra value
       if ( $estates == "" ){
@@ -360,7 +367,7 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
       // key should be $owner + name.
 
       if ( $owner == "" || $name == "" || $range == "" || $front == "" ) {
-        print ( "ERROR Runway owner [$owner] name [$name] range [$range] front [$front] empty\n");
+        print ( "ERROR Runway owner [$owner] name [$name] range [$range] front [$front] - field empty\n");
       }
       $key = $owner . "^" . $name;
       //if ( $name != $design ) { print ( "WARN for $key plan design is $design\n"); }
@@ -371,7 +378,7 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
       foreach ( $tmp as $bit) {
         if ( is_numeric ($bit ) && $bit > 30 && $bit < 100 ) {
           if ($bit != $front ) {
-            print ( "WARN Runway $owner $name mixed frontage - [$range] [$front] generated from [$rawFront]\n");
+            print ( "ERROR Runway $owner $name mixed frontage - [$range] [$front] generated from [$rawFront]\n");
             $key2 = $range; // override
           }
         }
@@ -478,35 +485,39 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
             } elseif ( count ($tmp ) == 6) { // Highland SandBrock style XML, single builder, multi community
               $b_pos = 1; $m_pos = 2; $p_pos = 4; 
             } else {
-              print ( "ERROR Unknown format builder feed for [$key]\n");
+              print ( "ERROR $latestCsv Unknown format builder feed for [$key]\n");
             }
         
             if ( $b_pos == 0 ||  $m_pos == 0 || $p_pos == 0 ) {
-              print ( "ERROR Cant process builder key [$key]\n");
+              print ( "ERROR $latestCsv Cant process builder key [$key]\n");
             } else {
 
               // tidy builder XML data
               //
-              $b_builder = str_replace ( "HOMES" , "" , strtoupper ($tmp[ $b_pos ]));
-              $b_builder = get_unique_words ( $b_builder );
+              $b_builder = str_replace ( "HOMES" , "" , strtoupper ( $tmp[ $b_pos ]));
+              $b_builder = trim ( get_unique_words ( $b_builder ));
 
               $b_plan = strtoupper ( $tmp[ $p_pos ] );
               $b_plan = trim( str_replace ( "PLAN", "" , $b_plan ));
-              $b_plan = get_unique_words ( $b_plan); 
+              $b_plan = trim ( get_unique_words ( $b_plan)); 
 
               $b_model = str_replace ( "FT.", "" , strtoupper ($tmp[ $m_pos ] ));
               $b_model = str_replace ( " LOTS", "" , $b_model );
-              $b_model = get_unique_words ( $b_model); 
+              $b_model = trim ( get_unique_words ( $b_model)); 
               // get rid of "feet" and words like plan, convert numbers to nearest 5 
               $a = explode ( " " , $b_model );
               $out="";
               foreach ( $a as $k => $v ) {
-                // in runway we round to neaest 5, for build go up to 10
+                // in runway we round to nearest 5, for build go up to 10
                 if ( is_numeric ($v) && $v >= 20 && $v <= 120 ) { $v=round($v/5) * 5; } // round to nearest 5
                 //if ( is_numeric ($v) && $v >= 20 && $v <= 120 ) { $v=ceil($v/10) * 10; } // up to nearest 10
                 $out .= $v . " ";
               }
               $b_model = trim ( $out );
+
+              if ( $b_builder == "" )  { print ( "ERROR $latestCsv Empty builder field from [" . $tmp[ $b_pos ] . "]\n" ); $b_builder="NA"; }
+              if ( $b_plan == "" )     { print ( "ERROR $latestCsv Empty plan field from [" . $tmp[ $p_pos ] . "]\n" ); $b_plan="NA"; }
+              if ( $b_model == "" )    { print ( "ERROR $latestCsv Empty model field from [" . $tmp[ $m_pos ] . "]\n" ); $b_model="NA"; }
 
               $uniqBuldPlan = $b_builder . "+" . $b_plan;
               if ( isset ( $buildPlanCnt[ $uniqBuldPlan] )) { $buildPlanCnt[ $uniqBuldPlan]++; }
@@ -529,7 +540,7 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               $matrix[ $key ][ $dest_tag ] = ltrim($val, "0"); // save the value             
               $priority[ $key ][ $dest_tag ] = $dest_priority ; // save the value priority
             } else {
-              print ( "ERROR Duplicate builder key [$key]\n");
+              print ( "ERROR $latestCsv Duplicate builder key [$key]\n");
             }
      	    } else { // new $key
             //print ( "$key - $target - $val\n");
@@ -538,7 +549,7 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               $priority[$key][$dest_tag] = $dest_priority ; // save the value priority
               //print ( "$key -> " . $matrix[$key][$dest_tag] . " -> " . $priority[$key][$dest_tag] . "\n");
             } else {
-              print ( "ERROR Empty builder data [$key]\n");
+              print ( "ERROR $latestCsv Empty builder data [$key]\n");
             }
           }
      	  }
@@ -561,7 +572,7 @@ function get_unique_words ( $str ) {
   return ( trim( implode ( " " , array_unique($tmp))) );
 }
 
-function words_match ( $these , $areIn , $mode="" ) {
+function words_match ( $errtxt, $these , $areIn , $mode="" ) {
 
   // will match "60" to MUSTANG LAKES 60"
   // will match "1234" to "P1234W"
@@ -569,7 +580,7 @@ function words_match ( $these , $areIn , $mode="" ) {
   $a = trim ( preg_replace("/[^0-9A-Z ]/", " " , strtoupper ( $areIn )));
   //
   if ( $t == "" || $a == "") {
-    print ( "ERROR word match [$t] [$a]\n");
+    print ( "ERROR word match $errtxt [$t] [$a]\n");
     return ( false );
   }
   if ( $mode != "" ) { print ( "DEBUG word match [$t] [$a]\n"); }
@@ -675,7 +686,7 @@ foreach ( $matrix as $b_k => $b_v ) {
       if ( isset ( $r_builder_list[$r_builder] )) { $r_builder_list[$r_builder]++; } else { $r_builder_list[$r_builder]=1; }
     }
     //
-    $hit_b = words_match ( $r_builder , $b_builder ); // builders match !
+    $hit_b = words_match ( "builder" , $r_builder , $b_builder ); // builders match !
 
     if ( !$runPass && $hit_b ) { //only plans where builders match
       if ( isset ( $r_plan_list[$r_plan] )) { $r_plan_list[$r_plan]++; } 
@@ -684,7 +695,7 @@ foreach ( $matrix as $b_k => $b_v ) {
     $hit_p = false;
     if ( $hit_b ) {
        if ( $matrix[$b_k][ "rec_status" ] == "no-match" ) $matrix[$b_k]["rec_status"] = "Builder-match";
-       $hit_p = words_match ( $r_plan , $b_plan ); // runway plan is within builder plan or matches
+       $hit_p = words_match ( "plan" , $r_plan , $b_plan ); // runway plan is within builder plan or matches
        $hit_b_cnt++;
        //print ( "DEBUG Got R[$r_builder] == B[$b_builder] Model B[$b_model] Trying Plan R[$r_plan] == B[$b_plan]\n");
     }
@@ -712,11 +723,11 @@ foreach ( $matrix as $b_k => $b_v ) {
           if (!isset ( $r_model_good[ $r_model ] )) { $r_model_good[ $r_model ] = true; }
         }
         //
-        $hit_m = words_match ( $r_model , $b_model);
+        $hit_m = words_match ( "model r>b" , $r_model , $b_model);
         if ( $hit_m ) $hit_m_cnt++;
         if ( !$hit_m  && $r_planCnt == 1 ) {
           // maybe the builder does not state the frontage ie run[45 WOLF RANCH] == build[WOLF RANCH]
-          $hit_m = words_match ( $b_model , $r_model );
+          $hit_m = words_match ( "model b>r" , $b_model , $r_model );
         }
         if ( $debugModeArgv && !$hit_m ) print ( "DEBUG Trying Model R[$r_model] == B[$b_model] Plan R[$r_plan] == B[$b_plan]\n");
         //
@@ -736,7 +747,7 @@ foreach ( $matrix as $b_k => $b_v ) {
           $runwaySize = $runwayPlans[$r_k][$r_k2]["size"];
           $builderSize= $matrix[$b_k]["size"];
           if ( $builderPrice == $runwayPrice ) { $res="Price-Match"; } else { $res="Price-diff"; }
-          if ( $builderSize == $runwaySize ) { $res2="Size-Match"; } else { $res2="Size-diff"; }
+          if ( abs ( $builderSize - $runwaySize ) <= 5 ) { $res2="Size-Match"; } else { $res2="Size-diff"; }
           //print ( "DEBUG $htype $res $res2: B[$b_k] R[$r_k][$r_k2] cnt=$r_planCnt " . "B=$" . $builderPrice . " R=$" . $runwayPrice . " PriceGap=" . ( $builderPrice - $runwayPrice) . 
           //  " Bsiz=$builderSize Rsiz=$runwaySize\n");
           print ( "NOTE $htype $res $res2: B[$b_builder][$b_plan][$b_model] R[$r_builder][$r_plan][$r_model] cnt=$r_planCnt " . "B=$" . $builderPrice . " R=$" . $runwayPrice . 

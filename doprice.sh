@@ -12,7 +12,7 @@ date >> /tmp/dp-run.log
 /usr/bin/php builder.php HorizonDeerCreek-Demo David-SandBrock Highland-SandBrock Coventry demo-post >> doprice.log 2>&1
 /usr/bin/php builder.php Hillwood-Demo demo-post >> doprice.log 2>&1
 #/usr/bin/php builder.php Hillwood-Prod prod-post >> doprice.log 2>&1
-/usr/bin/php builder.php Hillwood-Prod  >> doprice.log 2>&1
+/usr/bin/php builder.php Hillwood-Prod  prod-post >> doprice.log 2>&1
 # php builder.php <developer> <builder-1> builder-2> demo-post >> doprice.log 2>&1
 # check for errors
 cat doprice.log | egrep 'ERROR|FATAL' >> /tmp/dp-run.log
