@@ -46,7 +46,6 @@ if ( count ( $revisedRunwaySource ) > 0 ) $runwaySource = $revisedRunwaySource; 
 //
 $env = "NA";
 $debugModeArgv = false; 
-$lotUpdateArgv = false;
 $revisedClientSource=array(); // we will not use unless valid builders are passed as args
 foreach( $argv as $cnt => $v ) {
   $value =trim ( strtolower( $v )); 
@@ -54,7 +53,6 @@ foreach( $argv as $cnt => $v ) {
   elseif ( $value  == "debug") $debugModeArgv = true; 
   elseif ( $value  == "prod-post") $env = "PROD"; 
   elseif ( $value  == "demo-post") $env = "DEMO"; 
-  elseif ( $value  == "lot-update") $lotUpdateArgv = true;  // update lot budget values
   else {
     $hit = false;
     foreach ( $builderSource as $scope ) {
@@ -73,11 +71,8 @@ if ( count ( $revisedClientSource ) > 0 ) $builderSource = $revisedClientSource;
 
 // Loop through runway developers and all requested builders
 //
-$lotWork = array();  // min and max store by key
+$combined = array(); // results for all developers for all builders
 foreach ( $runwaySource as $runwayScope ) {
-
-  $combined = array(); // here as they need to add for each builder
-
 
   $parts = array_map ( 'trim' , explode ("|" , $runwayScope ));
   $devName = $parts[0];
@@ -95,6 +90,8 @@ foreach ( $runwaySource as $runwayScope ) {
      print ( "ERROR No $fieldMap or it's empty\n");
      exit (0);
   }
+
+  $combined = array();// here as they need to add for each builder
 
   $fh=fopen ( $devName . ".match.csv", "w" ); // will delete old
   fprintf ( $fh, 
@@ -118,7 +115,7 @@ foreach ( $runwaySource as $runwayScope ) {
     //print_r ( $builderData );
     //print_r ( $priorty);
 
-    match_plans ( $devName, $buildName, $builderData , $runwayPlans, $buildPlanCnt , $lotWork  ); // update all these these
+    match_plans ( $devName, $buildName, $builderData , $runwayPlans, $buildPlanCnt ); // update all these these
   
     // show impact on builder array
     $tmpArr=array(); 
@@ -174,99 +171,9 @@ foreach ( $runwaySource as $runwayScope ) {
       print ( "\n--end for $k\n");
     }
   }
-  print_r ( $lotWork );
-  //
-  if ( $lotUpdateArgv ) {
-    foreach ( $lotWork as $k88 => $v88 ) {
-      $kBits = array_map('trim', explode ( "|" , $k88 ));
-      $vBits = array_map('trim', explode ( "|" , $v88 ));
-      $env     = $kBits[0];
-      $devName = $kBits[1];
-      $extra    = $kBits[2];
-      $clientId = $kBits[3];
-      $runwayRange  = $kBits[4];
-      $rawBuilder = $kBits[5];
-      $lotGroup  = $kBits[6];
-      $min = $vBits[0]; // min
-      $max = $vBits[1]; 
-      //
-      $res = lot_budget_update ( $env , $rawBuilder , $clientId ,  $runwayRange , $lotGroup, $min , $max ); 
-      if ( strpos ( $res, "FAIL" ) !== false ) {
-        print ( "ERROR Lot Update $k88 with $v88 -- $res -- Builder[$rawBuilder] Community[$runwayRange] LotGroup[$lotGroup]\n");
-      } else {
-        print ( "NOTE Lot Update $k88 with $v88 -- $res\n");
-      }
-    }
-  }
 }
 //print_r ( $summary );
 // end of mainline
-
-
-function lot_budget_update ( $env , $builderName , $clientId ,  $estateName , $lotGroup, $min , $max ) {
-
-  // API end point
-  if ( $env == "PROD") {
-    $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/prod/external/lotbudgetupdate";
-  } else {
-    $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/demo/external/lotbudgetupdate";
-    $env = "DEMO"; // allows update without price update
-  }
-  //$x_api_key = "0CmmBaaTCr3thPCAEQ4rf3oHaS8cB8lw9rnKjQLx"; 
-  $x_api_key = "OJ6CmJRgVd6ikQSsMv0c88xFmv8Xh1xC6AtJ6tCI";
-  $data = array (
-
-    "env" => $env, // DEMO or PROD
-    "clientId" => $clientId,
-    "estateName" => $estateName,  // "Sandbrock Ranch"
-    "builderName" => $builderName, // "Highland Homes"
-    "lotGroup" => $lotGroup, // 60ft 60'
-    "lotCpId" => "null",
-    "minBudgetValue" => $min,
-    "maxBudgetValue" => $max
-
-  );  
-  // 
-  $content = json_encode( $data);
-  $curl = curl_init($url);
-  //
-  curl_setopt($curl, CURLOPT_HEADER, false);
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($curl, CURLOPT_FAILONERROR, true);
-  curl_setopt($curl, CURLOPT_HTTPHEADER, [
-    'Content-Type: application/json', 
-    'x-api-key: ' . $x_api_key
-  ]);
-  curl_setopt($curl, CURLOPT_POST, true);
-  curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
-  //
-  $response = curl_exec($curl);
-  //
-  $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-  if ( $status != 200 ) {
-    print ("ERROR: call to URL $url failed with status[$status], response[$response], curl_error[" . curl_error($curl) . "], curl_errno[" . curl_errno($curl) . "]\n" );
-    /* print_r ( $data );
-    print ( "\n");
-    print_r ( $content);
-    print ( "\n^--- array + json above ---^\n" ); */
-  }
-  //
-  curl_close($curl);
-
-  // convert to array
-  if ( $response == false || strlen ( $response ) == 0 ) { // is still a json string
-     return ( "FAIL - No Response" );
-  }
-  $messArr=json_decode( $response, TRUE );
-  if ( isset ( $messArr["success"])) {
-    if ( $messArr["success"] == true ) return ( "Success" );
-    else return ( "FAIL - Not Success - " . $messArr["responseMessage"] );
-  } else {
-    return ( "FAIL - Unknown Response" );
-  }
-
-}
 
 
 function send_price ( $env , $builderName , $planCpId , $clientId , $planCost ) {
@@ -496,7 +403,6 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
         $runwayPlans[$key][$key2]["size"] = $size;
         $runwayPlans[$key][$key2]["front"] = $front;
         $runwayPlans[$key][$key2]["design"] = $design;
-        $runwayPlans[$key][$key2]["range"] = $range;
         $runwayPlans[$key][$key2]["rec_status"] = "no-match";
         $runwayPlans[$key][$key2]["match_key"] = "NA";
       }
@@ -720,10 +626,9 @@ function runway_model ( $mod ,  $bld ) {
   return ( trim ( $rebuild ) );
 }
 
-function match_plans ( $devName, $buildName, &$matrix , &$runwayPlans, $buildPlanCnt , &$lotWork ) {
+function match_plans ( $devName, $buildName, &$matrix , &$runwayPlans, $buildPlanCnt ) {
 
 global $debugModeArgv;
-global $lotUpdateArgv;
 global $env;
 
  /* matrix...
@@ -841,7 +746,6 @@ foreach ( $matrix as $b_k => $b_v ) {
           $builderPrice= $matrix[$b_k]["price"];
           $runwaySize = $runwayPlans[$r_k][$r_k2]["size"];
           $builderSize= $matrix[$b_k]["size"];
-
           if ( $builderPrice == $runwayPrice ) { $res="Price-Match"; } else { $res="Price-diff"; }
           if ( abs ( $builderSize - $runwaySize ) <= 5 ) { $res2="Size-Match"; } else { $res2="Size-diff"; }
           //print ( "DEBUG $htype $res $res2: B[$b_k] R[$r_k][$r_k2] cnt=$r_planCnt " . "B=$" . $builderPrice . " R=$" . $runwayPrice . " PriceGap=" . ( $builderPrice - $runwayPrice) . 
@@ -859,29 +763,9 @@ foreach ( $matrix as $b_k => $b_v ) {
           fclose($fh);
 
           if ( $okUpdate && $res2 == "Size-Match" && $res == "Price-diff") {
-            // build or update best price array
+            // post the new price
             $rtn = send_price ( $env , $rawBuilder , $planCpId , $clientId , $builderPrice );
             print ( "DEBUG POSTED $env , $rawBuilder , $planCpId , $clientId , $builderPrice => [$rtn]\n");
-          }
-
-          if ( /* $okUpdate && $lotUpdateArgv && $res2 == "Size-Match" */ true ) {
-            // Prep for min and max budgets
-            $lotGroup = $runwayPlans[$r_k][$r_k2]["front"];
-            $runwayRange = $runwayPlans[$r_k][$r_k2]["range"];
-            $extra = "none"; // could be $res2 for size match filters
-            $key = $env . "|" . $devName . "|" . $extra  . "|" . $clientId . "|" . $runwayRange . "|" . $rawBuilder . "|" . $lotGroup;
-
-            if ( isset ( $lotWork[$key] )) {
-              $curVals = explode ( "|" , $lotWork[$key] ); // already have this key
-              $minBud = $curVals[0];
-              $maxBud = $curVals[1];
-              if ( $builderPrice > $maxBud ) $maxBud = $builderPrice;
-              if ( $builderPrice < $minBud ) $minBud = $builderPrice;
-              $lotWork[$key] = $minBud . "|" . $maxBud;
-            } else {
-              $lotWork[$key] = $builderPrice . "|" . $builderPrice; // starting value
-            }
-            //print ( "DEBUG LotWork [" . $key . "] => [" . $lotWork[$key] . "]\n");
           }
           //
           if ( strpos ( $runwayPlans[$r_k][$r_k2]["rec_status"] , "Price" ) !== false ) {
