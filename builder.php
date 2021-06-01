@@ -119,7 +119,9 @@ foreach ( $runwaySource as $runwayScope ) {
     //print_r ( $priorty);
 
     match_plans ( $devName, $buildName, $builderData , $runwayPlans, $buildPlanCnt , $lotWork  ); // update all these these
-  
+   
+    /* 
+    // NOTE Builder result [Price-diff | Size-diff | 412990] is 1 records - to much noise now
     // show impact on builder array
     $tmpArr=array(); 
     foreach ( $builderData as $k => $v ) {
@@ -130,6 +132,7 @@ foreach ( $runwaySource as $runwayScope ) {
     foreach ( $tmpArr as $k => $v ) {
       print ( "NOTE Builder result [$k] is $v records\n");
     }
+    */
   }  
   
   // show impact on runway array after all builders processed
@@ -174,30 +177,52 @@ foreach ( $runwaySource as $runwayScope ) {
       print ( "\n--end for $k\n");
     }
   }
-  print_r ( $lotWork );
+  //print_r ( $lotWork );
   //
+  // get last run
+  $f_lfp = $devName . '.lot.work.csv';
+  $last_lotWork = [];
+  if ( file_exists ( $f_lfp ) ) { 
+    $lfp= fopen( $f_lfp , 'r');
+    while (($line = fgetcsv($lfp)) !== FALSE ) {
+      $last_lotWork[ trim ( $line[0]) ] = trim ( $line[1]); 
+    }
+    fclose($lfp);
+  }
+  //print_r ( $last_lotWork );
+
   if ( $lotUpdateArgv ) {
     foreach ( $lotWork as $k88 => $v88 ) {
-      $kBits = array_map('trim', explode ( "|" , $k88 ));
-      $vBits = array_map('trim', explode ( "|" , $v88 ));
-      $env     = $kBits[0];
-      $devName = $kBits[1];
-      $extra    = $kBits[2];
-      $clientId = $kBits[3];
-      $runwayRange  = $kBits[4];
-      $rawBuilder = $kBits[5];
-      $lotGroup  = $kBits[6];
-      $min = $vBits[0]; // min
-      $max = $vBits[1]; 
-      //
-      $res = lot_budget_update ( $env , $rawBuilder , $clientId ,  $runwayRange , $lotGroup, $min , $max ); 
-      if ( strpos ( $res, "FAIL" ) !== false ) {
-        print ( "ERROR Lot Update $k88 with $v88 -- $res -- Builder[$rawBuilder] Community[$runwayRange] LotGroup[$lotGroup]\n");
+      if ( isset ($last_lotWork[$k88]) && $last_lotWork[$k88] == $v88 ) {
+        print ( "NOTE Same lot vals no update $k88\n" );
       } else {
-        print ( "NOTE Lot Update $k88 with $v88 -- $res\n");
+        $kBits = array_map('trim', explode ( "|" , $k88 ));
+        $vBits = array_map('trim', explode ( "|" , $v88 ));
+        $env     = $kBits[0];
+        $devName = $kBits[1];
+        $extra    = $kBits[2];
+        $clientId = $kBits[3];
+        $runwayRange  = $kBits[4];
+        $rawBuilder = $kBits[5];
+        $lotGroup  = $kBits[6];
+        $min = $vBits[0]; // min
+        $max = $vBits[1]; 
+        //
+        $res = lot_budget_update ( $env , $rawBuilder , $clientId , $runwayRange , $lotGroup, $min , $max ); 
+        if ( strpos ( $res, "FAIL" ) !== false ) {
+          print ( "ERROR Lot Update $k88 with $v88 -- $res -- Builder[$rawBuilder] Community[$runwayRange] LotGroup[$lotGroup]\n");
+        } else {
+          print ( "NOTE Lot Update $k88 with $v88 -- $res\n");
+        }
       }
     }
   }
+  // save this run
+  $lfp = fopen( $f_lfp , 'w');  
+  foreach ($lotWork as $k => $v ) {
+    fprintf ( $lfp, $k . "," . $v . "\n" );
+  }
+  fclose($lfp);
 }
 //print_r ( $summary );
 // end of mainline
@@ -228,6 +253,8 @@ function lot_budget_update ( $env , $builderName , $clientId ,  $estateName , $l
   );  
   // 
   $content = json_encode( $data);
+  print ( "DEBUG : $content \n" ); // TODO REMOVE
+
   $curl = curl_init($url);
   //
   curl_setopt($curl, CURLOPT_HEADER, false);
@@ -489,14 +516,14 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
         }
       } 
       if ( $save ) {
-        $runwayPlans[$key][$key2]["planCpId"] = $planCpId;
-        $runwayPlans[$key][$key2]["clientId"] = $clientId;
-        $runwayPlans[$key][$key2]["rawBuilder"] = $rawOwner;
-        $runwayPlans[$key][$key2]["price"] = $price;
-        $runwayPlans[$key][$key2]["size"] = $size;
-        $runwayPlans[$key][$key2]["front"] = $front;
-        $runwayPlans[$key][$key2]["design"] = $design;
-        $runwayPlans[$key][$key2]["range"] = $range;
+        $runwayPlans[$key][$key2]["planCpId"] = trim( $planCpId );
+        $runwayPlans[$key][$key2]["clientId"] = trim( $clientId );
+        $runwayPlans[$key][$key2]["rawBuilder"] = trim( $rawOwner );
+        $runwayPlans[$key][$key2]["price"] = trim( $price );
+        $runwayPlans[$key][$key2]["size"] = trim( $size );
+        $runwayPlans[$key][$key2]["front"] = trim( $front );
+        $runwayPlans[$key][$key2]["design"] = trim( $design );
+        $runwayPlans[$key][$key2]["range"] = trim( $range );
         $runwayPlans[$key][$key2]["rec_status"] = "no-match";
         $runwayPlans[$key][$key2]["match_key"] = "NA";
       }
@@ -780,6 +807,33 @@ foreach ( $matrix as $b_k => $b_v ) {
     if ( !$runPass ) { // log all runway builders
       if ( isset ( $r_builder_list[$r_builder] )) { $r_builder_list[$r_builder]++; } else { $r_builder_list[$r_builder]=1; }
     }
+
+    // Prep for min and max budgets
+    foreach ( $r_v as $r_k2 => $r_v2 ) {
+      $lotGroup = $runwayPlans[$r_k][$r_k2]["front"];
+      $runwayRange = $runwayPlans[$r_k][$r_k2]["range"];
+      $planCpId = $runwayPlans[$r_k][$r_k2]["planCpId"];
+      $clientId = $runwayPlans[$r_k][$r_k2]["clientId"];
+      $rawBuilder= $runwayPlans[$r_k][$r_k2]["rawBuilder"];
+      $runwayPrice = $runwayPlans[$r_k][$r_k2]["price"];
+      $runwaySize = $runwayPlans[$r_k][$r_k2]["size"];
+      //
+      $extra = "none"; // could be $res2 for size match filters
+      $key = $env . "|" . $devName . "|" . $extra  . "|" . $clientId . "|" . $runwayRange . "|" . $rawBuilder . "|" . $lotGroup;
+      if ( /* $okUpdate && $lotUpdateArgv && $res2 == "Size-Match" */ true ) {
+        if ( isset ( $lotWork[$key] )) {
+          $curVals = explode ( "|" , $lotWork[$key] ); // already have this key
+          $minBud = $curVals[0];
+          $maxBud = $curVals[1];
+          if ( $runwayPrice > $maxBud ) $maxBud = $runwayPrice;
+          if ( $runwayPrice < $minBud ) $minBud = $runwayPrice;
+          $lotWork[$key] = $minBud . "|" . $maxBud;
+        } else {
+          $lotWork[$key] = $runwayPrice . "|" . $runwayPrice; // starting value
+        }
+        //print ( "DEBUG LotWork [" . $key . "] => [" . $lotWork[$key] . "]\n");
+      }
+    }
     //
     $hit_b = words_match ( "builder" , $r_builder , $b_builder ); // builders match !
 
@@ -838,8 +892,9 @@ foreach ( $matrix as $b_k => $b_v ) {
           $clientId = $runwayPlans[$r_k][$r_k2]["clientId"];
           $rawBuilder= $runwayPlans[$r_k][$r_k2]["rawBuilder"];
           $runwayPrice = $runwayPlans[$r_k][$r_k2]["price"];
-          $builderPrice= $matrix[$b_k]["price"];
           $runwaySize = $runwayPlans[$r_k][$r_k2]["size"];
+          //
+          $builderPrice= $matrix[$b_k]["price"];
           $builderSize= $matrix[$b_k]["size"];
 
           if ( $builderPrice == $runwayPrice ) { $res="Price-Match"; } else { $res="Price-diff"; }
@@ -862,26 +917,6 @@ foreach ( $matrix as $b_k => $b_v ) {
             // build or update best price array
             $rtn = send_price ( $env , $rawBuilder , $planCpId , $clientId , $builderPrice );
             print ( "DEBUG POSTED $env , $rawBuilder , $planCpId , $clientId , $builderPrice => [$rtn]\n");
-          }
-
-          if ( /* $okUpdate && $lotUpdateArgv && $res2 == "Size-Match" */ true ) {
-            // Prep for min and max budgets
-            $lotGroup = $runwayPlans[$r_k][$r_k2]["front"];
-            $runwayRange = $runwayPlans[$r_k][$r_k2]["range"];
-            $extra = "none"; // could be $res2 for size match filters
-            $key = $env . "|" . $devName . "|" . $extra  . "|" . $clientId . "|" . $runwayRange . "|" . $rawBuilder . "|" . $lotGroup;
-
-            if ( isset ( $lotWork[$key] )) {
-              $curVals = explode ( "|" , $lotWork[$key] ); // already have this key
-              $minBud = $curVals[0];
-              $maxBud = $curVals[1];
-              if ( $builderPrice > $maxBud ) $maxBud = $builderPrice;
-              if ( $builderPrice < $minBud ) $minBud = $builderPrice;
-              $lotWork[$key] = $minBud . "|" . $maxBud;
-            } else {
-              $lotWork[$key] = $builderPrice . "|" . $builderPrice; // starting value
-            }
-            //print ( "DEBUG LotWork [" . $key . "] => [" . $lotWork[$key] . "]\n");
           }
           //
           if ( strpos ( $runwayPlans[$r_k][$r_k2]["rec_status"] , "Price" ) !== false ) {
