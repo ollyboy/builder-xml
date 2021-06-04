@@ -11,6 +11,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1); // Do send to output
 ini_set('log_errors', 1 ); // send errors to log
 
+ini_set('memory_limit', '2048M');
+
 /* 
 
 example Builder records from Runway
@@ -425,6 +427,7 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   //
   if ( $format == "xml" ) {
     if ( $objXmlDocument === false ) do_error ( "JSON encode source empty " . $format );
+    unset ( $objJsonDocument );
     $objJsonDocument = json_encode($objXmlDocument);
     if ( $objJsonDocument === false ) { do_error ( "JSON encode from XML failed [" . json_last_error_msg ( ) . "]" ); $jobAbandon = true; }
   }

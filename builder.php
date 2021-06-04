@@ -6,6 +6,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1); // Do send to output
 ini_set('log_errors', 1 ); // send errors to log
 
+ini_set('memory_limit', '512M');
+
 // testing for community match which can be quite variable
 //$hit_m = words_match ( "50 POMONA" , "50 POMONA 60" , "debug");
 //exit;

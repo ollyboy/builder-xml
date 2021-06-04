@@ -4,6 +4,8 @@
 $url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsummary/list';
 //$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/estatesummary/list';
 
+ini_set('memory_limit', '512M');
+
 // Initializes a new cURL session
 $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // return data
@@ -28,6 +30,8 @@ if ( strlen ( $response ) == 0 ) {
    print ( "ERROR - No reponse\n");	
    exit;
 }
+
+//print ( "DEBUG - Strlen=" .  strlen( $response )  ._ "\n" );
 
 $arrOutput = json_decode($response, TRUE);
  

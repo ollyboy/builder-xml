@@ -11,9 +11,9 @@ ini_set('log_errors', 1 ); // send errors to log
 */
 
 
-$clientSource = get_support_barLin ( "client.source" ); // get the scope of work, returns empty if not found
+$clientSource = get_support_barLin ( "county.source" ); // get the scope of work, returns empty if not found
 if ( sizeof( $clientSource ) == 0 ) {
-  print ( "ERROR Can't find essential work scope file: client.source\n" ); // will exit
+  print ( "ERROR Can't find essential work scope file: county.source\n" ); // will exit
   exit(0);
 } 
 
