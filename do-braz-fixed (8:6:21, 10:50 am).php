@@ -3,19 +3,8 @@
 // brazoria fixed file convert
 
 ini_set("auto_detect_line_endings", true);
-libxml_use_internal_errors(TRUE);
-error_reporting(E_ALL);
-ini_set('display_errors', 1); // Do send to output
-ini_set('log_errors', 1 ); // send errors to log
 
-ini_set('memory_limit', '4096M');
-
-if ( file_exists( "Brazoria.template.csv" ) && file_exists( "Brazoria.txt" ) ) {
-  echo ( "NOTE: Good to Start convert of Brazoria.txt to Brazoria.csvbar \n"); 
-} else {
-  echo ( "ERROR: Missing Brazoria.txt or Brazoria.template.csv. Cant generate Brazoria.csvbar \n"); 
-  exit( false );
-}
+echo ( "Reading template\n" );
 
 // prop_type_cd,char(5),13,17,5,Property Type Code:
 $file = fopen("Brazoria.template.csv", 'r'); // expect col-name, col-type, start-pos, end-pos , desc
@@ -35,7 +24,7 @@ while (($str = fgets($file)) !== FALSE) {
     }
     if ( sizeof ( $line ) < 6 ) { echo ( "ERROR at $i " . implode ( " | " , $line ) . "\n"); }
     else { 
-      echo ( "NOTE: Inc at " . ( $i + 1 ) . " [". $colname[$i] ."] at position " . $start[$i] . " to " . $end[$i] . " Desc:". $desc[$i] . "\n"); 
+      echo ( "Inc at " . $i+1 . "[". $colname[$i] ."] at position " . $start[$i] . " to " . $end[$i] . " Desc:". $desc[$i] . "\n"); 
       $i++;
     }
   } else { 
@@ -49,7 +38,7 @@ $size = $i;
 if ( $i == $j ) echo ( "Converting with $size col-names from template with $j records\n" );
 else echo ( "ERROR Converting with $size col-names from template with $j records\n" );
 
-$file = fopen("Brazoria.txt", 'r');
+$file = fopen("brazoria.txt", 'r');
 $cnt=0;
 while (($line = fgets($file)) !== FALSE) {
   //$line is an array of the csv elements

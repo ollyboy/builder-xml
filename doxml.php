@@ -554,7 +554,7 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
         if ( $lineCount < 100000 ) {
           foreach ( $csvheader as $i => $j ) {
             if ( isset ( $sample[$j] )) { 
-              if ( strlen ( $sample[$j] ) < 120 && strpos ( $sample[$j] , $line[$i] ) === false  && trim( $line[$i] ) != "") {
+              if ( strlen ( $sample[$j] ) < 120 && trim( $line[$i] ) != "" && strpos ( $sample[$j] , $line[$i] ) === false ) {
                 $sample[$j] .= " , " . $line[$i]; 
                 }
               }

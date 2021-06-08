@@ -232,69 +232,73 @@ foreach ( $runwaySource as $runwayScope ) {
 
 function lot_budget_update ( $env , $builderName , $clientId ,  $estateName , $lotGroup, $min , $max ) {
 
-  // API end point
-  if ( $env == "PROD") {
-    $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/prod/external/lotbudgetupdate";
-  } else {
-    $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/demo/external/lotbudgetupdate";
-    $env = "DEMO"; // allows update without price update
-  }
-  //$x_api_key = "0CmmBaaTCr3thPCAEQ4rf3oHaS8cB8lw9rnKjQLx"; 
-  $x_api_key = "OJ6CmJRgVd6ikQSsMv0c88xFmv8Xh1xC6AtJ6tCI";
-  $data = array (
+  $rtnMess = "";
+  $tmp = explode ( "," , $estateName ); // plans maybe for mutiple esates
+  foreach ( $tmp as $oneEstate ) {  
+    // API end point
+    if ( $env == "PROD") {
+      $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/prod/external/lotbudgetupdate";
+    } else {
+      $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/demo/external/lotbudgetupdate";
+      $env = "DEMO"; // allows update without price update
+    }
+    //$x_api_key = "0CmmBaaTCr3thPCAEQ4rf3oHaS8cB8lw9rnKjQLx"; 
+    $x_api_key = "OJ6CmJRgVd6ikQSsMv0c88xFmv8Xh1xC6AtJ6tCI";
+    $data = array (
 
     "env" => $env, // DEMO or PROD
     "clientId" => $clientId,
-    "estateName" => $estateName,  // "Sandbrock Ranch"
+    "estateName" => trim($oneEstate), // WAS $estateName,  // "Sandbrock Ranch"
     "builderName" => $builderName, // "Highland Homes"
     "lotGroup" => $lotGroup, // 60ft 60'
     "lotCpId" => "null",
     "minBudgetValue" => $min,
     "maxBudgetValue" => $max
 
-  );  
-  // 
-  $content = json_encode( $data);
-  print ( "DEBUG : $content \n" ); // TODO REMOVE
+    );  
+    // 
+    $content = json_encode( $data);
+    print ( "DEBUG : $content \n" ); // TODO REMOVE
 
-  $curl = curl_init($url);
-  //
-  curl_setopt($curl, CURLOPT_HEADER, false);
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($curl, CURLOPT_FAILONERROR, true);
-  curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    $curl = curl_init($url);
+    //
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_FAILONERROR, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, [
     'Content-Type: application/json', 
     'x-api-key: ' . $x_api_key
-  ]);
-  curl_setopt($curl, CURLOPT_POST, true);
-  curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
-  //
-  $response = curl_exec($curl);
-  //
-  $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    ]);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+    //
+    $response = curl_exec($curl);
+    //
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-  if ( $status != 200 ) {
-    print ("ERROR: call to URL $url failed with status[$status], response[$response], curl_error[" . curl_error($curl) . "], curl_errno[" . curl_errno($curl) . "]\n" );
+    if ( $status != 200 ) {
+      print ("ERROR: call to URL $url failed with status[$status], response[$response], curl_error[" . curl_error($curl) . "], curl_errno[" . curl_errno($curl) . "]\n" );
     /* print_r ( $data );
     print ( "\n");
     print_r ( $content);
     print ( "\n^--- array + json above ---^\n" ); */
-  }
-  //
-  curl_close($curl);
+    }
+    //
+    curl_close($curl);
 
-  // convert to array
-  if ( $response == false || strlen ( $response ) == 0 ) { // is still a json string
-     return ( "FAIL - No Response" );
+    // convert to array
+    if ( $response == false || strlen ( $response ) == 0 ) { // is still a json string
+      $rtnMess .= "FAIL - $oneEstate - No Response | ";
+    }
+    $messArr=json_decode( $response, TRUE );
+    if ( isset ( $messArr["success"])) {
+      if ( $messArr["success"] == true ) $rtnMess .= "OK $oneEstate - Success | ";
+      else $rtnMess .= "FAIL - $oneEstate - Not Success - " . $messArr["responseMessage"] . " | ";
+    } else {
+      $rtnMess .= "FAIL - $oneEstate - Unknown Response | ";
+    }
   }
-  $messArr=json_decode( $response, TRUE );
-  if ( isset ( $messArr["success"])) {
-    if ( $messArr["success"] == true ) return ( "Success" );
-    else return ( "FAIL - Not Success - " . $messArr["responseMessage"] );
-  } else {
-    return ( "FAIL - Unknown Response" );
-  }
-
+  return ( $rtnMess );
 }
 
 
@@ -458,14 +462,14 @@ function build_plan_keys ( $planList, &$runwayPlans ) { // Get the Runway source
       if ( $estates == "" ){
         // no estates
         if ( $branch != "" && strpos( strtoupper($range), strtoupper($branch) ) === false ) {
-          $range = $range . " " . $branch; // branch exists and its not in
+          $range = $range . " " . $branch; // branch exists
         }
       } else {
         // we have estates
         $tmp876 = array_map ( 'trim' , explode ( "," , $estates ));
         foreach ( $tmp876 as $a6 => $v6 ) {
           if ( strpos( strtoupper($range) , strtoupper($v6) ) === false ) {
-            $range = $range . " " . $v6;
+            $range = $range . " , " . $v6;
           }
         }
       }

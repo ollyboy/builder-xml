@@ -20,6 +20,7 @@ sleep 2m
 /usr/bin/php builder.php HorizonDeerCreek-Demo David-SandBrock Highland-SandBrock Coventry demo-post >> doprice.log 2>&1
 /usr/bin/php builder.php Hillwood-Demo demo-post >> doprice.log 2>&1
 /usr/bin/php builder.php Hillwood-Prod  prod-post >> doprice.log 2>&1
+/usr/bin/php builder.php HowardHughes-Demo  demo-post lot-update >> doprice.log 2>&1
 # example use - php builder.php <developer> <builder-1> builder-2> demo-post >> doprice.log 2>&1
 
 # check for errors

@@ -6,6 +6,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1); // Do send to output
 ini_set('log_errors', 1 ); // send errors to log
 
+
+ini_set('memory_limit', '4096M');
+
 /*
 000000687740|R|02020|000000000000||||7100-0121-010|000001158936|"POMONA PHASE 4  LLC"|F|000000000000||"9800 HILLWOOD PKWY"|"STE 300"|"FORT WORTH"|TX||76177|||F|F|Y||"BAYLEAF MANOR"|DR|||"POMONA SEC 12 (A0298 HT&BRR) BLK 1 LOT 10"||0000000000000000|S7100-012|S7100|1|10|
 */
@@ -13,7 +16,7 @@ ini_set('log_errors', 1 ); // send errors to log
 
 $clientSource = get_support_barLin ( "county.source" ); // get the scope of work, returns empty if not found
 if ( sizeof( $clientSource ) == 0 ) {
-  print ( "ERROR Can't find essential work scope file: county.source\n" ); // will exit
+  print ( "ERROR Can't find essential scope file: county.source\n" ); // will exit
   exit(0);
 } 
 
@@ -76,7 +79,7 @@ foreach ( $clientSource as $scope ) {
   foreach ( $combined as $k => $v ) {
 
     if ( !isset($v[1]) && !isset($v[3]) && !isset($v[5]) ) {
-      //print ( "No solution for " . $k . " [" . $v[0] . "]\n" ); $i++;
+      print ( "No solution for " . $k . " [" . $v[0] . "]\n" ); $i++;
       $noSolution[$k] = $v;
     } elseif ( isset($v[1]) && !isset($v[3]) && !isset($v[5]) ) {
       //print ( "Single Addrs solution for $k " . $v[0] . "\n" ); 
