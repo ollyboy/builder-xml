@@ -196,29 +196,6 @@ foreach ( $clientSource as $scope ) { //  Developer
                " >> Branch=$branch Estates=[$estates] - clid:$clientID ccid:$companyID $message\n" );
   }
 
-  $resProd = false; $c_c_nam="na"; $o_nam ="na"; $p_p_nam="na"; $l_f_nam="na"; $l_f_alias="na"; $r_name="na";
-  $prodUrl = "https://r6api.runwayproptech.com/runwaywsrest/productapi/get?clientproductid=" . $v['clientproductid'] ;
-  $resProd = get_runway_data ( $prodUrl , $SEC , $AUTH );
-  if ( is_array( $resProd )) {
-    $c_c_nam = $resProd['clientcompanyname'] ;
-    $o_nam = $resProd['ownername'] ;
-    $p_p_nam = $resProd['product']['productname'] ;
-    $r_name = $resProd['homeproduct']['rangeproductname'] ;
-    foreach ( $resProd['productdimension'] as $val22 ) {
-      if ( $val22['dimensionname'] == 'Can Fit On Width [in ft]' ) $l_f_nam = $val22['charvalue'];
-      if ( $val22['dimensionname'] == 'Builder Lot Width Alias' ) $l_f_alias = $val22['charvalue'];
-    }
-    print ( "NOTE  Product Call got : comp=[$c_c_nam] : own=[$o_nam] : plan=[$p_p_nam] : fit-on=[$l_f_nam] : alias=[$l_f_alias] range=[$r_name]\n" );
-  } else {
-    print ( "ERROR $name - url $fullUrl no result\n" );
-  }
-  if ( sizeof ( $res ) == 0 ) {
-    print ( "DEBUG $name - No contents from $prodUrl\n"); 
-  }
-
-
-
-
   fprintf( $fh, 
   $v['clientproductid'] ."|".  // $planCpId  for put$
   $v['clientid'] . "|" .       // $clientId for put
