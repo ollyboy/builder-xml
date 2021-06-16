@@ -64,7 +64,7 @@ foreach( $argv as $cnt => $v ) {
       if ( strtolower ( $parts[0] ) == $value ) { $revisedClientSource[] = $scope; $hit = true; }// names match
     }
     if ( ! $hit ) {
-      print ( "ERROR Unknown command line parameter [" . $v . "] Builders from builder.source or debug allowed\n" );
+      print ( "ERROR Unknown command line parameter [" . $v . "] Builders from builder.source or debug or lot-update allowed\n" );
       exit (0);
     }
   }
@@ -137,6 +137,9 @@ foreach ( $runwaySource as $runwayScope ) {
     */
   }  
   
+
+  //print_r ( $runwayPlans );
+
   // show impact on runway array after all builders processed
   print ( "\nNOTE --- Sending results to $devName.match.csv ---\n");
   $summary = array();
@@ -205,19 +208,20 @@ foreach ( $runwaySource as $runwayScope ) {
         $devName = $kBits[1];
         $extra    = $kBits[2];
         $clientId = $kBits[3];
-        $runwayRange  = $kBits[4];
+        $runwayEstates  = $kBits[4]; // changed to estates, was range
         $rawBuilder = $kBits[5];
         $lotGroup  = $kBits[6];
         $min = $vBits[0]; // min
         $max = $vBits[1]; 
         //
-        $tmp417 = explode ( "," , $runwayRange ); // plans maybe for mutiple esates
+        $tmp417 = explode ( "," , $runwayEstates ); // plans maybe for mutiple esates
         foreach ( $tmp417 as $oneEstate ) {  
-          $res = lot_budget_update ( $env , $rawBuilder , $clientId , /*$runwayRange*/ trim($oneEstate), $lotGroup, $min , $max ); 
+          $oneEstate = trim( $oneEstate );
+          $res = lot_budget_update ( $env , $rawBuilder , $clientId , /*$runwayRange*/ $oneEstate , $lotGroup, $min , $max ); 
           if ( strpos ( $res, "FAIL" ) !== false ) {
-            print ( "ERROR $devName : Lot Update $k88 with $v88 -- $res -- Builder[$rawBuilder] Community[$runwayRange] LotGroup[$lotGroup]\n");
+            print ( "ERROR $devName : Lot Update $k88 with $v88 -- $res -- Builder[$rawBuilder] Community[$oneEstate] LotGroup[$lotGroup]\n");
           } else {
-            print ( "NOTE $devName : Lot Update $k88 with $v88 -- $res\n");
+            print ( "NOTE $devName : Lot Update $k88 with $v88 -- $res -- Builder[$rawBuilder] Community[$oneEstate] LotGroup[$lotGroup]\n");
           }
         } //for each
       }
@@ -388,7 +392,7 @@ function build_plan_keys ( $devName , $planList, &$runwayPlans ) { // Get the Ru
  //
  if ( !file_exists( $planList )) { print ( "ERROR No fixed Csv file $planList found\n"); return (0); }
  $file = fopen( $planList, 'r');
- $i=0; $j=0;
+ $i=0; $j=0; $ownerList=array();
  while (($line = fgetcsv($file,0,"|",'"',"\\")) !== FALSE) {
   //
   /*
@@ -397,9 +401,9 @@ function build_plan_keys ( $devName , $planList, &$runwayPlans ) { // Get the Ru
   7442764071122001811146627814426341431563782391223|Available|Perry Homes|2999W|Perry Homes|69' 3.0"|516900|50'||2999W
   8650470234284843631366440023637771871596171723351|Available|David Weekley Homes|Woodbank|David Weekley Homes 40 - Harvest|76' 9.0"|294990|40'||5433
   */
-  if ( count ($line) > 18 ) {
+  $i++;
+  if ( count ($line) > 20 ) {
     //
-    $i++;
     //
     // must match to runway_get_plan.php
     $planCpId =   trim( $line[0]); //$v['clientproductid'] ."|". ---  $planCpId 
@@ -421,6 +425,8 @@ function build_plan_keys ( $devName , $planList, &$runwayPlans ) { // Get the Ru
     $storeys = trim( $line[16]); // $v['noofstoreys']  ."|".
     $number =  trim( $line[17]); // $v['productnumber'] ."|".
     $name =    trim( $line[18]); //  $v['productname'] . "\n" );
+    $l_f_nam =    trim( $line[19]);
+    $l_f_alias =    trim( $line[20]);
     //
     if ( $status == "Available" ) {
 
@@ -444,8 +450,14 @@ function build_plan_keys ( $devName , $planList, &$runwayPlans ) { // Get the Ru
         print ( "ERROR $devName : Runway $owner,$design,$name,$range - Bad front numeric convert- [$front] generated from [$rawFront]\n");
         $front = 0;
       }
+      $l_f_alias = preg_replace("/[^0-9\.]/", '', $l_f_alias);
+      if ( is_numeric ( $l_f_alias )) { 
+        print ( "WARN $devName : Runway $owner,$design,$name,$range frontage $front will be replaced by alias $l_f_alias\n");
+        $front =  $l_f_alias; 
+      }
       if ( $front < 20 || $front > 120 ) {
         print ( "ERROR $devName : Runway $owner,$design,$name,$range - frontage out of scope - [$front] generated from [$rawFront]\n");
+        $front ="";
       }
 
       // convert the range frontage to nearest 5
@@ -511,7 +523,7 @@ function build_plan_keys ( $devName , $planList, &$runwayPlans ) { // Get the Ru
       $tmp =  explode ( " " , trim($range) );
       foreach ( $tmp as $bit) {
         if ( is_numeric ($bit ) && $bit > 30 && $bit < 100 ) {
-          if ($bit != $front ) {
+          if ($bit != $front  &&  !is_numeric ( $l_f_alias ) ) {
             print ( "ERROR $devName : Runway $owner $name mixed frontage - [$range] [$front] generated from [$rawFront]\n");
             $key2 = $range; // override
           }
@@ -538,12 +550,13 @@ function build_plan_keys ( $devName , $planList, &$runwayPlans ) { // Get the Ru
         $runwayPlans[$key][$key2]["front"] = trim( $front );
         $runwayPlans[$key][$key2]["design"] = trim( $design );
         $runwayPlans[$key][$key2]["range"] = trim( $range );
+        $runwayPlans[$key][$key2]["estates"] = trim( $estates );
         $runwayPlans[$key][$key2]["rec_status"] = "no-match";
         $runwayPlans[$key][$key2]["match_key"] = "NA";
       }
     } 
   } else {
-   print ( "WARN $devName : Found short line $i in Runway $planList\n");
+   print ( "WARN $devName : Found short line $i in Runway $planList. Cnt=" . count ($line) . "\n");
   }
  }
  fclose($file);
@@ -826,14 +839,16 @@ foreach ( $matrix as $b_k => $b_v ) {
     foreach ( $r_v as $r_k2 => $r_v2 ) {
       $lotGroup = $runwayPlans[$r_k][$r_k2]["front"];
       $runwayRange = $runwayPlans[$r_k][$r_k2]["range"];
+      $runwayEstates = $runwayPlans[$r_k][$r_k2]["estates"];
       $planCpId = $runwayPlans[$r_k][$r_k2]["planCpId"];
       $clientId = $runwayPlans[$r_k][$r_k2]["clientId"];
       $rawBuilder= $runwayPlans[$r_k][$r_k2]["rawBuilder"];
       $runwayPrice = $runwayPlans[$r_k][$r_k2]["price"];
       $runwaySize = $runwayPlans[$r_k][$r_k2]["size"];
+
       //
       $extra = "none"; // could be $res2 for size match filters
-      $key = $env . "|" . $devName . "|" . $extra  . "|" . $clientId . "|" . $runwayRange . "|" . $rawBuilder . "|" . $lotGroup;
+      $key = $env . "|" . $devName . "|" . $extra  . "|" . $clientId . "|" . /*$runwayRange*/ $runwayEstates . "|" . $rawBuilder . "|" . $lotGroup;
       if ( /* $okUpdate && $lotUpdateArgv && $res2 == "Size-Match" */ true ) {
         if ( isset ( $lotWork[$key] )) {
           $curVals = explode ( "|" , $lotWork[$key] ); // already have this key
@@ -888,7 +903,7 @@ foreach ( $matrix as $b_k => $b_v ) {
         //
         $hit_m = words_match ( "model r>b" , $r_model , $b_model);
         if ( $hit_m ) $hit_m_cnt++;
-        if ( !$hit_m  && $r_planCnt == 1 ) {
+        if ( !$hit_m  /* && $r_planCnt == 1 */ ) {
           // maybe the builder does not state the frontage ie run[45 WOLF RANCH] == build[WOLF RANCH]
           $hit_m = words_match ( "model b>r" , $b_model , $r_model );
         }

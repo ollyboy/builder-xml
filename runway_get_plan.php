@@ -203,7 +203,7 @@ foreach ( $clientSource as $scope ) { //  Developer
     $c_c_nam = $resProd['clientcompanyname'] ;
     $o_nam = $resProd['ownername'] ;
     $p_p_nam = $resProd['product']['productname'] ;
-    $r_name = $resProd['homeproduct']['rangeproductname'] ;
+    //$r_name = $resProd['homeproduct']['rangeproductname'] ; // sometimes blank
     foreach ( $resProd['productdimension'] as $val22 ) {
       if ( $val22['dimensionname'] == 'Can Fit On Width [in ft]' ) $l_f_nam = $val22['charvalue'];
       if ( $val22['dimensionname'] == 'Builder Lot Width Alias' ) $l_f_alias = $val22['charvalue'];
@@ -215,8 +215,6 @@ foreach ( $clientSource as $scope ) { //  Developer
   if ( sizeof ( $res ) == 0 ) {
     print ( "DEBUG $name - No contents from $prodUrl\n"); 
   }
-
-
 
 
   fprintf( $fh, 
@@ -238,7 +236,8 @@ foreach ( $clientSource as $scope ) { //  Developer
   $v['noofcarparks']  ."|".
   $v['noofstoreys']  ."|".
   $v['productnumber'] ."|".
-  $v['productname'] . "\n" );
+  $v['productname'] . "|".
+  $l_f_nam  . "|" . $l_f_alias . "\n" );
 
   }
   fclose ( $fh );
