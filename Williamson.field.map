@@ -1,0 +1,22 @@
+unit |
+*house | situsstreetnumber
+prefix | 
+street | situsstreetname
+suffix | situsstreetsuffix
+*city | situscity
+zip |  situszip
+state | situsstate
+*owner | legallocationdesc
+ownership | nbhddesc
+legal | legaldesc
+subdivision | legallocationdesc
+*block | subblock
+*lot | sublot
+acreage_val | legalacres
+land_val | currlandvalue
+improved_val | improvmentvalue
+use_val | 
+market_val | marketvalue
+appraised_val | assessedvalue
+assessed_val | assessedvalue
+tax_codes | taxingunitlist

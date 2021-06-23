@@ -99,7 +99,7 @@ foreach ( $runwaySource as $runwayScope ) {
   }
 
   $fh=fopen ( $devName . ".match.csv", "w" ); // will delete old
-  fprintf ( $fh, 
+  fwrite ( $fh, 
             "devName" . "," . "buildName" .",". "hitType" .",". "priceResult" .",". "sizeResult" .",". 
             "key_b_builder" .",". "key_b_plan" .",". "key_b_community" .",". 
             "key_r_builder" .",". "key_r_plan" .",". "key_r_community" .",". "r_plan_cnt" .",".
@@ -160,7 +160,7 @@ foreach ( $runwaySource as $runwayScope ) {
         $runwaySize = $runwayPlans[$k][$k2]["size"];
 
         $fh=fopen ( $devName . ".match.csv" , "a" );
-        fprintf ( $fh, 
+        fwrite( $fh, 
             $devName . "," . "na" .",". "Miss" .",". "na" .",". "na" .",". 
             "na" .",". "na" .",". "na" .",". 
             $bld .",". $pln .",". $mod .",". "0" .",".
@@ -230,7 +230,7 @@ foreach ( $runwaySource as $runwayScope ) {
   // save this run
   $lfp = fopen( $f_lfp , 'w');  
   foreach ($lotWork as $k => $v ) {
-    fprintf ( $lfp, $k . "^" . $v . "\n" );
+    fwrite ( $lfp, $k . "^" . $v . "\n" );
   }
   fclose($lfp);
 }
@@ -934,7 +934,7 @@ foreach ( $matrix as $b_k => $b_v ) {
             " PriceGap=" . ( $builderPrice - $runwayPrice) . " Bsiz=$builderSize Rsiz=$runwaySize\n");
           //
           $fh=fopen ( $devName . ".match.csv" , "a" );
-          fprintf ( $fh, 
+          fwrite ( $fh, 
             $devName . "," . $buildName .",". $htype .",". $res .",". $res2 .",". 
             $b_builder .",". $b_plan .",". $b_model .",". 
             $r_builder .",". $r_plan .",". $r_model .",". $r_planCnt .",".

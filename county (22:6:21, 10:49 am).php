@@ -26,13 +26,11 @@ if ( sizeof( $runwaySource ) == 0 ) {
 // set flags and see if run is limited to a small set of jobs
 //
 $revisedClientSource=array(); $revisedRunwaySource=array();
-$debugModeArgv = false; $prodModeArgv = false; 
 foreach( $argv as $cnt => $v ) {
   $value =trim ( strtolower( $v )); 
   if ( $cnt == 0 ) {} // ignore
   elseif ( $value  == "production") $prodModeArgv = true; // Just generate hints if false
   elseif ( $value  == "development") $prodModeArgv = false; 
-  elseif ( $value  == "debug") $debugModeArgv = true; 
   else {
     $hit = false;
     foreach ( $clientSource as $scope ) {
@@ -99,120 +97,43 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
                      $combined, $stock1, $stock2, $stock3 ); // set these
       print ( "NOTE $devName - Stock size is " . count($combined) . " Key sets are " . count($stock1) . " "  . count($stock2) ." " . count($stock3) . "\n");
 
-      $noMatch = match_stock ( $debugModeArgv , $county , $stock1 , $stock2 , $stock3, // pass in these 
+      $noMatch = match_stock ( $county , $stock1 , $stock2 , $stock3, // pass in these 
                            $combined ); // update this
-      
       //print_r ( $combined );
 
       $i=0; $j=0; $noSolution = array(); $comCount= array();
-
-      $fh=fopen ( $devName . ".link.csv", "w" ); // will delete old
-
-      fwrite ( $fh, 
-        "match" . "," .
-        "r_adds" . "," .
-        "r_proj"  . "," .
-        "r_phase"  . "," .
-        "r_section"  . "," .
-        "r_block"   . "," .
-        "r_lot"   . "," .
-        "community"  . "," .
-        "owner"  . "," .
-        "house"  . "," .
-        "street" . "," .
-        "suffix" . "," .
-        "legal" . "," .
-        "block" . "," .
-        "lot" . "," .
-        "appraised" . "," .
-        "assessed" . "," .
-        "acreage" . "\n" );
-
       foreach ( $combined as $k => $v ) {
-
-        $r_adds = $k;
-        $r_def = explode ( "^" , $v[0] ); // LIBERTY^2^na^1^C
-        $r_proj  = $r_def[0]; // community
-        $r_phase = $r_def[1];
-        $r_section = $r_def[2];
-        $r_block = $r_def[3];
-        $r_lot = $r_def[4];
-        $community="na";
-        $owner = "na";
-        $street ="na";
-        $suffix ="";
-        $legal = "na";
-        $block = "na";
-        $lot =   "na";
-        $appraised ="na";
-        $assessed = "na";
-        $acreage =  "na";
-        $house =    "na";
 
         if ( !isset($v[1]) && !isset($v[3]) && !isset($v[5]) ) {
           //print ( "No solution for " . $k . " [" . $v[0] . "]\n" ); 
           $i++;
           $noSolution[$k] = $v;
-          $match="miss";
         } else {
-          //    
-          $match="hit"; 
-          if ( isset($v[1]) )  $point = 1;   
-          else if ( isset($v[3]) ) $point = 3; 
-          else if ( isset($v[5]) ) $point = 5; 
-          //
-          $community= $v[ $point + 1 ][1];
-          $owner =     $v[ $point ]['*owner'];       // => BRUCE BRANDON JAMES & JOANNA LYNN SMITH
-          $street =    $v[ $point ]['street'];       //=> BLACKHAWK RIDGE
-          if ( isset ( $v[ $point ]['suffix'] )) $suffix =    $v[ $point ]['suffix'];       // => LN
-          $legal =     $v[ $point ]['legal'];        // => POMONA SEC 10 (A0298 HT&BRR) BLK 1 LOT 1
-          if ( isset ( $v[ $point ]['*block'] )) $block =     $v[ $point ]['*block'];       //=> 1
-          if ( isset ( $v[ $point ]['*lot']   )) $lot =       $v[ $point ]['*lot'];         // => 1
-          $appraised = $v[ $point ]['appraised_val']; // => 59390
-          $assessed =  $v[ $point ]['assessed_val'];  // => 59390
-          if ( isset ( $v[ $point ]['acreage_val'] )) $acreage =   $v[ $point ]['acreage_val'];   // => 2178
-          $house =     $v[ $point ]['*house'];        // => 2248
+          //     
+          if ( isset($v[1]) )      $community= $v[2][1];
+          else if ( isset($v[3]) ) $community= $v[4][1];
+          else if ( isset($v[5]) ) $community= $v[6][1];
+          else $community="";
           //
           if ( isset($v[1]) && isset($v[5]) ) {
             if ( $v[2][0] != $v[6][0]) print ( "ERROR $k Address mismatch 2,6 \n");
-            if ( $v[2][1] != $v[6][1]) print ( "ERROR $k community mismatch 2,6 \n");
+            if ( $v[2][1] != $v[6][1]) print ( "ERROR $k Community mismatch 2,6 \n");
             if ( $v[1]['appraised_val'] != $v[5]['appraised_val'] ) print ( "ERROR $k Appraised mismatch 2,6 \n");
           }
           if ( isset($v[1]) && isset($v[3]) ) {
             if ( $v[2][0] != $v[4][0]) print ( "ERROR $k Address mismatch 2,4 \n");
-            if ( $v[2][1] != $v[4][1]) print ( "ERROR $k community mismatch 2,4 \n");
+            if ( $v[2][1] != $v[4][1]) print ( "ERROR $k Community mismatch 2,4 \n");
             if ( $v[1]['appraised_val'] != $v[3]['appraised_val'] ) print ( "ERROR $k Appraised mismatch 2,4 \n");
           }
           if ( isset($v[3]) && isset($v[5]) ) {
             if ( $v[4][0] != $v[6][0]) print ( "ERROR $k Address mismatch 4,6 \n");
-            if ( $v[4][1] != $v[6][1]) print ( "ERROR $k community mismatch 4,6 \n");
+            if ( $v[4][1] != $v[6][1]) print ( "ERROR $k Community mismatch 4,6 \n");
             if ( $v[3]['appraised_val'] != $v[5]['appraised_val'] ) print ( "ERROR $k Appraised mismatch 4,6 \n");
           }
           if ( isset ( $comCount[ $community ] ) ) { $comCount[ $community ]++; } else { $comCount[ $community ] =1; }
         }
         $j++;
-        //
-        fwrite ( $fh, 
-        $match . "," .
-        $r_adds . "," .
-        $r_proj  . "," .
-        $r_phase  . "," .
-        $r_section  . "," .
-        $r_block   . "," .
-        $r_lot   . "," .
-        $community  . "," .
-        $owner  . "," .
-        $house  . "," .
-        $street . "," .
-        $suffix . "," .
-        $legal . "," .
-        $block . "," .
-        $lot . "," .
-        $appraised . "," .
-        $assessed . "," .
-        $acreage . "\n" );
       }
-      fclose($fh);
       print ( "NOTE $devName $countyName - Total $j stock. $i with no solution\n");
       //print_r ( $noSolution );
       //print_r ( $noMatch );
@@ -225,18 +146,10 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
       foreach ( $noMatchProj as $k => $v ){
         //if ( $v > 10 ) print ( "NOMATCH :: $k :: $v\n" );
       }
-      //print_r ( $noSolution );
       foreach ( $noSolution as $k => $v ){
         //print ( "NOSOL :: $k :: " . $v[0] . "\n" );
       }
-      if ( sizeof( $comCount ) == 0 ) {
-        print ( "WARN $devName $countyName - No community match\n");
-      } else {
-        foreach ( $comCount as $k22 => $v22 ) {
-          print ( "NOTE $devName $countyName - community [$k22] got $v22 matches\n");
-        }
-      }
-
+      print_r ( $comCount );
     }
   }
 }
@@ -477,12 +390,13 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
       if ( $local == "" ) print ( "ERROR $stockList at $k - No city/suburb\n");
       //
       // $addrs = addr_conv ( $unit ." ". $street ." ". $local ." ". $state ." ". $postcode ); // full address
-      $addrs = addr_conv ( $unit ." ". $street ." ". $local ." ". $postcode ); // full address without state, brazoria does not have state   
+      $addrs = addr_conv ( $unit ." ". $street ." ". $local ." ". $postcode ); // full address without state, brazoria does not have state
+    
       $tmp = array_map('trim', explode ( " " , $addrs));
       $count = count ( $tmp );
       $key1=""; $key2="";
       if ( $count < 4 ) {
-        print ( "ERROR $stockList at $k - Addrs [$addrs] is short, got " . count ($tmp) . "\n"); 
+        print ( "ERROR $stockList at $k - Addrs [ $addrs ] is short, got " . count ($tmp) . "\n"); 
       } else {
         // street is like "1712 Coronet Ave" - get the number for fast lookup
         $short = addr_conv ( $unit . " " . $street . " " );
@@ -503,11 +417,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
       }
 
       $tmp2 = array_map ( "trim" , explode ( "-" , $product ));
-      if ( count ($tmp2) == 4 ) {
-        $section =  ltrim( strtoupper($tmp2[1]) , "0") ; // Section
-        $block = ltrim( strtoupper($tmp2[2]) , "0" ); // Block
-        $lot = ltrim( strtoupper($tmp2[3]) , "0" ); // Lot
-      } elseif ( count ($tmp2) == 3 ) {
+      if ( count ($tmp2) == 3 ) {
         $section =  ltrim( strtoupper($tmp2[0]) , "0") ; // Section
         $block = ltrim( strtoupper($tmp2[1]) , "0" ); // Block
         $lot = ltrim( strtoupper($tmp2[2]) , "0" ); // Lot
@@ -555,7 +465,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
  print ( "NOTE Found $k lines in $stockList, $j were ok, $l were Closed/Sold\n");
  //
  foreach ( $community as $key => $val ) {
-   print ( "NOTE community [" . $key . "] has $val recs\n");
+   print ( "NOTE Community [" . $key . "] has $val recs\n");
  }
  return(1);
 }
@@ -636,10 +546,10 @@ function same_words ( $s1 , $s2 ) {
 }
 
 
-function match_stock ( $debug , $matrix , $stock1 , $stock2 , $stock3, &$combined ) {
+function match_stock ( $matrix , $stock1 , $stock2 , $stock3, &$combined ) {
 
+ print_r ( $matrix );
  $noMatch = array();
- //print_r( $stock1);
  foreach ( $matrix as $k => $v ) {    // where $v is array [ dest_tag ] => $value $k is non-usable key
 
   //print ( "Processing [" . $k . "]\n");
@@ -664,13 +574,13 @@ function match_stock ( $debug , $matrix , $stock1 , $stock2 , $stock3, &$combine
   $CountKey2 = trim ( addr_conv ( $c_s . " " . $c_f . " " )); // street and suffix
   $CountAddrs = $c_h . " " . $c_p . " " . $c_s . " " . $c_f . " " . $c_c . " " . $c_z ; 
 
+  print ( "Trying Addrs [$CountAddrs]\n" );
   if ( $hit >= 3 && $hasValues && $CountKey1 != "" && $CountKey2 != "" ) { // enough data to test
-    print ( "Trying Addrs [$CountKey1] [$CountKey2] [$CountAddrs]\n" );
     if ( isset ( $stock1 [$CountKey1])) {
-      print ( "Yay hit house no [$CountKey1]\n");
+      //print ( "Yay hit house no [$CountKey1]\n");
       if ( isset ( $stock1 [$CountKey1][$CountKey2] )) {
         $fullAddr = $stock1[$CountKey1][$CountKey2][0];
-        if ( $debug ) print ( "YAY hit [$CountKey1][$CountKey2] R=[$fullAddr] C=[$CountAddrs]\n");
+        //print ( "Yay hit [$CountKey1][$CountKey2] R=[$fullAddr] C=[$CountAddrs]\n");
         $stock1[$CountKey1][$CountKey2][6] = "addrs-match";
         if ( isset ( $combined [ $fullAddr ][1])) {
           print ( "ERROR match 1 - duplicate full address " . $fullAddr . "\n" );
@@ -689,10 +599,11 @@ function match_stock ( $debug , $matrix , $stock1 , $stock2 , $stock3, &$combine
   if ( isset ( $v["*block"] )) { $block = $v["*block"]; $hit++; }
   if ( isset ( $v["subdivision"] )) { $subdivision = $v["subdivision"]; $hit++; }
   //
+
   $out="";
   if ( $hit >= 3 && $hasValues /* && found == false */) {
     $out = brazoria_key_gen ( $owner, $subdivision, $legal , $block , $lot ); // $owner, $subdivision , $legal , $block , $lot 
-    if ( $debug ) print ( "Trying Key [" . $out . "] from :$owner,$subdivision,$legal,$block,$lot.\n");
+    print ( "Trying Key [" . $out . "]\n");
     if ( isset ( $stock2 [ $out ])) {
       //print ( "Yay hit ID for $out - " . $stock2 [$out][0] . "\n");
       $found=true;
