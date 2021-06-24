@@ -245,7 +245,8 @@ function lot_budget_update ( $env , $builderName , $clientId ,  $estateName , $l
   foreach ( $tmp as $oneEstate ) {  
     // API end point
     if ( $env == "PROD") {
-      $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/prod/external/lotbudgetupdate";
+      //$url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/prod/external/lotbudgetupdate"; // wrong
+      $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/live/external/lotbudgetupdate";
     } else {
       $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/demo/external/lotbudgetupdate";
       $env = "DEMO"; // allows update without price update

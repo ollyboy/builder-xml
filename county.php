@@ -126,6 +126,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         "lot" . "," .
         "appraised" . "," .
         "assessed" . "," .
+        "entities" . "," .
         "acreage" . "\n" );
 
       foreach ( $combined as $k => $v ) {
@@ -148,6 +149,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         $assessed = "na";
         $acreage =  "na";
         $house =    "na";
+        $entities = "na";
 
         if ( !isset($v[1]) && !isset($v[3]) && !isset($v[5]) ) {
           //print ( "No solution for " . $k . " [" . $v[0] . "]\n" ); 
@@ -172,6 +174,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
           $assessed =  $v[ $point ]['assessed_val'];  // => 59390
           if ( isset ( $v[ $point ]['acreage_val'] )) $acreage =   $v[ $point ]['acreage_val'];   // => 2178
           $house =     $v[ $point ]['*house'];        // => 2248
+          $entities =  str_replace( "," , "|" , $v[ $point ]['entities'] );
           //
           if ( isset($v[1]) && isset($v[5]) ) {
             if ( $v[2][0] != $v[6][0]) print ( "ERROR $k Address mismatch 2,6 \n");
@@ -192,25 +195,26 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         }
         $j++;
         //
-        fwrite ( $fh, 
-        $match . "," .
-        $r_adds . "," .
-        $r_proj  . "," .
-        $r_phase  . "," .
-        $r_section  . "," .
-        $r_block   . "," .
-        $r_lot   . "," .
-        $community  . "," .
-        $owner  . "," .
-        $house  . "," .
-        $street . "," .
-        $suffix . "," .
-        $legal . "," .
-        $block . "," .
-        $lot . "," .
-        $appraised . "," .
-        $assessed . "," .
-        $acreage . "\n" );
+        fwrite ( $fh, '"' .
+        $match . '","' .
+        $r_adds . '","' .
+        $r_proj  . '","' .
+        $r_phase  . '","' .
+        $r_section  . '","' .
+        $r_block   . '","' .
+        $r_lot   . '","' .
+        $community  . '","' .
+        $owner  . '","' .
+        $house  . '","' .
+        $street . '","' .
+        $suffix . '","' .
+        $legal . '","' .
+        $block . '","' .
+        $lot . '","' .
+        $appraised . '","' .
+        $assessed . '","' .
+        $entities . '","' .
+        $acreage . '"' . "\n" );
       }
       fclose($fh);
       print ( "NOTE $devName $countyName - Total $j stock. $i with no solution\n");

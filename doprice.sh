@@ -13,14 +13,14 @@ sleep 2m
 /usr/bin/php doxml.php console > doprice.log 2>&1
 
 #get the latest runway plans
-/usr/bin/php runway_get_plan.php >> doprice.log 2>&1
+/usr/bin/php runway_get_plan.php HorizonDeerCreek-Prod Hillwood-Prod HowardHughes-Prod >> doprice.log 2>&1
 
 #run the price compare, remove prod-post for dummy run
 /usr/bin/php builder.php HorizonDeerCreek-Prod David-SandBrock Coventry prod-post >> doprice.log 2>&1
-/usr/bin/php builder.php HorizonDeerCreek-Demo David-SandBrock Coventry demo-post lot-update >> doprice.log 2>&1
-/usr/bin/php builder.php Hillwood-Demo demo-post lot-update >> doprice.log 2>&1
+#/usr/bin/php builder.php HorizonDeerCreek-Demo David-SandBrock Coventry demo-post lot-update >> doprice.log 2>&1
+#/usr/bin/php builder.php Hillwood-Demo demo-post lot-update >> doprice.log 2>&1
 /usr/bin/php builder.php Hillwood-Prod prod-post lot-update >> doprice.log 2>&1
-/usr/bin/php builder.php HowardHughes-Demo demo-post lot-update >> doprice.log 2>&1
+#/usr/bin/php builder.php HowardHughes-Demo demo-post lot-update >> doprice.log 2>&1
 /usr/bin/php builder.php HowardHughes-Prod prod-post lot-update >> doprice.log 2>&1
 # example use - php builder.php <developer> <builder-1> builder-2> demo-post >> doprice.log 2>&1
 
