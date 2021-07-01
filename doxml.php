@@ -551,15 +551,18 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
       } else {
         if ( count ( $line ) != $refLinesize ) do_error ( "WARN line size at $lineCount different ref=" . $refLinesize . " this=" . count ( $line ) ); 
         // not header line, process the data
-        if ( $lineCount < 100000 ) {
+        if ( $lineCount < 1000000 ) {
           foreach ( $csvheader as $i => $j ) {
-            if ( isset ( $sample[$j] )) { 
-              if ( strlen ( $sample[$j] ) < 120 && trim( $line[$i] ) != "" && strpos ( $sample[$j] , $line[$i] ) === false ) {
-                $sample[$j] .= " , " . $line[$i]; 
-                }
+            $u_key = $i+1 . ":" . $j;  // was just j which can have dups
+            if ( isset ( $sample[$u_key] )) { 
+              if ( strlen ( $sample[$u_key] ) < 120 && 
+                   isset ( $line[$i] ) &&
+                   trim( $line[$i] ) != "" && 
+                   strpos ( $sample[$u_key] , $line[$i] ) === false ) {
+                $sample[$u_key] .= " , " . $line[$i]; // unique samples
               }
-            else {
-              $sample[$j] = $line[$i];
+            } else {
+              $sample[$u_key] = $line[$i];
             }
           }
         }
@@ -589,7 +592,7 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
 
   $k=1;
   foreach ( $sample as $i => $j ) { // everything keys and values
-    do_note ( "col:" . $k . " [" . $i . "] e.g: " . $j );
+    if ( trim ( $j ) != "" ) do_note ( "col:" . $k . " [" . $i . "] e.g: " . $j );
     $k++;
   }
 

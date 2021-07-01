@@ -127,9 +127,6 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         "appraised" . "," .
         "assessed" . "," .
         "market" . "," .
-        "use" . "," .
-        "land" . "," .
-        "improved" . "," .
         "entities" . "," .
         "acreage" . "\n" );
 
@@ -149,12 +146,9 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         $legal = "na";
         $block = "na";
         $lot =   "na";
-        $appraised = "na";
-        $assessed =  "na";
-        $market   =  "na";
-        $use      =  "na";
-        $land     =  "na";
-        $improved =  "na";
+        $appraised ="na";
+        $assessed = "na";
+        $market = "na";
         $acreage =  "na";
         $house =    "na";
         $entities = "na";
@@ -178,13 +172,10 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
           $legal =     $v[ $point ]['legal'];        // => POMONA SEC 10 (A0298 HT&BRR) BLK 1 LOT 1
           if ( isset ( $v[ $point ]['*block'] )) $block =     $v[ $point ]['*block'];       //=> 1
           if ( isset ( $v[ $point ]['*lot']   )) $lot =       $v[ $point ]['*lot'];         // => 1
-          if ( isset ( $v[ $point ]['appraised_val'] ))  $appraised = $v[ $point ]['appraised_val']; // => 59390
-          if ( isset ( $v[ $point ]['assessed_val'] ))   $assessed =  $v[ $point ]['assessed_val'];  // => 59390
-          if ( isset ( $v[ $point ]['market_val'] ))     $market   =  $v[ $point ]['market_val'];
-          if ( isset ( $v[ $point ]['use_val'] ))        $use      =  $v[ $point ]['use_val'];
-          if ( isset ( $v[ $point ]['land_val'] ))       $land     =  $v[ $point ]['land_val'];
-          if ( isset ( $v[ $point ]['improved_val'] ))   $improved =  $v[ $point ]['improved_val'];
-          if ( isset ( $v[ $point ]['acreage_val'] ))    $acreage =   $v[ $point ]['acreage_val'];   // => 2178
+          $appraised = $v[ $point ]['appraised_val']; // => 59390
+          $assessed =  $v[ $point ]['assessed_val'];  // => 59390
+          $market   =  $v[ $point ]['market_value'];
+          if ( isset ( $v[ $point ]['acreage_val'] )) $acreage =   $v[ $point ]['acreage_val'];   // => 2178
           $house =     $v[ $point ]['*house'];        // => 2248
           $entities =  str_replace( "," , "|" , $v[ $point ]['entities'] );
           //
@@ -226,12 +217,8 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         $appraised . '","' .
         $assessed . '","' .
         $market . '","' .
-        $use . '","' .
-        $land . '","' .
-        $improved . '","' .
         $entities . '","' .
         $acreage . '"' . "\n" );
-
       }
       fclose($fh);
       print ( "NOTE $devName $countyName - Total $j stock. $i with no solution\n");
