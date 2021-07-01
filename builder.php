@@ -652,6 +652,18 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
 
               $b_model = str_replace ( "FT.", "" , strtoupper ($tmp[ $m_pos ] ));
               $b_model = str_replace ( " LOTS", "" , $b_model );
+
+              // nasty taylor Morrison hack
+              $b_model = str_replace ( " 40S", " 40" , $b_model );
+              $b_model = str_replace ( " 45S", " 45" , $b_model );
+              $b_model = str_replace ( " 50S", " 50" , $b_model );
+              $b_model = str_replace ( " 55S", " 55" , $b_model );
+              $b_model = str_replace ( " 60S", " 60" , $b_model );
+              $b_model = str_replace ( " 65S", " 65" , $b_model );
+              $b_model = str_replace ( " 70S", " 70" , $b_model );
+              $b_model = str_replace ( " 74S", " 75" , $b_model );
+              $b_model = str_replace ( " 80S", " 80" , $b_model );
+
               $b_model = trim ( get_unique_words ( $b_model)); 
               // get rid of "feet" and words like plan, convert numbers to nearest 5 
               $a = explode ( " " , $b_model );
@@ -865,7 +877,7 @@ foreach ( $matrix as $b_k => $b_v ) {
       }
     }
     //
-    $hit_b = words_match ( "builder" , $r_builder , $b_builder ); // builders match !
+    $hit_b = words_match ( "builder" , $r_builder , $b_builder ); // builders match ! runway is in builder
 
     if ( !$runPass && $hit_b ) { //only plans where builders match
       if ( isset ( $r_plan_list[$r_plan] )) { $r_plan_list[$r_plan]++; } 

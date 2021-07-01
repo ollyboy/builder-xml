@@ -106,7 +106,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
 
       $i=0; $j=0; $noSolution = array(); $comCount= array();
 
-      $fh=fopen ( $devName . ".link.csv", "w" ); // will delete old
+      $fh=fopen ( $devName . "." . $countyName . ".link.csv", "w" ); // will delete old
 
       fwrite ( $fh, 
         "match" . "," .
@@ -172,10 +172,10 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
           else if ( isset($v[5]) ) $point = 5; 
           //
           $community= $v[ $point + 1 ][1];
-          $owner =     $v[ $point ]['*owner'];       // => BRUCE BRANDON JAMES & JOANNA LYNN SMITH
-          $street =    $v[ $point ]['street'];       //=> BLACKHAWK RIDGE
+          if ( isset ( $v[ $point ]['*owner'] )) $owner =     $v[ $point ]['*owner'];       // => BRUCE BRANDON JAMES & JOANNA LYNN SMITH
+          if ( isset ( $v[ $point ]['street'] )) $street =    $v[ $point ]['street'];       //=> BLACKHAWK RIDGE
           if ( isset ( $v[ $point ]['suffix'] )) $suffix =    $v[ $point ]['suffix'];       // => LN
-          $legal =     $v[ $point ]['legal'];        // => POMONA SEC 10 (A0298 HT&BRR) BLK 1 LOT 1
+          if ( isset ( $v[ $point ]['legal']  )) $legal =     $v[ $point ]['legal'];        // => POMONA SEC 10 (A0298 HT&BRR) BLK 1 LOT 1
           if ( isset ( $v[ $point ]['*block'] )) $block =     $v[ $point ]['*block'];       //=> 1
           if ( isset ( $v[ $point ]['*lot']   )) $lot =       $v[ $point ]['*lot'];         // => 1
           if ( isset ( $v[ $point ]['appraised_val'] ))  $appraised = $v[ $point ]['appraised_val']; // => 59390
@@ -185,8 +185,8 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
           if ( isset ( $v[ $point ]['land_val'] ))       $land     =  $v[ $point ]['land_val'];
           if ( isset ( $v[ $point ]['improved_val'] ))   $improved =  $v[ $point ]['improved_val'];
           if ( isset ( $v[ $point ]['acreage_val'] ))    $acreage =   $v[ $point ]['acreage_val'];   // => 2178
-          $house =     $v[ $point ]['*house'];        // => 2248
-          $entities =  str_replace( "," , "|" , $v[ $point ]['entities'] );
+          if ( isset ( $v[ $point ]['*house'] ))         $house =     $v[ $point ]['*house'];        // => 2248
+          if ( isset ( $v[ $point ]['entities'] ))       $entities =  str_replace( "," , "|" , $v[ $point ]['entities'] );
           //
           if ( isset($v[1]) && isset($v[5]) ) {
             if ( $v[2][0] != $v[6][0]) print ( "ERROR $k Address mismatch 2,6 \n");
@@ -230,7 +230,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         $land . '","' .
         $improved . '","' .
         $entities . '","' .
-        $acreage . '"' . "\n" );
+        $acreage . '"' . "\n" );   
 
       }
       fclose($fh);
