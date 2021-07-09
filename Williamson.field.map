@@ -6,17 +6,21 @@ suffix | situsstreetsuffix
 *city | situscity
 zip |  situszip
 state | situsstate
-*owner | legallocationdesc
-ownership | nbhddesc
+*owner | nbhddesc 
+ownership | legallocationdesc
 legal | legaldesc
 subdivision | legallocationdesc
 *block | subblock
 *lot | sublot
-acreage_val | legalacres
-land_val | currlandvalue
+acreage_val | squarefootage
+land_val | landvalue
+cur_land_val | currlandvalue
 improved_val | improvmentvalue
+cur_improved_val | currimprovmentvalue
 use_val | 
 market_val | marketvalue
+cur_market_val | currmarketvalue
 appraised_val | assessedvalue
-assessed_val | assessedvalue
+assessed_val | 
+cur_assessed_val | currassessedvalue
 tax_codes | taxingunitlist

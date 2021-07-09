@@ -26,13 +26,14 @@ if ( sizeof( $runwaySource ) == 0 ) {
 // set flags and see if run is limited to a small set of jobs
 //
 $revisedClientSource=array(); $revisedRunwaySource=array();
-$debugModeArgv = false; $prodModeArgv = false; 
+$debugModeArgv = false; $prodModeArgv = false; $traceModeArgv = false; 
 foreach( $argv as $cnt => $v ) {
   $value =trim ( strtolower( $v )); 
   if ( $cnt == 0 ) {} // ignore
   elseif ( $value  == "production") $prodModeArgv = true; // Just generate hints if false
   elseif ( $value  == "development") $prodModeArgv = false; 
   elseif ( $value  == "debug") $debugModeArgv = true; 
+  elseif ( $value  == "trace") $traceModeArgv = true; 
   else {
     $hit = false;
     foreach ( $clientSource as $scope ) {
@@ -62,6 +63,8 @@ if ( count ( $revisedRunwaySource ) > 0 ) $runwaySource = $revisedRunwaySource;
 //print_r ( $clientSource );
 //print_r ( $runwaySource );
 
+$merged = array(); // for all devs for all countys
+//
 foreach ( $clientSource as $clientScope ) { // ----- for each County
 
   $parts = array_map ( 'trim' , explode ("|" , $clientScope ));
@@ -94,12 +97,12 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
 
       // Get the Runway source data, make useful keys
       $stock1=array(); $stock2=array(); $stock3=array(); // reset
-      $combined = array();
-      build_stock_keys ( $stockList, // in
+      $combined = array(); // combined find methods
+      $commWords = build_stock_keys ( $stockList, // in
                      $combined, $stock1, $stock2, $stock3 ); // set these
       print ( "NOTE $devName - Stock size is " . count($combined) . " Key sets are " . count($stock1) . " "  . count($stock2) ." " . count($stock3) . "\n");
 
-      $noMatch = match_stock ( $debugModeArgv , $county , $stock1 , $stock2 , $stock3, // pass in these 
+      $noMatch = match_stock ( $commWords , $debugModeArgv , $traceModeArgv , $county , $stock1 , $stock2 , $stock3, // pass in these 
                            $combined ); // update this
       
       //print_r ( $combined );
@@ -108,7 +111,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
 
       $fh=fopen ( $devName . "." . $countyName . ".link.csv", "w" ); // will delete old
 
-      fwrite ( $fh, 
+      $headerRec = 
         "match" . "," .
         "r_adds" . "," .
         "r_proj"  . "," .
@@ -131,17 +134,18 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         "land" . "," .
         "improved" . "," .
         "entities" . "," .
-        "acreage" . "\n" );
+        "acreage" . "\n";
+      fwrite ( $fh, $headerRec );
 
       foreach ( $combined as $k => $v ) {
 
         $r_adds = $k;
         $r_def = explode ( "^" , $v[0] ); // LIBERTY^2^na^1^C
-        $r_proj  = $r_def[0]; // community
-        $r_phase = $r_def[1];
+        $r_proj  =   $r_def[0]; // community
+        $r_phase =   $r_def[1];
         $r_section = $r_def[2];
-        $r_block = $r_def[3];
-        $r_lot = $r_def[4];
+        $r_block =   $r_def[3];
+        $r_lot =     $r_def[4];
         $community="na";
         $owner = "na";
         $street ="na";
@@ -164,6 +168,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
           $i++;
           $noSolution[$k] = $v;
           $match="miss";
+          // $community = $r_proj;
         } else {
           //    
           $match="hit"; 
@@ -172,6 +177,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
           else if ( isset($v[5]) ) $point = 5; 
           //
           $community= $v[ $point + 1 ][1];
+          if ( strtolower ( $community ) != strtolower ( $r_proj )  ) print ( "WARN $k Community diff.  County[$community] Runway[$r_proj]\n");
           if ( isset ( $v[ $point ]['*owner'] )) $owner =     $v[ $point ]['*owner'];       // => BRUCE BRANDON JAMES & JOANNA LYNN SMITH
           if ( isset ( $v[ $point ]['street'] )) $street =    $v[ $point ]['street'];       //=> BLACKHAWK RIDGE
           if ( isset ( $v[ $point ]['suffix'] )) $suffix =    $v[ $point ]['suffix'];       // => LN
@@ -203,11 +209,16 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
             if ( $v[4][1] != $v[6][1]) print ( "ERROR $k community mismatch 4,6 \n");
             if ( $v[3]['appraised_val'] != $v[5]['appraised_val'] ) print ( "ERROR $k Appraised mismatch 4,6 \n");
           }
-          if ( isset ( $comCount[ $community ] ) ) { $comCount[ $community ]++; } else { $comCount[ $community ] =1; }
+          if ( isset ( $comCount[ $community ] ) ) { 
+            $comCount[ $community ]++; 
+          } else { 
+            $comCount[ $community ] =1; 
+          }
         }
         $j++;
         //
-        fwrite ( $fh, '"' .
+        $outRec = '"' . 
+        // data here
         $match . '","' .
         $r_adds . '","' .
         $r_proj  . '","' .
@@ -230,10 +241,28 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         $land . '","' .
         $improved . '","' .
         $entities . '","' .
-        $acreage . '"' . "\n" );   
-
+        $acreage . '"' . "\n";   
+        //
+        fwrite ( $fh, $outRec ); 
+ 
+        // build the overview
+        if ( $match == "hit" ) {
+          if ( isset ( $merged[ $r_proj ][ $r_adds ][ "hit" ] )) {
+            print ( "ERROR $devName $countyName - Hmm double hit for [ $community ][ $r_adds ][ $match ]\n");
+          } else {
+            $merged[ $r_proj ][ $r_adds ][ "hit"] = $outRec  ;
+            unset ( $merged[ $r_proj ][ $r_adds ][ "miss" ] ); // may do nothing
+          }
+        } else { // miss
+          if ( isset ( $merged[ $r_proj ][ $r_adds ][ "hit" ] )) {
+            // do nothing we already have a hit
+          } else {
+            $merged[ $r_proj ][ $r_adds ][ "miss" ] = $outRec  ; // ok to record the miss
+          }
+        }
       }
       fclose($fh);
+
       print ( "NOTE $devName $countyName - Total $j stock. $i with no solution\n");
       //print_r ( $noSolution );
       //print_r ( $noMatch );
@@ -260,6 +289,29 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
 
     }
   }
+  //print_r ( $merged );
+
+  foreach  ( $merged as $com => $add ) {
+    $file = str_replace( " " , "-" , trim($com) ) . ".link.csv";
+    if ( file_exists( $file )) unlink ( $file); // bit redundent, remove what we will append to
+  }
+  $curComm = ""; $fh = false;
+  foreach ( $merged as $com => $add ) {
+    if ( $curComm != $com ) { // change
+      $curComm = $com;
+      $file = str_replace( " " , "-" , trim($com) ) . ".link.csv";
+      if ( ! is_bool( $fh ) ) fclose ( $fh ) ;
+      $fh = fopen ( $file , "a" );
+      print ( "NOTE Writing [$com]\n");
+    } 
+    foreach ( $add as $line => $type ) {
+      foreach ( $type as $res => $rec ) {
+        fwrite ( $fh, $rec ); 
+        //print ( ">> $com $line $res == $rec\n");
+      }
+    }
+  } 
+  fclose ( $fh );
 }
 // end of mainline
 
@@ -296,7 +348,7 @@ function addr_conv ( $addrs ) {
   */
 }
 
-function brazoria_key_gen ( $owner, $subdivision , $legal , $block , $lot ) {
+function county_key_gen ( $commWords, $owner, $subdivision , $legal , $block , $lot ) {
   // legal = POMONA SEC 15 (A0563 HT&BRR) BLK 1 LOT 14
   // *owner= POMONA PHASE 2A LLC,  POMONA PHASE 4  LLC
   // *owner^POMONA PHASE 2A LLC , street^COUNTY ROAD 84 , suffix^OFF , legal^A0417 A C H & B TRACT 15C ACRES 0.255 , acreage_val^2550 , *lot^15C
@@ -313,7 +365,8 @@ function brazoria_key_gen ( $owner, $subdivision , $legal , $block , $lot ) {
   $maybe_block="na";
   $maybe_lot="na";
 
-  $owner = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $owner ) );
+  $owner = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $owner ) );  // Brazoria only
+  $owner = preg_replace("/[^A-Z ]/", " "  ,          strtoupper ( $owner ) );  // Brazoria ok? plus Williamson
   $subdivision = preg_replace("/[^0-9A-Z ]/", " "  , strtoupper ( $subdivision ) );
   $legal = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $legal ) );
   $block = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $block ) );
@@ -328,7 +381,10 @@ function brazoria_key_gen ( $owner, $subdivision , $legal , $block , $lot ) {
 
   //print ( "---- $owner ---- $legal ---- $block ---- $lot ---- \n");
   $tmp = explode ( " " , $legal);
+  $community = "";
   foreach ( $tmp as $pos => $bit ) {
+    if ( strlen ( trim($bit) ) > 1 && strpos( $commWords , trim($bit) ) !== false ) $community .= trim($bit) . " ";
+    //
     if ( $bit == "SEC" ) {
       if ( isset ( $tmp[$pos + 1 ] )) { $section = $tmp[$pos + 1 ]; } else { $section = "out-of-range"; }// next word
       $proj="";
@@ -346,17 +402,25 @@ function brazoria_key_gen ( $owner, $subdivision , $legal , $block , $lot ) {
     if ( $bit == "BLK") if ( isset ( $tmp[$pos + 1 ] ))  { $maybe_block = $tmp[$pos + 1 ]; } else { $maybe_block = "out-of-range"; }
     if ( $bit == "LOT") if ( isset ( $tmp[$pos + 1 ] ))  { $maybe_lot   = $tmp[$pos + 1 ]; } else { $maybe_lot = "out-of-range"; }
   }
+  $community = trim ( $community);
 
   $tmp = explode ( " " , $owner);
+  $community2 = "";
   foreach ( $tmp as $pos => $bit ) {
+    if ( strlen ( trim($bit) ) > 1 && strpos( $commWords , trim($bit) ) !== false ) $community2 .= trim($bit) . " ";
+    //
     if ( $bit == "PHASE" ) {
       if ( isset ( $tmp[$pos + 1 ] )) { $phase2 = $tmp[$pos + 1 ]; } else  { $phase2 = "out-of-range"; } // next word
       $proj2="";
-      for ( $i=0 ; $i<$pos ; $i++ ) $proj2 .= $tmp[$i] . " "; // all the words before phase
+      for ( $i=0 ; $i<$pos ; $i++ ) {
+        $proj2 .= $tmp[$i] . " "; // all the words before phase
+      }
       $proj2 = trim ( $proj2 );
-      if ( $proj2 == "" ) $proj2 = "out-of-range2";
+      if ( $proj2 == "" ) $proj2 = "out-of-range";
     }
   }
+  $community2 = trim ( $community2);
+  if ( $community == "" ) $community = $community2;
 
   $tmp = explode ( " " , str_replace ( " NO " , " " , $subdivision )); // ie subdivision^COLONY NO 14
   if ( count ($tmp) == 1 ) { 
@@ -401,11 +465,23 @@ function brazoria_key_gen ( $owner, $subdivision , $legal , $block , $lot ) {
     $lot = rtrim ( $newLot , "," );
     //print ( "multi-lot [" . $lot . "] is [" . $newLot . "]\n");
   }
-  if ( $proj == "na")  $proj = $proj2; // try the alternative 
-  if ( $phase == "na")  $phase = $phase2; 
+  if ( $proj == "na" || $proj == "out-of-range" )  $proj = $proj2; // try the alternative 
+  if ( $phase == "na" || $phase == "out-of-range" )  $phase = $phase2; 
+  //
+  if ( $proj == "na" || $proj == "out-of-range" )   $proj = $proj3; // and again
+  if ( $phase == "na" || $phase == "out-of-range" ) $phase = $phase3; 
 
-  if ( $proj == "na")  $proj = $proj3; // and again
-  if ( $phase == "na")  $phase = $phase3; 
+  $p_siz =  count ( explode ( " " , $proj  ));
+  $p2_siz = count ( explode ( " " , $proj2 ));
+  $p3_siz = count ( explode ( " " , $proj3 ));
+
+  if ( $p2_siz > 0 && $p2_siz < 3 && $p_siz > 2 ) $proj = $proj2; // more likely
+  if ( $p3_siz > 0 && $p3_siz < 3 && $p_siz > 2 ) $proj = $proj3;
+
+  $p_siz =  count ( explode ( " " , $proj  ));
+  if ( $p_siz > 2 && $community != "" ) $proj = $community;
+
+  //print ( "TRACE community [$community] [$community2]\n");
 
 return ( $proj ."^". $phase ."^". $section ."^". $block ."^". $lot );
 }
@@ -575,10 +651,13 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
  fclose($file);
  print ( "NOTE Found $k lines in $stockList, $j were ok, $l were Closed/Sold\n");
  //
+
+ $communityWords = "";
  foreach ( $community as $key => $val ) {
    print ( "NOTE community [" . $key . "] has $val recs\n");
+   $communityWords .= $key . " ";
  }
- return(1);
+ return( $communityWords );
 }
 
 function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority ) {
@@ -622,9 +701,11 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority ) 
      	    if ( isset ( $matrix[ $key ][ $dest_tag ] ) ) { // we already have this value stored
             if ( isset ( $priority[ $key ][ $dest_tag ] ) &&  $priority[ $key ][ $dest_tag ] >  $dest_priority ) {
               // this is a higher priority value store
-              print ( "NOTE Set higher $target with $val to $dest_tag\n");
-              $matrix[ $key ][ $dest_tag ] = ltrim($val, "0"); // save the value
-              $priority[ $key ][ $dest_tag ] = $dest_priority ; // save the value priority
+              if ( $matrix[ $key ][ $dest_tag ] != ltrim($val, "0") ) {
+                print ( "NOTE Set higher $target with $val to $dest_tag. old val was " . $matrix[ $key ][ $dest_tag ] . "\n");
+                $matrix[ $key ][ $dest_tag ] = ltrim($val, "0"); // save the value
+                $priority[ $key ][ $dest_tag ] = $dest_priority ; // save the value 
+              }
             }
      		  // alreay have a value
      	    } else {
@@ -657,9 +738,10 @@ function same_words ( $s1 , $s2 ) {
 }
 
 
-function match_stock ( $debug , $matrix , $stock1 , $stock2 , $stock3, &$combined ) {
+function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2 , $stock3, &$combined ) {
 
  $noMatch = array();
+ //
  //print_r( $stock1);
  foreach ( $matrix as $k => $v ) {    // where $v is array [ dest_tag ] => $value $k is non-usable key
 
@@ -671,8 +753,11 @@ function match_stock ( $debug , $matrix , $stock1 , $stock2 , $stock3, &$combine
     $result .= $k2 . "^" . $v2 . " , ";
   }
   //
-  if ( isset ( $v["appraised_val"] )) $hasValues = true; // dont want records that dont have valuation
-  else $hasValues = false;
+  if ( isset ( $v["appraised_val"] ) || isset ( $v["assessed_val"] ) || isset ( $v["market_val"])  ) {
+    $hasValues = true; // dont want records that dont have valuation
+  } else {
+    $hasValues = false;
+  }
 
   $hit=0; $found=false;
   if ( isset ( $v["*house"] )) { $c_h = $v["*house"] ; $hit++; } else { $c_h = ""; }
@@ -683,21 +768,26 @@ function match_stock ( $debug , $matrix , $stock1 , $stock2 , $stock3, &$combine
   if ( isset ( $v["zip" ] ))   { $c_z = $v["zip"]    ; $hit++; } else { $c_z = ""; }
   $CountKey1 = trim ( addr_conv ( $c_h . " " )); // house number
   $CountKey2 = trim ( addr_conv ( $c_s . " " . $c_f . " " )); // street and suffix
-  $CountAddrs = $c_h . " " . $c_p . " " . $c_s . " " . $c_f . " " . $c_c . " " . $c_z ; 
-
-  if ( $hit >= 3 && $hasValues && $CountKey1 != "" && $CountKey2 != "" ) { // enough data to test
-    print ( "Trying Addrs [$CountKey1] [$CountKey2] [$CountAddrs]\n" );
+  $CountAddrs = trim ( addr_conv ( $c_h . " " . $c_p . " " . $c_s . " " . $c_f . " " . $c_c . " " . $c_z )); 
+  if ( $trace) print ( "TRACE Addr: no[$CountKey1] st[$CountKey2] full[$CountAddrs] hit=$hit\n" );
+  if ( $hit >= 2 && $hasValues && $CountKey1 != "" && $CountKey2 != "" ) { // enough data to test
+    if ( $trace) print ( "TRACE Trying Addrs [$CountKey1] [$CountKey2] [$CountAddrs]\n" );
     if ( isset ( $stock1 [$CountKey1])) {
-      print ( "Yay hit house no [$CountKey1]\n");
-      if ( isset ( $stock1 [$CountKey1][$CountKey2] )) {
+      if ( $debug ) ( "YAY hit house no [$CountKey1]\n");
+      if ( isset ( $stock1 [$CountKey1][$CountKey2]  ) ) {
         $fullAddr = $stock1[$CountKey1][$CountKey2][0];
-        if ( $debug ) print ( "YAY hit [$CountKey1][$CountKey2] R=[$fullAddr] C=[$CountAddrs]\n");
-        $stock1[$CountKey1][$CountKey2][6] = "addrs-match";
-        if ( isset ( $combined [ $fullAddr ][1])) {
-          print ( "ERROR match 1 - duplicate full address " . $fullAddr . "\n" );
+        if ( words_match ( "try1" , $fullAddr , $CountAddrs ) || 
+             words_match ( "try2" , $CountAddrs , $fullAddr ) ) { 
+          if ( $debug ) print ( "YAY hit addr start [$CountKey1][$CountKey2] R=[$fullAddr] C=[$CountAddrs]\n");
+          $stock1[$CountKey1][$CountKey2][6] = "addrs-match";
+          if ( isset ( $combined [ $fullAddr ][1])) {
+            print ( "ERROR match 1 - duplicate full address " . $fullAddr . "\n" );
+          } else {
+            $combined [ $fullAddr ][1] = $v; 
+            $combined [ $fullAddr ][2] = $stock1[$CountKey1][$CountKey2];
+          }
         } else {
-          $combined [ $fullAddr ][1] = $v; 
-          $combined [ $fullAddr ][2] = $stock1[$CountKey1][$CountKey2];
+          if ( $debug ) print ( "YAY NAH! hit addr start [$CountKey1][$CountKey2] R=[$fullAddr] C=[$CountAddrs]\n");
         }
       }
     }
@@ -711,11 +801,12 @@ function match_stock ( $debug , $matrix , $stock1 , $stock2 , $stock3, &$combine
   if ( isset ( $v["subdivision"] )) { $subdivision = $v["subdivision"]; $hit++; }
   //
   $out="";
+  if ( $trace) print ( "TRACE Site: own[$owner] sub[$subdivision] leg[$legal] blk[$block] lot[$lot]. $hit=$hit\n");
   if ( $hit >= 3 && $hasValues /* && found == false */) {
-    $out = brazoria_key_gen ( $owner, $subdivision, $legal , $block , $lot ); // $owner, $subdivision , $legal , $block , $lot 
-    if ( $debug ) print ( "Trying Key [" . $out . "] from :$owner,$subdivision,$legal,$block,$lot.\n");
+    $out = county_key_gen ( $commWords , $owner, $subdivision, $legal , $block , $lot ); // $owner, $subdivision , $legal , $block , $lot 
+    if ( $trace ) print ( "TRACE Trying Key [" . $out . "] from :$owner,$subdivision,$legal,$block,$lot.\n");
     if ( isset ( $stock2 [ $out ])) {
-      //print ( "Yay hit ID for $out - " . $stock2 [$out][0] . "\n");
+      if ( $debug ) print ( "YAY hit ID for $out - " . $stock2 [$out][0] . "\n");
       $found=true;
       if ( strpos ( $stock2[ $out ][6] , "no-match" ) !== false ) { $stock2[ $out ][6] = "ID-match"; }
       else { $stock2[ $out ][6] .= " , ID-match";}
@@ -774,4 +865,38 @@ function get_support_barLin ( $name ) { // process support files, bar delimited,
   return ( $out ); // array of lines like 6,7,8,9|Plan|6|PlanNumber,PlanName
 }
 
+function words_match ( $errtxt, $these , $areIn , $mode="" ) {
+
+  // will match "60" to MUSTANG LAKES 60"
+  // will match "1234" to "P1234W"
+  $t = trim ( preg_replace("/[^0-9A-Z ]/", " " , strtoupper ( $these ))); // get rid of junk
+  $a = trim ( preg_replace("/[^0-9A-Z ]/", " " , strtoupper ( $areIn )));
+  //
+  if ( $t == "" || $a == "") {
+    print ( "ERROR word match $errtxt [$t] [$a]\n");
+    return ( false );
+  }
+  if ( $mode != "" ) { print ( "DEBUG word match [$t] [$a]\n"); }
+
+  $t= explode ( " " , preg_replace('!\s+!', ' ', $t )); // get rid of double spaces
+  $a= explode ( " " , preg_replace('!\s+!', ' ', $a ));
+
+  $rtn = true;
+  foreach ( $t as $tv ) { //  [50 POMONA] 
+    $hit=false;
+    foreach ( $a as $av ) { // [POMONA 50]
+      if ( strpos ( $av , $tv ) !== false ) {
+        $hit=true;
+        //print ( "-[$av]--[$tv]--hit\n");
+      } else {
+        //print ( "-[$av]--[$tv]--miss\n");
+      }
+    }
+    if ( !$hit ) $rtn = false;
+  }
+  if ( $mode != "" ) {
+    if ( $rtn ) { print ( "--good--\n"); } else { print ( "--bad--\n"); }
+  }
+  return ( $rtn );
+}
 // end
