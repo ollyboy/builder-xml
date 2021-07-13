@@ -443,6 +443,10 @@ function build_plan_keys ( $devName , $planList, &$runwayPlans ) { // Get the Ru
         print ( "ERROR $devName : Runway $design,$name,$range - No Owner generated from [$rawOwner]\n");
       }
 
+      if ( $estates == "" ) {
+        print ( "ERROR $devName : Runway $design,$name,$range - No estates generated from [$estates]\n");
+      }
+
       $rawFront=$front; // remember it
       $front  = preg_replace("/[^0-9\.]/", '', $front); // ie 55' goes to 55
       if ( is_numeric ( $front ) ) { 

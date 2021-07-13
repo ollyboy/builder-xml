@@ -78,7 +78,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
 
   // Get the county data etc
   $county=array(); $priority=array(); // reset
-  build_maxtix_from_csv ( $latestCsv , $mapArr ,
+  build_maxtix_from_csv ( $debugModeArgv, $latestCsv , $mapArr ,
                           $county , $priority ); // set these
   $c_siz = count( $county );
   if ( $c_siz == 0 ) {
@@ -660,7 +660,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
  return( $communityWords );
 }
 
-function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority ) {
+function build_maxtix_from_csv ( $debug , $latestCsv , $mapArr , &$matrix , &$priority ) {
 
   /* look for fixed key and value in latestCsv
   [0]                               [15]         [16]
@@ -702,7 +702,7 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority ) 
             if ( isset ( $priority[ $key ][ $dest_tag ] ) &&  $priority[ $key ][ $dest_tag ] >  $dest_priority ) {
               // this is a higher priority value store
               if ( $matrix[ $key ][ $dest_tag ] != ltrim($val, "0") ) {
-                print ( "NOTE Set higher $target with $val to $dest_tag. old val was " . $matrix[ $key ][ $dest_tag ] . "\n");
+                if ( $debug ) print ( "NOTE $key - Set different $target with $val to $dest_tag. old val was " . $matrix[ $key ][ $dest_tag ] . "\n");
                 $matrix[ $key ][ $dest_tag ] = ltrim($val, "0"); // save the value
                 $priority[ $key ][ $dest_tag ] = $dest_priority ; // save the value 
               }
