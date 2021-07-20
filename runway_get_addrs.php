@@ -86,7 +86,7 @@ foreach ( $clientSource as $scope ) { //  Developer
     $arrOutput=array();
   }
 
-  //print_r ( $arrOutput );
+  print_r ( $arrOutput );
 
   $fp = fopen ( $name . ".address.csv" , "w" );
   foreach ( $arrOutput as $k => $v ) {

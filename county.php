@@ -592,7 +592,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
         }
         $key2 = trim ( $key2 );
         //print ( "DEBUG -> $addrs - $key1 - $key2\n");
-        if ( isset ( $stock1[$key1][$key2])) { print ( "ERROR $stockList at $k - Duplicate address key [$key1] + [$key2] exists\n"); }
+        if ( isset ( $stock1[$key1][$key2])) { print ( "ERROR Runway $stockList at $k - Duplicate address key [$key1] + [$key2] exists [$addrs]\n"); }
         $stock1[$key1][$key2][0] = $addrs; $stock1[$key1][$key2][1] = $project; 
         $stock1[$key1][$key2][2] = $phase; $stock1[$key1][$key2][3] = $section; 
         $stock1[$key1][$key2][4] = $block; $stock1[$key1][$key2][5] = $lot; 
@@ -627,7 +627,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
 
       $key = $project ."^". $phase ."^". $section ."^". $block ."^". $lot; // redefine key
       $combined [ $addrs ][0] = $key; // used later to see if we got matches
-      if ( isset ( $stock2[$key])) { print ( "ERROR $stockList at $k - Duplicate full project/lot key $key exists\n"); }
+      if ( isset ( $stock2[$key])) { print ( "ERROR $stockList at $k - Duplicate full project/lot key $key exists [$addrs]\n"); }
       $stock2[ $key ][0] = $addrs; $stock2[ $key ][1] = $project; // same again
       $stock2[ $key ][2] = $phase; $stock2[ $key ][3] = $section; 
       $stock2[ $key ][4] = $block; $stock2[ $key ][5] = $lot; $stock2[ $key ][6] = "no-match-full-ID";
@@ -781,7 +781,23 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
           if ( $debug ) print ( "YAY hit addr start [$CountKey1][$CountKey2] R=[$fullAddr] C=[$CountAddrs]\n");
           $stock1[$CountKey1][$CountKey2][6] = "addrs-match";
           if ( isset ( $combined [ $fullAddr ][1])) {
-            print ( "ERROR match 1 - duplicate full address " . $fullAddr . "\n" );
+            if ( $combined [ $fullAddr ][1] != $v ) {
+              print ( "ERROR Duplicate Address DIFF county data - Runway[$fullAddr] County[$CountAddrs]\n" );
+              if ( isset ( $v["appraised_val"] )) { $new_ap = $v["appraised_val"]; } else { $new_ap = 0; }
+              if ( isset ( $combined [ $fullAddr ][1]["appraised_val"] )) { $old_ap = $combined [ $fullAddr ][1]["appraised_val"]; } else { $old_ap = 0; }
+              if ( isset ( $v["improved_val"] )) { $new_ip = $v["improved_val"]; } else { $new_ip = 0; }
+              if ( isset ( $combined [ $fullAddr ][1]["improved_val"] )) { $old_ip = $combined [ $fullAddr ][1]["improved_val"]; } else { $old_ip = 0; }
+              print ( "---- OLD ----\n" );
+              print_r ( $combined [ $fullAddr ][1] );
+              print ( "---- NEW ----\n" );
+              print_r ( $v );
+              if ( $new_ap > $old_ap || $new_ip > $old_ip  ) {
+                print ( "NOTE Used new county data as apparsied OR improved higher new_ap=$new_ap old_ap=$old_ap new_ip=$new_ip old_ip=$old_ip\n" );
+                $combined [ $fullAddr ][1] = $v; 
+              }
+            } else {
+              print ( "WARN Duplicate Address same county data - Runway[$fullAddr] County[$CountAddrs]\n" );
+            }
           } else {
             $combined [ $fullAddr ][1] = $v; 
             $combined [ $fullAddr ][2] = $stock1[$CountKey1][$CountKey2];
@@ -830,14 +846,14 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
       //
       $fullAddr = $stock3[ $out ][0];
       if ( isset ( $combined [ $fullAddr ][5]) ) { // not the [2] we are looking for dups here
-        print ( "WARN match 3 duplicate full address " . $fullAddr . "\n" );
+        print ( "WARN Easy Block/lot match [$out] - Duplicate Address Runway[$fullAddr] County[$CountAddrs]\n" );
         // TODO we get these due to dual ownership
         // [legal] => POMONA SEC 4 (A0298 HT&BRR & A0540 ACH&B) BLK 4 LOT 13, Undivided Interest 33.3400000000%
         //[appraised_val] => 114933
         //[assessed_val] => 114933)
         $cur = $combined [ $fullAddr ][5]["appraised_val"];
         $new = $v["appraised_val"];
-        if ( $cur != $new) print ( "ERROR Diff apprasied $cur $new. Address " . $fullAddr . "\n" );
+        if ( $cur != $new) print ( "ERROR Diff apprasied $cur $new. Runway[$fullAddr] County[$CountAddrs]\n" );
         //print_r ( $combined [ $fullAddr ][5] );
         //print_r ( $v );
       } else {
@@ -899,4 +915,88 @@ function words_match ( $errtxt, $these , $areIn , $mode="" ) {
   }
   return ( $rtn );
 }
+
+
+function county_update ( $env , $clientId ,  $propertyKey, $payload ) {
+
+    // API end point - External Lot County Data Update REST API
+    if ( $env == "PROD") {
+      $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/live/external/lotcountyupdate";
+    } else {
+      $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/demo/external/lotcountyupdate";
+      $env = "DEMO"; 
+    }
+    $x_api_key = "OJ6CmJRgVd6ikQSsMv0c88xFmv8Xh1xC6AtJ6tCI";
+    $data = array (
+
+    "env" => $env, // DEMO or PROD
+    "clientId" => $clientId,
+    "propertyKey" => $propertyKey, // "11-11-11-22",
+    //
+    "taxYear" =>    payload[0], // "2021",
+    "streetName" => payload[1], //"1912 HOMESTEAD WAY",
+    "cityName" =>   payload[2],
+    "stateName" =>  payload[3], // "TX",
+    "zipCode" =>    payload[4], // "76226-1484",
+    "mailingAddress" =>    payload[5], // "HARVEST MEADOWS PHASE ",
+    "legalDescription" =>  payload[6], // "HARVEST MEADOWS PHASE 1 BLK D LOT 4",
+    "blockName" =>  payload[7], // "D",
+    "lotName" =>    payload[8], //"4",
+    "ownerName" =>  payload[9], // "HARDWICK, TYLER & POLLY",
+    "ownershipPercentage" =>  payload[10], // 100.00,
+    "subDivision" =>  payload[11], // "ESD1, G01",
+    "mudDistrict" =>  payload[12], //"HS",
+    "mudDistrictClassification" =>  payload[13], // "HARVEST MEADOWS",
+    "landValue" =>       payload[14],
+    "acreageValue" =>    payload[15],
+    "improvedValue" =>   payload[16],
+    "appraisedValue" =>  payload[17],
+    "usedValue" =>       payload[18],
+    "marketValue" =>     payload[19],
+    "assessedValue" =>   payload[20],
+    "neighborhood" =>    payload[21],
+    "communityName" =>   payload[22] //"HARVEST MEADOWS"
+    );  
+    // 
+    $content = json_encode( $data);
+    // print ( "DEBUG : $content \n" ); // TODO REMOVE
+
+    $curl = curl_init($url);
+    //
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_FAILONERROR, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json', 
+    'x-api-key: ' . $x_api_key
+    ]);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+    //
+    $response = curl_exec($curl);
+    //
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    if ( $status != 200 ) {
+      print ("ERROR: call to URL $url failed with status[$status], response[$response], curl_error[" . curl_error($curl) . "], curl_errno[" . curl_errno($curl) . "]\n" );
+    /* print_r ( $data );
+    print ( "\n");
+    print_r ( $content);
+    print ( "\n^--- array + json above ---^\n" ); */
+    }
+    //
+    curl_close($curl);
+
+    // convert to array
+    if ( $response == false || strlen ( $response ) == 0 ) { // is still a json string
+      $rtnMess .= "FAIL - No Response | ";
+    }
+    $messArr=json_decode( $response, TRUE );
+
+    if ( $messArr["success"] == true ) $rtnMess .= "OK - Success | ";
+    else $rtnMess .= "FAIL - Not Success - " . $messArr["responseMessage"] . " | ";
+
+    return ( $rtnMess );
+}
+
 // end

@@ -23,4 +23,5 @@ cur_market_val | currmarketvalue
 appraised_val | assessedvalue
 assessed_val | 
 cur_assessed_val | currassessedvalue
-tax_codes | taxingunitlist
+entities | taxingunitlist
+
