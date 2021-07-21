@@ -1,7 +1,7 @@
 <?php
 // 
-//$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsummary/list'; // origonal
-$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsimplesummary/list'; // simple list
+$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsummary/list'; // origonal
+//$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsimplesummary/list'; // simple list
 ini_set('memory_limit', '8000M');
 set_time_limit(1200); //  20 mins 
 
@@ -106,6 +106,7 @@ foreach ( $clientSource as $scope ) { //  Developer
         $v['stageproductname'] ."|". //Phase 1
 
         // new short form
+        /*
         ""             ."|". // no unit number
         $v['street1']  ."|". // => 16919 North Bridgeland Lake Pkwy
         $v['suburb']   ."|". // => Cypress
@@ -113,9 +114,9 @@ foreach ( $clientSource as $scope ) { //  Developer
         $v['state']    ."|". // => Texas
         ""             ."|". //  no district
         $v['postcode'] ."|". // => 77433
+        */
 
         // old long 
-        /*
         $v['address']['unitnumber'] ."|".
         $v['address']['street1']    ."|". // 814 Lawndale Street
         $v['address']['suburb']     ."|".  // Celina
@@ -123,8 +124,7 @@ foreach ( $clientSource as $scope ) { //  Developer
         $v['address']['state']      ."|". //Texas
         $v['address']['district']   ."|".
         $v['address']['postcode']   ."|". //75009
-        */
-
+    
         $v['specHome'] ."|". // false
         $v['allocatedBuilderName'] . "\n" );
     }

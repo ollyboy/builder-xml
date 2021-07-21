@@ -1,17 +1,13 @@
 <?php
 // 
-//$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsummary/list'; // origonal
-$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsimplesummary/list'; // simple list
+$url = 'https://r6api.runwayproptech.com/runwaywsrest/landapi/landsummary/list';
 ini_set('memory_limit', '8000M');
-set_time_limit(1200); //  20 mins 
 
 
 function get_runway_data ( $url , $SEC , $AUTH ) {
 
   // Initializes a new cURL session
   $curl = curl_init($url);
-  curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 600); // 10 min
-  curl_setopt($curl, CURLOPT_TIMEOUT, 600); //timeout in seconds
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // return data
   curl_setopt($curl, CURLOPT_HTTPGET, 1); // use GET
   // Set custom headers for Auth and Content-Type header
@@ -90,7 +86,7 @@ foreach ( $clientSource as $scope ) { //  Developer
     $arrOutput=array();
   }
 
-  //print_r ( $arrOutput );
+  print_r ( $arrOutput );
 
   $fp = fopen ( $name . ".address.csv" , "w" );
   foreach ( $arrOutput as $k => $v ) {
@@ -98,33 +94,17 @@ foreach ( $clientSource as $scope ) { //  Developer
     $status = $v['currentstatusname'];
     if ( $status == "Sold" || $status == "Closed") {
       fwrite ( $fp , $v['currentstatusname'] ."|". 
-        $v['clientid'] ."|" .
-        $v['cpidstring'] . "|" .
 		    $v['estateproductname'] ."|".
 		    $v['productname'] ."|".  // SS-21
         $v['productnumber'] ."|". // 21
         $v['stageproductname'] ."|". //Phase 1
-
-        // new short form
-        ""             ."|". // no unit number
-        $v['street1']  ."|". // => 16919 North Bridgeland Lake Pkwy
-        $v['suburb']   ."|". // => Cypress
-        ""             ."|". // no city
-        $v['state']    ."|". // => Texas
-        ""             ."|". //  no district
-        $v['postcode'] ."|". // => 77433
-
-        // old long 
-        /*
         $v['address']['unitnumber'] ."|".
-        $v['address']['street1']    ."|". // 814 Lawndale Street
-        $v['address']['suburb']     ."|".  // Celina
-        $v['address']['city']       ."|". // Celina
-        $v['address']['state']      ."|". //Texas
-        $v['address']['district']   ."|".
-        $v['address']['postcode']   ."|". //75009
-        */
-
+        $v['address']['street1'] ."|". // 814 Lawndale Street
+        $v['address']['suburb'] ."|".  // Celina
+        $v['address']['city'] ."|". // Celina
+        $v['address']['state'] ."|". //Texas
+        $v['address']['district'] ."|".
+        $v['address']['postcode'] ."|". //75009
         $v['specHome'] ."|". // false
         $v['allocatedBuilderName'] . "\n" );
     }

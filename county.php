@@ -139,7 +139,11 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
 
       foreach ( $combined as $k => $v ) {
 
+        //print_r ( $v);
+
         $r_adds = $k;
+        $r_clientid = $v[7]; // key for write back
+        $r_cpidstring = $v[8]; // key for write back
         $r_def = explode ( "^" , $v[0] ); // LIBERTY^2^na^1^C
         $r_proj  =   $r_def[0]; // community
         $r_phase =   $r_def[1];
@@ -247,6 +251,40 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
  
         // build the overview
         if ( $match == "hit" ) {
+          // write to runway
+          $pl=array();
+          $pl[0] = "na-yr"; // "taxYear" =>    $payload[0], // "2021",
+          $pl[1] = $house . " " . $street; // "streetName" => $payload[1], //"1912 HOMESTEAD WAY",
+          $pl[2] = "na-city";  // "cityName" =>   $payload[2],
+          $pl[3] = "na-state"; //"stateName" =>  $payload[3], // "TX",
+          $pl[4] = "na-zip";   // zipCode" =>    $payload[4], // "76226-1484",
+          $pl[5] = "na-mail";  // "mailingAddress" =>    $payload[5], // "HARVEST MEADOWS PHASE ",
+          $pl[6] = $legal ;    // "legalDescription" =>  $payload[6], // "HARVEST MEADOWS PHASE 1 BLK D LOT 4",
+          $pl[7] = $block ;    // "blockName" =>  $payload[7], // "D",
+          $pl[8] = $lot ;      // "lotName" =>    $payload[8], //"4",
+          $pl[9] = $owner  ;   // "ownerName" =>  $payload[9], // "HARDWICK, TYLER & POLLY",
+          $pl[10] = "na-pec" ;   // "ownershipPercentage" =>  $payload[10], // 100.00,
+          $pl[11] =  $entities;  // "subDivision" =>  $payload[11], // "ESD1, G01",
+          $pl[12] =  "na-mud-d"; // "mudDistrict" =>  $payload[12], //"HS",
+          $pl[13] =  "na-mud-c"; // "mudDistrictClassification" =>  $payload[13], // "HARVEST MEADOWS",
+          $pl[14] =  $land;      // "landValue" =>       $payload[14],
+          $pl[15] =  $acreage;   // "acreageValue" =>    $payload[15],
+          $pl[16] =  $improved;  // "improvedValue" =>   $payload[16],
+          $pl[17] =  $appraised; // "appraisedValue" =>  $payload[17],
+          $pl[18] =  $use;       // "usedValue" =>       $payload[18],
+          $pl[19] =  $market;    // "marketValue" =>     $payload[19],
+          $pl[20] =  $assessed ; // "assessedValue" =>   $payload[20],
+          $pl[21] =  $acreage;   // "neighborhood" =>    $payload[21], TODO
+          $pl[22] =  $community; // "communityName" =>   $payload[22] //"HARVEST MEADOWS"
+
+          if ( $prodModeArgv ) { $env = "PROD"; } else { $env = "DEMO"; }
+          $api_res = county_update ( $env , $r_clientid , $r_cpidstring , $pl );
+          if ( strpos( $api_res, "ERROR" ) !== false  ) {
+             print ( "ERROR API SEND [$api_res] for $r_adds\n");
+          } else {
+             print ( "NOTE API SEND [$api_res] for $r_adds\n");
+          }
+
           if ( isset ( $merged[ $r_proj ][ $r_adds ][ "hit" ] )) {
             print ( "ERROR $devName $countyName - Hmm double hit for [ $community ][ $r_adds ][ $match ]\n");
           } else {
@@ -530,25 +568,27 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
  while (($line = fgetcsv($file,0,"|",'"',"\\")) !== FALSE) {
   //
   $k++;
-  if ( count ($line) > 13 ) {
+  if ( count ($line) > 15 ) {
     //
     $j++;
     $section="na"; $block="na"; $lot="na"; // reset
     //
     $status =  trim( $line[0]); //     print ( $v['currentstatusname'] ."|". 
-    $project = trim( $line[1]); //    $v['estateproductname'] ."|".
-    $product = trim( $line[2]); //    $v['productname'] ."|".  // SS-21 , 1A-A-34
-    $productNo=trim( $line[3]); //    $v['productnumber'] ."|". // 21
-    $stage =   trim( $line[4]); //    $v['stageproductname'] ."|". //Phase 1
-    $unit =    trim( $line[5]); //    $v['address']['unitnumber'] ."|".
-    $street =  trim( $line[6]); //    $v['address']['street1'] ."|". // 814 Lawndale Street
-    $suburb =  trim( $line[7]); //    $v['address']['suburb'] ."|".  // Celina
-    $city =    trim( $line[8]); //    $v['address']['city'] ."|". // Celina
-    $state =   trim( $line[9]); //    $v['address']['state'] ."|". //Texas
-    $district= trim( $line[10]); //   $v['address']['district'] ."|".
-    $postcode= trim( $line[11]); //   $v['address']['postcode'] ."|". //75009
-    $spec    = trim( $line[12]); //   $v['specHome'] ."|". // false
-    $builder = trim( $line[13]); //   $v['allocatedBuilderName'] . "\n" );
+    $clientid =   trim( $line[1]); // keys
+    $cpidstring = trim( $line[2]); // keys
+    $project = trim( $line[3]); //    $v['estateproductname'] ."|".
+    $product = trim( $line[4]); //    $v['productname'] ."|".  // SS-21 , 1A-A-34
+    $productNo=trim( $line[5]); //    $v['productnumber'] ."|". // 21
+    $stage =   trim( $line[6]); //    $v['stageproductname'] ."|". //Phase 1
+    $unit =    trim( $line[7]); //    $v['address']['unitnumber'] ."|".
+    $street =  trim( $line[8]); //    $v['address']['street1'] ."|". // 814 Lawndale Street
+    $suburb =  trim( $line[9]); //    $v['address']['suburb'] ."|".  // Celina
+    $city =    trim( $line[10]); //    $v['address']['city'] ."|". // Celina
+    $state =   trim( $line[11]); //    $v['address']['state'] ."|". //Texas
+    $district= trim( $line[12]); //   $v['address']['district'] ."|".
+    $postcode= trim( $line[13]); //   $v['address']['postcode'] ."|". //75009
+    $spec    = trim( $line[14]); //   $v['specHome'] ."|". // false
+    $builder = trim( $line[15]); //   $v['allocatedBuilderName'] . "\n" );
     //
     if ( ( $status == "Closed" || $status == "Sold" ) /* && $project =="POMONA" */ ) {
       $l++;
@@ -571,7 +611,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
 
       if ( $city == $suburb ) { $local = trim( $suburb); }
       else { $local = trim ( $suburb . " " . $city ); }
-      if ( $local == "" ) print ( "ERROR $stockList at $k - No city/suburb\n");
+      if ( $local == "" ) print ( "ERROR $stockList at $k - No city/suburb for street [$street]\n");
       //
       // $addrs = addr_conv ( $unit ." ". $street ." ". $local ." ". $state ." ". $postcode ); // full address
       $addrs = addr_conv ( $unit ." ". $street ." ". $local ." ". $postcode ); // full address without state, brazoria does not have state   
@@ -579,7 +619,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
       $count = count ( $tmp );
       $key1=""; $key2="";
       if ( $count < 4 ) {
-        print ( "ERROR $stockList at $k - Addrs [$addrs] is short, got " . count ($tmp) . "\n"); 
+        print ( "ERROR $stockList at $k - Addrs [$addrs] is short, got " . count ($tmp) . " from [" . implode( "|", $line ) . "]\n"); 
       } else {
         // street is like "1712 Coronet Ave" - get the number for fast lookup
         $short = addr_conv ( $unit . " " . $street . " " );
@@ -617,9 +657,9 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
       } 
       if ( $section == $phase ) { /* print ( "WARN at $i - Phase and section same - $phase\n"); */ $section = "na" ; } // nasty hack
       //
-      if ( $section == "" ) print ( "ERROR $stockList at $k - No section\n");
-      if ( $block == "" ) print ( "ERROR $stockList at $k - No block\n");
-      if ( $lot == "" ) print ( "ERROR $stockList at $k - No Lot\n");
+      if ( $section == "" ) print ( "ERROR $stockList at $k - No section for [$product] at $street\n");
+      if ( $block == "" ) print ( "ERROR $stockList at $k - No block for [$product] at $street\n");
+      if ( $lot == "" ) print ( "ERROR $stockList at $k - No Lot for [$product] at $street\n");
       // Filter the stock TODO Project vs County Map
       //
       if ( isset ( $community[ $project ])) { $community[ $project ]++; }
@@ -627,6 +667,11 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
 
       $key = $project ."^". $phase ."^". $section ."^". $block ."^". $lot; // redefine key
       $combined [ $addrs ][0] = $key; // used later to see if we got matches
+      // note that 1 2 , 3 4 , 5 6 are used for county data
+      $combined [ $addrs ][7] = $clientid; //keys for write back
+      $combined [ $addrs ][8] = $cpidstring;
+
+
       if ( isset ( $stock2[$key])) { print ( "ERROR $stockList at $k - Duplicate full project/lot key $key exists [$addrs]\n"); }
       $stock2[ $key ][0] = $addrs; $stock2[ $key ][1] = $project; // same again
       $stock2[ $key ][2] = $phase; $stock2[ $key ][3] = $section; 
@@ -919,6 +964,10 @@ function words_match ( $errtxt, $these , $areIn , $mode="" ) {
 
 function county_update ( $env , $clientId ,  $propertyKey, $payload ) {
 
+
+    // True key is Pradeep
+    //  [cpidstring] => 1303643628000225832823215561025643651625920083798
+    //  [clientid] => 363312264
     // API end point - External Lot County Data Update REST API
     if ( $env == "PROD") {
       $url = "https://368u2vz15k.execute-api.us-west-1.amazonaws.com/live/external/lotcountyupdate";
@@ -931,31 +980,31 @@ function county_update ( $env , $clientId ,  $propertyKey, $payload ) {
 
     "env" => $env, // DEMO or PROD
     "clientId" => $clientId,
-    "propertyKey" => $propertyKey, // "11-11-11-22",
+    "propertyKey" => $propertyKey, // Use [cpidstring]
     //
-    "taxYear" =>    payload[0], // "2021",
-    "streetName" => payload[1], //"1912 HOMESTEAD WAY",
-    "cityName" =>   payload[2],
-    "stateName" =>  payload[3], // "TX",
-    "zipCode" =>    payload[4], // "76226-1484",
-    "mailingAddress" =>    payload[5], // "HARVEST MEADOWS PHASE ",
-    "legalDescription" =>  payload[6], // "HARVEST MEADOWS PHASE 1 BLK D LOT 4",
-    "blockName" =>  payload[7], // "D",
-    "lotName" =>    payload[8], //"4",
-    "ownerName" =>  payload[9], // "HARDWICK, TYLER & POLLY",
-    "ownershipPercentage" =>  payload[10], // 100.00,
-    "subDivision" =>  payload[11], // "ESD1, G01",
-    "mudDistrict" =>  payload[12], //"HS",
-    "mudDistrictClassification" =>  payload[13], // "HARVEST MEADOWS",
-    "landValue" =>       payload[14],
-    "acreageValue" =>    payload[15],
-    "improvedValue" =>   payload[16],
-    "appraisedValue" =>  payload[17],
-    "usedValue" =>       payload[18],
-    "marketValue" =>     payload[19],
-    "assessedValue" =>   payload[20],
-    "neighborhood" =>    payload[21],
-    "communityName" =>   payload[22] //"HARVEST MEADOWS"
+    "taxYear" =>    $payload[0], // "2021",
+    "streetName" => $payload[1], //"1912 HOMESTEAD WAY",
+    "cityName" =>   $payload[2],
+    "stateName" =>  $payload[3], // "TX",
+    "zipCode" =>    $payload[4], // "76226-1484",
+    "mailingAddress" =>    $payload[5], // "HARVEST MEADOWS PHASE ",
+    "legalDescription" =>  $payload[6], // "HARVEST MEADOWS PHASE 1 BLK D LOT 4",
+    "blockName" =>  $payload[7], // "D",
+    "lotName" =>    $payload[8], //"4",
+    "ownerName" =>  $payload[9], // "HARDWICK, TYLER & POLLY",
+    "ownershipPercentage" =>  $payload[10], // 100.00,
+    "subDivision" =>  $payload[11], // "ESD1, G01",
+    "mudDistrict" =>  $payload[12], //"HS",
+    "mudDistrictClassification" =>  $payload[13], // "HARVEST MEADOWS",
+    "landValue" =>       $payload[14],
+    "acreageValue" =>    $payload[15],
+    "improvedValue" =>   $payload[16],
+    "appraisedValue" =>  $payload[17],
+    "usedValue" =>       $payload[18],
+    "marketValue" =>     $payload[19],
+    "assessedValue" =>   $payload[20],
+    "neighborhood" =>    $payload[21],
+    "communityName" =>   $payload[22] //"HARVEST MEADOWS"
     );  
     // 
     $content = json_encode( $data);
@@ -987,14 +1036,15 @@ function county_update ( $env , $clientId ,  $propertyKey, $payload ) {
     //
     curl_close($curl);
 
+    $rtnMess = "";
     // convert to array
     if ( $response == false || strlen ( $response ) == 0 ) { // is still a json string
-      $rtnMess .= "FAIL - No Response | ";
+      $rtnMess = "FAIL - No Response ";
     }
     $messArr=json_decode( $response, TRUE );
 
-    if ( $messArr["success"] == true ) $rtnMess .= "OK - Success | ";
-    else $rtnMess .= "FAIL - Not Success - " . $messArr["responseMessage"] . " | ";
+    if ( $messArr["success"] == true ) $rtnMess .= "OK - Success ";
+    else $rtnMess .= "FAIL - Not Success - " . $messArr["responseMessage"] . " ";
 
     return ( $rtnMess );
 }
