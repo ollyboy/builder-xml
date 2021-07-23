@@ -112,6 +112,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
       $fh=fopen ( $devName . "." . $countyName . ".link.csv", "w" ); // will delete old
 
       $headerRec = 
+        "county" . "," .
         "match" . "," .
         "r_adds" . "," .
         "r_proj"  . "," .
@@ -223,6 +224,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
         //
         $outRec = '"' . 
         // data here
+        $countyName . '","' .
         $match . '","' .
         $r_adds . '","' .
         $r_proj  . '","' .
@@ -976,11 +978,13 @@ function county_update ( $env , $clientId ,  $propertyKey, $payload ) {
       $env = "DEMO"; 
     }
     $x_api_key = "OJ6CmJRgVd6ikQSsMv0c88xFmv8Xh1xC6AtJ6tCI";
+    $today = date ('Y-m-d');
     $data = array (
 
     "env" => $env, // DEMO or PROD
     "clientId" => $clientId,
     "propertyKey" => $propertyKey, // Use [cpidstring]
+    "extractionDate" => $today, // Date of extraction in YYYY-MM-DD format
     //
     "taxYear" =>    $payload[0], // "2021",
     "streetName" => $payload[1], //"1912 HOMESTEAD WAY",
