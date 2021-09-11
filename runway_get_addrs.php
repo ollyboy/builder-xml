@@ -96,7 +96,7 @@ foreach ( $clientSource as $scope ) { //  Developer
   foreach ( $arrOutput as $k => $v ) {
     //
     $status = $v['currentstatusname'];
-    if ( $status == "Sold" || $status == "Closed") {
+    if ( $status == "Sold" || $status == "Closed" || $status == "Available" || $status == "Model" || $status == "Spec" || $status == "Draft" || $status == "Unavailable" )  {
       fwrite ( $fp , $v['currentstatusname'] ."|". 
         $v['clientid'] ."|" .
         $v['cpidstring'] . "|" .

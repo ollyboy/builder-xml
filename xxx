@@ -1,0 +1,289 @@
+ERROR Runway Hillwood-Prod.address.csv at 6674 - Duplicate address key [2602] + [INDEPENDENCE DR] exists [2602 INDEPENDENCE DR MELISSA 75454]
+ERROR Runway Hillwood-Prod.address.csv at 7108 - Duplicate address key [2617] + [INDEPENDENCE DR] exists [2617 INDEPENDENCE DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7328 - Duplicate full key project..lot key [LIBERTY^7^None^C^1] exists new[2602 CAPITOL PL MELISSA 75454] saved[2802 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7339 - Duplicate full key project..lot key [LIBERTY^7^None^C^10] exists new[3505 FOXHALL ST MELISSA 75454] saved[2904 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7350 - Duplicate full key project..lot key [LIBERTY^7^None^C^11] exists new[2906 GARRISON DR MELISSA 76226] saved[3503 FOXHALL ST MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7361 - Duplicate full key project..lot key [LIBERTY^7^None^C^12] exists new[2907 MIDDLETON DR MELISSA 76226] saved[3501 FOXHALL ST MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7371 - Duplicate full key project..lot key [LIBERTY^7^None^C^13] exists new[2905 MIDDLETON DR MELISSA 75454] saved[2705 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7383 - Duplicate full key project..lot key [LIBERTY^7^None^C^14] exists new[2703 PATTON DR MELISSA 75454] saved[2903 MIDDLETON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7391 - Duplicate full key project..lot key [LIBERTY^7^None^C^15] exists new[2701 PATTON DR MELISSA 75454] saved[2901 MIDDLETON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7402 - Duplicate full key project..lot key [LIBERTY^7^None^C^16] exists new[2815 MIDDLETON DR MELISSA 76226] saved[2607 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7410 - Duplicate full key project..lot key [LIBERTY^7^None^C^17] exists new[2813 MIDDLETON DR MELISSA 76226] saved[2605 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7420 - Duplicate full key project..lot key [LIBERTY^7^None^C^18] exists new[2811 MIDDLETON DR MELISSA 76226] saved[2603 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7428 - Duplicate full key project..lot key [LIBERTY^7^None^C^19] exists new[2601 PATTON DR MELISSA 75454] saved[2809 MIDDLETON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7436 - Duplicate full key project..lot key [LIBERTY^7^None^C^2] exists new[2604 CAPITOL PL MELISSA 75454] saved[2804 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7503 - Duplicate full key project..lot key [LIBERTY^7^None^C^3] exists new[2606 CAPITOL PL MELISSA 75454] saved[2806 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7519 - Duplicate full key project..lot key [LIBERTY^7^None^C^4] exists new[2808 GARRISON DR MELISSA 76226] saved[2700 CAPITOL PL MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7529 - Duplicate full key project..lot key [LIBERTY^7^None^C^5] exists new[2702 CAPITOL PL MELISSA 75454] saved[2810 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7540 - Duplicate full key project..lot key [LIBERTY^7^None^C^6] exists new[2704 CAPITOL PL MELISSA 75454] saved[2812 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7554 - Duplicate full key project..lot key [LIBERTY^7^None^C^7] exists new[2814 GARRISON DR MELISSA 76226] saved[2706 CAPITOL PL MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7568 - Duplicate full key project..lot key [LIBERTY^7^None^C^8] exists new[2900 GARRISON DR MELISSA 76226] saved[3509 FOXHALL ST MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7578 - Duplicate full key project..lot key [LIBERTY^7^None^C^9] exists new[3507 FOXHALL ST MELISSA 75454] saved[2902 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 8216 - ProductNo[31] and Lot[33 ] mismatch for [UNION PARK^DW2-J-33^31^UP - Del Webb 2] at 7660 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8217 - ProductNo[32] and Lot[34 ] mismatch for [UNION PARK^DW2-J-34^32^UP - Del Webb 2] at 7656 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8218 - ProductNo[33] and Lot[35 ] mismatch for [UNION PARK^DW2-J-35^33^UP - Del Webb 2] at 7652 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8219 - ProductNo[34] and Lot[36 ] mismatch for [UNION PARK^DW2-J-36^34^UP - Del Webb 2] at 7648 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8220 - ProductNo[35] and Lot[37 ] mismatch for [UNION PARK^DW2-J-37^35^UP - Del Webb 2] at 7644 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8221 - ProductNo[36] and Lot[38 ] mismatch for [UNION PARK^DW2-J-38^36^UP - Del Webb 2] at 7640 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8222 - ProductNo[37] and Lot[39 ] mismatch for [UNION PARK^DW2-J-39^37^UP - Del Webb 2] at 7636 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8223 - ProductNo[38] and Lot[40 ] mismatch for [UNION PARK^DW2-J-40^38^UP - Del Webb 2] at 7632 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8224 - ProductNo[39] and Lot[41 ] mismatch for [UNION PARK^DW2-J-41^39^UP - Del Webb 2] at 7628 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8225 - ProductNo[40] and Lot[42 ] mismatch for [UNION PARK^DW2-J-42^40^UP - Del Webb 2] at 7624 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8226 - ProductNo[41] and Lot[43 ] mismatch for [UNION PARK^DW2-J-43^41^UP - Del Webb 2] at 7620 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8227 - ProductNo[42] and Lot[44 ] mismatch for [UNION PARK^DW2-J-44^42^UP - Del Webb 2] at 7616 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8228 - ProductNo[43] and Lot[45 ] mismatch for [UNION PARK^DW2-J-45^43^UP - Del Webb 2] at 7612 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8229 - ProductNo[44] and Lot[46 ] mismatch for [UNION PARK^DW2-J-46^44^UP - Del Webb 2] at 7608 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8230 - ProductNo[45] and Lot[47 ] mismatch for [UNION PARK^DW2-J-47^45^UP - Del Webb 2] at 7604 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8231 - ProductNo[46] and Lot[48 ] mismatch for [UNION PARK^DW2-J-48^46^UP - Del Webb 2] at 7600 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8998 - Duplicate full key project..lot key [LIBERTY^7^None^G^10] exists new[2813 GARRISON DR MELISSA 76226] saved[3105 EAGLE LN MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9009 - Duplicate full key project..lot key [LIBERTY^7^None^G^11] exists new[3107 EAGLE LN MELISSA 76226] saved[2901 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9023 - Duplicate full key project..lot key [LIBERTY^7^None^G^12] exists new[3109 EAGLE LN MELISSA 76226] saved[2903 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9031 - Duplicate full key project..lot key [LIBERTY^7^None^G^13] exists new[2905 GARRISON DR MELISSA 76226] saved[3111 EAGLE LN MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9205 - Duplicate full key project..lot key [LIBERTY^7^None^G^9] exists new[3103 EAGLE LN MELISSA 76226] saved[2811 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 9313 - Duplicate full key project..lot key [LIBERTY^7^None^H^23] exists new[2801 GARRISON DR MELISSA 75454] saved[3007 ARMSTRONG AV MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9317 - Duplicate full key project..lot key [LIBERTY^7^None^H^24] exists new[2803 GARRISON DR MELISSA 75454] saved[3005 ARMSTRONG AV MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9321 - Duplicate full key project..lot key [LIBERTY^7^None^H^25] exists new[2805 GARRISON DR MELISSA 75454] saved[3003 ARMSTRONG AV MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9324 - Duplicate full key project..lot key [LIBERTY^7^None^H^26] exists new[3001 ARMSTRONG AV MELISSA 76226] saved[2807 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9650 - No city/suburb for or [LIBERTY^J-8^^Phase 5] at 3801 Greenbrier Drive
+ERROR Runway Hillwood-Prod.address.csv at 11265 - Duplicate address key [2901] + [INDEPENDENCE DR] exists [2901 INDEPENDENCE DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 11358 - ProductNo[ara] and Lot[ARA ] mismatch for [LIBERTY^Q-ara^ara^Phase 3] at 3407 Maggie Road
+TRACE Site: own[ARANDA, M DEL SOCORRO GUERROR & ALMANZA, J FRANCISCO RODRIGUEZ] sub[] leg[L M KEALY BLK C LOT 6 ACRES .164] blk[C] lot[6]. 4=4
+TRACE Trying LotKey [INVAL Sec/Phase] from :ARANDA, M DEL SOCORRO GUERROR & ALMANZA, J FRANCISCO RODRIGUEZ,,L M KEALY BLK C LOT 6 ACRES .164,C,6...212 EDWARDS ST 75057 3808
+ERROR Bad [HARVEST^1^1^16^1] main ID hit [1525 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^2] main ID hit [1521 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^3] main ID hit [1517 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^4] main ID hit [1513 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^5] main ID hit [1509 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^6] main ID hit [1505 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^7] main ID hit [1501 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^8] main ID hit [1504 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^9] main ID hit [1508 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^10] main ID hit [1512 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^11] main ID hit [1516 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^12] main ID hit [1520 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^13] main ID hit [1524 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^14] main ID hit [1528 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^14^31] main ID hit [1504 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^32] main ID hit [1508 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^33] main ID hit [1512 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^34] main ID hit [1516 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^35] main ID hit [1520 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^36] main ID hit [1524 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^15^11] main ID hit [413 FENCELINE DR ARGYLE 76226] County street[HOMESTEAD]
+ERROR Bad [HARVEST^1^1^15^12] main ID hit [409 FENCELINE DR ARGYLE 76226] County street[HOMESTEAD]
+ERROR Bad [HARVEST^1^1^15^13] main ID hit [405 FENCELINE DR ARGYLE 76226] County street[HOMESTEAD]
+ERROR Bad [HARVEST^1^1^15^14] main ID hit [401 FENCELINE DR ARGYLE 76226] County street[HOMESTEAD]
+ERROR Bad [HARVEST^1^1^15^11] main ID hit [413 FENCELINE DR ARGYLE 76226] County street[HOMESTEAD]
+ERROR Bad [HARVEST^1^1^15^12] main ID hit [409 FENCELINE DR ARGYLE 76226] County street[HOMESTEAD]
+ERROR Bad [HARVEST^1^1^15^13] main ID hit [405 FENCELINE DR ARGYLE 76226] County street[HOMESTEAD]
+ERROR Bad [HARVEST^1^1^15^14] main ID hit [401 FENCELINE DR ARGYLE 76226] County street[HOMESTEAD]
+ERROR Bad [HARVEST^1^1^14^31] main ID hit [1504 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^32] main ID hit [1508 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^33] main ID hit [1512 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^34] main ID hit [1516 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^35] main ID hit [1520 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^14^36] main ID hit [1524 4TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^1^1^16^1] main ID hit [1525 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^2] main ID hit [1521 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^3] main ID hit [1517 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^4] main ID hit [1513 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^5] main ID hit [1509 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^6] main ID hit [1505 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^7] main ID hit [1501 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^8] main ID hit [1504 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^9] main ID hit [1508 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^10] main ID hit [1512 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^11] main ID hit [1516 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^12] main ID hit [1520 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^13] main ID hit [1524 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^1^1^16^14] main ID hit [1528 5TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^2^2^11^23] main ID hit [1204 4TH ST ARGYLE 76226] County street[8TH]
+ERROR Bad [HARVEST^2^2^11^22] main ID hit [1200 4TH ST ARGYLE 76226] County street[8TH]
+ERROR Bad [HARVEST^2^2^11^21] main ID hit [1124 4TH ST ARGYLE 76226] County street[8TH]
+ERROR Bad [HARVEST^2^2^11^20] main ID hit [1120 4TH ST ARGYLE 76226] County street[8TH]
+ERROR Bad [HARVEST^2^2^11^17] main ID hit [1108 4TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^15] main ID hit [1100 4TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^14] main ID hit [1101 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^13] main ID hit [1105 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^9] main ID hit [1201 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^8] main ID hit [1205 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^7] main ID hit [1209 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^6] main ID hit [1213 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^12^7] main ID hit [1205 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^2^2^12^8] main ID hit [1201 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^2^2^12^11] main ID hit [1105 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^2^2^12^18] main ID hit [1200 5TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^2^2^12^16] main ID hit [1112 5TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^2^2^12^15] main ID hit [1108 5TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^2^2^12^13] main ID hit [1100 5TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^2^2^12^18] main ID hit [1200 5TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^2^2^12^16] main ID hit [1112 5TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^2^2^12^15] main ID hit [1108 5TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^2^2^12^13] main ID hit [1100 5TH ST ARGYLE 76226] County street[MATCHBOX]
+ERROR Bad [HARVEST^2^2^12^7] main ID hit [1205 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^2^2^12^8] main ID hit [1201 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^2^2^12^11] main ID hit [1105 6TH ST ARGYLE 76226] County street[PARKSIDE]
+ERROR Bad [HARVEST^2^2^11^23] main ID hit [1204 4TH ST ARGYLE 76226] County street[8TH]
+ERROR Bad [HARVEST^2^2^11^22] main ID hit [1200 4TH ST ARGYLE 76226] County street[8TH]
+ERROR Bad [HARVEST^2^2^11^21] main ID hit [1124 4TH ST ARGYLE 76226] County street[8TH]
+ERROR Bad [HARVEST^2^2^11^20] main ID hit [1120 4TH ST ARGYLE 76226] County street[8TH]
+ERROR Bad [HARVEST^2^2^11^17] main ID hit [1108 4TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^15] main ID hit [1100 4TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^14] main ID hit [1101 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^13] main ID hit [1105 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^9] main ID hit [1201 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^8] main ID hit [1205 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^7] main ID hit [1209 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [HARVEST^2^2^11^6] main ID hit [1213 5TH ST ARGYLE 76226] County street[LAMP POST]
+ERROR Bad [PECAN SQUARE^2B^2B3^2R^11] main ID hit [2207 AUTREY LN NORTHLAKE 76247] County street[LAZY DOG]
+ERROR Bad [PECAN SQUARE^2B^2B3^2R^11] main ID hit [2207 AUTREY LN NORTHLAKE 76247] County street[LAZY DOG]
+ERROR Bad [PECAN SQUARE^2B^2B2^2S^4] main ID hit [2347 JACK RABBIT WAY NORTHLAKE 76247] County street[RACHEL]
+ERROR Bad [PECAN SQUARE^2B^2B2^2S^5] main ID hit [2343 JACK RABBIT WAY NORTHLAKE 76247] County street[RACHEL]
+ERROR Bad [PECAN SQUARE^2B^2B2^2S^6] main ID hit [2339 JACK RABBIT WAY NORTHLAKE 76247] County street[RACHEL]
+ERROR Bad [PECAN SQUARE^2B^2B2^2S^4] main ID hit [2347 JACK RABBIT WAY NORTHLAKE 76247] County street[RACHEL]
+ERROR Bad [PECAN SQUARE^2B^2B2^2S^5] main ID hit [2343 JACK RABBIT WAY NORTHLAKE 76247] County street[RACHEL]
+ERROR Bad [PECAN SQUARE^2B^2B2^2S^6] main ID hit [2339 JACK RABBIT WAY NORTHLAKE 76247] County street[RACHEL]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^13] main ID hit [2905 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^14] main ID hit [2901 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^15] main ID hit [2817 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^16] main ID hit [2813 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^17] main ID hit [2809 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^1] main ID hit [1200 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^2] main ID hit [1204 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^3] main ID hit [1208 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^4] main ID hit [1300 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^5] main ID hit [1304 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^1] main ID hit [1312 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^2] main ID hit [1316 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^3] main ID hit [1400 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^4] main ID hit [1404 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^5] main ID hit [1408 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2F^1] main ID hit [1500 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2F^2] main ID hit [1504 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2F^3] main ID hit [1508 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2G^1] main ID hit [1600 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2G^2] main ID hit [1604 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2G^3] main ID hit [1608 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^13] main ID hit [2905 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^14] main ID hit [2901 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^15] main ID hit [2817 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^16] main ID hit [2813 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2A^17] main ID hit [2809 LITTLE WONDER LN ARGYLE 76226] County street[DUNBAR]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^1] main ID hit [1200 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^2] main ID hit [1204 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^3] main ID hit [1208 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^4] main ID hit [1300 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2B^5] main ID hit [1304 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^1] main ID hit [1312 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^2] main ID hit [1316 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^3] main ID hit [1400 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^4] main ID hit [1404 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2D^5] main ID hit [1408 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2F^1] main ID hit [1500 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2F^2] main ID hit [1504 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2F^3] main ID hit [1508 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2G^1] main ID hit [1600 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2G^2] main ID hit [1604 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR Bad [PECAN SQUARE^2B^2B1^2G^3] main ID hit [1608 SOUTH PECAN PARKWAY ARGYLE 76226] County street[PECAN PKWY SOUTH]
+ERROR 7040 WINDMILL ST LITTLE ELM 76227 Appraised mismatch 2,6 
+ERROR 1712 TERRACE WAY ARGYLE 76226 Appraised mismatch 2,6 
+ERROR 1709 TERRACE WAY ARGYLE 76226 Appraised mismatch 2,4 
+ERROR 1304 16TH ST ARGYLE 76226 Appraised mismatch 2,6 
+ERROR Runway Hillwood-Prod.address.csv at 6674 - Duplicate address key [2602] + [INDEPENDENCE DR] exists [2602 INDEPENDENCE DR MELISSA 75454]
+ERROR Runway Hillwood-Prod.address.csv at 7108 - Duplicate address key [2617] + [INDEPENDENCE DR] exists [2617 INDEPENDENCE DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7328 - Duplicate full key project..lot key [LIBERTY^7^None^C^1] exists new[2602 CAPITOL PL MELISSA 75454] saved[2802 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7339 - Duplicate full key project..lot key [LIBERTY^7^None^C^10] exists new[3505 FOXHALL ST MELISSA 75454] saved[2904 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7350 - Duplicate full key project..lot key [LIBERTY^7^None^C^11] exists new[2906 GARRISON DR MELISSA 76226] saved[3503 FOXHALL ST MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7361 - Duplicate full key project..lot key [LIBERTY^7^None^C^12] exists new[2907 MIDDLETON DR MELISSA 76226] saved[3501 FOXHALL ST MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7371 - Duplicate full key project..lot key [LIBERTY^7^None^C^13] exists new[2905 MIDDLETON DR MELISSA 75454] saved[2705 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7383 - Duplicate full key project..lot key [LIBERTY^7^None^C^14] exists new[2703 PATTON DR MELISSA 75454] saved[2903 MIDDLETON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7391 - Duplicate full key project..lot key [LIBERTY^7^None^C^15] exists new[2701 PATTON DR MELISSA 75454] saved[2901 MIDDLETON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7402 - Duplicate full key project..lot key [LIBERTY^7^None^C^16] exists new[2815 MIDDLETON DR MELISSA 76226] saved[2607 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7410 - Duplicate full key project..lot key [LIBERTY^7^None^C^17] exists new[2813 MIDDLETON DR MELISSA 76226] saved[2605 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7420 - Duplicate full key project..lot key [LIBERTY^7^None^C^18] exists new[2811 MIDDLETON DR MELISSA 76226] saved[2603 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7428 - Duplicate full key project..lot key [LIBERTY^7^None^C^19] exists new[2601 PATTON DR MELISSA 75454] saved[2809 MIDDLETON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7436 - Duplicate full key project..lot key [LIBERTY^7^None^C^2] exists new[2604 CAPITOL PL MELISSA 75454] saved[2804 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7503 - Duplicate full key project..lot key [LIBERTY^7^None^C^3] exists new[2606 CAPITOL PL MELISSA 75454] saved[2806 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7519 - Duplicate full key project..lot key [LIBERTY^7^None^C^4] exists new[2808 GARRISON DR MELISSA 76226] saved[2700 CAPITOL PL MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7529 - Duplicate full key project..lot key [LIBERTY^7^None^C^5] exists new[2702 CAPITOL PL MELISSA 75454] saved[2810 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7540 - Duplicate full key project..lot key [LIBERTY^7^None^C^6] exists new[2704 CAPITOL PL MELISSA 75454] saved[2812 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7554 - Duplicate full key project..lot key [LIBERTY^7^None^C^7] exists new[2814 GARRISON DR MELISSA 76226] saved[2706 CAPITOL PL MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7568 - Duplicate full key project..lot key [LIBERTY^7^None^C^8] exists new[2900 GARRISON DR MELISSA 76226] saved[3509 FOXHALL ST MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7578 - Duplicate full key project..lot key [LIBERTY^7^None^C^9] exists new[3507 FOXHALL ST MELISSA 75454] saved[2902 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 8216 - ProductNo[31] and Lot[33 ] mismatch for [UNION PARK^DW2-J-33^31^UP - Del Webb 2] at 7660 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8217 - ProductNo[32] and Lot[34 ] mismatch for [UNION PARK^DW2-J-34^32^UP - Del Webb 2] at 7656 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8218 - ProductNo[33] and Lot[35 ] mismatch for [UNION PARK^DW2-J-35^33^UP - Del Webb 2] at 7652 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8219 - ProductNo[34] and Lot[36 ] mismatch for [UNION PARK^DW2-J-36^34^UP - Del Webb 2] at 7648 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8220 - ProductNo[35] and Lot[37 ] mismatch for [UNION PARK^DW2-J-37^35^UP - Del Webb 2] at 7644 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8221 - ProductNo[36] and Lot[38 ] mismatch for [UNION PARK^DW2-J-38^36^UP - Del Webb 2] at 7640 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8222 - ProductNo[37] and Lot[39 ] mismatch for [UNION PARK^DW2-J-39^37^UP - Del Webb 2] at 7636 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8223 - ProductNo[38] and Lot[40 ] mismatch for [UNION PARK^DW2-J-40^38^UP - Del Webb 2] at 7632 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8224 - ProductNo[39] and Lot[41 ] mismatch for [UNION PARK^DW2-J-41^39^UP - Del Webb 2] at 7628 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8225 - ProductNo[40] and Lot[42 ] mismatch for [UNION PARK^DW2-J-42^40^UP - Del Webb 2] at 7624 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8226 - ProductNo[41] and Lot[43 ] mismatch for [UNION PARK^DW2-J-43^41^UP - Del Webb 2] at 7620 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8227 - ProductNo[42] and Lot[44 ] mismatch for [UNION PARK^DW2-J-44^42^UP - Del Webb 2] at 7616 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8228 - ProductNo[43] and Lot[45 ] mismatch for [UNION PARK^DW2-J-45^43^UP - Del Webb 2] at 7612 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8229 - ProductNo[44] and Lot[46 ] mismatch for [UNION PARK^DW2-J-46^44^UP - Del Webb 2] at 7608 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8230 - ProductNo[45] and Lot[47 ] mismatch for [UNION PARK^DW2-J-47^45^UP - Del Webb 2] at 7604 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8231 - ProductNo[46] and Lot[48 ] mismatch for [UNION PARK^DW2-J-48^46^UP - Del Webb 2] at 7600 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8998 - Duplicate full key project..lot key [LIBERTY^7^None^G^10] exists new[2813 GARRISON DR MELISSA 76226] saved[3105 EAGLE LN MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9009 - Duplicate full key project..lot key [LIBERTY^7^None^G^11] exists new[3107 EAGLE LN MELISSA 76226] saved[2901 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9023 - Duplicate full key project..lot key [LIBERTY^7^None^G^12] exists new[3109 EAGLE LN MELISSA 76226] saved[2903 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9031 - Duplicate full key project..lot key [LIBERTY^7^None^G^13] exists new[2905 GARRISON DR MELISSA 76226] saved[3111 EAGLE LN MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9205 - Duplicate full key project..lot key [LIBERTY^7^None^G^9] exists new[3103 EAGLE LN MELISSA 76226] saved[2811 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 9313 - Duplicate full key project..lot key [LIBERTY^7^None^H^23] exists new[2801 GARRISON DR MELISSA 75454] saved[3007 ARMSTRONG AV MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9317 - Duplicate full key project..lot key [LIBERTY^7^None^H^24] exists new[2803 GARRISON DR MELISSA 75454] saved[3005 ARMSTRONG AV MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9321 - Duplicate full key project..lot key [LIBERTY^7^None^H^25] exists new[2805 GARRISON DR MELISSA 75454] saved[3003 ARMSTRONG AV MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9324 - Duplicate full key project..lot key [LIBERTY^7^None^H^26] exists new[3001 ARMSTRONG AV MELISSA 76226] saved[2807 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9650 - No city/suburb for or [LIBERTY^J-8^^Phase 5] at 3801 Greenbrier Drive
+ERROR Runway Hillwood-Prod.address.csv at 11265 - Duplicate address key [2901] + [INDEPENDENCE DR] exists [2901 INDEPENDENCE DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 11358 - ProductNo[ara] and Lot[ARA ] mismatch for [LIBERTY^Q-ara^ara^Phase 3] at 3407 Maggie Road
+ERROR Runway Hillwood-Prod.address.csv at 6674 - Duplicate address key [2602] + [INDEPENDENCE DR] exists [2602 INDEPENDENCE DR MELISSA 75454]
+ERROR Runway Hillwood-Prod.address.csv at 7108 - Duplicate address key [2617] + [INDEPENDENCE DR] exists [2617 INDEPENDENCE DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7328 - Duplicate full key project..lot key [LIBERTY^7^None^C^1] exists new[2602 CAPITOL PL MELISSA 75454] saved[2802 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7339 - Duplicate full key project..lot key [LIBERTY^7^None^C^10] exists new[3505 FOXHALL ST MELISSA 75454] saved[2904 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7350 - Duplicate full key project..lot key [LIBERTY^7^None^C^11] exists new[2906 GARRISON DR MELISSA 76226] saved[3503 FOXHALL ST MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7361 - Duplicate full key project..lot key [LIBERTY^7^None^C^12] exists new[2907 MIDDLETON DR MELISSA 76226] saved[3501 FOXHALL ST MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7371 - Duplicate full key project..lot key [LIBERTY^7^None^C^13] exists new[2905 MIDDLETON DR MELISSA 75454] saved[2705 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7383 - Duplicate full key project..lot key [LIBERTY^7^None^C^14] exists new[2703 PATTON DR MELISSA 75454] saved[2903 MIDDLETON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7391 - Duplicate full key project..lot key [LIBERTY^7^None^C^15] exists new[2701 PATTON DR MELISSA 75454] saved[2901 MIDDLETON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7402 - Duplicate full key project..lot key [LIBERTY^7^None^C^16] exists new[2815 MIDDLETON DR MELISSA 76226] saved[2607 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7410 - Duplicate full key project..lot key [LIBERTY^7^None^C^17] exists new[2813 MIDDLETON DR MELISSA 76226] saved[2605 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7420 - Duplicate full key project..lot key [LIBERTY^7^None^C^18] exists new[2811 MIDDLETON DR MELISSA 76226] saved[2603 PATTON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7428 - Duplicate full key project..lot key [LIBERTY^7^None^C^19] exists new[2601 PATTON DR MELISSA 75454] saved[2809 MIDDLETON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7436 - Duplicate full key project..lot key [LIBERTY^7^None^C^2] exists new[2604 CAPITOL PL MELISSA 75454] saved[2804 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7503 - Duplicate full key project..lot key [LIBERTY^7^None^C^3] exists new[2606 CAPITOL PL MELISSA 75454] saved[2806 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 7519 - Duplicate full key project..lot key [LIBERTY^7^None^C^4] exists new[2808 GARRISON DR MELISSA 76226] saved[2700 CAPITOL PL MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7529 - Duplicate full key project..lot key [LIBERTY^7^None^C^5] exists new[2702 CAPITOL PL MELISSA 75454] saved[2810 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7540 - Duplicate full key project..lot key [LIBERTY^7^None^C^6] exists new[2704 CAPITOL PL MELISSA 75454] saved[2812 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7554 - Duplicate full key project..lot key [LIBERTY^7^None^C^7] exists new[2814 GARRISON DR MELISSA 76226] saved[2706 CAPITOL PL MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7568 - Duplicate full key project..lot key [LIBERTY^7^None^C^8] exists new[2900 GARRISON DR MELISSA 76226] saved[3509 FOXHALL ST MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 7578 - Duplicate full key project..lot key [LIBERTY^7^None^C^9] exists new[3507 FOXHALL ST MELISSA 75454] saved[2902 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 8216 - ProductNo[31] and Lot[33 ] mismatch for [UNION PARK^DW2-J-33^31^UP - Del Webb 2] at 7660 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8217 - ProductNo[32] and Lot[34 ] mismatch for [UNION PARK^DW2-J-34^32^UP - Del Webb 2] at 7656 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8218 - ProductNo[33] and Lot[35 ] mismatch for [UNION PARK^DW2-J-35^33^UP - Del Webb 2] at 7652 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8219 - ProductNo[34] and Lot[36 ] mismatch for [UNION PARK^DW2-J-36^34^UP - Del Webb 2] at 7648 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8220 - ProductNo[35] and Lot[37 ] mismatch for [UNION PARK^DW2-J-37^35^UP - Del Webb 2] at 7644 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8221 - ProductNo[36] and Lot[38 ] mismatch for [UNION PARK^DW2-J-38^36^UP - Del Webb 2] at 7640 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8222 - ProductNo[37] and Lot[39 ] mismatch for [UNION PARK^DW2-J-39^37^UP - Del Webb 2] at 7636 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8223 - ProductNo[38] and Lot[40 ] mismatch for [UNION PARK^DW2-J-40^38^UP - Del Webb 2] at 7632 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8224 - ProductNo[39] and Lot[41 ] mismatch for [UNION PARK^DW2-J-41^39^UP - Del Webb 2] at 7628 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8225 - ProductNo[40] and Lot[42 ] mismatch for [UNION PARK^DW2-J-42^40^UP - Del Webb 2] at 7624 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8226 - ProductNo[41] and Lot[43 ] mismatch for [UNION PARK^DW2-J-43^41^UP - Del Webb 2] at 7620 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8227 - ProductNo[42] and Lot[44 ] mismatch for [UNION PARK^DW2-J-44^42^UP - Del Webb 2] at 7616 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8228 - ProductNo[43] and Lot[45 ] mismatch for [UNION PARK^DW2-J-45^43^UP - Del Webb 2] at 7612 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8229 - ProductNo[44] and Lot[46 ] mismatch for [UNION PARK^DW2-J-46^44^UP - Del Webb 2] at 7608 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8230 - ProductNo[45] and Lot[47 ] mismatch for [UNION PARK^DW2-J-47^45^UP - Del Webb 2] at 7604 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8231 - ProductNo[46] and Lot[48 ] mismatch for [UNION PARK^DW2-J-48^46^UP - Del Webb 2] at 7600 Redwood Forest Lane
+ERROR Hillwood-Prod.address.csv at 8998 - Duplicate full key project..lot key [LIBERTY^7^None^G^10] exists new[2813 GARRISON DR MELISSA 76226] saved[3105 EAGLE LN MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9009 - Duplicate full key project..lot key [LIBERTY^7^None^G^11] exists new[3107 EAGLE LN MELISSA 76226] saved[2901 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9023 - Duplicate full key project..lot key [LIBERTY^7^None^G^12] exists new[3109 EAGLE LN MELISSA 76226] saved[2903 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9031 - Duplicate full key project..lot key [LIBERTY^7^None^G^13] exists new[2905 GARRISON DR MELISSA 76226] saved[3111 EAGLE LN MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9205 - Duplicate full key project..lot key [LIBERTY^7^None^G^9] exists new[3103 EAGLE LN MELISSA 76226] saved[2811 GARRISON DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 9313 - Duplicate full key project..lot key [LIBERTY^7^None^H^23] exists new[2801 GARRISON DR MELISSA 75454] saved[3007 ARMSTRONG AV MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9317 - Duplicate full key project..lot key [LIBERTY^7^None^H^24] exists new[2803 GARRISON DR MELISSA 75454] saved[3005 ARMSTRONG AV MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9321 - Duplicate full key project..lot key [LIBERTY^7^None^H^25] exists new[2805 GARRISON DR MELISSA 75454] saved[3003 ARMSTRONG AV MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9324 - Duplicate full key project..lot key [LIBERTY^7^None^H^26] exists new[3001 ARMSTRONG AV MELISSA 76226] saved[2807 GARRISON DR MELISSA 76226]
+ERROR Hillwood-Prod.address.csv at 9650 - No city/suburb for or [LIBERTY^J-8^^Phase 5] at 3801 Greenbrier Drive
+ERROR Runway Hillwood-Prod.address.csv at 11265 - Duplicate address key [2901] + [INDEPENDENCE DR] exists [2901 INDEPENDENCE DR MELISSA 75454]
+ERROR Hillwood-Prod.address.csv at 11358 - ProductNo[ara] and Lot[ARA ] mismatch for [LIBERTY^Q-ara^ara^Phase 3] at 3407 Maggie Road

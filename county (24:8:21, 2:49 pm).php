@@ -183,8 +183,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
           // $community = $r_proj;
         } else {
           //    
-          $match ="hit"; 
-          $prob = false;
+          $match="hit"; 
           if ( isset($v[1]) )  $point = 1;   
           else if ( isset($v[3]) ) $point = 3; 
           else if ( isset($v[5]) ) $point = 5; 
@@ -210,29 +209,18 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
           if ( isset($v[1]) && isset($v[5]) ) {
             if ( $v[2][0] != $v[6][0]) print ( "ERROR $k Address mismatch 2,6 \n");
             if ( $v[2][1] != $v[6][1]) print ( "ERROR $k community mismatch 2,6 \n");
-            //if ( $v[1]['appraised_val'] != $v[5]['appraised_val'] ) { 
-            if ( new_best ( $v[5] , $v[1] )) {
-              print ( "ERROR $k Appraised mismatch 2,6 \n"); $prob = true;  // not too bad as we prefer the address match apprasal
-            }
+            if ( $v[1]['appraised_val'] != $v[5]['appraised_val'] ) print ( "ERROR $k Appraised mismatch 2,6 \n");
           }
           if ( isset($v[1]) && isset($v[3]) ) {
             if ( $v[2][0] != $v[4][0]) print ( "ERROR $k Address mismatch 2,4 \n");
             if ( $v[2][1] != $v[4][1]) print ( "ERROR $k community mismatch 2,4 \n");
-            //if ( $v[1]['appraised_val'] != $v[3]['appraised_val'] ) { 
-            if ( new_best ( $v[3] , $v[1] )) {
-              print ( "ERROR $k Appraised mismatch 2,4 \n"); $prob = true; 
-            }
+            if ( $v[1]['appraised_val'] != $v[3]['appraised_val'] ) print ( "ERROR $k Appraised mismatch 2,4 \n");
           }
-          if ( isset($v[3]) && isset($v[5]) && !isset($v[1]) ) {
+          if ( isset($v[3]) && isset($v[5]) ) {
             if ( $v[4][0] != $v[6][0]) print ( "ERROR $k Address mismatch 4,6 \n");
             if ( $v[4][1] != $v[6][1]) print ( "ERROR $k community mismatch 4,6 \n");
-            //if ( $v[3]['appraised_val'] != $v[5]['appraised_val'] ) { 
-            if ( new_best ( $v[5] , $v[3] )) {
-              print ( "ERROR $k Appraised mismatch 4,6 \n");  $prob = true; 
-            }
+            if ( $v[3]['appraised_val'] != $v[5]['appraised_val'] ) print ( "ERROR $k Appraised mismatch 4,6 \n");
           }
-          if ( $prob ) print_r ( $v );
-          
           if ( isset ( $comCount[ $community ] ) ) { 
             $comCount[ $community ]++; 
           } else { 
@@ -398,11 +386,13 @@ function addr_conv ( $addrs ) {
   $addrs = preg_replace("/[^0-9A-Z ]/", " "  , $addrs ); // anything but A-Z 0-9 with " " ie - , : etc
   $addrs = str_replace( " STREET" , " ST" , $addrs );
   $addrs = str_replace( " AVENUE" , " AV" , $addrs );
+  $addrs = str_replace( " AVENUE" , " AVE" , $addrs );
   $addrs = str_replace( " AVE"    , " AV" , $addrs );
   $addrs = str_replace( " DRIVE"  , " DR" , $addrs );
   $addrs = str_replace( " LANE"   , " LN" , $addrs );
   $addrs = str_replace( " COURT"  , " CT" , $addrs );
-  $addrs = str_replace( " TRAIL"  , " TR" , $addrs );  // can have "walnut Trail lane"
+  $addrs = str_replace( " TRAIL"  , " TR" , $addrs );
+  $addrs = str_replace( " TRAIL"  , " TRL" , $addrs );  // can have "walnut Trail lane"
   $addrs = str_replace( " TRL"    , " TR" , $addrs ); 
   $addrs = str_replace( " ROAD"   , " RD" , $addrs );
   $addrs = str_replace( " BOULEVARD" , " BL"      , $addrs );
@@ -414,9 +404,12 @@ function addr_conv ( $addrs ) {
   $addrs = str_replace( " XING"      , " CROSSING"      , $addrs );
   $addrs = str_replace( " PLACE"     , " PL"      , $addrs );
   $addrs = str_replace( " HOLW"      , " HOLLOW"  , $addrs );
+  $addrs = str_replace( " NORTH"      , " N"  , $addrs );
+  $addrs = str_replace( " SOUTH"      , " S"  , $addrs );
   $addrs = str_replace( " EAST"      , " E"  , $addrs );
-  $addrs = str_replace( "JACKRABBIT" , "JACK RABBIT"  , $addrs ); 
-  //
+  $addrs = str_replace( " WEST"      , " W"  , $addrs );
+  $addrs = str_replace( " COVE"      , " CV"  , $addrs );
+
   $addrs = preg_replace('!\s+!', ' ', $addrs); // convert mutiple spaces to single
   return ( trim( $addrs ));
 
@@ -427,96 +420,141 @@ function addr_conv ( $addrs ) {
 }
 
 function county_key_gen ( $commWords, $owner, $subdivision , $legal , $block , $lot ) {
-/*legal = POMONA SEC 15 (A0563 HT&BRR) BLK 1 LOT 14
-PECAN SQUARE PHASE 2B-1 BLK 2A LOT 5 (CO&SCH)(SEE FOR MMD3)
-HARVEST TOWNSIDE PHASE 2 BLK 5 LOT 25 (W45)(SEE 968 FOR CO&SCH)
-HARVEST MEADOWS PHASE 5 BLK AG LOT 26 (CO&SCH)(SEE 968 FOR W39)
-HARVEST TOWNHOMES PHASE 1 BLK 15 LOT 40 (CO&SCH)(SEE 968 FOR W45)
-HARVEST MEADOWS PHASE 5 BLK AG LOT 9 (CO&SCH)(SEE 968 FOR W39)
-POMONA SEC 16 (A0298 HT&BRR) BLK 1 LOT 18
-POMONA SEC 17 (A0540 ACH&B) BLK 1 LOT 51
-POMONA SEC 16 (A0298 HT&BRR) BLK 2 LOT 2
-POMONA SEC 17 (A0540 ACH&B) BLK 1 LOT 56
-POMONA SEC 8 (A0298 HT&BRR & A0563 HT&BRR) BLK 3 LOT 10
-S12381 - WOLF RANCH WEST SEC 6 PH 1, BLOCK K, Lot 26 */
-
+  // legal = POMONA SEC 15 (A0563 HT&BRR) BLK 1 LOT 14
+  // *owner= POMONA PHASE 2A LLC,  POMONA PHASE 4  LLC
+  // *owner^POMONA PHASE 2A LLC , street^COUNTY ROAD 84 , suffix^OFF , legal^A0417 A C H & B TRACT 15C ACRES 0.255 , acreage_val^2550 , *lot^15C
+  // POMONA SEC 4 (A0298 HT&BRR & A0540 ACH&B) BLK 4 LOT 14 , *block^4 , *lot^14
+  // *owner^POMONA PHASE 2A LLC , street^CROIX PKWY/COUNTY ROAD 84 , legal^A0417 A C H & B TRACT 27B ACRES 3.682 , acreage_val^36820 , *lot^27B
+  // subdivision^COLONY NO 20 , *block^138 , *lot^3 , legal^COLONY NO 20 BLK 138 LOT 3
+  $proj="na";
+  $proj2="na"; // second/alt definition
+  $proj3="na";
   $phase="na";
+  $phase2="na";
+  $phase3="na";
   $section="na";
   $maybe_block="na";
   $maybe_lot="na";
 
-  $owner = preg_replace("/[^0-9A-Z ]/", ""  ,       strtoupper ( $owner ) ); 
-  $subdivision = preg_replace("/[^0-9A-Z ]/", ""  , strtoupper ( $subdivision ) );
-  $legal = preg_replace("/[^0-9A-Z ]/", ""  ,       strtoupper ( $legal ) );
-  $block = trim ( preg_replace("/[^0-9A-Z ]/", ""  ,   strtoupper ( $block ) ) );
-  $lot =   trim ( preg_replace("/[^0-9A-Z ]/", ""  ,   strtoupper (  $lot ) ) );
+  $owner = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $owner ) );  // Brazoria only
+  $owner = preg_replace("/[^A-Z ]/", " "  ,          strtoupper ( $owner ) );  // Brazoria ok? plus Williamson
+  $subdivision = preg_replace("/[^0-9A-Z ]/", " "  , strtoupper ( $subdivision ) );
+  $legal = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $legal ) );
+  $block = preg_replace("/[^0-9A-Z ]/", " "  ,       strtoupper ( $block ) );
+  $lot =   preg_replace("/[^0-9A-Z )(\/]/", " "  ,   strtoupper (  $lot ) );
 
   $subdivision = trim( preg_replace('!\s+!', ' ', $subdivision ));
   $owner = trim( preg_replace('!\s+!', ' ', $owner )); // convert multiple spaces to single
   $legal = trim( preg_replace('!\s+!', ' ', $legal ));
+  $block = trim( preg_replace('!\s+!', ' ', $block ));
+  $lot =   trim( preg_replace('!\s+!', ' ',   $lot ));
   //
-  $tmp = explode ( " " , $owner );
+
+  //print ( "---- $owner ---- $legal ---- $block ---- $lot ---- \n");
+  $tmp = explode ( " " , $legal);
+  $community = "";
   foreach ( $tmp as $pos => $bit ) {
+    if ( strlen ( trim($bit) ) > 1 && strpos( $commWords , trim($bit) ) !== false ) $community .= trim($bit) . " ";
     //
-    if ( $bit == "PHASE" || $bit == "PH") {
-      if ( isset ( $tmp[$pos + 1 ] ) && $phase == "na" ) $phase = $tmp[$pos + 1 ]; // next word
+    if ( $bit == "SEC" ) {
+      if ( isset ( $tmp[$pos + 1 ] )) { $section = $tmp[$pos + 1 ]; } else { $section = "out-of-range"; }// next word
+      $proj="";
+      for ( $i=0 ; $i<$pos ; $i++ ) $proj .= $tmp[$i] . " "; // all the words before section
+      $proj = trim ( $proj );
+      if ( $proj == "" ) $proj = "out-of-range";
     }
-    if ( $bit == "SEC" || $bit == "SECTION" || $bit == "SECC" ) {
-      if ( isset ( $tmp[$pos + 1 ] ) && $section == "na" ) $section = $tmp[$pos + 1 ]; // next word
+    if ( $bit == "PHASE" ) {
+      if ( isset ( $tmp[$pos + 1 ] )) { $phase = $tmp[$pos + 1 ]; } else { $phase = "out-of-range"; }// next word
+      $proj="";
+      for ( $i=0 ; $i<$pos ; $i++ ) $proj .= $tmp[$i] . " "; // all the words before phase
+      $proj = trim ( $proj );
+      if ( $proj == "" ) $proj = "out-of-range";
+    }
+    if ( $bit == "BLK") if ( isset ( $tmp[$pos + 1 ] ))  { $maybe_block = $tmp[$pos + 1 ]; } else { $maybe_block = "out-of-range"; }
+    if ( $bit == "LOT") if ( isset ( $tmp[$pos + 1 ] ))  { $maybe_lot   = $tmp[$pos + 1 ]; } else { $maybe_lot = "out-of-range"; }
+  }
+  $community = trim ( $community);
+
+  $tmp = explode ( " " , $owner);
+  $community2 = "";
+  foreach ( $tmp as $pos => $bit ) {
+    if ( strlen ( trim($bit) ) > 1 && strpos( $commWords , trim($bit) ) !== false ) $community2 .= trim($bit) . " ";
+    //
+    if ( $bit == "PHASE" ) {
+      if ( isset ( $tmp[$pos + 1 ] )) { $phase2 = $tmp[$pos + 1 ]; } else  { $phase2 = "out-of-range"; } // next word
+      $proj2="";
+      for ( $i=0 ; $i<$pos ; $i++ ) {
+        $proj2 .= $tmp[$i] . " "; // all the words before phase
+      }
+      $proj2 = trim ( $proj2 );
+      if ( $proj2 == "" ) $proj2 = "out-of-range";
     }
   }
+  $community2 = trim ( $community2);
+  if ( $community == "" ) $community = $community2;
 
-  $tmp = explode ( " " , $legal);
-  foreach ( $tmp as $pos => $bit ) {
-    if ( $bit == "SEC" || $bit == "SECTION" || $bit == "SECC" ) {
-      if ( isset ( $tmp[$pos + 1 ] ) && $section == "na" ) $section = $tmp[$pos + 1 ]; // next word
-    }
-    if ( $bit == "PHASE" || $bit == "PH") {
-      if ( isset ( $tmp[$pos + 1 ] )) {
-        if ( $phase == "na" ) { 
-          $phase = $tmp[$pos + 1 ]; // next word
-        } else {
-          if ( $section == "na" ) $section = $tmp[$pos + 1 ]; // if already found phase assume this is section
+  $tmp = explode ( " " , str_replace ( " NO " , " " , $subdivision )); // ie subdivision^COLONY NO 14
+  if ( count ($tmp) == 1 ) { 
+    $proj3 = $tmp[0]; 
+  } elseif ( count ($tmp) == 2 ) {
+    if ( is_numeric($tmp[1] )) { $proj3 = $tmp[0]; $phase3 = $tmp[1]; }
+    else { $proj3 = $tmp[0] . " " . $tmp[1]; }  
+  } elseif ( count ($tmp) == 3 ) {
+    $proj3 = $tmp[0] . " " . $tmp[1]; 
+    $phase3 = $tmp[2];
+  } elseif ( count ($tmp) == 4 ) {
+    $proj3 = $tmp[0] . " " . $tmp[1] . " " . $tmp[2]; 
+    $phase3 = $tmp[3]; // subdivision^GARDEN RIDGE ESTATES 1
+  } 
+
+  if ( ( $block == "" || $block == "na" ) &&  $maybe_block != "na" ) $block = $maybe_block;
+  if ( ( $lot == "" || $lot == "na" ) &&  $maybe_lot != "na" ) $lot = $maybe_lot;
+  //
+  $tmp = array_map( "trim" , explode ( " " , trim($lot) ));
+  if ( count ($tmp ) > 1) {
+    $newLot = "";
+    foreach ( $tmp as $bit ) {
+      if ( strpos ( $bit , "TO") !== false ) { // ie 12TO27
+        $tmp2 = str_replace("TO", " ", $bit );
+        $tmp3 = explode ( " ", trim($tmp2) );
+        if ( count ( $tmp3 ) == 2 ) {
+          $tmp4 = range ( $tmp3[0], $tmp3[1]);
+          if ( count ($tmp4) < 50 ) { 
+            $bit=""; // reset as we will rebuild it
+            foreach ( $tmp4 as $i ) $bit .= $i . ","; // can be 1-30 A-D but not A1-
+          }
+          $bit = rtrim ( $bit , "," );
         }
       }
+      // only allow one letter or the "," string above
+      if ( strlen( preg_replace("/[0-9]/","", $bit)) < 2 || strpos ( $bit , ",") !== false ) {
+        $newLot .= $bit . ",";
+      } else {
+        //print ( "WARN bad lot $bit ref\n" );
+      }
     }
-    if ( $bit == "BLK" || $bit == "BL" ) {
-      if ( isset ( $tmp[$pos + 1 ] ))  $maybe_block = $tmp[$pos + 1 ];
-    }
-    if ( $bit == "LOT" || $bit == "LT") {
-      if ( isset ( $tmp[$pos + 1 ] ))  $maybe_lot   = $tmp[$pos + 1 ]; 
-    }
+    $lot = rtrim ( $newLot , "," );
+    //print ( "multi-lot [" . $lot . "] is [" . $newLot . "]\n");
   }
+  if ( $proj == "na" || $proj == "out-of-range" )  $proj = $proj2; // try the alternative 
+  if ( $phase == "na" || $phase == "out-of-range" )  $phase = $phase2; 
+  //
+  if ( $proj == "na" || $proj == "out-of-range" )   $proj = $proj3; // and again
+  if ( $phase == "na" || $phase == "out-of-range" ) $phase = $phase3; 
 
-  if ( $section == "na" && $phase == "na") return ( "INVAL Sec/Phase");
-  
-  if ( $block == "" ) $block = $maybe_block; 
-  if ( $lot == "" ) $lot = $maybe_lot;
-  if ( $lot == "na" || $block == "na ") return ( "INVAL Lot/Block");
-  
-  $proj="";
-  $tmp = explode ( "~" , strtoupper( $commWords ));
-  if ( trim($legal) != "" ) {
-    foreach ( $tmp as $bit ) {
-      if ( $bit != "" && strpos ( $legal , $bit ) !== false ) $proj .= " " . $bit;
-    }
-  }
-  if ( trim($proj) == "" && trim ( $owner ) != "" ) {
-    foreach ( $tmp as $bit ) {
-      if ( $bit != "" && strpos ( $owner, $bit ) !== false ) $proj .= " " . $bit;
-    }
-  }
-  if ( trim($proj) == "" && trim ( $subdivision ) != "" ) {
-    foreach ( $tmp as $bit ) {
-      if ( $bit != "" && strpos ( $subdivision , $bit ) !== false ) $proj .= " " . $bit;
-    }
-  }
+  $p_siz =  count ( explode ( " " , $proj  ));
+  $p2_siz = count ( explode ( " " , $proj2 ));
+  $p3_siz = count ( explode ( " " , $proj3 ));
 
-  $proj = trim ( implode(' ',array_unique(explode(' ', $proj ))) ); // rm dup words
-  if ( $proj == "" ) return ( "INVAL project");
+  if ( $p2_siz > 0 && $p2_siz < 3 && $p_siz > 2 ) $proj = $proj2; // more likely
+  if ( $p3_siz > 0 && $p3_siz < 3 && $p_siz > 2 ) $proj = $proj3;
 
-  return $proj ."^". $phase ."^". $section ."^". $block ."^". $lot;
+  $p_siz =  count ( explode ( " " , $proj  ));
+  if ( $p_siz > 2 && $community != "" ) $proj = $community;
 
+  //print ( "TRACE community [$community] [$community2]\n");
+
+return ( $proj ."^". $phase ."^". $section ."^". $block ."^". $lot );
 }
 
 
@@ -557,7 +595,6 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
  Closed|Liberty|E-28|28|Phase 1||2612 Patriot Drive|Melissa|Melissa|Texas||75454||CalAtlantic
  */
  //
- $ban_key = array();
  if ( !file_exists( $stockList )) { print ( "ERROR No fixed Csv file $stockList found\n"); return (0); }
  $file = fopen( $stockList, 'r');
  $j=0; $k=0; $l=0;
@@ -567,6 +604,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
   if ( count ($line) > 15 ) {
     //
     $j++;
+    $section="na"; $block="na"; $lot="na"; // reset
     //
     $status =  trim( $line[0]); //     print ( $v['currentstatusname'] ."|". 
     $clientid =   trim( $line[1]); // keys
@@ -585,69 +623,28 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
     $spec    = trim( $line[14]); //   $v['specHome'] ."|". // false
     $builder = trim( $line[15]); //   $v['allocatedBuilderName'] . "\n" );
     //
-    if ( ( $status == "Closed" || $status == "Sold" || $status == "Available" || $status == "Model" 
-        || $status == "Spec" || $status == "Draft" || $status == "Unavailable" ) ) {
+    if ( ( $status == "Closed" || $status == "Sold" ) /* && $project =="POMONA" */ ) {
       $l++;
-      // keys via project,phase,section,block,lot
-      //
-      if ( $project == "" ) { 
-        print ( "ERROR $stockList at $i - No Project name or [$project^$product^$productNo^$stage] at $street\n");
-        $project = "Missing!";
-      } else {
-        $project = strtoupper($project); // ie POMONA
-      }
+      if ( $project == "" ) print ( "ERROR $stockList at $i - No Project name\n");
+      $project = strtoupper($project); // ie POMONA
       //
       if ( $stage == "" ) {
-        $phase = "";
+        $phase = "na";
       } else {
         $phase = trim ( str_replace( "PHASE" , "" , strtoupper ( $stage )));  // get rid of word "Phase"
-        $phase = trim ( str_replace( "-" , "" , strtoupper ( $phase ))); // get rid of "-"
+        $phase = trim ( str_replace( " - " , "" , strtoupper ( $phase ))); // get rid of "- "
       }
-      if ( $phase == "" ) { // may have trimmed to nothing
-        print ( "ERROR $stockList at $k - No Phase name or [$project^$product^$productNo^$stage] at $street\n");
-        $phase = "Missing!";
-      }
-      /*
-      $tmp = array_map ( 'trim' , explode ( " " , $phase ) ); 
+      if ( $phase == "" ) print ( "ERROR $stockList at $k - No Phase name\n");
+      $tmp = array_map ( 'trim' , explode ( " " , $phase)); 
       $count = count ( $tmp );
       if ( $count == 2 ) { $phase = $tmp[1]; $project = $project . " " . $tmp[0]; }
       elseif ( $count == 3 ) { $phase = $tmp[2]; $project = $project . " " . $tmp[0] . " " . $tmp[1]; }
-      elseif ( $count == 4 ) { $phase = $tmp[3]; $project = $project . " " . $tmp[0] . " " . $tmp[1] . " " . $tmp[2]; }
+      elseif ( $count == 4 ) { $phase = $tmp[3]; $project = $project . " " . $tmp[0] . " " . $tmp[1] . " " . $tmp[1]; }
       elseif ( $count > 4  ) { print ( "ERROR $stockList at $k, to many words [" . $phase . "]\n"); }
-      */
-      $maybe_phase=""; $section=""; $block=""; $lot=""; // reset
-      $tmp2 = array_map ( "trim" , explode ( "-" , $product ));
-      if ( count ($tmp2) == 4 ) {
-        $maybe_phase =  ltrim( strtoupper($tmp2[0]) , "0") ; 
-        $section =  ltrim( strtoupper($tmp2[1]) , "0") ; // Section
-        $block = ltrim( strtoupper($tmp2[2]) , "0" ); // Block
-        $lot = ltrim( strtoupper($tmp2[3]) , "0" ); // Lot
-      } elseif ( count ($tmp2) == 3 ) {
-        $section =  ltrim( strtoupper($tmp2[0]) , "0") ; // Section
-        $block = ltrim( strtoupper($tmp2[1]) , "0" ); // Block
-        $lot = ltrim( strtoupper($tmp2[2]) , "0" ); // Lot
-      } elseif ( count ($tmp2) == 2 ) {
-        $section =  "None"; // Section
-        $block = ltrim( strtoupper($tmp2[0]) , "0" ); // Block
-        $lot = ltrim( strtoupper($tmp2[1]) , "0" ); // Lot
-      } else { // Section, Block, lot
-        print ( "ERROR $stockList at $k - Sec/Block/Lot " . $product  . " is bad, got " . count ($tmp2) . "\n");      
-      }   
-      if ( $lot != ltrim( $productNo , "0" )  &&  $productNo != "" && strlen ( $productNo ) <= 4 ) {
-        // TODO
-        print ( "ERROR $stockList at $k - ProductNo[" . $productNo . "] and Lot[" . $lot . " ] mismatch for [$project^$product^$productNo^$stage] at $street\n"); 
-      }
-      //
-      if ( $section == "" ) { print ( "ERROR $stockList at $k - No section for [$project^$product^$productNo^$stage] at $street\n"); $section = "missing!"; }
-      if ( $block == "" ) { print ( "ERROR $stockList at $k - No block for [$project^$product^$productNo^$stage] at $street\n"); $block = "missing!"; }
-      if ( $lot == "" ) { print ( "ERROR $stockList at $k - No Lot for [$project^$product^$productNo^$stage] at $street\n"); $lot = "missing!"; }
-      if ( $maybe_phase != "" && $phase == "missing!") { $phase = $maybe_phase; }
 
-      // now address
-      //
       if ( $city == $suburb ) { $local = trim( $suburb); }
       else { $local = trim ( $suburb . " " . $city ); }
-      if ( $local == "" ) print ( "ERROR $stockList at $k - No city/suburb for or [$project^$product^$productNo^$stage] at $street\n");
+      if ( $local == "" ) print ( "ERROR $stockList at $k - No city/suburb for street [$street]\n");
       //
       // $addrs = addr_conv ( $unit ." ". $street ." ". $local ." ". $state ." ". $postcode ); // full address
       $addrs = addr_conv ( $unit ." ". $street ." ". $local ." ". $postcode ); // full address without state, brazoria does not have state   
@@ -675,81 +672,55 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
         $stock1[$key1][$key2][6] = "no-match-addrs";
       }
 
+      $tmp2 = array_map ( "trim" , explode ( "-" , $product ));
+      if ( count ($tmp2) == 4 ) {
+        $section =  ltrim( strtoupper($tmp2[1]) , "0") ; // Section
+        $block = ltrim( strtoupper($tmp2[2]) , "0" ); // Block
+        $lot = ltrim( strtoupper($tmp2[3]) , "0" ); // Lot
+      } elseif ( count ($tmp2) == 3 ) {
+        $section =  ltrim( strtoupper($tmp2[0]) , "0") ; // Section
+        $block = ltrim( strtoupper($tmp2[1]) , "0" ); // Block
+        $lot = ltrim( strtoupper($tmp2[2]) , "0" ); // Lot
+      } elseif ( count ($tmp2) == 2 ) {
+        $section =  "na"; // Section
+        $block = ltrim( strtoupper($tmp2[0]) , "0" ); // Block
+        $lot = ltrim( strtoupper($tmp2[1]) , "0" ); // Lot
+      } else { // Section, Block, lot
+        print ( "ERROR $stockList at $k - Sec/Block/Lot " . $product  . " is bad, got " . count ($tmp2) . "\n");      
+      } 
+      if ( $section == $phase ) { /* print ( "WARN at $i - Phase and section same - $phase\n"); */ $section = "na" ; } // nasty hack
+      //
+      if ( $section == "" ) print ( "ERROR $stockList at $k - No section for [$product] at $street\n");
+      if ( $block == "" ) print ( "ERROR $stockList at $k - No block for [$product] at $street\n");
+      if ( $lot == "" ) print ( "ERROR $stockList at $k - No Lot for [$product] at $street\n");
       // Filter the stock TODO Project vs County Map
       //
       if ( isset ( $community[ $project ])) { $community[ $project ]++; }
       else { $community[ $project ] = 1; }
 
-      // The main key for look up by project..lot key
-      //
       $key = $project ."^". $phase ."^". $section ."^". $block ."^". $lot; // redefine key
-      //
       $combined [ $addrs ][0] = $key; // used later to see if we got matches
       // note that 1 2 , 3 4 , 5 6 are used for county data
       $combined [ $addrs ][7] = $clientid; //keys for write back
       $combined [ $addrs ][8] = $cpidstring;
-      
-      if ( isset ( $stock2[$key]) || isset ( $ban_key[$key]) ) { // main full ID key
-        print ( "ERROR $stockList at $k - Duplicate full key project..lot key [$key] exists new[$addrs] saved[" . $stock2[ $key ][0] ."]\n"); 
-        unset ( $stock2[$key] );
-        $ban_key [$key] = 1;
-      } else {
-        $stock2[ $key ][0] = $addrs; $stock2[ $key ][1] = $project; // same again
-        $stock2[ $key ][2] = $phase; $stock2[ $key ][3] = $section; 
-        $stock2[ $key ][4] = $block; $stock2[ $key ][5] = $lot; $stock2[ $key ][6] = "no-match-full-ID";
-      }
-      //
-      $phase_no = preg_replace("/[^0-9]/", ""  , $phase ); 
-      $section_no = preg_replace("/[^0-9]/", ""  , $section ); 
 
-      // Weaker keys in stock 3
+
+      if ( isset ( $stock2[$key])) { print ( "ERROR $stockList at $k - Duplicate full project/lot key $key exists [$addrs]\n"); }
+      $stock2[ $key ][0] = $addrs; $stock2[ $key ][1] = $project; // same again
+      $stock2[ $key ][2] = $phase; $stock2[ $key ][3] = $section; 
+      $stock2[ $key ][4] = $block; $stock2[ $key ][5] = $lot; $stock2[ $key ][6] = "no-match-full-ID";
       //
-      $key2 = $project ."^". $phase_no ."^". $section_no ."^". $block ."^". $lot; // strip out alphas
-      if ( $key != $key2 ) { // only if different
-        if ( isset ( $stock3[$key2]) || isset ( $ban_key[$key2]) ) { 
-          print ( "WARN $stockList at $k - Duplicate no only project..lot key $key2 exists [$addrs]\n"); 
-          unset ( $stock3[$key2] );
-          $ban_key [$key2] = 1;
-          $key2="ban";
+      $key = $project ."^". "na" ."^". $section ."^". $block ."^". $lot; // redefine key again, for trying match without phase
+      if ( $section != "na" ) { // no point storing key, ts not strong enough
+        if ( isset ( $stock3[$key])) { 
+          print ( "ERROR $stockList at $k - Duplicate part project/lot key $key exists\n"); 
+          unset ( $stock3[$key] ); // we cant use it
         } else {
-          $stock3[ $key2 ][0] = $addrs; $stock3[ $key2 ][1] = $project;
-          $stock3[ $key2 ][2] = $phase; $stock3[ $key2 ][3] = $section; // do keep phase in payload
-          $stock3[ $key2 ][4] = $block; $stock3[ $key2 ][5] = $lot; $stock3[ $key2 ][6] = "no-match-Part_ID";
+          $stock3[ $key ][0] = $addrs; $stock3[ $key ][1] = $project;
+          $stock3[ $key ][2] = $phase; $stock3[ $key ][3] = $section; // do keep phase in payload
+          $stock3[ $key ][4] = $block; $stock3[ $key ][5] = $lot; $stock3[ $key ][6] = "no-match-Part_ID";
         }
-      } else {
-        $key2="dup";
       }
-      $key3 = $project ."^". "na" ."^". $section ."^". $block ."^". $lot; // some counties only provide Section
-      if ( $key3 != $key && $key3 != $key2 ) { // only if different
-        if ( isset ( $stock3[$key3]) || isset ( $ban_key[$key3]) ) { 
-          print ( "WARN $stockList at $k - Duplicate na project key $key3 exists [$addrs]\n"); 
-          unset ( $stock3[$key3] );
-          $ban_key [$key3] = 1;
-          $key3="ban";
-        } else {
-          $stock3[ $key3 ][0] = $addrs; $stock3[ $key3 ][1] = $project;
-          $stock3[ $key3 ][2] = $phase; $stock3[ $key3 ][3] = $section; // do keep phase in payload
-          $stock3[ $key3 ][4] = $block; $stock3[ $key3 ][5] = $lot; $stock3[ $key3 ][6] = "no-match-Part_ID";
-        }
-      } else {
-        $key3="dup";
-      }
-      $key4 = $project ."^". $phase ."^". "na" ."^". $block ."^". $lot; // trying hard now
-      if ( $key4 != $key && $key4 != $key3  && $key4 != $key2 ) { // only if different
-        if ( isset ( $stock3[$key4]) || isset ( $ban_key[$key4]) ) { 
-          print ( "WARN $stockList at $k - Duplicate na section key $key4 exists [$addrs]\n"); 
-          unset ( $stock3[$key4] );
-          $ban_key [$key4] = 1;
-          $key4="ban";
-        } else {
-          $stock3[ $key4 ][0] = $addrs; $stock3[ $key4 ][1] = $project;
-          $stock3[ $key4 ][2] = $phase; $stock3[ $key4 ][3] = $section; 
-          $stock3[ $key4 ][4] = $block; $stock3[ $key4 ][5] = $lot; $stock3[ $key4 ][6] = "no-match-Part_ID";
-        } 
-      } else {
-        $key4="dup";
-      }
-      print ( "KEYGEN pr[$key] a1[$key2] a2[$key3] a3[$key4] .. $addrs\n");
     }
   } else {
    print ( "WARN Found short line $k in $stockList " . implode( "|" , $line ) . "\n");
@@ -762,7 +733,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
  $communityWords = "";
  foreach ( $community as $key => $val ) {
    print ( "NOTE community [" . $key . "] has $val recs\n");
-   $communityWords .= $key . "~";
+   $communityWords .= $key . " ";
  }
  return( $communityWords );
 }
@@ -844,24 +815,6 @@ function same_words ( $s1 , $s2 ) {
   return ( $hit );
 }
 
-function new_best ( $new , $old ) {  // v is new,  $combined [ $fullAddr ][X] is old
-  //
-  if ( $new == $old ) return ( false );
-  if ( isset ( $new["appraised_val"] )) { $new_ap = $new["appraised_val"]; } else { $new_ap = 0; }
-  if ( isset ( $old["appraised_val"] )) { $old_ap = $old["appraised_val"]; } else { $old_ap = 0; }
-  if ( isset ( $new["improved_val"]  )) { $new_ip = $new["improved_val"];  } else { $new_ip = 0; }
-  if ( isset ( $old["improved_val"]  )) { $old_ip = $old["improved_val"];  } else { $old_ip = 0; }
-  print ( "---- OLD ----\n" );
-  print_r ( $old );
-  print ( "---- NEW ----\n" );
-  print_r ( $new );
-  if ( $new_ap > $old_ap || $new_ip > $old_ip  ) {
-    print ( "NOTE Used new county data as apparsied OR improved higher new_ap=$new_ap old_ap=$old_ap new_ip=$new_ip old_ip=$old_ip\n" );
-    return ( true );
-  }
-  return ( false );
-}
-
 
 function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2 , $stock3, &$combined ) {
 
@@ -878,7 +831,7 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
     $result .= $k2 . "^" . $v2 . " , ";
   }
   //
-  if ( isset ( $v["appraised_val"] ) || isset ( $v["assessed_val"] ) || isset ( $v["market_val"]) || isset ( $v["land_val"]) ) {
+  if ( isset ( $v["appraised_val"] ) || isset ( $v["assessed_val"] ) || isset ( $v["market_val"])  ) {
     $hasValues = true; // dont want records that dont have valuation
   } else {
     $hasValues = false;
@@ -892,7 +845,6 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
   if ( isset ( $v["*city" ] )) { $c_c = $v["*city"]  ; $hit++; } else { $c_c = ""; }
   if ( isset ( $v["zip" ] ))   { $c_z = $v["zip"]    ; $hit++; } else { $c_z = ""; }
   $CountKey1 = trim ( addr_conv ( $c_h . " " )); // house number
-  $CountStreet = trim ( addr_conv ( $c_s )); 
   $CountKey2 = trim ( addr_conv ( $c_s . " " . $c_f . " " )); // street and suffix
   $CountAddrs = trim ( addr_conv ( $c_h . " " . $c_p . " " . $c_s . " " . $c_f . " " . $c_c . " " . $c_z )); 
   if ( $trace) print ( "TRACE Addr: no[$CountKey1] st[$CountKey2] full[$CountAddrs] hit=$hit\n" );
@@ -904,18 +856,25 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
         $fullAddr = $stock1[$CountKey1][$CountKey2][0];
         if ( words_match ( "try1" , $fullAddr , $CountAddrs ) || 
              words_match ( "try2" , $CountAddrs , $fullAddr ) ) { 
-          //
           if ( $debug ) print ( "YAY hit addr start [$CountKey1][$CountKey2] R=[$fullAddr] C=[$CountAddrs]\n");
           $stock1[$CountKey1][$CountKey2][6] = "addrs-match";
-          //
           if ( isset ( $combined [ $fullAddr ][1])) {
             if ( $combined [ $fullAddr ][1] != $v ) {
-              print ( "WARN Duplicate Address DIFF county data - Runway[$fullAddr] County[$CountAddrs]\n" );
-              if ( new_best ( $v , $combined [ $fullAddr ][1] )) {
+              print ( "ERROR Duplicate Address DIFF county data - Runway[$fullAddr] County[$CountAddrs]\n" );
+              if ( isset ( $v["appraised_val"] )) { $new_ap = $v["appraised_val"]; } else { $new_ap = 0; }
+              if ( isset ( $combined [ $fullAddr ][1]["appraised_val"] )) { $old_ap = $combined [ $fullAddr ][1]["appraised_val"]; } else { $old_ap = 0; }
+              if ( isset ( $v["improved_val"] )) { $new_ip = $v["improved_val"]; } else { $new_ip = 0; }
+              if ( isset ( $combined [ $fullAddr ][1]["improved_val"] )) { $old_ip = $combined [ $fullAddr ][1]["improved_val"]; } else { $old_ip = 0; }
+              print ( "---- OLD ----\n" );
+              print_r ( $combined [ $fullAddr ][1] );
+              print ( "---- NEW ----\n" );
+              print_r ( $v );
+              if ( $new_ap > $old_ap || $new_ip > $old_ip  ) {
+                print ( "NOTE Used new county data as apparsied OR improved higher new_ap=$new_ap old_ap=$old_ap new_ip=$new_ip old_ip=$old_ip\n" );
                 $combined [ $fullAddr ][1] = $v; 
               }
             } else {
-              print ( "NOTE Duplicate Address same county data - Runway[$fullAddr] County[$CountAddrs]\n" );
+              print ( "WARN Duplicate Address same county data - Runway[$fullAddr] County[$CountAddrs]\n" );
             }
           } else {
             $combined [ $fullAddr ][1] = $v; 
@@ -939,49 +898,45 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
   if ( $trace) print ( "TRACE Site: own[$owner] sub[$subdivision] leg[$legal] blk[$block] lot[$lot]. $hit=$hit\n");
   if ( $hit >= 3 && $hasValues /* && found == false */) {
     $out = county_key_gen ( $commWords , $owner, $subdivision, $legal , $block , $lot ); // $owner, $subdivision , $legal , $block , $lot 
-    if ( $trace ) print ( "TRACE Trying LotKey [" . $out . "] from :$owner,$subdivision,$legal,$block,$lot...$CountAddrs\n");
+    if ( $trace ) print ( "TRACE Trying Key [" . $out . "] from :$owner,$subdivision,$legal,$block,$lot.\n");
     if ( isset ( $stock2 [ $out ])) {
-      if ( $debug ) print ( "YAY hit main ID for $out - " . $stock2 [$out][0] . "\n");
+      if ( $debug ) print ( "YAY hit ID for $out - " . $stock2 [$out][0] . "\n");
       $found=true;
       if ( strpos ( $stock2[ $out ][6] , "no-match" ) !== false ) { $stock2[ $out ][6] = "ID-match"; }
       else { $stock2[ $out ][6] .= " , ID-match";}
       //
       $fullAddr = $stock2[ $out ][0];
-      $tidyAddr = addr_conv ( $fullAddr ) ;
-      if ( $CountStreet != "" &&  !strpos ( $tidyAddr , $CountStreet ) !== false ) {
-        print ( "ERROR Bad [$out] main ID hit [$fullAddr] County street[$c_s]\n");
+      if ( isset ( $combined [ $fullAddr ][3]) ) { // not the [2] we are looking for dups here
+        $cur = $combined [ $fullAddr ][3]["appraised_val"];
+        $new = $v["appraised_val"];
+        if ( $cur != $new) print ( "ERROR Diff apprasied $cur $new. Address " . $fullAddr . "\n" );
+        //print ( "WARN match 2 duplicate full address " . $fullAddr . "\n" );
       } else {
-        if ( isset ( $combined [ $fullAddr ][3]) ) { // not the [2] we are looking for dups here
-          if ( new_best ( $v , $combined [ $fullAddr ][3] )) { 
-            $combined [ $fullAddr ][3] = $v; 
-          }
-        } else {
-          $combined [ $fullAddr ][3] = $v; 
-          $combined [ $fullAddr ][4] = $stock2 [$out];
-        }
+        $combined [ $fullAddr ][3] = $v; 
+        $combined [ $fullAddr ][4] = $stock2 [$out];
       }
-    } else {
-      if ( isset ( $stock3 [ $out ])) {
-        if ( $debug ) print ( "YAY hit alt ID for $out - " . $stock3 [$out][0] . "\n");
-        $found=true;
-        if ( strpos ( $stock3[ $out ][6] , "no-match" ) !== false ) { $stock3[ $out ][6] = "ID-match"; }
-        else { $stock3[ $out ][6] .= " , ID-match";}
-        //
-        $fullAddr = $stock3[ $out ][0];
-        // protect from false hits, this is a loose test
-        $tidyAddr = addr_conv ( $fullAddr ) ;
-        if ( $CountStreet  != "" &&  !strpos ( $tidyAddr , $CountStreet )  !== false ) {
-           print ( "WARN Bad [$out] alt ID hit [$fullAddr] County street[$c_s]\n");
-        } else {
-          if ( isset ( $combined [ $fullAddr ][5]) ) { // not the [2] we are looking for dups here
-            if ( new_best ( $v , $combined [ $fullAddr ][5] )) { 
-               $combined [ $fullAddr ][5] = $v; 
-            }
-          } else {
-            $combined [ $fullAddr ][5] = $v; 
-            $combined [ $fullAddr ][6] = $stock3 [$out];
-          }
-        }
+    }
+    if ( isset ( $stock3 [ $out ])) {
+      //print ( "Yay hit ID for $out - " . $stock3 [$out][0] . "\n");
+      $found=true;
+      if ( strpos ( $stock3[ $out ][6] , "no-match" ) !== false ) { $stock3[ $out ][6] = "ID-match"; }
+      else { $stock3[ $out ][6] .= " , ID-match";}
+      //
+      $fullAddr = $stock3[ $out ][0];
+      if ( isset ( $combined [ $fullAddr ][5]) ) { // not the [2] we are looking for dups here
+        print ( "WARN Easy Block/lot match [$out] - Duplicate Address Runway[$fullAddr] County[$CountAddrs]\n" );
+        // TODO we get these due to dual ownership
+        // [legal] => POMONA SEC 4 (A0298 HT&BRR & A0540 ACH&B) BLK 4 LOT 13, Undivided Interest 33.3400000000%
+        //[appraised_val] => 114933
+        //[assessed_val] => 114933)
+        $cur = $combined [ $fullAddr ][5]["appraised_val"];
+        $new = $v["appraised_val"];
+        if ( $cur != $new) print ( "ERROR Diff apprasied $cur $new. Runway[$fullAddr] County[$CountAddrs]\n" );
+        //print_r ( $combined [ $fullAddr ][5] );
+        //print_r ( $v );
+      } else {
+        $combined [ $fullAddr ][5] = $v; 
+        $combined [ $fullAddr ][6] = $stock3 [$out];
       }
     }
   }
