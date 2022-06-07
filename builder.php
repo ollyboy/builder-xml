@@ -944,7 +944,7 @@ foreach ( $matrix as $b_k => $b_v ) {
           $builderSize= $matrix[$b_k]["size"];
 
           if ( $builderPrice == $runwayPrice ) { $res="Price-Match"; } else { $res="Price-diff"; }
-          if ( abs ( $builderSize - $runwaySize ) <= 50 ) { $res2="Size-Match"; } else { $res2="Size-diff"; }
+          if ( abs ( $builderSize - $runwaySize ) <= 5000 ) { $res2="Size-Match"; } else { $res2="Size-diff"; }
           //print ( "DEBUG $htype $res $res2: B[$b_k] R[$r_k][$r_k2] cnt=$r_planCnt " . "B=$" . $builderPrice . " R=$" . $runwayPrice . " PriceGap=" . ( $builderPrice - $runwayPrice) . 
           //  " Bsiz=$builderSize Rsiz=$runwaySize\n");
           print ( "NOTE $htype $res $res2: B[$b_builder][$b_plan][$b_model] R[$r_builder][$r_plan][$r_model] cnt=$r_planCnt " . "B=$" . $builderPrice . " R=$" . $runwayPrice . 

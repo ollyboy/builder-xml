@@ -3,6 +3,7 @@ David-PecanSquare | https://www.davidweekleyhomes.com/feeds/pecansquare/pecansqu
 David-Harvest | https://www.davidweekleyhomes.com/feeds/harvest/harvest.xml
 David-WolfRanch | https://www.davidweekleyhomes.com/feeds/wolfranch/wolfranch.xml
 David-Bridgeland | https://www.davidweekleyhomes.com/feeds/bridgeland/bridgeland.xml
+David-WoodlandsHills | https://www.davidweekleyhomes.com/feeds/woodlandshills/woodlandshills.xml
 Perry | https://assets.perryhomes.com/_perrydatafeed/feed.xml
 Coventry | https://mhiresources.com/temp/xmlfeeds/bhi_feed_mark.xml
 TollBrothers | http://xml.tollbrothers.com/runway/runway.xml
@@ -14,8 +15,13 @@ Darling | https://cm.taylormorrison.com/FeedFile/TaylorMorrison.xml
 AshtonWoods | https://www.ashtonwoods.com/xml_feeds/AshtonWoods_CORP42.xml
 CBJeni | https://cbjenihomes.com/?feed=cbjeni-listings
 AmericanLegend | http://feed.mybuildercloud.com/bdx/658415183797.xml
-Highland-Harvest | http://admin.hhomesltd.com/xmlFeed/CommunityXml/102
-Highland-PecanSquare | http://admin.hhomesltd.com/xmlFeed/CommunityXml/301
-Highland-Pomona | http://admin.hhomesltd.com/xmlFeed/CommunityXml/227
-Highland-UnionPark | http://admin.hhomesltd.com/xmlFeed/CommunityXml/158
-Highland-WolfRanch | http://admin.hhomesltd.com/xmlFeed/CommunityXml/305
+Highland-Harvest | https://admin.hhomesltd.com/xmlFeed/CommunityXml/102
+Highland-PecanSquare | https://admin.hhomesltd.com/xmlFeed/CommunityXml/301
+Highland-Pomona | https://admin.hhomesltd.com/xmlFeed/CommunityXml/227
+Highland-UnionPark | https://admin.hhomesltd.com/xmlFeed/CommunityXml/158
+Highland-WolfRanch | https://admin.hhomesltd.com/xmlFeed/CommunityXml/305
+Highland-Sandbrock | https://admin.hhomesltd.com/xmlFeed/CommunityXml/290
+Highland-Bridgeland | https://admin.hhomesltd.com/xmlFeed/CommunityXml/277
+Highland-WoodlandsHills | https://admin.hhomesltd.com/xmlFeed/CommunityXml/299
+Gehan-WoodlandsHills | https://inventory.gehanhomes.com/fetch/json/118524
+Ravenna | https://www.ravennahomes.com/floor-plan-feeds/

@@ -28,6 +28,8 @@ if ( sizeof( $runwaySource ) == 0 ) {
 $revisedClientSource=array(); $revisedRunwaySource=array();
 $debugModeArgv = false; $prodModeArgv = false; $traceModeArgv = false; 
 $callModeArgv = false; 
+$noidModeArgv = false; 
+$riskyModeArg = false;
 foreach( $argv as $cnt => $v ) {
   $value =trim ( strtolower( $v )); 
   if ( $cnt == 0 ) {} // ignore
@@ -36,6 +38,8 @@ foreach( $argv as $cnt => $v ) {
   elseif ( $value  == "debug") $debugModeArgv = true; 
   elseif ( $value  == "trace") $traceModeArgv = true; 
   elseif ( $value  == "docall") $callModeArgv = true; 
+  elseif ( $value  == "noid" ) $noidModeArgv = true; 
+  elseif ( $value  == "risky" ) $riskyModeArgv = true; 
   else {
     $hit = false;
     foreach ( $clientSource as $scope ) {
@@ -55,7 +59,13 @@ foreach( $argv as $cnt => $v ) {
       }
     }
     if ( ! $hit ) {
-      print ( "ERROR Unknown command line parameter [" . $v . "] Can use [developer] [County] production development debug trace docall\n" );
+      print ( "ERROR Unknown command line parameter [" . $v . "] Can use: [developers] [Countys] production development debug trace docall noid risky\n" );
+      print ( "if no developer or county all from .source files will be used\n");
+      print ( "trace -  Will dump array contents for errors\n");
+      print ( "debug -  Adds more warnings and progress logs\n");
+      print ( "docall - Will push data back to runway\n");
+      print ( "noid -   Will run only address march and will bypass Comunity,phase,section,block,lot key matches\n");
+      print ( "risky -  Will try to match county data to runway without section data \n");
       exit (0);
     }
   }
@@ -101,18 +111,18 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
       print ( "NOTE -- Processing $latestCsv against $stockList --\n" );
 
       // Get the Runway source data, make useful keys
-      $stock1=array(); $stock2=array(); $stock3=array(); // reset
+      $stock1=array(); $stock2=array(); $stock3=array(); $communityTotCount = array();// reset
       $combined = array(); // combined find methods
       $commWords = build_stock_keys ( $stockList, // in
-                     $combined, $stock1, $stock2, $stock3 ); // set these
+                     $combined, $stock1, $stock2, $stock3 , $communityTotCount ); // set these
       print ( "NOTE $devName - Stock size is " . count($combined) . " Key sets are " . count($stock1) . " "  . count($stock2) ." " . count($stock3) . "\n");
 
-      $noMatch = match_stock ( $commWords , $debugModeArgv , $traceModeArgv , $county , $stock1 , $stock2 , $stock3, // pass in these 
+      $noMatch = match_stock (  $noidModeArgv, $commWords , $debugModeArgv , $traceModeArgv , $county , $stock1 , $stock2 , $stock3, // pass in these 
                            $combined ); // update this
       
       //print_r ( $combined );
 
-      $i=0; $j=0; $noSolution = array(); $comCount= array();
+      $i=0; $j=0; $noSolution = array(); $comHitCount= array();
 
       $fh=fopen ( $devName . "." . $countyName . ".link.csv", "w" ); // will delete old
 
@@ -211,7 +221,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
             if ( $v[2][0] != $v[6][0]) print ( "ERROR $k Address mismatch 2,6 \n");
             if ( $v[2][1] != $v[6][1]) print ( "ERROR $k community mismatch 2,6 \n");
             //if ( $v[1]['appraised_val'] != $v[5]['appraised_val'] ) { 
-            if ( new_best ( $v[5] , $v[1] )) {
+            if ( new_best ( $traceModeArgv , $v[5] , $v[1] )) {
               print ( "ERROR $k Appraised mismatch 2,6 \n"); $prob = true;  // not too bad as we prefer the address match apprasal
             }
           }
@@ -219,7 +229,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
             if ( $v[2][0] != $v[4][0]) print ( "ERROR $k Address mismatch 2,4 \n");
             if ( $v[2][1] != $v[4][1]) print ( "ERROR $k community mismatch 2,4 \n");
             //if ( $v[1]['appraised_val'] != $v[3]['appraised_val'] ) { 
-            if ( new_best ( $v[3] , $v[1] )) {
+            if ( new_best ( $traceModeArgv , $v[3] , $v[1] )) {
               print ( "ERROR $k Appraised mismatch 2,4 \n"); $prob = true; 
             }
           }
@@ -227,16 +237,16 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
             if ( $v[4][0] != $v[6][0]) print ( "ERROR $k Address mismatch 4,6 \n");
             if ( $v[4][1] != $v[6][1]) print ( "ERROR $k community mismatch 4,6 \n");
             //if ( $v[3]['appraised_val'] != $v[5]['appraised_val'] ) { 
-            if ( new_best ( $v[5] , $v[3] )) {
+            if ( new_best ( $traceModeArgv , $v[5] , $v[3] )) {
               print ( "ERROR $k Appraised mismatch 4,6 \n");  $prob = true; 
             }
           }
-          if ( $prob ) print_r ( $v );
+          if ( $prob && $traceModeArgv ) print_r ( $v );
           
-          if ( isset ( $comCount[ $community ] ) ) { 
-            $comCount[ $community ]++; 
+          if ( isset ( $comHitCount[ $community ] ) ) { 
+            $comHitCount[ $community ]++; 
           } else { 
-            $comCount[ $community ] =1; 
+            $comHitCount[ $community ] =1; 
           }
         }
         $j++;
@@ -353,14 +363,18 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
       foreach ( $noSolution as $k => $v ){
         //print ( "NOSOL :: $k :: " . $v[0] . "\n" );
       }
-      if ( sizeof( $comCount ) == 0 ) {
+      if ( sizeof( $comHitCount ) == 0 ) {
         print ( "WARN $devName $countyName - No community match\n");
       } else {
-        foreach ( $comCount as $k22 => $v22 ) {
-          print ( "NOTE $devName $countyName - community [$k22] got $v22 matches\n");
+        foreach ( $comHitCount as $k22 => $v22 ) {
+          print ( "NOTE $devName $countyName - community HITS [$k22] got $v22 matches\n");
         }
       }
-
+      foreach  ( $communityTotCount as $k78 => $v78 ){
+        if ( isset ( $comHitCount [ $k78 ]) ) { $cHits = $comHitCount [ $k78 ]; } else { $cHits=0; }
+        if ( $cHits != 0 ) { $pctHits = round( $cHits / $v78 * 100 ,  1 ); } else { $pctHits = "No Hits"; }
+        print ( "NOTE $devName $countyName - community [$k78] SUCCESS is $pctHits.  $cHits hits from $v78 records\n");
+      }
     }
   }
   //print_r ( $merged );
@@ -376,7 +390,7 @@ foreach ( $clientSource as $clientScope ) { // ----- for each County
       $file = str_replace( " " , "-" , trim($com) ) . ".link.csv";
       if ( ! is_bool( $fh ) ) fclose ( $fh ) ;
       $fh = fopen ( $file , "a" );
-      print ( "NOTE Writing [$com]\n");
+      print ( "NOTE Writing [$com] as $file\n");
     } 
     foreach ( $add as $line => $type ) {
       foreach ( $type as $res => $rec ) {
@@ -489,7 +503,13 @@ S12381 - WOLF RANCH WEST SEC 6 PH 1, BLOCK K, Lot 26 */
   }
 
   if ( $section == "na" && $phase == "na") return ( "INVAL Sec/Phase");
-  
+
+  if ( $section != "na" && $phase == "na") {
+    // if there is no phase ussume the county is using section for phase
+    $phase = $section;
+    $section = "na";
+  }
+
   if ( $block == "" ) $block = $maybe_block; 
   if ( $lot == "" ) $lot = $maybe_lot;
   if ( $lot == "na" || $block == "na ") return ( "INVAL Lot/Block");
@@ -522,6 +542,8 @@ S12381 - WOLF RANCH WEST SEC 6 PH 1, BLOCK K, Lot 26 */
 
 function adj_map ( $fieldMap ) { // get the fieldmap, rotate to useful format
   //
+  global $debugModeArgv;
+
   $map=array(); $mapArr=array();
   if ( !file_exists( $fieldMap )) { print ( "ERROR No map file $fieldMap found\n"); return ( $mapArr ); }
   $map = explode( "\n", file_get_contents( $fieldMap ));
@@ -537,13 +559,13 @@ function adj_map ( $fieldMap ) { // get the fieldmap, rotate to useful format
 	  }
   }
   foreach ( $mapArr as $k => $v ) {
-    print ( "NOTE Source Key [$k] maps to [" . $v[0] . "] priority " . $v[1] . "\n" );
+    if ( $debugModeArgv ) print ( "NOTE Source Key [$k] maps to [" . $v[0] . "] priority " . $v[1] . "\n" );
   }
   return ( $mapArr );
 }
 
 
-function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock3 ) { // Get the Runway source data, make useful keys
+function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock3 , &$community ) { // Get the Runway source data, make useful keys
  /*
  Closed|Union Park|1A-A-34|34|Phase 1||4600 Pavilion Way|Little Elm||Texas||76227|1|Drees Custom Homes
  Closed|Union Park|1A-A-4|4|Phase 1||4212 Canopy Street|Little Elm||Texas||76227||Coventry
@@ -557,7 +579,11 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
  Closed|Liberty|E-28|28|Phase 1||2612 Patriot Drive|Melissa|Melissa|Texas||75454||CalAtlantic
  */
  //
+ global $debugModeArgv;
+ global $riskyModeArgv;
+
  $ban_key = array();
+ $community=array(); 
  if ( !file_exists( $stockList )) { print ( "ERROR No fixed Csv file $stockList found\n"); return (0); }
  $file = fopen( $stockList, 'r');
  $j=0; $k=0; $l=0;
@@ -627,7 +653,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
         $block = ltrim( strtoupper($tmp2[1]) , "0" ); // Block
         $lot = ltrim( strtoupper($tmp2[2]) , "0" ); // Lot
       } elseif ( count ($tmp2) == 2 ) {
-        $section =  "None"; // Section
+        $section =  "na"; // Section not provided
         $block = ltrim( strtoupper($tmp2[0]) , "0" ); // Block
         $lot = ltrim( strtoupper($tmp2[1]) , "0" ); // Lot
       } else { // Section, Block, lot
@@ -688,7 +714,7 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
       // note that 1 2 , 3 4 , 5 6 are used for county data
       $combined [ $addrs ][7] = $clientid; //keys for write back
       $combined [ $addrs ][8] = $cpidstring;
-      
+      //
       if ( isset ( $stock2[$key]) || isset ( $ban_key[$key]) ) { // main full ID key
         print ( "ERROR $stockList at $k - Duplicate full key project..lot key [$key] exists new[$addrs] saved[" . $stock2[ $key ][0] ."]\n"); 
         unset ( $stock2[$key] );
@@ -702,12 +728,12 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
       $phase_no = preg_replace("/[^0-9]/", ""  , $phase ); 
       $section_no = preg_replace("/[^0-9]/", ""  , $section ); 
 
-      // Weaker keys in stock 3
+      // Weaker keys in stock 3 . Counties mix use of Phase/PHASE and section/SEC and sometimes only provide one
       //
       $key2 = $project ."^". $phase_no ."^". $section_no ."^". $block ."^". $lot; // strip out alphas
-      if ( $key != $key2 ) { // only if different
+      if ( $key != $key2 && $phase_no != "" && $section_no != "" ) { // only if different and has values
         if ( isset ( $stock3[$key2]) || isset ( $ban_key[$key2]) ) { 
-          print ( "WARN $stockList at $k - Duplicate no only project..lot key $key2 exists [$addrs]\n"); 
+          if ( $debugModeArgv ) print ( "WARN $stockList at $k - Duplicate nunber only phase+section key $key2 exists [$addrs]\n"); 
           unset ( $stock3[$key2] );
           $ban_key [$key2] = 1;
           $key2="ban";
@@ -717,12 +743,14 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
           $stock3[ $key2 ][4] = $block; $stock3[ $key2 ][5] = $lot; $stock3[ $key2 ][6] = "no-match-Part_ID";
         }
       } else {
-        $key2="dup";
+        $key2="skip";
       }
-      $key3 = $project ."^". "na" ."^". $section ."^". $block ."^". $lot; // some counties only provide Section
-      if ( $key3 != $key && $key3 != $key2 ) { // only if different
+      $key3 = $project ."^". $section ."^". "na" ."^". $block ."^". $lot; // some counties only provide Section as phase
+      if ( $key3 != $key && $key3 != $key2 && $section != "" && 
+           $section != "none" && $section != "na" && $section = "missing!" ) { 
+        // only if different and valid section
         if ( isset ( $stock3[$key3]) || isset ( $ban_key[$key3]) ) { 
-          print ( "WARN $stockList at $k - Duplicate na project key $key3 exists [$addrs]\n"); 
+          if ( $debugModeArgv )  print ( "WARN $stockList at $k - Duplicate sec>phase key $key3 exists [$addrs]\n"); 
           unset ( $stock3[$key3] );
           $ban_key [$key3] = 1;
           $key3="ban";
@@ -732,12 +760,13 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
           $stock3[ $key3 ][4] = $block; $stock3[ $key3 ][5] = $lot; $stock3[ $key3 ][6] = "no-match-Part_ID";
         }
       } else {
-        $key3="dup";
+        $key3="skip";
       }
       $key4 = $project ."^". $phase ."^". "na" ."^". $block ."^". $lot; // trying hard now
-      if ( $key4 != $key && $key4 != $key3  && $key4 != $key2 ) { // only if different
+      if ( $key4 != $key && $key4 != $key3  && $key4 != $key2 && $riskyModeArgv && 
+           $phase != "" && $phase != "na" && $phase != "none" && $phase != "missing!") { // only if different and risky
         if ( isset ( $stock3[$key4]) || isset ( $ban_key[$key4]) ) { 
-          print ( "WARN $stockList at $k - Duplicate na section key $key4 exists [$addrs]\n"); 
+          if ( $debugModeArgv ) print ( "WARN $stockList at $k - Duplicate section>na key $key4 exists [$addrs]\n"); 
           unset ( $stock3[$key4] );
           $ban_key [$key4] = 1;
           $key4="ban";
@@ -747,9 +776,9 @@ function build_stock_keys ( $stockList, &$combined , &$stock1, &$stock2, &$stock
           $stock3[ $key4 ][4] = $block; $stock3[ $key4 ][5] = $lot; $stock3[ $key4 ][6] = "no-match-Part_ID";
         } 
       } else {
-        $key4="dup";
+        $key4="skip";
       }
-      print ( "KEYGEN pr[$key] a1[$key2] a2[$key3] a3[$key4] .. $addrs\n");
+      if ( $debugModeArgv ) print ( "KEYGEN pr[$key] a1[$key2] a2[$key3] a3[$key4] .. $addrs\n");
     }
   } else {
    print ( "WARN Found short line $k in $stockList " . implode( "|" , $line ) . "\n");
@@ -790,17 +819,6 @@ function build_maxtix_from_csv ( $debug , $latestCsv , $mapArr , &$matrix , &$pr
    	      $key = "";
    	      for ( $i =0 ; $i < 15 ; $i++ ) { $key .= $line[$i]; } // re-create key
    	      $val = $line[16]; 
-
-          /*
-   	      //print ( "$key - $target - $val\n");
-   	      if ( $old_key != $key ) {
-   	 	      //print ( "New $key after $key_cnt\n"); 
-   	 	      if ( $old_cnt != $key_cnt && $old_cnt > 1 ) { print ( "WARN Records in $latestCsv vary $old_cnt $key_cnt\n"); }
-            $old_cnt = $key_cnt;
-   	 	      $old_key = $key;
-   	 	      $key_cnt = 1;
-   	      }
-          */
           // we found source ie situs_unit etc
           $dest_tag = $mapArr[$target][0];
           $dest_priority = $mapArr[$target][1];
@@ -844,17 +862,19 @@ function same_words ( $s1 , $s2 ) {
   return ( $hit );
 }
 
-function new_best ( $new , $old ) {  // v is new,  $combined [ $fullAddr ][X] is old
+function new_best ( $trace, $new , $old ) {  // v is new,  $combined [ $fullAddr ][X] is old
   //
   if ( $new == $old ) return ( false );
   if ( isset ( $new["appraised_val"] )) { $new_ap = $new["appraised_val"]; } else { $new_ap = 0; }
   if ( isset ( $old["appraised_val"] )) { $old_ap = $old["appraised_val"]; } else { $old_ap = 0; }
   if ( isset ( $new["improved_val"]  )) { $new_ip = $new["improved_val"];  } else { $new_ip = 0; }
   if ( isset ( $old["improved_val"]  )) { $old_ip = $old["improved_val"];  } else { $old_ip = 0; }
-  print ( "---- OLD ----\n" );
-  print_r ( $old );
-  print ( "---- NEW ----\n" );
-  print_r ( $new );
+  if ( $trace ) {
+    print ( "---- OLD ----\n" );
+    print_r ( $old );
+    print ( "---- NEW ----\n" );
+    print_r ( $new );
+  }
   if ( $new_ap > $old_ap || $new_ip > $old_ip  ) {
     print ( "NOTE Used new county data as apparsied OR improved higher new_ap=$new_ap old_ap=$old_ap new_ip=$new_ip old_ip=$old_ip\n" );
     return ( true );
@@ -863,7 +883,7 @@ function new_best ( $new , $old ) {  // v is new,  $combined [ $fullAddr ][X] is
 }
 
 
-function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2 , $stock3, &$combined ) {
+function match_stock (  $noid, $commWords , $debug , $trace, $matrix , $stock1 , $stock2 , $stock3, &$combined ) {
 
  $noMatch = array();
  //
@@ -911,7 +931,7 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
           if ( isset ( $combined [ $fullAddr ][1])) {
             if ( $combined [ $fullAddr ][1] != $v ) {
               print ( "WARN Duplicate Address DIFF county data - Runway[$fullAddr] County[$CountAddrs]\n" );
-              if ( new_best ( $v , $combined [ $fullAddr ][1] )) {
+              if ( new_best ( $trace, $v , $combined [ $fullAddr ][1] )) {
                 $combined [ $fullAddr ][1] = $v; 
               }
             } else {
@@ -937,7 +957,8 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
   //
   $out="";
   if ( $trace) print ( "TRACE Site: own[$owner] sub[$subdivision] leg[$legal] blk[$block] lot[$lot]. $hit=$hit\n");
-  if ( $hit >= 3 && $hasValues /* && found == false */) {
+  //
+  if ( $hit >= 3 && $hasValues /* && found == false */ && !$noid) {
     $out = county_key_gen ( $commWords , $owner, $subdivision, $legal , $block , $lot ); // $owner, $subdivision , $legal , $block , $lot 
     if ( $trace ) print ( "TRACE Trying LotKey [" . $out . "] from :$owner,$subdivision,$legal,$block,$lot...$CountAddrs\n");
     if ( isset ( $stock2 [ $out ])) {
@@ -952,7 +973,7 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
         print ( "ERROR Bad [$out] main ID hit [$fullAddr] County street[$c_s]\n");
       } else {
         if ( isset ( $combined [ $fullAddr ][3]) ) { // not the [2] we are looking for dups here
-          if ( new_best ( $v , $combined [ $fullAddr ][3] )) { 
+          if ( new_best ( $trace, $v , $combined [ $fullAddr ][3] )) { 
             $combined [ $fullAddr ][3] = $v; 
           }
         } else {
@@ -974,7 +995,7 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
            print ( "WARN Bad [$out] alt ID hit [$fullAddr] County street[$c_s]\n");
         } else {
           if ( isset ( $combined [ $fullAddr ][5]) ) { // not the [2] we are looking for dups here
-            if ( new_best ( $v , $combined [ $fullAddr ][5] )) { 
+            if ( new_best ( $trace, $v , $combined [ $fullAddr ][5] )) { 
                $combined [ $fullAddr ][5] = $v; 
             }
           } else {
@@ -992,7 +1013,6 @@ function match_stock ( $commWords , $debug , $trace, $matrix , $stock1 , $stock2
  }
  return ( $noMatch );
 }
-
 
 function get_support_barLin ( $name ) { // process support files, bar delimited, multiple elements via comma delimiter
 
