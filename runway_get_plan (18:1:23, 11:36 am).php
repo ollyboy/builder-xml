@@ -134,7 +134,6 @@ foreach ( $clientSource as $scope ) { //  Developer
     } else {
        print ( "ERROR $name - url $fullUrl no result\n" );
        $compSum[$clientID] = array(); // blank
-       $res = array(); // blank
     }
     if ( sizeof ( $res ) == 0 ) {
       print ( "DEBUG $name - No branch/HO recs for $clientID\n"); 
@@ -188,7 +187,7 @@ foreach ( $clientSource as $scope ) { //  Developer
   }
 
   if ( $branch == "") {
-    print ( "BRANCH $name - Rec: " . $v['ownername'] . " | " . $v['designproductname'] . " | " . 
+    print ( "ERROR $name - Rec: " . $v['ownername'] . " | " . $v['designproductname'] . " | " . 
                $v['rangeproductname'] . " | " . $v['currentstatusname'] .
                " >> No Branch for clid:$clientID ccid:$companyID HO=[$headOffice]" . "\n" );
   } else {
@@ -211,9 +210,11 @@ foreach ( $clientSource as $scope ) { //  Developer
     }
     print ( "NOTE  Product Call got : comp=[$c_c_nam] : own=[$o_nam] : plan=[$p_p_nam] : fit-on=[$l_f_nam] : alias=[$l_f_alias] range=[$r_name]\n" );
   } else {
-    print ( "ERROR $name - prod url $resProd no result\n" );
+    print ( "ERROR $name - url $fullUrl no result\n" );
   }
-
+  if ( sizeof ( $res ) == 0 ) {
+    print ( "DEBUG $name - No contents from $prodUrl\n"); 
+  }
 
 
   fprintf( $fh, 

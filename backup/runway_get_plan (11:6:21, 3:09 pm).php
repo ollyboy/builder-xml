@@ -134,7 +134,6 @@ foreach ( $clientSource as $scope ) { //  Developer
     } else {
        print ( "ERROR $name - url $fullUrl no result\n" );
        $compSum[$clientID] = array(); // blank
-       $res = array(); // blank
     }
     if ( sizeof ( $res ) == 0 ) {
       print ( "DEBUG $name - No branch/HO recs for $clientID\n"); 
@@ -188,7 +187,7 @@ foreach ( $clientSource as $scope ) { //  Developer
   }
 
   if ( $branch == "") {
-    print ( "BRANCH $name - Rec: " . $v['ownername'] . " | " . $v['designproductname'] . " | " . 
+    print ( "ERROR $name - Rec: " . $v['ownername'] . " | " . $v['designproductname'] . " | " . 
                $v['rangeproductname'] . " | " . $v['currentstatusname'] .
                " >> No Branch for clid:$clientID ccid:$companyID HO=[$headOffice]" . "\n" );
   } else {
@@ -196,25 +195,6 @@ foreach ( $clientSource as $scope ) { //  Developer
                $v['rangeproductname'] . " | " . $v['currentstatusname'] . 
                " >> Branch=$branch Estates=[$estates] - clid:$clientID ccid:$companyID $message\n" );
   }
-
-  $resProd = false; $c_c_nam="na"; $o_nam ="na"; $p_p_nam="na"; $l_f_nam="na"; $l_f_alias="na"; $r_name="na";
-  $prodUrl = "https://r6api.runwayproptech.com/runwaywsrest/productapi/get?clientproductid=" . $v['clientproductid'] ;
-  $resProd = get_runway_data ( $prodUrl , $SEC , $AUTH );
-  if ( is_array( $resProd )) {
-    $c_c_nam = $resProd['clientcompanyname'] ;
-    $o_nam = $resProd['ownername'] ;
-    $p_p_nam = $resProd['product']['productname'] ;
-    //$r_name = $resProd['homeproduct']['rangeproductname'] ; // sometimes blank
-    foreach ( $resProd['productdimension'] as $val22 ) {
-      if ( $val22['dimensionname'] == 'Can Fit On Width [in ft]' ) $l_f_nam = $val22['charvalue'];
-      if ( $val22['dimensionname'] == 'Builder Lot Width Alias' ) $l_f_alias = $val22['charvalue'];
-    }
-    print ( "NOTE  Product Call got : comp=[$c_c_nam] : own=[$o_nam] : plan=[$p_p_nam] : fit-on=[$l_f_nam] : alias=[$l_f_alias] range=[$r_name]\n" );
-  } else {
-    print ( "ERROR $name - prod url $resProd no result\n" );
-  }
-
-
 
   fprintf( $fh, 
   $v['clientproductid'] ."|".  // $planCpId  for put$
@@ -235,8 +215,7 @@ foreach ( $clientSource as $scope ) { //  Developer
   $v['noofcarparks']  ."|".
   $v['noofstoreys']  ."|".
   $v['productnumber'] ."|".
-  $v['productname'] . "|".
-  $l_f_nam  . "|" . $l_f_alias . "\n" );
+  $v['productname'] . "\n" );
 
   }
   fclose ( $fh );

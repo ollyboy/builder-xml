@@ -104,7 +104,6 @@ foreach ( $runwaySource as $runwayScope ) {
     $parts = array_map ( 'trim' , explode ("|" , $scope ));
     $buildName = $parts[0];
     $latestCsv = $buildName . ".latest.csv";
-    print ( "\nNOTE --- Processing builder --- $buildName from $latestCsv\n");
 
     // what fields will we collect 
     if ( file_exists ( $buildName . ".field.map" )) {
@@ -121,7 +120,7 @@ foreach ( $runwaySource as $runwayScope ) {
     }
 
     $builderData=array(); $priority=array(); $buildPlanCnt=array(); // reset these
-
+    print ( "\nNOTE --- Processing builder --- $buildName\n");
     build_maxtix_from_csv ( $latestCsv , $mapArr , 
                           $builderData , $priorty, $buildPlanCnt ); // set these
 
@@ -607,7 +606,6 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
         )
   */
   $old_key = ""; $key_cnt =1; $old_cnt = -1; $recs=1;
-  $overRide=0; $newVal=0;
   if ( !file_exists( $latestCsv )) { print ( "ERROR No fixed Csv Builder file $latestCsv found\n"); return (0); }
   $file = fopen( $latestCsv, 'r');
   while (($line = fgetcsv($file)) !== FALSE) {
@@ -616,21 +614,20 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
       else {
         // only work on lines with 17 fields ie 16 keys + value
         //"David Weekley Homes","DavidWeekley~David Weekley Homes","Sandbrock Ranch",Belton,0,,,,,,,,,,,BasePrice,356990
-   	    $key = "";
-   	    for ( $i =0 ; $i < 15 ; $i++ ) { $key .= $line[$i] ."^"; } // re-create key
+   	$key = "";
+   	for ( $i =0 ; $i < 15 ; $i++ ) { $key .= $line[$i] ."^"; } // re-create key
         $key = rtrim ( $key, "^" );
-   	    $target = $line[15];
-   	    $val = $line[16]; 
-   	    //print ( "HACK $key - $target - $val\n");
+   	$target = $line[15];
+   	$val = $line[16]; 
+   	//print ( "HACK $key - $target - $val\n");
 
-   	    //process the record
+   	//process the record
         //
         if ( isset ( $mapArr[$target] ) ) { 
 
           if ( !isset ( $matrix[ $key ] )) {
             //set unprocessed status
             $matrix[ $key ][ "rec_status" ] = "no-match"; 
-            $key_cnt++;
 
             // different builder feeds
             // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
@@ -638,7 +635,6 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
             //      CORPHIGHLAND^37~Highland Homes~Highland^865~Sandbrock Ranch: 45ft. lots ^0^Plan Corby~Plan Corby^0
             //      0      1         2                   3               4     5    6
             //      CORP ^ BUILDER ^ multi-build-option ^MODEL/COMMUNITY^multi^PLAN^always multi-plan   // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
-            //      [RAVENNAHOMES^Ravenna Homes^1990^0] is an XML with 4 keys, we have to use a dummy community and get that later
 
             $b_pos = 0; $m_pos = 0; $p_pos = 0; 
             $tmp = explode ( "^", $key);
@@ -648,8 +644,6 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               $b_pos = 1; $m_pos = 2; $p_pos = 3; 
             } elseif ( count ($tmp ) == 6) { // Highland SandBrock style XML, single builder, multi community
               $b_pos = 1; $m_pos = 2; $p_pos = 4; 
-            } elseif ( count ($tmp ) == 4) { // Highland SandBrock style XML, single builder, multi community
-              $b_pos = 1; $m_pos = 3; $p_pos = 2;   // XML with community as data field, m_pos is dummy int part of key
             } else {
               print ( "ERROR $latestCsv Unknown format builder feed for [$key]\n");
             }
@@ -707,9 +701,9 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
             }
           }
 
-        // we found source ie situs_unit etc
-        $dest_tag = $mapArr[$target][0];
-        $dest_priority = $mapArr[$target][1];
+          // we found source ie situs_unit etc
+          $dest_tag = $mapArr[$target][0];
+          $dest_priority = $mapArr[$target][1];
      	  //print ( "set $target with $val to " . $mapArr[$target] . "\n");
      	  if ( isset ( $matrix[ $key ][ $dest_tag ] ) ) { // we already have this value stored
             if ( isset ( $priority[ $key ][ $dest_tag ] ) &&  $priority[ $key ][ $dest_tag ] >  $dest_priority ) {
@@ -717,28 +711,27 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               print ( "NOTE Set higher $target with $val to $dest_tag\n");
               $matrix[ $key ][ $dest_tag ] = ltrim($val, "0"); // save the value             
               $priority[ $key ][ $dest_tag ] = $dest_priority ; // save the value priority
-              $overRide++;
             } else {
               print ( "ERROR $latestCsv Duplicate builder key [$key]\n");
             }
      	  } else { // new $key
-            //print ( "HACK $key - $target > $dest_tag = $val\n");
+            print ( "HACK $key - $target > $dest_tag = $val\n");
             if ( ltrim($val, "0") != ""  ) {
               $matrix[$key][$dest_tag] = $val; // ltrim($val, "0"); // save the value
               $priority[$key][$dest_tag] = $dest_priority ; // save the value priority
               //print ( "$key -> " . $matrix[$key][$dest_tag] . " -> " . $priority[$key][$dest_tag] . "\n");
-              $newVal++;
             } else {
-              print ( "ERROR $latestCsv Empty builder data [$key] [$dest_tag] [$val]\n");
+              print ( "ERROR $latestCsv Empty builder data [$key]\n");
             }
           }
      	}
      }
+     $key_cnt++;
      $recs++;
    }
   }
   fclose($file);
-  print ( "SUMMARY Builder Matrix from $latestCsv done at $recs. Got $key_cnt Keys, $overRide OverRide, $newVal data pairs \n");
+  print ( "NOTE Builder Matrix from $latestCsv done at $recs \n");
   return(1);
 }
 
@@ -847,11 +840,8 @@ foreach ( $matrix as $b_k => $b_v ) {
 
   $b_builder = $matrix[ $b_k ][ "tidy_builder" ]; 
   $b_plan    = $matrix[ $b_k ][ "tidy_plan" ];
-  if ( isset( $matrix[ $b_k ][ "community" ] )) {
-    $b_model   = $matrix[ $b_k ][ "community" ]; 
-  } else {
-    $b_model   = $matrix[ $b_k ][ "tidy_model" ]; 
-  }
+  $b_model   = $matrix[ $b_k ][ "tidy_model" ]; 
+
   $uniqBuldPlan = $b_builder . "+" . $b_plan;
   if ( isset ( $buildPlanCnt[ $uniqBuldPlan] )) { $b_planCnt = $buildPlanCnt[ $uniqBuldPlan]; }
   else { print ( "ERROR $devName : Can't find builder/plan key $uniqBuldPlan\n"); $b_planCnt=99; }
@@ -962,14 +952,10 @@ foreach ( $matrix as $b_k => $b_v ) {
           $rawBuilder= $runwayPlans[$r_k][$r_k2]["rawBuilder"];
           $runwayPrice = $runwayPlans[$r_k][$r_k2]["price"];
           $runwaySize = $runwayPlans[$r_k][$r_k2]["size"];
-	        //
-	        $builderPrice=-1;$builderSize=-1;
-          if ( isset ( $matrix[$b_k]["price"] ))  {
-            $builderPrice = floatval ( str_replace(array("$", ","), "", $matrix[$b_k]["price"] )); // sometimes builders use $999,999
-          }
-          if ( isset ( $matrix[$b_k]["size"]  ))  {
-            $builderSize= floatval ( str_replace(array("ft", ","), "", $matrix[$b_k]["size"] ));  // fix any junk in size
-          }
+	  //
+	  $builderPrice=-1;$builderSize=-1;
+          if ( isset ( $matrix[$b_k]["price"] ))  $builderPrice= $matrix[$b_k]["price"];
+          if ( isset ( $matrix[$b_k]["size"]  ))  $builderSize= $matrix[$b_k]["size"];
 
           if ( $builderPrice == $runwayPrice ) { $res="Price-Match"; } else { $res="Price-diff"; }
           if ( abs ( $builderSize - $runwaySize ) <= 5000 ) { $res2="Size-Match"; } else { $res2="Size-diff"; }
@@ -1022,20 +1008,20 @@ foreach ( $matrix as $b_k => $b_v ) {
   $runPass = true; // we have done one loop through runway data
 }  
 //print ( "--Builder Summary--\n");
-foreach ( $r_builder_list as $k => $v ) print ( "SUMMARY: $devName, $buildName - Runway Builder  [$k] has $v recs\n");
+foreach ( $r_builder_list as $k => $v ) print ( "SUMMARY: Runway Builder  [$k] has $v recs\n");
 //print ( "..\n");
-foreach ( $b_builder_list as $k => $v ) print ( "SUMMARY: $devName, $buildName - Builder Builder [$k] has $v recs\n");
+foreach ( $b_builder_list as $k => $v ) print ( "SUMMARY: Builder Builder [$k] has $v recs\n");
 print ( "--Plans--\n");
 //foreach ( $r_plan_list as $k => $v ) print   ( "Runway Plan [$k] has $v recs\n");
 //print ( "..\n");
 //:foreach ( $b_plan_list as $k => $v ) print   ( "Builder Plan [$k] has $v recs\n");
 //print ( "--Model Summary--\n");
-if ( count( $r_model_good) == 0 && count ( $r_model_unusable ) == 0 ) { print ( "SUMMARY: $devName, $buildName - No Runway models checked as no builder and plans matched\n"); }
+if ( count( $r_model_good) == 0 && count ( $r_model_unusable ) == 0 ) { print ( "SUMMARY: No Runway models checked as no builder and plans matched\n"); }
 else {
-  foreach ( $r_model_good as $k => $v ) print   ( "SUMMARY: $devName, $buildName - Runway Model MATCH [$k] has $v recs\n");
-  foreach ( $r_model_unusable as $k => $v ) print   ( "SUMMARY: $devName, $buildName - Runway Model POOR [$k] has $v recs\n");
+  foreach ( $r_model_good as $k => $v ) print   ( "SUMMARY: Runway Model MATCH [$k] has $v recs\n");
+  foreach ( $r_model_unusable as $k => $v ) print   ( "SUMMARY: Runway Model POOR [$k] has $v recs\n");
   //print ( "..\n");
-  foreach ( $b_model_list as $k => $v ) print   ( "SUMMARY: $devName, $buildName - Builder Model [$k] has $v recs\n");
+  foreach ( $b_model_list as $k => $v ) print   ( "SUMMARY: Builder Model [$k] has $v recs\n");
 }
 
 print ( "NOTE Compare complete. Matches are: builder=$hit_b_cnt plans=$hit_p_cnt models=$hit_m_cnt\n");

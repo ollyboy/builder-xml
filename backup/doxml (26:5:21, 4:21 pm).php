@@ -11,8 +11,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1); // Do send to output
 ini_set('log_errors', 1 ); // send errors to log
 
-ini_set('memory_limit', '2048M');
-
 /* 
 
 example Builder records from Runway
@@ -427,7 +425,6 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   //
   if ( $format == "xml" ) {
     if ( $objXmlDocument === false ) do_error ( "JSON encode source empty " . $format );
-    unset ( $objJsonDocument );
     $objJsonDocument = json_encode($objXmlDocument);
     if ( $objJsonDocument === false ) { do_error ( "JSON encode from XML failed [" . json_last_error_msg ( ) . "]" ); $jobAbandon = true; }
   }
@@ -551,18 +548,15 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
       } else {
         if ( count ( $line ) != $refLinesize ) do_error ( "WARN line size at $lineCount different ref=" . $refLinesize . " this=" . count ( $line ) ); 
         // not header line, process the data
-        if ( $lineCount < 1000000 ) {
+        if ( $lineCount < 100000 ) {
           foreach ( $csvheader as $i => $j ) {
-            $u_key = $i+1 . ":" . $j;  // was just j which can have dups
-            if ( isset ( $sample[$u_key] )) { 
-              if ( strlen ( $sample[$u_key] ) < 120 && 
-                   isset ( $line[$i] ) &&
-                   trim( $line[$i] ) != "" && 
-                   strpos ( $sample[$u_key] , $line[$i] ) === false ) {
-                $sample[$u_key] .= " , " . $line[$i]; // unique samples
+            if ( isset ( $sample[$j] )) { 
+              if ( strlen ( $sample[$j] ) < 120 && strpos ( $sample[$j] , $line[$i] ) === false  && trim( $line[$i] ) != "") {
+                $sample[$j] .= " , " . $line[$i]; 
+                }
               }
-            } else {
-              $sample[$u_key] = $line[$i];
+            else {
+              $sample[$j] = $line[$i];
             }
           }
         }
@@ -592,7 +586,7 @@ function explode_csv ( $target , $flags , $delim , $header) { // turn a csv into
 
   $k=1;
   foreach ( $sample as $i => $j ) { // everything keys and values
-    if ( trim ( $j ) != "" ) do_note ( "col:" . $k . " [" . $i . "] e.g: " . $j );
+    do_note ( "col:" . $k . " [" . $i . "] e.g: " . $j );
     $k++;
   }
 
@@ -872,9 +866,8 @@ function get_from_url($url) { // Get data stream from URL
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    //curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla Chrome Safari');
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla Chrome Safari');
     //curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
-    //curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'); // Nick user agent
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true );
     $str = curl_exec($ch);
     if ( is_string( $str )) {
