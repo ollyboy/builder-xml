@@ -16,6 +16,8 @@ ini_set('memory_limit', '512M');
 Perry Homes^50' | Pecan Square 50
 */
 
+include "builder_xml_keys.php";
+
 $runwaySource = get_support_barLin ( "runway.source" ); // get developers
 if ( sizeof( $runwaySource ) == 0 ) {
   print ( "ERROR Can't find essential work scope file: runway.source\n" ); // will exit
@@ -125,27 +127,12 @@ foreach ( $runwaySource as $runwayScope ) {
     build_maxtix_from_csv ( $latestCsv , $mapArr , 
                           $builderData , $priorty, $buildPlanCnt ); // set these
 
-   // print_r ( $builderData );
+    //print_r ( $builderData );
     //print_r ( $priorty);
 
     match_plans ( $devName, $buildName, $builderData , $runwayPlans, $buildPlanCnt , $lotWork  ); // update all these these
+  }
    
-    /* 
-    // NOTE Builder result [Price-diff | Size-diff | 412990] is 1 records - to much noise now
-    // show impact on builder array
-    $tmpArr=array(); 
-    foreach ( $builderData as $k => $v ) {
-      $tmp = $v["rec_status"];
-      if ( isset ( $tmpArr[$tmp] ) ) $tmpArr[$tmp]++;
-      else $tmpArr[$tmp]=1;
-    }
-    foreach ( $tmpArr as $k => $v ) {
-      print ( "NOTE Builder result [$k] is $v records\n");
-    }
-    */
-  }  
-  
-
   //print_r ( $runwayPlans );
 
   // show impact on runway array after all builders processed
@@ -616,48 +603,68 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
       else {
         // only work on lines with 17 fields ie 16 keys + value
         //"David Weekley Homes","DavidWeekley~David Weekley Homes","Sandbrock Ranch",Belton,0,,,,,,,,,,,BasePrice,356990
-   	    $key = "";
-   	    for ( $i =0 ; $i < 15 ; $i++ ) { $key .= $line[$i] ."^"; } // re-create key
-        $key = rtrim ( $key, "^" );
-   	    $target = $line[15];
-   	    $val = $line[16]; 
+        //
+   	    $csv_key = "";
+   	    for ( $i =0 ; $i < 15 ; $i++ ) { $csv_key .= $line[$i] ."^"; } // re-create key
+        $csv_key = rtrim ( $csv_key, "^" ); // get rid of all trailing ^ chars
+   	    $target = $line[15]; // tag from XML
+   	    $val = $line[16];    // value of tag from XML
    	    //print ( "HACK $key - $target - $val\n");
 
    	    //process the record
         //
-        if ( isset ( $mapArr[$target] ) ) { 
+        if ( isset ( $mapArr[$target] ) ) { // Only if its a tag we are looking for
 
-          if ( !isset ( $matrix[ $key ] )) {
-            //set unprocessed status
-            $matrix[ $key ][ "rec_status" ] = "no-match"; 
-            $key_cnt++;
+          // different builder feeds
+          // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
+          //      David Weekley Homes^DavidWeekley~David Weekley Homes^Sandbrock Ranch^Belton^0
+          //      CORPHIGHLAND^37~Highland Homes~Highland^865~Sandbrock Ranch: 45ft. lots ^0^Plan Corby~Plan Corby^0
+          //      0      1         2                   3               4     5    6
+          //      CORP ^ BUILDER ^ multi-build-option ^MODEL/COMMUNITY^multi^PLAN^always multi-plan   // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
+          //      [RAVENNAHOMES^Ravenna Homes^1990^0] is an XML with 4 keys, we have to use a dummy community and get that later
+          //
+          // getting ERROR Perry.latest.csv Unknown format builder feed for [PERRYCORP^PERRY HOMES^1^Marvida 55'^3^P3393W^16^BaseSqft] ???
+          //                                                                 0         1           2 3           4 5      6  7
+          // TODO .. PERRYCORP,"BRITTON HOMES",0,"The Tribute 60'",0,P519A,0,PlanImages,ElevationImage,0,,,,,,0,https://images.perryhomes.com/Content/_BDX/homes/519A-E1.jpg - these have 10
+          // CORPHIGHLAND,Highland,"Harvest: Townside ",0,"Plan Devon~Plan Devon",0,BasePrice,,,,,,,,,BasePrice,475300
+          // CORPHIGHLAND,Highland,"Sandbrock Ranch: 45ft. lots ",0,"Plan Alpina~Plan Alpina",0,BasePrice,,,,,,,,,BasePrice,386990
+          // "David Weekley Homes","David Weekley Homes","Sandbrock Ranch",5454~Belton,0,BasePrice,,,,,,,,,,BasePrice,448990
 
-            // different builder feeds
-            // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
-            //      David Weekley Homes^DavidWeekley~David Weekley Homes^Sandbrock Ranch^Belton^0
-            //      CORPHIGHLAND^37~Highland Homes~Highland^865~Sandbrock Ranch: 45ft. lots ^0^Plan Corby~Plan Corby^0
-            //      0      1         2                   3               4     5    6
-            //      CORP ^ BUILDER ^ multi-build-option ^MODEL/COMMUNITY^multi^PLAN^always multi-plan   // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
-            //      [RAVENNAHOMES^Ravenna Homes^1990^0] is an XML with 4 keys, we have to use a dummy community and get that later
+          // get matching key data
+          $b_pos = 0; $m_pos = 0; $p_pos = 0; $key_len =0; $corp=0;
+          get_xml_key_position ( $corp, $b_pos, $m_pos , $p_pos, $key_len, $latestCsv , "" );
+          $tmp = explode ( "^", $csv_key);
+          /*
+          $b_pos = 0; $m_pos = 0; $p_pos = 0; $key_len =0; $corp=0;
+          $tmp = explode ( "^", $csv_key);
+          if ( count ($tmp) == 8 ) { // perry style XML, multi builders, multi community. Had to add 8 due above error
+            $b_pos = 1; $m_pos = 3; $p_pos = 5; $key_len = 7;
 
-            $b_pos = 0; $m_pos = 0; $p_pos = 0; 
-            $tmp = explode ( "^", $key);
-            if ( count ($tmp ) == 7 ) { // perry style XML, multi builders, multi community
-              $b_pos = 1; $m_pos = 3; $p_pos = 5; 
-            } elseif ( count ($tmp ) == 5) { // David style XML, single builder, single community
-              $b_pos = 1; $m_pos = 2; $p_pos = 3; 
-            } elseif ( count ($tmp ) == 6) { // Highland SandBrock style XML, single builder, multi community
-              $b_pos = 1; $m_pos = 2; $p_pos = 4; 
-            } elseif ( count ($tmp ) == 4) { // Highland SandBrock style XML, single builder, multi community
-              $b_pos = 1; $m_pos = 3; $p_pos = 2;   // XML with community as data field, m_pos is dummy int part of key
-            } else {
-              print ( "ERROR $latestCsv Unknown format builder feed for [$key]\n");
-            }
-        
-            if ( $b_pos == 0 ||  $m_pos == 0 || $p_pos == 0 ) {
-              print ( "ERROR $latestCsv Cant process builder key [$key]\n");
-            } else {
+          } elseif ( count ($tmp ) == 7 ) { // David style XML, single builder, single community
+            $b_pos = 1; $m_pos = 2; $p_pos = 3; $key_len = 5;
+          } elseif ( count ($tmp ) == 6 ) { // Highland SandBrock style XML, single builder, multi community
+            $b_pos = 1; $m_pos = 2; $p_pos = 4; $key_len = 6;
+          } elseif ( count ($tmp ) == 4 ) { 
+            $b_pos = 1; $m_pos = 3; $p_pos = 2; $key_len = 4;  // XML with community as data field, m_pos is dummy int part of key
+          } else {
+            print ( "ERROR $latestCsv Unknown format builder feed for [$key] Got " . count ($tmp ) . " key parts\n");
+          }
+          */
 
+          // Now create a safe key ( ie BaseSqft at end of key will cause problems in duplicactes)
+          $key = "";
+          for ( $i =0 ; $i < $key_len ; $i++ ) { $key .= $line[$i] ."^"; } 
+          $csv = rtrim ( $key, "^" ); // get rid of all trailing ^ chars
+
+          // Continue if all good with key positions
+          
+          if ( $b_pos == 0 ||  $m_pos == 0 || $p_pos == 0 ) {
+              // print ( "ERROR $latestCsv Cant process builder key [$key]\n");  // duplicate message
+          } else {
+
+            if ( !isset ( $matrix[ $key ] )) { 
+              // We are not adding to the matrix, thus we must create key data
+              //
               // tidy builder XML data
               //
               $b_builder = str_replace ( "HOMES" , "" , strtoupper ( $tmp[ $b_pos ]));
@@ -693,9 +700,11 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               }
               $b_model = trim ( $out );
 
-              if ( $b_builder == "" )  { print ( "ERROR $latestCsv Empty builder field from [" . $tmp[ $b_pos ] . "]\n" ); $b_builder="NA"; }
-              if ( $b_plan == "" )     { print ( "ERROR $latestCsv Empty plan field from [" . $tmp[ $p_pos ] . "]\n" ); $b_plan="NA"; }
-              if ( $b_model == "" )    { print ( "ERROR $latestCsv Empty model field from [" . $tmp[ $m_pos ] . "]\n" ); $b_model="NA"; }
+              //print ( "HACK  $key : [$b_builder] [$b_plan] [$b_model]\n");
+
+              if ( strlen ( $b_builder ) < 3 ) { print ( "ERROR $latestCsv Bad Builder name [$b_builder] field from [" . $tmp[ $b_pos ] . "] key=[$key]\n" ); $b_builder="NA"; }
+              if ( strlen ( $b_plan    ) < 3 )  { print ( "ERROR $latestCsv Bad Builder plan [$b_plan] field from [" . $tmp[ $p_pos ] . "] key=[$key]\n" ); $b_plan="NA"; }
+              if ( strlen ( $b_model   ) < 3 )  { print ( "ERROR $latestCsv Bad Builder model/community [$b_model] field from [" . $tmp[ $m_pos ] . "] key=[$key]\n" ); $b_model="NA"; }
 
               $uniqBuldPlan = $b_builder . "+" . $b_plan;
               if ( isset ( $buildPlanCnt[ $uniqBuldPlan] )) { $buildPlanCnt[ $uniqBuldPlan]++; }
@@ -704,38 +713,41 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               $matrix[ $key ][ "tidy_builder" ] = $b_builder; 
               $matrix[ $key ][ "tidy_plan" ] =    $b_plan; 
               $matrix[ $key ][ "tidy_model" ] =   $b_model; 
+              $matrix[ $key ][ "rec_status" ] = "no-match"; 
+              $key_cnt++;
             }
-          }
 
-        // we found source ie situs_unit etc
-        $dest_tag = $mapArr[$target][0];
-        $dest_priority = $mapArr[$target][1];
-     	  //print ( "set $target with $val to " . $mapArr[$target] . "\n");
-     	  if ( isset ( $matrix[ $key ][ $dest_tag ] ) ) { // we already have this value stored
-            if ( isset ( $priority[ $key ][ $dest_tag ] ) &&  $priority[ $key ][ $dest_tag ] >  $dest_priority ) {
-              // this is a higher priority value store
-              print ( "NOTE Set higher $target with $val to $dest_tag\n");
-              $matrix[ $key ][ $dest_tag ] = ltrim($val, "0"); // save the value             
-              $priority[ $key ][ $dest_tag ] = $dest_priority ; // save the value priority
-              $overRide++;
-            } else {
-              print ( "ERROR $latestCsv Duplicate builder key [$key]\n");
-            }
-     	  } else { // new $key
-            //print ( "HACK $key - $target > $dest_tag = $val\n");
-            if ( ltrim($val, "0") != ""  ) {
-              $matrix[$key][$dest_tag] = $val; // ltrim($val, "0"); // save the value
-              $priority[$key][$dest_tag] = $dest_priority ; // save the value priority
-              //print ( "$key -> " . $matrix[$key][$dest_tag] . " -> " . $priority[$key][$dest_tag] . "\n");
-              $newVal++;
-            } else {
-              print ( "ERROR $latestCsv Empty builder data [$key] [$dest_tag] [$val]\n");
+            // Above we will have created key payload if it was the first time we saw this key
+            // 
+            $dest_tag = $mapArr[$target][0];
+            $dest_priority = $mapArr[$target][1];
+            //
+     	      if ( isset ( $matrix[ $key ][ $dest_tag ] ) ) { // we already have this value stored
+              if ( isset ( $priority[ $key ][ $dest_tag ] ) &&  $priority[ $key ][ $dest_tag ] >  $dest_priority ) {
+                // this is a higher priority value store
+                print ( "NOTE Set higher $target with $val to $dest_tag\n");
+                $matrix[ $key ][ $dest_tag ] = ltrim($val, "0"); // save the value             
+                $priority[ $key ][ $dest_tag ] = $dest_priority ; // save the value priority
+                $overRide++;
+              } else {
+                print ( "ERROR $latestCsv Duplicate builder key [$key]\n");
+              }
+     	      } else { // new dest tag
+              //print ( "HACK $key - $target > $dest_tag = $val\n");
+              if ( ltrim($val, "0") != ""  ) {
+                $matrix[$key][$dest_tag] = $val; // ltrim($val, "0"); // save the value
+                $priority[$key][$dest_tag] = $dest_priority ; // save the value priority
+                //print ( "$key -> " . $matrix[$key][$dest_tag] . " -> " . $priority[$key][$dest_tag] . "\n");
+                $newVal++;
+              } else {
+                print ( "ERROR $latestCsv Empty builder data [$key] [$dest_tag] [$val]\n");
+              }
             }
           }
-     	}
-     }
-     $recs++;
-   }
+     	  }
+      }
+      $recs++;
+    }
   }
   fclose($file);
   print ( "SUMMARY Builder Matrix from $latestCsv done at $recs. Got $key_cnt Keys, $overRide OverRide, $newVal data pairs \n");
@@ -945,6 +957,11 @@ foreach ( $matrix as $b_k => $b_v ) {
           // maybe the builder does not state the frontage ie run[45 WOLF RANCH] == build[WOLF RANCH]
           $hit_m = words_match ( "model b>r" , $b_model , $r_model );
         }
+        if ( !$hit_m ) {
+          if ( anyWordMatch( $b_model, $r_model )) {  // does anything at all match, we got a hit on plan and builder
+            print ( "MAYBE: $devName Runway Model [$r_model] Builder Model [ $b_model ] match? Plan & Builder do match.\n");
+          }
+        }
         if ( $debugModeArgv && !$hit_m ) print ( "DEBUG Miss Model R[$r_model] == B[$b_model] Plan R[$r_plan] == B[$b_plan] r_plan_cnt=$r_planCnt b_plan_cnt=$b_planCnt model status=$r_model_use\n");
         //
         if ( ( $hit_m && $r_model_use == "ok" ) || ( $r_planCnt == 1 && $b_planCnt == 1 && $r_model_use != "ok")) {
@@ -1053,4 +1070,46 @@ function get_support_barLin ( $name ) { // process support files, bar delimited,
   return ( $out ); // array of lines like 6,7,8,9|Plan|6|PlanNumber,PlanName
 }
 
+function anyWordMatch($str1, $str2) {
+    // remove non alpha numeric characters, ignor case, dont match single char words
+    //$str1 = preg_replace('/[^A-Za-z0-9 ]/', '', $str1);
+    //$str2 = preg_replace('/[^A-Za-z0-9 ]/', '', $str2);
+    $str1 = preg_replace('/[^A-Za-z ]/', '', $str1);  // also get rid of numerics
+    $str2 = preg_replace('/[^A-Za-z ]/', '', $str2);
+    // make lowercase
+    $str1 = strtolower($str1);
+    $str2 = strtolower($str2);
+    // split strings into arrays of words
+    $arr1 = explode(' ', $str1);
+    $arr2 = explode(' ', $str2);
+    // loop through first array and check for matches in second array
+    foreach ($arr1 as $word) {
+        // ignore single letter matches
+        if (strlen($word) > 1) {
+            if (in_array($word, $arr2)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function getXMLkey( $name ) {
+
+    $tmp = explode ( "." , $name ); // the file name
+    $search = $tmp[0];
+    // Open the file in read mode
+    $file = fopen("xml_keys.csv", "r");
+    // Read the file line by line
+    while (($line = fgetcsv($file)) !== false) {
+        // Check if the first element of the line is the key we're looking for
+        if ($line[0] == $key) {
+            // Close the file
+            fclose($file);
+            return array_slice($line, 1);
+        }
+    }
+    fclose($file);
+    return false;
+}
 // end

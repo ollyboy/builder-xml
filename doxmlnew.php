@@ -194,6 +194,7 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   $val=array(); 
   $key=array();
   $newKey=array();
+  //$progressiveKeySub=array();  // list of progress
   $currentKeySub=array();
   $uniqueFoundKey=array();
   $key_map=array();
@@ -444,7 +445,7 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   //
   if ( is_array( $arrOutput ) && sizeof ( $arrOutput ) > 0 && $jobAbandon == false ) {
 
-    //var_dump ( $arrOutput ); // HACK
+    var_dump ( $arrOutput ); // HACK
 
     build_key_trigger (); // build necessary arrays from map
     $depth = array_depth ( $arrOutput );
@@ -825,9 +826,9 @@ function do_build ( $txt ) { // noisy progress logs
 
 function build_key_trigger (){ // helper for JSON level headings to csv key
 
+  
   global $key_map, $keyTrigger;  // Key_map is 3,4,5,6,7,8,9|Builder|3|BrandName
 
-  $keyTrigger=array();
   foreach ( $key_map as $k => $v ) { 
     $parts = array_map('trim', explode ( "|" , $v));
     if ( sizeof( $parts ) > 2 ) {
@@ -835,9 +836,7 @@ function build_key_trigger (){ // helper for JSON level headings to csv key
       else $keyTrigger [ $parts[2] ] = $parts[3];  
     }
   }
-  foreach ( $keyTrigger as $k => $v) do_note ( "Trigger target [" . $v . "] from level [" . $k . "]" ); 
-  // Trigger target [BrandName] from level [1]   [1]=>BrandName
-  // Trigger target [PlanName] from level [3]    [3]=>PlanName
+  foreach ( $keyTrigger as $k => $v) do_note ( "Trigger target [" . $v . "] from level [" . $k . "]" );
 }
 
 function get_prefered_key ( $name , $level ) { 
@@ -851,27 +850,13 @@ function get_prefered_key ( $name , $level ) {
 
   global $key_map, $currentKeySub;
 
-  do_build ( "--prefered $name $level"); // HACK
-  foreach ( $currentKeySub as $k7 => $v7 ) {
-     do_build ( "---[$k7]-[$v7]"); // HACK
-  } 
-  
-
-  $tmp77="";
   $sources = array(); // maybe no replace
   foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
     $parts = array_map('trim', explode ( "|" , $v));
-    do_build ( "--->$parts[1] $parts[3]"); // HACK
-    $tmp77 .= "|" . $parts[1];
     if ( sizeof( $parts ) == 4 && strval($name) == trim ($parts[1] )) {
       $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
       //$levels = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
     } 
-  }
-  if ( count( $sources ) == 0 ) {
-    do_build ( "--Cant find [$name] in sources [$tmp77]");
-  } else {
-    do_build ( "--Found [$name] in sources [$tmp77]");
   }
 
   $combo = "";
@@ -879,7 +864,7 @@ function get_prefered_key ( $name , $level ) {
     if ( isset ( $currentKeySub[$v1] )) $combo .= $currentKeySub[$v1] . "~"; // get latest value
   }
   
-  do_build ( "Get Key [$name] lev=$level > Got [$combo]");
+  do_build ( ">>called for $name $level - passing back [$combo]");
   if ( $combo == "" ) return ( $name ); // not found
   return ( substr( $combo, 0, -1) );
 }
@@ -919,60 +904,65 @@ function array_depth(array $array) {  // How deeps is the JSON converted to matr
 }
 
 
+function record_natural_key ( $level ) { // build up the natural/desired key
+
+  global $key, $newKey, /* $progressiveKeySub,*/ $currentKeySub;
+
+  // keep a list, we may use for table adjust
+  //if ( !isset ($progressiveKeySub[$key[$level]])) $progressiveKeySub[$key[$level]] = $newKey[$level] . " | " . $level; 
+  //else $progressiveKeySub[$key[$level]] .= " , " . $newKey[$level] . " | " . $level;
+
+  $currentKeySub[$key[$level]] = $newKey[$level]; // latest only
+
+  foreach ( $currentKeySub as $k => $v ) do_build ( "Set key $k => $v for lev $level ##1");
+  // HomestoreID => HomestoreID
+  // BuilderNumber => BRITTON
+  // Status => Status
+  // SubdivisionNumber => 633
+}
 
 function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
 
 
-  global $val, $key, $newKey, $keyTrigger, $currentKeySub, $uniqueFoundKey, $csv_out, $filter,
+  global $val, $key, $newKey, $keyTrigger, /* $progressiveKeySub, */ $currentKeySub, $uniqueFoundKey, $csv_out, $filter,
          $skipHintArgv, $excImageArgv;
 
   static $old_lev = 0;
   if ( $old_lev != $level ) {
-    do_build ( "Changed from lev: $old_lev to $level");
+    do_build ( "* do_lev changed from $old_lev to $level");
     $old_lev = $level;
   }
   static $count = 0;
 
-
-
   // Update the key as we go
   $saveKey=""; $saveKeyNew ="";
-  $xml_key = $key[$level];   
-  $xml_val = $val[$level];
-  foreach ( $key as $a => $b ) {
-    do_build ( ">>>Dolev>>> [$a] => [$b]");
-  }
-
   //
-  if ( isset ( $keyTrigger[$level])) {  // ie found [4] => legaldesc,subblock,sublot ,, [1]=>BrandName [3]=>PlanName
+  if ( isset ( $keyTrigger[$level])) {  // ie found [4] => legaldesc,subblock,sublot
     //
-    if ( strpos ( $keyTrigger[$level] , (string) $xml_key ) !== false ) { 
-      // we found a key trigger in the XML file
-      do_build ( "++ Hit trigger at " . $level . " for [$xml_key] Setting val to [$xml_val] Driver was [" . $keyTrigger[$level] . "]" );
-      //
-      $newKey[$level] = $xml_val; // we will use the value in the key position
-      $currentKeySub[$key[$level]] = $newKey[$level]; // latest only, build up the natural/desired key
-      //
-      foreach ( $currentKeySub as $k => $v ) do_build ( "** Set key $k => $v for lev=$level"); // BuilderNumber => BRITTON , SubdivisionNumber => 633
+    if ( strpos ( $keyTrigger[$level] , (string) $key[$level] ) !== false ) { // rule trigger
+      do_build ( "++ Hit trigger at " . $level . " for [" . $key[$level] . "] Setting val to [" . $val[$level] 
+        . "]" . " Driver was [" . $keyTrigger[$level] . "]" );
+      $newKey[$level] = $val[$level]; 
+      record_natural_key ( $level );  // set $currentKeySub [$key[$level]] = $newKey[$level];
     }
   }
+
   // Build up the key
   for ( $i=1; $i<= $level; $i++ ) {
-    //
-    $saveKey .= trim($key[$i]) . "^"; 
+    //if ( strtolower($key[$i]) == 'row' ) $key[$i] = $key[$i] . "-L" . $i; // make useful for replace 
+    $saveKey .= $key[$i] . "^"; 
     // input trigger ie "spec" get back actual values Smith St~New-york~NY~10010  
-    $saveKeyNew .= get_prefered_key ( trim($key[$i]) , $level ) . "^";  // uses $currentKeySub  
-    do_build ( "++Lev=" . $level . " keyRef=" . $key[$i] . " ..Building [$saveKeyNew]" );
+    $saveKeyNew .= get_prefered_key ( $key[$i] , $level ). "^";  // uses $currentKeySub  
   }
   $saveKey = substr($saveKey , 0, -1); // get rid of excess delimiter
   $saveKeyNew = substr($saveKeyNew , 0, -1);
 
+  do_build ( "New Key [$saveKeyNew] Save Key was [$saveKey ] Val=$val[$level] ##2");
+
   // write the csv in a fixed column format
   if ( strpos ( $saveKeyNew , "@attributes") === false ) { // Can't use these as they come before key trigger
     if ( check_filter ( $saveKeyNew , $filter )) { 
-      $tmp23=make_fixed ( $saveKeyNew , $val[$level] );
-      fputcsv ( $csv_out , $tmp23 );
-      do_build ( "CSV Out [" . implode( "|", $tmp23 ) . "] New Key [$saveKeyNew] Save Key [$saveKey ] Val=$val[$level]");
+      fputcsv ( $csv_out , make_fixed ( $saveKeyNew , $val[$level] ));
     }
   }
 
@@ -1011,6 +1001,7 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
   $count++;
   if ( $count > MAXRECS ) {
     //print_r ( $uniqueFoundKey );
+    //print_r ( $progressiveKeySub );
     //print_r ( $currentKeySub );
     do_fatal ( "Hit max records at " . $count );
   }
@@ -1023,8 +1014,7 @@ function make_fixed ( $keyString , $fact ) {
   $tmp = explode ( "^" , $keyString );
   $tmpsize = sizeof ($tmp);
   for ( $i=0; $i<15; $i++ ) {
-    //if ( $i < $tmpsize - 1 ) {
-    if ( isset( $tmp[$i] ) && strlen( $tmp[$i] ) > 0 ) { 
+    if ( $i < $tmpsize - 1 ) {
       $fixedFormat[$i] = $tmp[$i];
     } else {
       $fixedFormat[$i] = "";
@@ -1037,26 +1027,20 @@ function make_fixed ( $keyString , $fact ) {
 
 function go_deeper ( $level ) {
 
-  global $val, $key, $newKey, $currentKeySub;
+  global $val, $key, $newKey, $progressiveKeySub;
 
   static $old_lev = 0;
   if ( $old_lev != $level ) {
-    do_build ( "Go_deeper changed from $old_lev to $level" );
+    do_build ( "+ go_deeper changed from $old_lev to $level");
     $old_lev = $level;
     //do_lev ( $level );  // re-process keys on way up and down
   }
 
   if ( !isset ($newKey[$level] )) { 
     if ( strtolower($key[$level]) == 'row' ) $key[$level] = $key[$level] . "-L" . $level; // make useful for replace 
-    do_build ( "No NewKey found " . $level . " So Key set to [" . $key[$level] . "]");
+    do_build ( "== No NewKey found " . $level . " Set to [" . $key[$level] . "]");
     $newKey[$level] = $key[$level];
-    $currentKeySub[$key[$level]] = $newKey[$level]; // latest only, build up the natural/desired key
-    foreach ( $currentKeySub as $k => $v ) do_build ( "** Set key $k => $v for lev=$level");
-    // HomestoreID => HomestoreID
-    // BuilderNumber => BRITTON
-    // SubdivisionNumber => 633
-  } else {
-    do_build ( "NewKey is found, keep [" . $newKey[$level]  . "]" );
+    record_natural_key ( $level );
   }
 
   if ( is_array ( $val[ $level ] )) return ( true );
