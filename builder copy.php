@@ -582,7 +582,6 @@ function build_plan_keys ( $devName , $planList, &$runwayPlans ) { // Get the Ru
 
 function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , &$buildPlanCnt ) {
 
-  global $debugModeArgv;
   /* look for fixed key and value in latestCsv
   [0]                               [15]         [16]
    000000118181,MN,02020,,,,,,,,,,,,,assessed_val,000000000000000
@@ -610,14 +609,11 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
         $csv_key = rtrim ( $csv_key, "^" ); // get rid of all trailing ^ chars
    	    $target = $line[15]; // tag from XML
    	    $val = $line[16];    // value of tag from XML
+   	    //print ( "HACK $key - $target - $val\n");
 
    	    //process the record
         //
         if ( isset ( $mapArr[$target] ) ) { // Only if its a tag we are looking for
-
-          if ( $debugModeArgv ) {
-            print ( "DEBUG: Try Builder [$csv_key] - traget[$target] - val[$val]\n");
-          }
 
           // different builder feeds
           // key: PERRYCORP^PERRY~PERRY HOMES^1^740~Johnson Ranch 55'~Johnson Ranch^98^P2504S^15
@@ -647,9 +643,7 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
           // Continue if all good with key positions
           
           if ( $b_pos == 0 ||  $m_pos == 0 || $p_pos == 0 ) {
-            if ( $debugModeArgv ) {
-              print ( "DEBUG ERROR $latestCsv Cant process builder key [$key]\n"); 
-              }
+              // print ( "ERROR $latestCsv Cant process builder key [$key]\n");  // duplicate message
           } else {
 
             if ( !isset ( $matrix[ $key ] )) { 
@@ -672,7 +666,6 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               $b_model = str_replace ( " GARDENS" , "" , $b_model );
               $b_model = str_replace ( "EXECUTIVE COLLECTION" , "" , $b_model );
               $b_model = str_replace ( "HOMESITES" , "" , $b_model );
-              $b_model = str_replace ( " (WALLER ISD)" , "" , $b_model );
 
               // nasty taylor Morrison hack
               $b_model = str_replace ( " 40S", " 40" , $b_model );
@@ -697,10 +690,8 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               }
               $b_model = trim ( $out );
 
-              if ( $debugModeArgv ) {
-                 print ( "DEBUG Using $key : builder[$b_builder] plan[$b_plan] model/community[$b_model]\n");
-              }
-              
+              //print ( "HACK  $key : [$b_builder] [$b_plan] [$b_model]\n");
+
               if ( strlen ( $b_builder ) < 3 ) { print ( "ERROR $latestCsv Bad Builder name [$b_builder] field from [" . $tmp[ $b_pos ] . "] key=[$key]\n" ); $b_builder="NA"; }
               if ( strlen ( $b_plan    ) < 3 )  { print ( "ERROR $latestCsv Bad Builder plan [$b_plan] field from [" . $tmp[ $p_pos ] . "] key=[$key]\n" ); $b_plan="NA"; }
               if ( strlen ( $b_model   ) < 3 )  { print ( "ERROR $latestCsv Bad Builder model/community [$b_model] field from [" . $tmp[ $m_pos ] . "] key=[$key]\n" ); $b_model="NA"; }
@@ -867,7 +858,7 @@ foreach ( $matrix as $b_k => $b_v ) {
   if ( isset ( $buildPlanCnt[ $uniqBuldPlan] )) { $b_planCnt = $buildPlanCnt[ $uniqBuldPlan]; }
   else { print ( "ERROR $devName : Can't find builder/plan key $uniqBuldPlan\n"); $b_planCnt=99; }
 
-  //print ( "DEBUG - Builder Key [$uniqBuldPlan] >> $b_planCnt\n");
+  //print ( "DEBUG ---- $uniqBuldPlan >> $b_planCnt\n");
 
   // keep a unique list off builder models/communities for debug
   //
@@ -1038,13 +1029,13 @@ foreach ( $matrix as $b_k => $b_v ) {
   $runPass = true; // we have done one loop through runway data
 }  
 //print ( "--Builder Summary--\n");
-foreach ( $r_builder_list as $k => $v ) print ( "COUNTS: $devName, $buildName - Runway Builder  [$k] has $v recs\n");
+foreach ( $r_builder_list as $k => $v ) print ( "SUMMARY: $devName, $buildName - Runway Builder  [$k] has $v recs\n");
 //print ( "..\n");
-foreach ( $b_builder_list as $k => $v ) print ( "COUNTS:: $devName, $buildName - Builder Builder [$k] has $v recs\n");
-//print ( "--Plans--\n");
-foreach ( $r_plan_list as $k => $v ) print   ( "COUNTS::: $devName, $buildName - Runway Plan [$k] has $v recs\n"); // only if builders match
+foreach ( $b_builder_list as $k => $v ) print ( "SUMMARY: $devName, $buildName - Builder Builder [$k] has $v recs\n");
+print ( "--Plans--\n");
+//foreach ( $r_plan_list as $k => $v ) print   ( "Runway Plan [$k] has $v recs\n");
 //print ( "..\n");
-foreach ( $b_plan_list as $k => $v ) print   ( "COUNTS:::: $devName, $buildName - Builder Plan [$k] has $v recs\n");
+//:foreach ( $b_plan_list as $k => $v ) print   ( "Builder Plan [$k] has $v recs\n");
 //print ( "--Model Summary--\n");
 if ( count( $r_model_good) == 0 && count ( $r_model_unusable ) == 0 ) { print ( "SUMMARY: $devName, $buildName - No Runway models checked as no builder and plans matched\n"); }
 else {

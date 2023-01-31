@@ -215,7 +215,6 @@ foreach ( $clientSource as $scope ) { // Perry, Highland , David etc, each must 
   $parts = array_map ( 'trim' , explode ("|" , $scope ));
   $name = $parts[0];
   $URL = $parts[1]; 
-  #$tmp77 = ""; #commenting this out
   if ( isset ( $parts[2])) { $format = strtolower($parts[2]); } else { $format="xml"; }
   if ( isset ( $parts[3])) { $flags = $parts[3]; } else { $flags="none"; }
   if ( isset ( $parts[4])) { $filter = $parts[4]; } else { $filter=""; }
@@ -843,14 +842,12 @@ function build_key_trigger (){ // helper for JSON level headings to csv key
 
 function get_prefered_key ( $name , $level ) { 
 
-  // pass in
+  // pass in the trigger ie "spec" get back the actual values from the source array ie 
+  // SpecStreet1,SpecCity,SpecState,SpecZIP >> Smith~New-york~NY~10010
   // base case 2,4,5,6,7,8,9,10,11,12|Corporation|2|CorporateBuilderNumber
   //
   //  currentKeySub has -- BuilderNumber => BRITTON
   //                       SubdivisionNumber => 633
-  //                       CorporateBuilderNumber => PERRYCORP  the lastest value
-  //                       Builder => ReportingName
-  //                       ReportingName]-[BRITTON HOMES]
 
   global $key_map, $currentKeySub;
 
@@ -858,28 +855,33 @@ function get_prefered_key ( $name , $level ) {
   foreach ( $currentKeySub as $k7 => $v7 ) {
      do_build ( "---[$k7]-[$v7]"); // HACK
   } 
+  
+
+  $tmp77="";
   $sources = array(); // maybe no replace
   foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
     $parts = array_map('trim', explode ( "|" , $v));
-    if ( sizeof( $parts ) == 4 && strval($name) == trim ($parts[1] )) {   // ie Corporation , Plan 
-      $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers ie CorporateBuilderNumber PlanNumber
+    do_build ( "--->$parts[1] $parts[3]"); // HACK
+    $tmp77 .= "|" . $parts[1];
+    if ( sizeof( $parts ) == 4 && strval($name) == trim ($parts[1] )) {
+      $sources = array_map ( 'trim', explode ( "," , $parts[3] )); // which source triggers
       //$levels = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
     } 
   }
-  //if ( count( $sources ) == 0 ) {
-  //  do_build ( "--Cant find [$name] in sources [$tmp77]");
-  //} else {
-  //  do_build ( "--Found [$name] in sources [$tmp77]");
-  //}
+  if ( count( $sources ) == 0 ) {
+    do_build ( "--Cant find [$name] in sources [$tmp77]");
+  } else {
+    do_build ( "--Found [$name] in sources [$tmp77]");
+  }
 
   $combo = "";
   foreach ( $sources as $k1 => $v1 ) { 
-    if ( isset ( $currentKeySub[$v1] )) $combo .= $currentKeySub[$v1] . "~"; // get latest value ie BuilderNumber => BRITTON
+    if ( isset ( $currentKeySub[$v1] )) $combo .= $currentKeySub[$v1] . "~"; // get latest value
   }
   
   do_build ( "Get Key [$name] lev=$level > Got [$combo]");
-  if ( $combo == "" ) return ( $name ); // not found 
-  return ( substr( $combo, 0, -1) );  // values for the key
+  if ( $combo == "" ) return ( $name ); // not found
+  return ( substr( $combo, 0, -1) );
 }
 
 function get_from_url($url) { // Get data stream from URL
@@ -931,13 +933,15 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
   }
   static $count = 0;
 
+
+
   // Update the key as we go
   $saveKey=""; $saveKeyNew ="";
   $xml_key = $key[$level];   
   $xml_val = $val[$level];
-  //foreach ( $key as $a => $b ) {
-  //  do_build ( ">>>Dolev>>> [$a] => [$b]");
-  //}
+  foreach ( $key as $a => $b ) {
+    do_build ( ">>>Dolev>>> [$a] => [$b]");
+  }
 
   //
   if ( isset ( $keyTrigger[$level])) {  // ie found [4] => legaldesc,subblock,sublot ,, [1]=>BrandName [3]=>PlanName

@@ -125,7 +125,7 @@ foreach ( $clientSource as $scope ) { //  Developer
   }
   //
   if ( !isset ( $compSum[$clientID]) && $clientID != "na" ) {
-    $fullUrl = $url . $urlPart_compSum . $clientID;
+    $fullUrl = $url . $urlPart_compSum . $clientID . '&clientcompanyid=1';
     // get a company summary list for this client == developer
     print ( "NOTE $name - Calling url $fullUrl\n" );
     $res = get_runway_data ( $fullUrl , $SEC , $AUTH );

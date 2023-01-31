@@ -106,13 +106,14 @@ if ( $filename == "Perry.latest.csv" && $tag == "BasePrice" ) {
 
 //./Ravenna.latest.csv:RAVENNAHOMES,"Ravenna Homes",1990,0,StartingPrice,,,,,,,,,,,StartingPrice,"$278,900"
 // TODO startingprice? is this a spec, community missing???
-if ( $filename == "Ravenna.latest.csv" && $tag == "StartingPrice" ) {
+if ( $filename == "Ravenna.latest.csv" && $tag == "BasePrice" ) {
 	$corp = 0; $builder=1; $community=3; $plan=2; $keyParts =4; return(1); // looks wrong! no BasePrice and price has $ plus commas
 }
 
 //./Highland-Sandbrock.latest.csv:CORPHIGHLAND,Highland,"Sandbrock Ranch: 45ft. lots ",0,"Plan Alpina~Plan Alpina",0,BasePrice,,,,,,,,,BasePrice,386990
-if ( $filename == "Perry.latest.csv" && $tag == "BasePrice" ) {
-	$corp = 0; $builder=1; $community=3; $plan=5; $keyParts =6; return(1);
+// Highland-Sandbrock.latest.csv Bad Builder plan [0] field from [0] key=[CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 271~Plan 271^0]
+if ( $filename == "Highland-Sandbrock.latest.csv" && $tag == "BasePrice" ) {
+	$corp = 0; $builder=1; $community=2; $plan=4; $keyParts =5; return(1);
 }
 
 //./MandI-Bridgeland.latest.csv:MIHomes,"M/I Homes","Harper's Preserve",0,V2T_JZttn0Wxv_RgTBxK4w~Balboa,0,BasePrice,,,,,,,,,BasePrice,397490

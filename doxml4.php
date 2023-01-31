@@ -843,21 +843,19 @@ function build_key_trigger (){ // helper for JSON level headings to csv key
 
 function get_prefered_key ( $name , $level ) { 
 
-  // pass in
-  // base case 2,4,5,6,7,8,9,10,11,12|Corporation|2|CorporateBuilderNumber
+  
+  // base case 2,4,5,6,7,8,9,10,11,12|Corporation|2|CorporateBuilderNumber 
+  //           3,4,5,6,7,8,9,10,11,12|Builder|3|ReportingName
+  //           5,6,7,8,9,10,11,12|Subdivision|4|SubdivisionName             
   //
   //  currentKeySub has -- BuilderNumber => BRITTON
   //                       SubdivisionNumber => 633
   //                       CorporateBuilderNumber => PERRYCORP  the lastest value
   //                       Builder => ReportingName
-  //                       ReportingName]-[BRITTON HOMES]
+  //                       ReportingName => BRITTON HOMES
 
   global $key_map, $currentKeySub;
 
-  do_build ( "--prefered $name $level"); // HACK
-  foreach ( $currentKeySub as $k7 => $v7 ) {
-     do_build ( "---[$k7]-[$v7]"); // HACK
-  } 
   $sources = array(); // maybe no replace
   foreach ( $key_map as $k => $v ) {  // 7,8,9|Spec|8|SpecStreet1,SpecCity,SpecState,SpecZIP
     $parts = array_map('trim', explode ( "|" , $v));
@@ -866,18 +864,11 @@ function get_prefered_key ( $name , $level ) {
       //$levels = array_map ( 'trim', explode ( "," , $parts[0] )); // which levels
     } 
   }
-  //if ( count( $sources ) == 0 ) {
-  //  do_build ( "--Cant find [$name] in sources [$tmp77]");
-  //} else {
-  //  do_build ( "--Found [$name] in sources [$tmp77]");
-  //}
-
   $combo = "";
   foreach ( $sources as $k1 => $v1 ) { 
     if ( isset ( $currentKeySub[$v1] )) $combo .= $currentKeySub[$v1] . "~"; // get latest value ie BuilderNumber => BRITTON
   }
-  
-  do_build ( "Get Key [$name] lev=$level > Got [$combo]");
+  do_build ( "Get Prefered key[$name] lev=$level > Got [$combo]");
   if ( $combo == "" ) return ( $name ); // not found 
   return ( substr( $combo, 0, -1) );  // values for the key
 }
@@ -916,8 +907,6 @@ function array_depth(array $array) {  // How deeps is the JSON converted to matr
     return $max_depth;
 }
 
-
-
 function do_lev ( $level ) { // we are at level in XML array where there are key:value pairs
 
 
@@ -926,7 +915,7 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
 
   static $old_lev = 0;
   if ( $old_lev != $level ) {
-    do_build ( "Changed from lev: $old_lev to $level");
+    //do_build ( "Changed from lev: $old_lev to $level");
     $old_lev = $level;
   }
   static $count = 0;
@@ -935,21 +924,22 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
   $saveKey=""; $saveKeyNew ="";
   $xml_key = $key[$level];   
   $xml_val = $val[$level];
-  //foreach ( $key as $a => $b ) {
-  //  do_build ( ">>>Dolev>>> [$a] => [$b]");
-  //}
 
   //
   if ( isset ( $keyTrigger[$level])) {  // ie found [4] => legaldesc,subblock,sublot ,, [1]=>BrandName [3]=>PlanName
     //
     if ( strpos ( $keyTrigger[$level] , (string) $xml_key ) !== false ) { 
       // we found a key trigger in the XML file
-      do_build ( "++ Hit trigger at " . $level . " for [$xml_key] Setting val to [$xml_val] Driver was [" . $keyTrigger[$level] . "]" );
+      do_build ( "+++ Hit trigger at " . $level . " for [$xml_key] Setting val to [$xml_val]" );
       //
       $newKey[$level] = $xml_val; // we will use the value in the key position
       $currentKeySub[$key[$level]] = $newKey[$level]; // latest only, build up the natural/desired key
       //
-      foreach ( $currentKeySub as $k => $v ) do_build ( "** Set key $k => $v for lev=$level"); // BuilderNumber => BRITTON , SubdivisionNumber => 633
+      foreach ( $currentKeySub as $k => $v ) {
+      if ( is_array ( $k )) $k = implode("#", $k );
+      if ( is_array ( $v )) $v = implode("#" ,$v );
+      do_build ( "---- key value list [$k] => [$v]" ); // BuilderNumber => BRITTON , SubdivisionNumber => 633
+      }
     }
   }
   // Build up the key
@@ -958,7 +948,6 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
     $saveKey .= trim($key[$i]) . "^"; 
     // input trigger ie "spec" get back actual values Smith St~New-york~NY~10010  
     $saveKeyNew .= get_prefered_key ( trim($key[$i]) , $level ) . "^";  // uses $currentKeySub  
-    do_build ( "++Lev=" . $level . " keyRef=" . $key[$i] . " ..Building [$saveKeyNew]" );
   }
   $saveKey = substr($saveKey , 0, -1); // get rid of excess delimiter
   $saveKeyNew = substr($saveKeyNew , 0, -1);
@@ -985,7 +974,7 @@ function do_lev ( $level ) { // we are at level in XML array where there are key
          $tmp = chr($tmp);
       }
       //
-      do_build ( "[" . $level . "] " . $saveKey . " | " . $saveKeyNew . " -> " . $tmp );
+      //do_build ( "[" . $level . "] " . $saveKey . " | " . $saveKeyNew . " -> " . $tmp );
 
       $tmpKey="Lev-" . $level . "^";
       $keyBits = explode ( "^" , $saveKey );
@@ -1037,24 +1026,26 @@ function go_deeper ( $level ) {
 
   static $old_lev = 0;
   if ( $old_lev != $level ) {
-    do_build ( "Go_deeper changed from $old_lev to $level" );
+    //do_build ( "Go_deeper changed from $old_lev to $level" );
     $old_lev = $level;
-    //do_lev ( $level );  // re-process keys on way up and down
   }
 
   if ( !isset ($newKey[$level] )) { 
     if ( strtolower($key[$level]) == 'row' ) $key[$level] = $key[$level] . "-L" . $level; // make useful for replace 
-    do_build ( "No NewKey found " . $level . " So Key set to [" . $key[$level] . "]");
+    if ( is_array ( $val[$level] )) {
+      $v46 = implode( "#" , $val[$level] );
+    } else {
+      $v46 = $val[$level];
+    }
+    do_build ( "No existing key found at " . $level . " Key set to [" . $key[$level] . "] Val not used [" . $v46 . "]");
     $newKey[$level] = $key[$level];
     $currentKeySub[$key[$level]] = $newKey[$level]; // latest only, build up the natural/desired key
-    foreach ( $currentKeySub as $k => $v ) do_build ( "** Set key $k => $v for lev=$level");
+    //$currentKeySub[$key[$level]] = $val[$level];
+    //foreach ( $currentKeySub as $k => $v ) do_build ( "*** key value list [$k] => [$v]");
     // HomestoreID => HomestoreID
     // BuilderNumber => BRITTON
     // SubdivisionNumber => 633
-  } else {
-    do_build ( "NewKey is found, keep [" . $newKey[$level]  . "]" );
-  }
-
+  } 
   if ( is_array ( $val[ $level ] )) return ( true );
   return ( false );
 }

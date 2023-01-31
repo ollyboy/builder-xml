@@ -11,13 +11,15 @@ date >> /tmp/dp-runcopy.log
 /usr/bin/php doxml.php console > dopricecopy.log 2>&1
 
 #get the latest runway plans
-/usr/bin/php runway_get_plan.php Hillwood-Prod >> dopricecopy.log 2>&1
+/usr/bin/php runway_get_plan.php HowardHughes-Prod >> dopricecopy.log 2>&1
+#/usr/bin/php runway_get_plan.php Wonderland-Demo >> dopricecopy.log 2>&1
 
 #run the price compare, remove prod-post for dummy run
 #/usr/bin/php builder.php HorizonDeerCreek-Prod prod-post >> doprice.log 2>&1
 #/usr/bin/php builder.php HorizonDeerCreek-Demo David-SandBrock Coventry demo-post lot-update >> doprice.log 2>&1
-/usr/bin/php builder.php Hillwood-Prod Highland-Harvest prod-post >> dopricecopy.log 2>&1
-#/usr/bin/php builder.php HowardHughes-Prod prod-post >> doprice.log 2>&1
+#/usr/bin/php builder.php Hillwood-Prod Highland-Harvest prod-post >> dopricecopy.log 2>&1
+#/usr/bin/php builder.php Hillwood-Prod >> dopricecopy.log 2>&1
+/usr/bin/php builder.php HowardHughes-Prod prod-post >> dopricecopy.log 2>&1
 # example use - php builder.php <developer> <builder-1> builder-2> demo-post >> doprice.log 2>&1
 
 # check for errors
