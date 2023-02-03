@@ -1,835 +1,635 @@
 
-NOTE --- Processing Runway developer --- Hillwood-Prod
-WARN Hillwood-Prod : Runway DR HORTON - Design[1585 Cabernet] not equal Name[1585] setting to [Cabernet]
-WARN Hillwood-Prod : Runway DR HORTON - Design[1779 Shoreline] not equal Name[1779] setting to [Shoreline]
-WARN Hillwood-Prod : Runway DR HORTON - Design[1829 Brookview] not equal Name[1829] setting to [Brookview]
-WARN Hillwood-Prod : Runway DR HORTON - Design[1956 Avery] not equal Name[1956] setting to [Avery]
-WARN Hillwood-Prod : Runway HIGHLAND,200 - 60,200,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,200 - 60,200 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,204 - 60,204,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,204 - 60,204 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,208 - 60,208,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,208 - 60,208 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,212 - 60,212,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,212 - 60,212 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,213 - 60,213,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,213 - 60,213 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,214 - 60,214,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,214 - 60,214 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway DR HORTON - Design[2141 Hamilton] not equal Name[2141] setting to [Hamilton]
-WARN Hillwood-Prod : Runway HIGHLAND,215 - 60,215,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,215 - 60,215 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,216 - 60,216,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,216 - 60,216 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,217 - 60,217,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,217 - 60,217 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,220 - 60,220,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,220 - 60,220 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway DR HORTON - Design[2208 Brunswick] not equal Name[2208] setting to [Brunswick]
-WARN Hillwood-Prod : Runway HIGHLAND,221 - 60,221,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,221 - 60,221 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,222 - 60,222,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,222 - 60,222 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND,223 - 60,223,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,223 - 60,223 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway DR HORTON - Design[2234 Charlestown] not equal Name[2234] setting to [Charlestown]
-WARN Hillwood-Prod : Runway HIGHLAND,224 - 60,224,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,224 - 60,224 - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND - Design[227M] not equal Name[227] setting to [227M]
-WARN Hillwood-Prod : Runway DR HORTON - Design[2287 Estella] not equal Name[2287] setting to [Estella]
-ERROR Hillwood-Prod : Runway HIGHLAND,234,234 - Front in range [65] not sames as fits on [60]
-ERROR Hillwood-Prod : Runway HIGHLAND 234 mixed frontage - [Highland 65 - Pomona] [60] generated from [60']
-WARN Hillwood-Prod : Runway DR HORTON - Design[2388 Granada] not equal Name[2388] setting to [Granada]
-WARN Hillwood-Prod : Runway HIGHLAND,247H - 60,247H,Pomona 60 lots frontage 60 will be replaced by alias 65
-ERROR Hillwood-Prod : Runway HIGHLAND,247H - 60,247H - Front in range [60] not sames as fits on [65]
-WARN Hillwood-Prod : Runway HIGHLAND - Design[247H - 60] not equal Name[247H] setting to [247H]
-WARN Hillwood-Prod : Runway DR HORTON - Design[2676 Zinnia] not equal Name[2676] setting to [Zinnia]
-ERROR Hillwood-Prod : Runway PERRY,2694W,2694W - Front in range [55] not sames as fits on [50]
-ERROR Hillwood-Prod : Runway PERRY 2694W mixed frontage - [Perry 55 - Pomona] [50] generated from [50']
-WARN Hillwood-Prod : Runway DR HORTON - Design[2711 Condor] not equal Name[Condor-2711] setting to [Condor]
-WARN Hillwood-Prod : Runway DR HORTON - Design[2956 Ivery] not equal Name[Ivery-2956] setting to [Ivery]
-WARN Hillwood-Prod : Runway PERRY - Design[3593W - 60] not equal Name[3593W] setting to [3593W]
-ERROR Hillwood-Prod : Runway DEL WEBB,Abbeyville,1559 - Front in range [55] not sames as fits on [50]
-WARN Hillwood-Prod : Runway DEL WEBB - Design[Abbeyville] not equal Name[1559] setting to [Abbeyville]
-ERROR Hillwood-Prod : Runway DEL WEBB Abbeyville mixed frontage - [Delwebb - 55 - Union Park] [50] generated from [51']
-WARN Hillwood-Prod : Runway COVENTRY - Design[Adrian] not equal Name[1512] setting to [Adrian]
-WARN Hillwood-Prod : Runway TOLL BROTHERS - Design[Aiden] not equal Name[258205] setting to [Aiden]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Alamo Heights] not equal Name[1631] setting to [Alamo Heights]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Alvarado] not equal Name[1665] setting to [Alvarado]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Alvin] not equal Name[4837] setting to [Alvin]
-WARN Hillwood-Prod : Runway TAYLOR MORRISON - Design[Ambrosia - 4067] not equal Name[4067] setting to [Ambrosia]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Ames] not equal Name[3480] setting to [Ames]
-WARN Hillwood-Prod : Runway COVENTRY,Anahuac 70,7312,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Anahuac 70,7312 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Anahuac 70] not equal Name[7312] setting to [Anahuac]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Anahuac 75] not equal Name[7312] setting to [Anahuac]
-WARN Hillwood-Prod : Runway COVENTRY,Anahuac 80,7312,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Anahuac 80,7312 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Anahuac 80] not equal Name[7312] setting to [Anahuac]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Anson] not equal Name[5972] setting to [Anson]
-WARN Hillwood-Prod : Runway TOLL BROTHERS - Design[Artisan 70] not equal Name[Artisan] setting to [Artisan]
-WARN Hillwood-Prod : Runway TOLL BROTHERS - Design[Artisan 80] not equal Name[Artisan] setting to [Artisan]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Asherton] not equal Name[2108] setting to [Asherton]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[B318] not equal Name[RADDINGTON] setting to [B318]
-WARN Hillwood-Prod : Runway COVENTRY,Bagwell 70,7313,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Bagwell 70,7313 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Bagwell 70] not equal Name[7313] setting to [Bagwell]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Bagwell 75] not equal Name[7313] setting to [Bagwell]
-WARN Hillwood-Prod : Runway COVENTRY,Bagwell 80,7313,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Bagwell 80,7313 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Bagwell 80] not equal Name[7313] setting to [Bagwell]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Bandera] not equal Name[4367] setting to [Bandera]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Barstow] not equal Name[2011] setting to [Barstow]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Benbrook] not equal Name[3095] setting to [Benbrook]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Blossom] not equal Name[5969] setting to [Blossom]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Bluffstone] not equal Name[B109] setting to [Bluffstone]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Boerne] not equal Name[2107] setting to [Boerne]
-WARN Hillwood-Prod : Runway DREES CUSTOM - Design[Bracken III] not equal Name[2745] setting to [Bracken III]
-WARN Hillwood-Prod : Runway BEAZER - Design[Brazos] not equal Name[E514] setting to [Brazos]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Breckenridge] not equal Name[2300] setting to [Breckenridge]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Bremond] not equal Name[2878] setting to [Bremond]
-WARN Hillwood-Prod : Runway BEAZER - Design[Brenham] not equal Name[E518] setting to [Brenham]
-WARN Hillwood-Prod : Runway COVENTRY,Briggs 60,6491,Coventry 60-Pomona frontage 60 will be replaced by alias 75
-WARN Hillwood-Prod : Runway COVENTRY - Design[Briggs 60] not equal Name[6491] setting to [Briggs]
-WARN Hillwood-Prod : Runway DREES CUSTOM - Design[Brinkley] not equal Name[2728] setting to [Brinkley]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Bruneau] not equal Name[6559] setting to [Bruneau]
-WARN Hillwood-Prod : Runway COVENTRY,Buchanan II 70,7288,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Buchanan II 70,7288 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Buchanan II 70] not equal Name[7288] setting to [Buchanan II]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Buchanan II 75] not equal Name[7288] setting to [Buchanan II]
-WARN Hillwood-Prod : Runway COVENTRY,Buchanan II 80,7288,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Buchanan II 80,7288 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Buchanan II 80] not equal Name[7288] setting to [Buchanan II]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Burkburnett] not equal Name[2068] setting to [Burkburnett]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Burkburnett II] not equal Name[2480] setting to [Burkburnett II]
-WARN Hillwood-Prod : Runway COVENTRY,Caddo Mills,5966,Coventry 55 - Pomona frontage 55 will be replaced by alias 55
-WARN Hillwood-Prod : Runway COVENTRY - Design[Caddo Mills] not equal Name[5966] setting to [Caddo Mills]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Caddo Mills 65] not equal Name[5966] setting to [Caddo Mills]
-WARN Hillwood-Prod : Runway COVENTRY,Camden 60,6473,Coventry 60-Pomona frontage 60 will be replaced by alias 75
-WARN Hillwood-Prod : Runway COVENTRY - Design[Camden 60] not equal Name[6473] setting to [Camden]
-WARN Hillwood-Prod : Runway COVENTRY,Canyon 70,8286,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Canyon 70,8286 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Canyon 70] not equal Name[8286] setting to [Canyon]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Canyon 75] not equal Name[8286] setting to [Canyon]
-WARN Hillwood-Prod : Runway COVENTRY,Canyon 80,8286,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Canyon 80,8286 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Canyon 80] not equal Name[8286] setting to [Canyon]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Carmine] not equal Name[4836] setting to [Carmine]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Carolina I - 55] not equal Name[Carolina I] setting to [Carolina I]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Carolina I - 60] not equal Name[Carolina I] setting to [Carolina I]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Carolina II - 55] not equal Name[Carolina II] setting to [Carolina II]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Carolina II - 60] not equal Name[Carolina II] setting to [Carolina II]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Carolina III - 55] not equal Name[Carolina III] setting to [Carolina III]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Carolina III - 60] not equal Name[Carolina III] setting to [Carolina III]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Carolina IV - 55] not equal Name[Carolina IV] setting to [Carolina IV]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Carolina IV - 60] not equal Name[Carolina IV] setting to [Carolina IV]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Cedar Park] not equal Name[4834] setting to [Cedar Park]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Cedaridge] not equal Name[4721] setting to [Cedaridge]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Celina] not equal Name[4832] setting to [Celina]
-WARN Hillwood-Prod : Runway COVENTRY,Centerville 70,6855,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Centerville 70,6855 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Centerville 70] not equal Name[6855] setting to [Centerville]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Centerville 75] not equal Name[6855] setting to [Centerville]
-WARN Hillwood-Prod : Runway COVENTRY,Centerville 80,6855,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Centerville 80,6855 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Centerville 80] not equal Name[6855] setting to [Centerville]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Claude] not equal Name[3547] setting to [Claude]
-WARN Hillwood-Prod : Runway TAYLOR MORRISON - Design[Clementine - 4081] not equal Name[4081] setting to [Clementine]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Cleveland] not equal Name[2836] setting to [Cleveland]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Clyde] not equal Name[2692] setting to [Clyde]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Coldspring] not equal Name[2706] setting to [Coldspring]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Collin] not equal Name[5977] setting to [Collin]
-WARN Hillwood-Prod : Runway COVENTRY,Collin 60,5977,Coventry 60-Pomona frontage 60 will be replaced by alias 75
-WARN Hillwood-Prod : Runway COVENTRY - Design[Collin 60] not equal Name[5977] setting to [Collin]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Crockett] not equal Name[3148] setting to [Crockett]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Cypress I - 55] not equal Name[Cypress I] setting to [Cypress I]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Cypress I - 60] not equal Name[Cypress I] setting to [Cypress I]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Cypress II - 55] not equal Name[Cypress II] setting to [Cypress II]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Cypress II - 60] not equal Name[Cypress II] setting to [Cypress II]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Dean] not equal Name[2919] setting to [Dean]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Denison] not equal Name[2285] setting to [Denison]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dewberry I - 55] not equal Name[Dewberry I] setting to [Dewberry I]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dewberry I - 60] not equal Name[Dewberry I] setting to [Dewberry I]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dewberry I 50] not equal Name[Dewberry I] setting to [Dewberry I]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dewberry II - 55] not equal Name[Dewberry II] setting to [Dewberry II]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dewberry II - 60] not equal Name[Dewberry II] setting to [Dewberry II]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dewberry III - 55] not equal Name[Dewberry III] setting to [Dewberry III]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dewberry III - 60] not equal Name[Dewberry III] setting to [Dewberry III]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dogwood I - 55] not equal Name[Dogwood I] setting to [Dogwood I]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dogwood I - 60] not equal Name[Dogwood I] setting to [Dogwood I]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dogwood III - 55] not equal Name[Dogwood III] setting to [Dogwood III]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Dogwood III - 60] not equal Name[Dogwood III] setting to [Dogwood III]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Double Oak] not equal Name[2884] setting to [Double Oak]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Dumont] not equal Name[2870] setting to [Dumont]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Eagle Mountain] not equal Name[3341] setting to [Eagle Mountain]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Eastwood] not equal Name[6734] setting to [Eastwood]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Eden] not equal Name[5975] setting to [Eden]
-WARN Hillwood-Prod : Runway TAYLOR MORRISON - Design[Emberglow - 4023] not equal Name[4023] setting to [Emberglow]
-WARN Hillwood-Prod : Runway TOLL BROTHERS - Design[Emery 70] not equal Name[Emery] setting to [Emery]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Emmett] not equal Name[B313] setting to [Emmett]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Emory] not equal Name[2801] setting to [Emory]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Estrella] not equal Name[D605] setting to [Estrella]
-WARN Hillwood-Prod : Runway BEAZER - Design[Fairfield] not equal Name[E513] setting to [Fairfield]
-WARN Hillwood-Prod : Runway TOLL BROTHERS - Design[Fairholm 70] not equal Name[Fairholm] setting to [Fairholm]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Fairlane] not equal Name[Fairlane - 6231] setting to [Fairlane]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Frost] not equal Name[3118] setting to [Frost]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Gallatin] not equal Name[2731] setting to [Gallatin]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Gatewood] not equal Name[6338] setting to [Gatewood]
-WARN Hillwood-Prod : Runway COVENTRY,Gordon 60,6461,Coventry 60-Pomona frontage 60 will be replaced by alias 75
-WARN Hillwood-Prod : Runway COVENTRY - Design[Gordon 60] not equal Name[6461] setting to [Gordon]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Graford] not equal Name[4833] setting to [Graford]
-WARN Hillwood-Prod : Runway COVENTRY,Granbury 60,6448,Coventry 60-Pomona frontage 60 will be replaced by alias 75
-WARN Hillwood-Prod : Runway COVENTRY - Design[Granbury 60] not equal Name[6448] setting to [Granbury]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Groveton] not equal Name[2718] setting to [Groveton]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Halden] not equal Name[6242] setting to [Halden]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Hallsburg] not equal Name[3486] setting to [Hallsburg]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Hamilton] not equal Name[2848] setting to [Hamilton]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Hamlin] not equal Name[3832] setting to [Hamlin]
-WARN Hillwood-Prod : Runway BEAZER - Design[Harrison] not equal Name[E311] setting to [Harrison]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Harvard] not equal Name[B074] setting to [Harvard]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Haskell II] not equal Name[3600] setting to [Haskell II]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Hawthorne - 60] not equal Name[Hawthorne] setting to [Hawthorne]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Hawthrone - 55] not equal Name[Hawthrone] setting to [Hawthrone]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Hedley] not equal Name[3224] setting to [Hedley]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Hideaway] not equal Name[2837] setting to [Hideaway]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Humble] not equal Name[3765] setting to [Humble]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Inwood II] not equal Name[2533] setting to [Inwood II]
-WARN Hillwood-Prod : Runway COVENTRY,Jacksonville II 70,8310,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Jacksonville II 70,8310 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Jacksonville II 70] not equal Name[8310] setting to [Jacksonville II]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Jacksonville II 75] not equal Name[8310] setting to [Jacksonville II]
-WARN Hillwood-Prod : Runway COVENTRY,Jacksonville II 80,8310,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Jacksonville II 80,8310 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Jacksonville II 80] not equal Name[8310] setting to [Jacksonville II]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Jewel] not equal Name[4275] setting to [Jewel]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Jourdanton] not equal Name[3276] setting to [Jourdanton]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Katy 75] not equal Name[8264] setting to [Katy]
-WARN Hillwood-Prod : Runway COVENTRY,Katy 80,8264,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Katy 80,8264 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Katy 80] not equal Name[8264] setting to [Katy]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Kaufman] not equal Name[4114] setting to [Kaufman]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Kelso] not equal Name[B299] setting to [Kelso]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Kempner] not equal Name[5403] setting to [Kempner]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Kennessey] not equal Name[4120] setting to [Kennessey]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Kepley] not equal Name[4628] setting to [Kepley]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Lankford] not equal Name[5246] setting to [Lankford]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Liam V] not equal Name[5363] setting to [Liam V]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Lindale] not equal Name[2441] setting to [Lindale]
-WARN Hillwood-Prod : Runway COVENTRY,Lindsay 60,6495,Coventry 60-Pomona frontage 60 will be replaced by alias 75
-WARN Hillwood-Prod : Runway COVENTRY - Design[Lindsay 60] not equal Name[6495] setting to [Lindsay]
-WARN Hillwood-Prod : Runway COVENTRY,Lindsay 65,6495,Coventry 65 - Pomona frontage 65 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Lindsay 65,6495 - Front in range [65] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Lindsay 65] not equal Name[6495] setting to [Lindsay]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Lockhart] not equal Name[3767] setting to [Lockhart]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Lumberton] not equal Name[5971] setting to [Lumberton]
-WARN Hillwood-Prod : Runway COVENTRY,Madisonville 70,6877,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Madisonville 70,6877 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Madisonville 70] not equal Name[6877] setting to [Madisonville]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Madisonville 75] not equal Name[6877] setting to [Madisonville]
-WARN Hillwood-Prod : Runway COVENTRY,Madisonville 80,6877,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Madisonville 80,6877 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Madisonville 80] not equal Name[6877] setting to [Madisonville]
-ERROR Hillwood-Prod : Runway DEL WEBB,Magnolia,0972 - Front in range [50] not sames as fits on [65]
-WARN Hillwood-Prod : Runway DEL WEBB - Design[Magnolia] not equal Name[0972] setting to [Magnolia]
-ERROR Hillwood-Prod : Runway DEL WEBB Magnolia mixed frontage - [Delwebb - 50 - Union Park] [65] generated from [65']
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Magnolia - 55] not equal Name[Magnolia] setting to [Magnolia]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Magnolia - 60] not equal Name[Magnolia] setting to [Magnolia]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Magnolia II - 55] not equal Name[Magnolia II] setting to [Magnolia II]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Magnolia II - 60] not equal Name[Magnolia II] setting to [Magnolia II]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Magnolia III - 55] not equal Name[Magnolia III] setting to [Magnolia III]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Magnolia III - 60] not equal Name[Magnolia III] setting to [Magnolia III]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Marfa 65] not equal Name[6878] setting to [Marfa]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Marietta] not equal Name[4137] setting to [Marietta]
-ERROR Hillwood-Prod : Runway DEL WEBB,Martin Ray,1562 - Front in range [55] not sames as fits on [50]
-WARN Hillwood-Prod : Runway DEL WEBB - Design[Martin Ray] not equal Name[1562] setting to [Martin Ray]
-ERROR Hillwood-Prod : Runway DEL WEBB Martin Ray mixed frontage - [Delwebb - 55 - Union Park] [50] generated from [51']
-WARN Hillwood-Prod : Runway TOLL BROTHERS - Design[McLaren] not equal Name[The McLaren] setting to [McLaren]
-WARN Hillwood-Prod : Runway TOLL BROTHERS - Design[Merida 70] not equal Name[Merida] setting to [Merida]
-WARN Hillwood-Prod : Runway TOLL BROTHERS - Design[Merida 80] not equal Name[Merida] setting to [Merida]
-WARN Hillwood-Prod : Runway BEAZER - Design[Meridian] not equal Name[E509] setting to [Meridian]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Miami III] not equal Name[5961] setting to [Miami III]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Murphy] not equal Name[4835] setting to [Murphy]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Natalia] not equal Name[3142] setting to [Natalia]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Newark] not equal Name[2859] setting to [Newark]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Newport] not equal Name[3142] setting to [Newport]
-WARN Hillwood-Prod : Runway DEL WEBB - Design[Noir Coast] not equal Name[1555] setting to [Noir Coast]
-WARN Hillwood-Prod : Runway COVENTRY,O Conner 70,7298,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,O Conner 70,7298 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[O Conner 70] not equal Name[7298] setting to [O Conner]
-WARN Hillwood-Prod : Runway COVENTRY - Design[O Conner 75] not equal Name[7298] setting to [O Conner]
-WARN Hillwood-Prod : Runway COVENTRY,O Conner 80,7298,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,O Conner 80,7298 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[O Conner 80] not equal Name[7298] setting to [O Conner]
-WARN Hillwood-Prod : Runway COVENTRY,Olton 70,7302,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Olton 70,7302 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Olton 70] not equal Name[7302] setting to [Olton]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Olton 75] not equal Name[7302] setting to [Olton]
-WARN Hillwood-Prod : Runway COVENTRY,Olton 80,7302,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Olton 80,7302 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Olton 80] not equal Name[7302] setting to [Olton]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Paintbrush - 55] not equal Name[Paintbrush] setting to [Paintbrush]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Paintbrush - 60] not equal Name[Paintbrush] setting to [Paintbrush]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Paintbrush II - 55] not equal Name[Paintbrush II] setting to [Paintbrush II]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Paintbrush II - 60] not equal Name[Paintbrush II] setting to [Paintbrush II]
-ERROR Hillwood-Prod : Runway DAVID WEEKLEY,Paisley,B312,David Weekley Homes 61 - Wolf Ranch - frontage out of scope - [5] generated from [5']
-ERROR Hillwood-Prod : Runway DAVID WEEKLEY,Paisley,B312 - Front in range [60] not sames as fits on []
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Paisley] not equal Name[B312] setting to [Paisley]
-ERROR Hillwood-Prod : Runway owner [DAVID WEEKLEY] name [Paisley] range [David Weekley Homes 60 - Wolf Ranch] front [] - field empty
-ERROR Hillwood-Prod : Runway DAVID WEEKLEY Paisley mixed frontage - [David Weekley Homes 60 - Wolf Ranch] [] generated from [5']
-WARN Hillwood-Prod : Runway COVENTRY,Palmhurst 70,7314,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Palmhurst 70,7314 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Palmhurst 70] not equal Name[7314] setting to [Palmhurst]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Palmhurst 75] not equal Name[7314] setting to [Palmhurst]
-WARN Hillwood-Prod : Runway COVENTRY,Palmhurst 80,7314,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Palmhurst 80,7314 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Palmhurst 80] not equal Name[7314] setting to [Palmhurst]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Pasadena] not equal Name[2001] setting to [Pasadena]
-WARN Hillwood-Prod : Runway COVENTRY,Pearland 70,7315,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Pearland 70,7315 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Pearland 70] not equal Name[7315] setting to [Pearland]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Pearland 75] not equal Name[7315] setting to [Pearland]
-WARN Hillwood-Prod : Runway COVENTRY,Pearland 80,7315,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Pearland 80,7315 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Pearland 80] not equal Name[7315] setting to [Pearland]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Pineland] not equal Name[4112] setting to [Pineland]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Prestwick] not equal Name[6339] setting to [Prestwick]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Ranchwood] not equal Name[6629] setting to [Ranchwood]
-WARN Hillwood-Prod : Runway COVENTRY,Ravenna 70,7317,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Ravenna 70,7317 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Ravenna 70] not equal Name[7317] setting to [Ravenna]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Ravenna 75] not equal Name[7317] setting to [Ravenna]
-WARN Hillwood-Prod : Runway COVENTRY,Ravenna 80,7317,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Ravenna 80,7317 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Ravenna 80] not equal Name[7317] setting to [Ravenna]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Ridgegate] not equal Name[6233] setting to [Ridgegate]
-WARN Hillwood-Prod : Runway COVENTRY,Roxton 70,7803,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Roxton 70,7803 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Roxton 70] not equal Name[7803] setting to [Roxton]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Roxton 75] not equal Name[7803] setting to [Roxton]
-WARN Hillwood-Prod : Runway COVENTRY,Roxton 80,7803,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Roxton 80,7803 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Roxton 80] not equal Name[7803] setting to [Roxton]
-WARN Hillwood-Prod : Runway COVENTRY,Saint Jo 70,8316,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Saint Jo 70,8316 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Saint Jo 70] not equal Name[8316] setting to [Saint Jo]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Saint Jo 75] not equal Name[8316] setting to [Saint Jo]
-WARN Hillwood-Prod : Runway COVENTRY,Saint Jo 80,8316,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Saint Jo 80,8316 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Saint Jo 80] not equal Name[8316] setting to [Saint Jo]
-WARN Hillwood-Prod : Runway BEAZER - Design[Salado] not equal Name[E375] setting to [Salado]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Shepherd] not equal Name[3154] setting to [Shepherd]
-WARN Hillwood-Prod : Runway DEL WEBB - Design[Sonoma Cove] not equal Name[1565] setting to [Sonoma Cove]
-WARN Hillwood-Prod : Runway COVENTRY,Southlake 70,7804,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Southlake 70,7804 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Southlake 70] not equal Name[7804] setting to [Southlake]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Southlake 75] not equal Name[7804] setting to [Southlake]
-WARN Hillwood-Prod : Runway COVENTRY,Southlake 80,7804,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Southlake 80,7804 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Southlake 80] not equal Name[7804] setting to [Southlake]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Steel] not equal Name[B298] setting to [Steel]
-WARN Hillwood-Prod : Runway DEL WEBB - Design[Steel Creek] not equal Name[1557] setting to [Steel Creek]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Strickland] not equal Name[6316] setting to [Strickland]
-WARN Hillwood-Prod : Runway DEL WEBB - Design[Summerwood] not equal Name[2296] setting to [Summerwood]
-WARN Hillwood-Prod : Runway DEL WEBB - Design[Taft Street] not equal Name[1558] setting to [Taft Street]
-WARN Hillwood-Prod : Runway DEL WEBB - Design[Tangerly Oak] not equal Name[1567] setting to [Tangerly Oak]
-WARN Hillwood-Prod : Runway COVENTRY,Thomaston 60,6438,Coventry 60-Pomona frontage 60 will be replaced by alias 75
-WARN Hillwood-Prod : Runway COVENTRY - Design[Thomaston 60] not equal Name[6438] setting to [Thomaston]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Toledo Bend] not equal Name[2541] setting to [Toledo Bend]
-WARN Hillwood-Prod : Runway COVENTRY,Tomball 70,6876,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Tomball 70,6876 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Tomball 70] not equal Name[6876] setting to [Tomball]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Tomball 75] not equal Name[6876] setting to [Tomball]
-WARN Hillwood-Prod : Runway COVENTRY,Tomball 80,6876,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Tomball 80,6876 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Tomball 80] not equal Name[6876] setting to [Tomball]
-WARN Hillwood-Prod : Runway COVENTRY,Troup 70,8333,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Troup 70,8333 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Troup 70] not equal Name[8333] setting to [Troup]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Troup 75] not equal Name[8333] setting to [Troup]
-WARN Hillwood-Prod : Runway COVENTRY,Troup 80,8333,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Troup 80,8333 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Troup 80] not equal Name[8333] setting to [Troup]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Tuscola] not equal Name[3163] setting to [Tuscola]
-WARN Hillwood-Prod : Runway TOLL BROTHERS - Design[Valen 70] not equal Name[Valen] setting to [Valen]
-WARN Hillwood-Prod : Runway TAYLOR MORRISON - Design[Valerian - 4079] not equal Name[4079] setting to [Valerian]
-WARN Hillwood-Prod : Runway TAYLOR MORRISON - Design[Veranda - 4027] not equal Name[4027] setting to [Veranda]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Ware] not equal Name[6080] setting to [Ware]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Weidman] not equal Name[6317] setting to [Weidman]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Wellington] not equal Name[2526] setting to [Wellington]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Westgate] not equal Name[4658] setting to [Westgate]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Weston] not equal Name[3563] setting to [Weston]
-WARN Hillwood-Prod : Runway COVENTRY,Wiergate 60,6443,Coventry 60-Pomona frontage 60 will be replaced by alias 75
-WARN Hillwood-Prod : Runway COVENTRY - Design[Wiergate 60] not equal Name[6443] setting to [Wiergate]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Wilmer] not equal Name[5965] setting to [Wilmer]
-WARN Hillwood-Prod : Runway DAVID WEEKLEY - Design[Wilmont] not equal Name[6552] setting to [Wilmont]
-WARN Hillwood-Prod : Runway BEAZER - Design[Wimberley] not equal Name[E519] setting to [Wimberley]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Winchester] not equal Name[5400] setting to [Winchester]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Winfield] not equal Name[2840] setting to [Winfield]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Wisteria - 55] not equal Name[Wisteria] setting to [Wisteria]
-WARN Hillwood-Prod : Runway BLOOMFIELD - Design[Wisteria - 60] not equal Name[Wisteria] setting to [Wisteria]
-WARN Hillwood-Prod : Runway COVENTRY,Woodway 70,8334,Coventry 70 - Pomona frontage 70 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Woodway 70,8334 - Front in range [70] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Woodway 70] not equal Name[8334] setting to [Woodway]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Woodway 75] not equal Name[8334] setting to [Woodway]
-WARN Hillwood-Prod : Runway COVENTRY,Woodway 80,8334,Coventry 80 - Pomona frontage 80 will be replaced by alias 75
-ERROR Hillwood-Prod : Runway COVENTRY,Woodway 80,8334 - Front in range [80] not sames as fits on [75]
-WARN Hillwood-Prod : Runway COVENTRY - Design[Woodway 80] not equal Name[8334] setting to [Woodway]
-NOTE Hillwood-Prod : Found 1077 lines in Runway Hillwood-Prod.runway.planlist.csv, 644 are available status
-NOTE Hillwood-Prod : Found 397 unique Runway Builder/Plan recs & 96 multi recs
+NOTE --- Processing Runway developer --- HowardHughes-Prod
+ERROR HowardHughes-Prod : Runway NEWMARK,105A,105A - Front in range [70] not sames as fits on [110]
+ERROR HowardHughes-Prod : Runway NEWMARK 105A mixed frontage - [Newmark Homes 70 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [110] generated from [110']
+ERROR HowardHughes-Prod : Runway NEWMARK,105C,105C - Front in range [70] not sames as fits on [110]
+ERROR HowardHughes-Prod : Runway NEWMARK 105C mixed frontage - [Newmark Homes 70 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [110] generated from [110']
+WARN HowardHughes-Prod : Runway CENTURY COMMUNITIES - Design[1588 - Hewitt] not equal Name[1588] setting to [Hewitt]
+WARN HowardHughes-Prod : Runway PERRY,1653,1653,Perry Homes 45 - Bridgeland frontage 45 will be replaced by alias 45
+WARN HowardHughes-Prod : Runway GEHAN - Design[1660 - Bermuda] not equal Name[1660] setting to [Bermuda]
+WARN HowardHughes-Prod : Runway GEHAN - Design[1910 - Maldives] not equal Name[1910] setting to [Maldives]
+WARN HowardHughes-Prod : Runway GEHAN - Design[2010 - Fiji] not equal Name[2010] setting to [Fiji]
+WARN HowardHughes-Prod : Runway CENTURY COMMUNITIES - Design[2017 - Leander] not equal Name[2017] setting to [Leander]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,2162,Vanner - Front in range [40] not sames as fits on [60]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Vanner mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,2163,Alford - Front in range [40] not sames as fits on [60]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Alford mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway CENTURY COMMUNITIES - Design[2200 - Mesquite] not equal Name[2200] setting to [Mesquite]
+WARN HowardHughes-Prod : Runway GEHAN - Design[2300 - Maui] not equal Name[2300] setting to [Maui]
+WARN HowardHughes-Prod : Runway CENTURY COMMUNITIES - Design[2466 - Magnolia] not equal Name[2466] setting to [Magnolia]
+WARN HowardHughes-Prod : Runway PERRY - Design[2501W] not equal Name[2501W - Perry Homes] setting to [2501W]
+WARN HowardHughes-Prod : Runway GEHAN - Design[2540 - Capri II] not equal Name[2540] setting to [Capri II]
+WARN HowardHughes-Prod : Runway CENTURY COMMUNITIES - Design[2625 - Bellaire] not equal Name[2625] setting to [Bellaire]
+WARN HowardHughes-Prod : Runway CENTURY COMMUNITIES - Design[2658 - Frisco] not equal Name[2658] setting to [Frisco]
+WARN HowardHughes-Prod : Runway CENTURY COMMUNITIES - Design[2742 - Windcrest] not equal Name[2742] setting to [Windcrest]
+WARN HowardHughes-Prod : Runway CENTURY COMMUNITIES - Design[2743 - Laurel] not equal Name[2743] setting to [Laurel]
+WARN HowardHughes-Prod : Runway GEHAN - Design[2750 - Cayman] not equal Name[2750] setting to [Cayman]
+WARN HowardHughes-Prod : Runway CENTURY COMMUNITIES - Design[2760 - Wimberly] not equal Name[2760] setting to [Wimberly]
+WARN HowardHughes-Prod : Runway PERRY - Design[2941W] not equal Name[2941W - Perry Homes] setting to [2941W]
+WARN HowardHughes-Prod : Runway PERRY - Design[2943W] not equal Name[2943W - Perry Homes] setting to [2943W]
+WARN HowardHughes-Prod : Runway PERRY - Design[2969W] not equal Name[2969W - Perry Homes] setting to [2969W]
+WARN HowardHughes-Prod : Runway PERRY - Design[2980W] not equal Name[2980W - Perry Homes] setting to [2980W]
+WARN HowardHughes-Prod : Runway PERRY - Design[2994W] not equal Name[2994W - Perry Homes] setting to [2994W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3014W] not equal Name[3014W - Perry Homes] setting to [3014W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3031W] not equal Name[3031W - Perry Homes] setting to [3031W]
+ERROR HowardHughes-Prod : Runway CHESMAR,3094,3094 - Front in range [40] not sames as fits on [45]
+ERROR HowardHughes-Prod : Runway CHESMAR 3094 mixed frontage - [Chesmar Homes 40 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [45] generated from [45']
+WARN HowardHughes-Prod : Runway CHESMAR - Design[3094 - Lanai] not equal Name[3094] setting to [Lanai]
+WARN HowardHughes-Prod : Runway PERRY - Design[3094W] not equal Name[3094W - Perry Homes] setting to [3094W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3118W] not equal Name[3118W - Perry Homes] setting to [3118W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3158W] not equal Name[3158W - Perry Homes] setting to [3158W]
+ERROR HowardHughes-Prod : Runway PERRY,3203W,3203W - Front in range [45] not sames as fits on [55]
+ERROR HowardHughes-Prod : Runway PERRY 3203W mixed frontage - [Perry Homes 45 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [55] generated from [55']
+WARN HowardHughes-Prod : Runway PERRY - Design[3206W] not equal Name[3206W - Perry Homes] setting to [3206W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3257W] not equal Name[3257W - Perry Homes] setting to [3257W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3258W] not equal Name[3258W - Perry Homes] setting to [3258W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3295W] not equal Name[3295W - Perry Homes] setting to [3295W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3300W] not equal Name[3300W- Perry Homes] setting to [3300W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3391W] not equal Name[3391W - Perry Homes] setting to [3391W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3394W] not equal Name[3394W - Perry Homes] setting to [3394W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3399W] not equal Name[3399W - Perry Homes] setting to [3399W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3465W] not equal Name[3465W - Perry Homes] setting to [3465W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3473W] not equal Name[3473W - Perry Homes] setting to [3473W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3520W] not equal Name[3520W - Perry Homes] setting to [3520W]
+ERROR HowardHughes-Prod : Runway CHESMAR,3524,3524 - Front in range [40] not sames as fits on [45]
+ERROR HowardHughes-Prod : Runway CHESMAR 3524 mixed frontage - [Chesmar Homes 40 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [45] generated from [45']
+WARN HowardHughes-Prod : Runway PERRY - Design[3525W] not equal Name[3525W - Perry Homes] setting to [3525W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3526W] not equal Name[3526W- Perry Homes] setting to [3526W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3546W] not equal Name[3546W - Perry Homes] setting to [3546W]
+ERROR HowardHughes-Prod : Runway CHESMAR,3554,Emma - Front in range [40] not sames as fits on [45]
+ERROR HowardHughes-Prod : Runway CHESMAR Emma mixed frontage - [Chesmar Homes 40 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [45] generated from [45']
+WARN HowardHughes-Prod : Runway CHESMAR - Design[3554 - Emma] not equal Name[3554] setting to [Emma]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[3564 - Lorne] not equal Name[3564] setting to [Lorne]
+WARN HowardHughes-Prod : Runway PERRY - Design[3578W] not equal Name[3578W - Perry Homes] setting to [3578W]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[3584 - Sawyer] not equal Name[3584] setting to [Sawyer]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[3594 - Oakley] not equal Name[3594] setting to [Oakley]
+ERROR HowardHughes-Prod : Runway CHESMAR,3614 - Middleton,3614 - Front in range [50] not sames as fits on [40]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[3614 - Middleton] not equal Name[3614] setting to [Middleton]
+ERROR HowardHughes-Prod : Runway CHESMAR Middleton mixed frontage - [Chesmar Homes 50 - The Woodlands Hills] [40] generated from [40']
+WARN HowardHughes-Prod : Runway PERRY - Design[3650W] not equal Name[3650W - Perry Homes] setting to [3650W]
+ERROR HowardHughes-Prod : Runway CHESMAR,3710 - Sunnyside,3710 - Front in range [40] not sames as fits on [50]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[3710 - Sunnyside] not equal Name[3710] setting to [Sunnyside]
+ERROR HowardHughes-Prod : Runway CHESMAR Sunnyside mixed frontage - [Chesmar Homes 40 - The Woodlands Hills] [50] generated from [50']
+WARN HowardHughes-Prod : Runway PERRY - Design[3765W] not equal Name[3765W - Perry Homes] setting to [3765W]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[3770 - Pendleton] not equal Name[3770] setting to [Pendleton]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,3781,Ardell - Front in range [40] not sames as fits on [60]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Ardell mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway PERRY - Design[3791W] not equal Name[3791W - Perry Homes] setting to [3791W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3797W] not equal Name[3797W - Perry Homes] setting to [3797W]
+WARN HowardHughes-Prod : Runway PERRY - Design[3964W] not equal Name[3964W - Perry Homes] setting to [3964W]
+WARN HowardHughes-Prod : Runway PERRY - Design[4098W] not equal Name[4098W - Perry Homes] setting to [4098W]
+WARN HowardHughes-Prod : Runway PERRY - Design[4263W] not equal Name[4263W - Perry Homes] setting to [4263W]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,4275,Jewel - Front in range [40] not sames as fits on [50]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Jewel mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [50] generated from [50']
+WARN HowardHughes-Prod : Runway CHESMAR - Design[4512 - Charleston] not equal Name[4512] setting to [Charleston]
+WARN HowardHughes-Prod : Runway NEWMARK - Design[451B] not equal Name[451Bailey] setting to [451B]
+ERROR HowardHughes-Prod : Runway NEWMARK,451C,451Cameron,Newmark Homes 45 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451C,451Cameron,Newmark Homes 45 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451C,451Cameron - Front in range [45] not sames as fits on []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[451C] not equal Name[451Cameron] setting to [451C]
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [451C] range [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK 451C mixed frontage - [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451D,451Duval - Front in range [70] not sames as fits on [45]
+WARN HowardHughes-Prod : Runway NEWMARK - Design[451D] not equal Name[451Duval] setting to [451D]
+ERROR HowardHughes-Prod : Runway NEWMARK 451D mixed frontage - [Newmark Homes 70 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [45] generated from [45']
+ERROR HowardHughes-Prod : Runway NEWMARK,451E,451Eastland,Newmark Homes 45 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451E,451Eastland,Newmark Homes 45 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451E,451Eastland - Front in range [45] not sames as fits on []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[451E] not equal Name[451Eastland] setting to [451E]
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [451E] range [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK 451E mixed frontage - [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[451F] not equal Name[451Franklin] setting to [451F]
+ERROR HowardHughes-Prod : Runway NEWMARK,451H,451Henderson,Newmark Homes 45 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451H,451Henderson,Newmark Homes 45 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451H,451Henderson - Front in range [45] not sames as fits on []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[451H] not equal Name[451Henderson] setting to [451H]
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [451H] range [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK 451H mixed frontage - [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451J,451Jackson,Newmark Homes 45 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451J,451Jackson,Newmark Homes 45 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451J,451Jackson - Front in range [45] not sames as fits on []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[451J] not equal Name[451Jackson] setting to [451J]
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [451J] range [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK 451J mixed frontage - [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451L,451Llano,Newmark Homes 45 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451L,451Llano,Newmark Homes 45 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,451L,451Llano - Front in range [45] not sames as fits on []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[451L] not equal Name[451Llano] setting to [451L]
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [451L] range [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK 451L mixed frontage - [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[451M] not equal Name[451Montague] setting to [451M]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[4522 - Houston] not equal Name[4522] setting to [Houston]
+WARN HowardHughes-Prod : Runway NEWMARK - Design[452A] not equal Name[452Armstrong] setting to [452A]
+WARN HowardHughes-Prod : Runway NEWMARK - Design[452B] not equal Name[452Burnet] setting to [452B]
+WARN HowardHughes-Prod : Runway NEWMARK - Design[452D] not equal Name[452Dawson] setting to [452D]
+ERROR HowardHughes-Prod : Runway NEWMARK,452M,452Maverick - Front in range [70] not sames as fits on [45]
+WARN HowardHughes-Prod : Runway NEWMARK - Design[452M] not equal Name[452Maverick] setting to [452M]
+ERROR HowardHughes-Prod : Runway NEWMARK 452M mixed frontage - [Newmark Homes 70 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [45] generated from [45']
+ERROR HowardHughes-Prod : Runway NEWMARK,452N,452Navarro,Newmark Homes 45 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,452N,452Navarro,Newmark Homes 45 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,452N,452Navarro - Front in range [45] not sames as fits on []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[452N] not equal Name[452Navarro] setting to [452N]
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [452N] range [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK 452N mixed frontage - [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,453A,453Andrews,Newmark Homes 45 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,453A,453Andrews,Newmark Homes 45 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,453A,453Andrews - Front in range [45] not sames as fits on []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[453A] not equal Name[453Andrews] setting to [453A]
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [453A] range [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK 453A mixed frontage - [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,453K,453Kendall,Newmark Homes 70 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,453K,453Kendall,Newmark Homes 70 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,453K,453Kendall - Front in range [70] not sames as fits on []
+WARN HowardHughes-Prod : Runway NEWMARK - Design[453K] not equal Name[453Kendall] setting to [453K]
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [453K] range [Newmark Homes 70 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK 453K mixed frontage - [Newmark Homes 70 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,453N,453N - Front in range [70] not sames as fits on [45]
+ERROR HowardHughes-Prod : Runway NEWMARK 453N mixed frontage - [Newmark Homes 70 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [45] generated from [45']
+WARN HowardHughes-Prod : Runway CHESMAR - Design[4542 - Chicago] not equal Name[4542] setting to [Chicago]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[4552 - San Francisco] not equal Name[4552] setting to [San Francisco]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[4582 - Ann Arbor] not equal Name[4582] setting to [Ann Arbor]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[4592 - Cambridge] not equal Name[4592] setting to [Cambridge]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[4612 - Durham] not equal Name[4612] setting to [Durham]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[4642 -Madison] not equal Name[4642] setting to [-Madison]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[4652 - Athens] not equal Name[4652] setting to [Athens]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,4782,The Connelly - Front in range [40] not sames as fits on [60]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY The Connelly mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[4862 - Fanning] not equal Name[4862] setting to [Fanning]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[4887 - Wylie] not equal Name[4887] setting to [Wylie]
+WARN HowardHughes-Prod : Runway PERRY - Design[4891W] not equal Name[4891W - Perry Homes] setting to [4891W]
+WARN HowardHughes-Prod : Runway WESTIN - Design[55501 - Catalina] not equal Name[55501] setting to [Catalina]
+WARN HowardHughes-Prod : Runway WESTIN - Design[55504 - Wimberly] not equal Name[55504] setting to [Wimberly]
+WARN HowardHughes-Prod : Runway WESTIN - Design[55505 - Larson] not equal Name[55505] setting to [Larson]
+WARN HowardHughes-Prod : Runway WESTIN - Design[55531 - Preston] not equal Name[55531] setting to [Preston]
+WARN HowardHughes-Prod : Runway WESTIN - Design[55545 - Lexington] not equal Name[55545] setting to [Lexington]
+WARN HowardHughes-Prod : Runway WESTIN - Design[55575 - Avery II] not equal Name[55575] setting to [Avery II]
+WARN HowardHughes-Prod : Runway WESTIN - Design[55582 - Holloway] not equal Name[55582] setting to [Holloway]
+WARN HowardHughes-Prod : Runway WESTIN - Design[55594 - Luna] not equal Name[55594] setting to [Luna]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56018 - Preston III] not equal Name[56018] setting to [Preston III]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56053 - Emery IV] not equal Name[56053] setting to [Emery IV]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56058 - Preston V] not equal Name[56058] setting to [Preston V]
+ERROR HowardHughes-Prod : Runway WESTIN,56066,The Carter VI - Front in range [65] not sames as fits on [60]
+ERROR HowardHughes-Prod : Runway WESTIN The Carter VI mixed frontage - [Westin Homes 65 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway WESTIN,56066 - Carter IV,56066 - Front in range [55] not sames as fits on [65]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56066 - Carter IV] not equal Name[56066] setting to [Carter IV]
+ERROR HowardHughes-Prod : Runway WESTIN Carter IV mixed frontage - [Westin Homes 55 - The Woodlands Hills] [65] generated from [65']
+WARN HowardHughes-Prod : Runway WESTIN - Design[56069 - Carter IX] not equal Name[56069] setting to [Carter IX]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56070 - Asher V] not equal Name[56070] setting to [Asher V]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56072 - Grayson] not equal Name[56072] setting to [Grayson]
+ERROR HowardHughes-Prod : Runway WESTIN,56079,56079 - Asher IX - Front in range [55] not sames as fits on [65]
+ERROR HowardHughes-Prod : Runway WESTIN 56079 - Asher IX mixed frontage - [Westin Homes 55 - The Woodlands Hills] [65] generated from [65']
+WARN HowardHughes-Prod : Runway WESTIN - Design[56079 - Asher IX] not equal Name[56079] setting to [Asher IX]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56080 - Hopkins III] not equal Name[56080] setting to [Hopkins III]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56093 - Lindy] not equal Name[56093] setting to [Lindy]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56527 - Ashton] not equal Name[56527] setting to [Ashton]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56591 - Lorraine II] not equal Name[56591] setting to [Lorraine II]
+ERROR HowardHughes-Prod : Runway WESTIN,56596 - Rowan XL,56596 - Front in range [55] not sames as fits on [65]
+WARN HowardHughes-Prod : Runway WESTIN - Design[56596 - Rowan XL] not equal Name[56596] setting to [Rowan XL]
+ERROR HowardHughes-Prod : Runway WESTIN Rowan XL mixed frontage - [Westin Homes 55 - The Woodlands Hills] [65] generated from [65']
+WARN HowardHughes-Prod : Runway WESTIN - Design[57531 - Preston IV] not equal Name[57531] setting to [Preston IV]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,5966,5966 - Front in range [40] not sames as fits on [55]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY 5966 mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [55] generated from [55']
+ERROR HowardHughes-Prod : Runway NEWMARK,6030,6030 - Front in range [70] not sames as fits on [50]
+ERROR HowardHughes-Prod : Runway NEWMARK 6030 mixed frontage - [Newmark Homes 70 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [50] generated from [50']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,6048,6048 - Front in range [40] not sames as fits on [60]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY 6048 mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,6048 - Bynum,6048 - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[6048 - Bynum] not equal Name[6048] setting to [Bynum]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Bynum mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,6049 - Blanco,6049 - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[6049 - Blanco] not equal Name[6049] setting to [Blanco]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Blanco mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,6061,6061 - Front in range [40] not sames as fits on [50]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY 6061 mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [50] generated from [50']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,6080 - Ware,6080 - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[6080 - Ware] not equal Name[6080] setting to [Ware]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Ware mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,6684 - Hillmont,6684 - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[6684 - Hillmont] not equal Name[6684] setting to [Hillmont]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Hillmont mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway CHESMAR,7013,7013 - Front in range [40] not sames as fits on [30]
+ERROR HowardHughes-Prod : Runway CHESMAR 7013 mixed frontage - [Chesmar Homes 40 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [30] generated from [28']
+ERROR HowardHughes-Prod : Runway NEWMARK,7029,7029 - Front in range [70] not sames as fits on [65]
+ERROR HowardHughes-Prod : Runway NEWMARK 7029 mixed frontage - [Newmark Homes 70 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [65] generated from [65']
+ERROR HowardHughes-Prod : Runway CHESMAR,7043,7043 - Front in range [40] not sames as fits on [30]
+ERROR HowardHughes-Prod : Runway CHESMAR 7043 mixed frontage - [Chesmar Homes 40 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [30] generated from [28']
+ERROR HowardHughes-Prod : Runway CHESMAR,7053,7053 - Front in range [40] not sames as fits on [30]
+ERROR HowardHughes-Prod : Runway CHESMAR 7053 mixed frontage - [Chesmar Homes 40 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [30] generated from [28']
+WARN HowardHughes-Prod : Runway LENNAR - Design[Alabaster II] not equal Name[3765] setting to [Alabaster II]
+WARN HowardHughes-Prod : Runway COVENTRY - Design[Anson] not equal Name[5972] setting to [Anson]
+WARN HowardHughes-Prod : Runway COVENTRY - Design[Avery] not equal Name[5401] setting to [Avery]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B001 - Cloverstone] not equal Name[B001] setting to [B001 Cloverstone]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B002 - Penmark] not equal Name[B002] setting to [B002 Penmark]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B003 - Gladesdale,B003 - Front in range [40] not sames as fits on [45]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B003 - Gladesdale] not equal Name[B003] setting to [B003 Gladesdale]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B003 Gladesdale mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [45] generated from [45']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B004 - Baileywood,B004 - Front in range [40] not sames as fits on [45]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B004 - Baileywood] not equal Name[B004] setting to [B004 Baileywood]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B004 Baileywood mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [45] generated from [45']
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY,B006 - Woodworth,B006,David Weekley Homes 40 - The Woodlands Hills frontage 45 will be replaced by alias 45
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B006 - Woodworth,B006 - Front in range [40] not sames as fits on [45]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B006 - Woodworth] not equal Name[B006] setting to [B006 Woodworth]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B007 - Thornleigh,B007 - Front in range [40] not sames as fits on [45]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B007 - Thornleigh] not equal Name[B007] setting to [B007 Thornleigh]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B007 Thornleigh mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [45] generated from [45']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B009 - Brinwood,B009 - Front in range [40] not sames as fits on [45]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B009 - Brinwood] not equal Name[B009] setting to [B009 Brinwood]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B009 Brinwood mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [45] generated from [45']
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B030] not equal Name[Carnegie] setting to [B030]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B070 - Birkshire,B070 - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B070 - Birkshire] not equal Name[B070] setting to [B070 Birkshire]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B070 Birkshire mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [60] generated from [60']
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B085 - Courtland] not equal Name[The Courtland 50] setting to [B085 Courtland]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B100] not equal Name[Westlake] setting to [B100]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B109 - Bluffstone,B109 - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B109 - Bluffstone] not equal Name[B109] setting to [B109 Bluffstone]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B109 Bluffstone mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B548,B548,David Weekley Homes 50 - Bridgeland - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B548,B548,David Weekley Homes 50 - Bridgeland - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B548,B548 - Front in range [50] not sames as fits on []
+ERROR HowardHughes-Prod : Runway owner [DAVID WEEKLEY] name [B548] range [David Weekley Homes 50 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B548 mixed frontage - [David Weekley Homes 50 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B679 - Milburn,B679 - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B679 - Milburn] not equal Name[B679] setting to [B679 Milburn]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B679 Milburn mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B680,The Redfern - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B680] not equal Name[The Redfern] setting to [B680]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B680 mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B680 - Redfern,B680 - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B680 - Redfern] not equal Name[B680] setting to [B680 Redfern]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B680 Redfern mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,B682 - Brecken,B682 - Front in range [40] not sames as fits on [45]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[B682 - Brecken] not equal Name[B682] setting to [B682 Brecken]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY B682 Brecken mixed frontage - [David Weekley Homes 40 - The Woodlands Hills] [45] generated from [45']
+WARN HowardHughes-Prod : Runway TRI POINTE - Design[B811] not equal Name[VERONA] setting to [B811]
+WARN HowardHughes-Prod : Runway TRI POINTE - Design[B942] not equal Name[CASORIA] setting to [B942]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Barry,The Barry - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Barry] not equal Name[The Barry] setting to [Barry]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Barry mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway BEAZER - Design[Belissimo] not equal Name[T314] setting to [Belissimo]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Belville,4183 - Front in range [50] not sames as fits on [40]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Belville] not equal Name[4183] setting to [Belville]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Belville mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [40] generated from [42']
+WARN HowardHughes-Prod : Runway LENNAR - Design[Berkshire] not equal Name[5432] setting to [Berkshire]
+ERROR HowardHughes-Prod : Runway HIGHLAND,Bolton,Bolton - Front in range [25] not sames as fits on [20]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Brantley 50] not equal Name[The Brantley 50] setting to [Brantley]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Brantley 60,The Brantley 60 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Brantley 60] not equal Name[The Brantley 60] setting to [Brantley]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Brantley mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway M/I - Design[Brentwood] not equal Name[4312] setting to [Brentwood]
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Bristol] not equal Name[Bristol - Highland Homes] setting to [Bristol]
+WARN HowardHughes-Prod : Runway M/I - Design[Brunswick] not equal Name[4311] setting to [Brunswick]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Bynum,The Bynum - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Bynum] not equal Name[The Bynum] setting to [Bynum]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Bynum mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway COVENTRY - Design[Caddo Mills] not equal Name[5966] setting to [Caddo Mills]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[Capeside - 1977] not equal Name[1977] setting to [Capeside]
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Carlton] not equal Name[Carlton - Highland Homes] setting to [Carlton]
+ERROR HowardHughes-Prod : Runway WESTIN,Carter XL,56566 - Front in range [55] not sames as fits on [65]
+WARN HowardHughes-Prod : Runway WESTIN - Design[Carter XL] not equal Name[56566] setting to [Carter XL]
+ERROR HowardHughes-Prod : Runway WESTIN Carter XL mixed frontage - [Westin Homes 55 - The Woodlands Hills] [65] generated from [65']
+ERROR HowardHughes-Prod : Runway WESTIN,CarterVI56066,CarterV156066,Westin Homes 60 - frontage out of scope - [5] generated from [5']
+ERROR HowardHughes-Prod : Runway WESTIN,CarterVI56066,CarterV156066 - Front in range [60] not sames as fits on []
+WARN HowardHughes-Prod : Runway WESTIN - Design[CarterVI56066] not equal Name[CarterV156066] setting to [CarterVI56066]
+ERROR HowardHughes-Prod : Runway owner [WESTIN] name [CarterVI56066] range [Westin Homes 60 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway WESTIN CarterVI56066 mixed frontage - [Westin Homes 60 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from [5']
+ERROR HowardHughes-Prod : Runway HIGHLAND,Casey,Casey - Front in range [25] not sames as fits on [20]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Chatham] not equal Name[545N] setting to [Chatham]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Chrysanthemum] not equal Name[Chrysanthemum - 6424] setting to [Chrysanthemum]
+WARN HowardHughes-Prod : Runway BEAZER - Design[Cibola] not equal Name[T315] setting to [Cibola]
+WARN HowardHughes-Prod : Runway M/I - Design[Claremont] not equal Name[4313] setting to [Claremont]
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Corby] not equal Name[Corby - Highland Homes] setting to [Corby]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Courtland 60,The Courtland 60 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Courtland 60] not equal Name[The Courtland 60] setting to [Courtland]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Courtland mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Crowson 50] not equal Name[The Crowson 50] setting to [Crowson]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Crowson 60,The Crowson 60 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Crowson 60] not equal Name[The Crowson 60] setting to [Crowson]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Crowson mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway LENNAR - Design[Dahlia] not equal Name[Dahlia - 6434] setting to [Dahlia]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Danbridge 50] not equal Name[The Danbridge 50] setting to [Danbridge]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Edgeport 50] not equal Name[The Edgeport 50] setting to [Edgeport]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Edgeport 60,The Edgeport 60 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Edgeport 60] not equal Name[The Edgeport 60] setting to [Edgeport]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Edgeport mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Edmond,4882 - Front in range [40] not sames as fits on [50]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Edmond] not equal Name[4882] setting to [Edmond]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Edmond mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [50] generated from [50']
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Ellington] not equal Name[Ellington - Highland Homes] setting to [Ellington]
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Everleigh] not equal Name[Everleigh - Highland Homes] setting to [Everleigh]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[Fairview - 2054] not equal Name[2054] setting to [Fairview]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Fanning 60,The Fanning 60 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Fanning 60] not equal Name[The Fanning 60] setting to [Fanning]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Fanning mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway LENNAR - Design[Giallo II] not equal Name[373N] setting to [Giallo II]
+WARN HowardHughes-Prod : Runway BEAZER - Design[Grand Rouge] not equal Name[T316] setting to [Grand Rouge]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[Hawkins - 1907] not equal Name[1907] setting to [Hawkins]
+WARN HowardHughes-Prod : Runway COVENTRY - Design[Ingleside] not equal Name[5402] setting to [Ingleside]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Iris] not equal Name[Iris - 6484] setting to [Iris]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Jewel 60,The Jewel 60 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Jewel 60] not equal Name[The Jewel 60] setting to [Jewel]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Jewel mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway COVENTRY - Design[Justin] not equal Name[5397] setting to [Justin]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Kepley 50] not equal Name[The Kepley 50] setting to [Kepley]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Kepley 60,The Kepley 60 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Kepley 60] not equal Name[The Kepley 60] setting to [Kepley]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Kepley mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway CHESMAR,Lanai3093,Lanai3093,Chesmar Homes 45 - Bridgeland - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway CHESMAR,Lanai3093,Lanai3093,Chesmar Homes 45 - Bridgeland - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway CHESMAR,Lanai3093,Lanai3093 - Front in range [45] not sames as fits on []
+ERROR HowardHughes-Prod : Runway owner [CHESMAR] name [Lanai3093] range [Chesmar Homes 45 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway CHESMAR Lanai3093 mixed frontage - [Chesmar Homes 45 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+ERROR HowardHughes-Prod : Runway CHESMAR,Lorne,Lorne,Chesmar Homes 45 - Bridgeland - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway CHESMAR,Lorne,Lorne,Chesmar Homes 45 - Bridgeland - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway CHESMAR,Lorne,Lorne - Front in range [45] not sames as fits on []
+ERROR HowardHughes-Prod : Runway owner [CHESMAR] name [Lorne] range [Chesmar Homes 45 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway CHESMAR Lorne mixed frontage - [Chesmar Homes 45 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+WARN HowardHughes-Prod : Runway COVENTRY - Design[Lumberton] not equal Name[5971] setting to [Lumberton]
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Lyndhurst] not equal Name[Lyndhurst - Highland Homes] setting to [Lyndhurst]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Mayflower,The Mayflower - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Mayflower] not equal Name[The Mayflower] setting to [Mayflower]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Mayflower mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway BEAZER - Design[Messina] not equal Name[T317] setting to [Messina]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[Middleton - 3614] not equal Name[3614] setting to [Middleton]
+ERROR HowardHughes-Prod : Runway NEWMARK,Montague,Montague,Newmark Homes 45 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,Montague,Montague,Newmark Homes 45 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,Montague,Montague - Front in range [45] not sames as fits on []
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [Montague] range [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK Montague mixed frontage - [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,Montague,Montague,Newmark Homes 45 - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,Montague,Montague,Newmark Homes 45 - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway NEWMARK,Montague,Montague - Front in range [45] not sames as fits on []
+ERROR HowardHughes-Prod : Runway owner [NEWMARK] name [Montague] range [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway NEWMARK Montague mixed frontage - [Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+WARN HowardHughes-Prod : Runway duplicate owner+name+range+front key [NEWMARK^Montague][Newmark Homes 45 , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Montclair 50] not equal Name[The Montclair 50] setting to [Montclair]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Montclair 60,The Montclair 60 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Montclair 60] not equal Name[The Montclair 60] setting to [Montclair]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Montclair mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway LENNAR - Design[NewHaven II] not equal Name[5452] setting to [NewHaven II]
+WARN HowardHughes-Prod : Runway M/I - Design[Norfolk] not equal Name[4310] setting to [Norfolk]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Norwalk] not equal Name[5312] setting to [Norwalk]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[Oakdale - 1714] not equal Name[1714] setting to [Oakdale]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Onyx II] not equal Name[3725] setting to [Onyx II]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[Orlando] not equal Name[3604] setting to [Orlando]
+ERROR HowardHughes-Prod : Runway GEHAN,Palm,1970,Gehan Homes 55 - The Woodlands Hills - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway GEHAN,Palm,1970,Gehan Homes 55 - The Woodlands Hills - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway GEHAN,Palm,1970 - Front in range [55] not sames as fits on []
+WARN HowardHughes-Prod : Runway GEHAN - Design[Palm] not equal Name[1970] setting to [Palm]
+ERROR HowardHughes-Prod : Runway owner [GEHAN] name [Palm] range [Gehan Homes 55 - The Woodlands Hills] front [] - field empty
+ERROR HowardHughes-Prod : Runway GEHAN Palm mixed frontage - [Gehan Homes 55 - The Woodlands Hills] [] generated from []
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Parma,The Parma - Front in range [50] not sames as fits on [40]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Parma] not equal Name[The Parma] setting to [Parma]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Parma mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [40] generated from [42']
+WARN HowardHughes-Prod : Runway M/I - Design[Pinehurst] not equal Name[4007] setting to [Pinehurst]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Pinkley,4833 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Pinkley] not equal Name[4833] setting to [Pinkley]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Pinkley mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway LENNAR - Design[Poppy] not equal Name[Poppy - 6514] setting to [Poppy]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Preston] not equal Name[5491] setting to [Preston]
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Preston] not equal Name[Preston - Highland Homes] setting to [Preston]
+WARN HowardHughes-Prod : Runway WESTIN - Design[Preston III-56018] not equal Name[56018] setting to [Preston III-56018]
+ERROR HowardHughes-Prod : Runway WESTIN,Preston lll,56018,Westin Homes 55 - The Woodlands Hills - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway WESTIN,Preston lll,56018,Westin Homes 55 - The Woodlands Hills - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway WESTIN,Preston lll,56018 - Front in range [55] not sames as fits on []
+WARN HowardHughes-Prod : Runway WESTIN - Design[Preston lll] not equal Name[56018] setting to [Preston lll]
+ERROR HowardHughes-Prod : Runway owner [WESTIN] name [Preston lll] range [Westin Homes 55 - The Woodlands Hills] front [] - field empty
+ERROR HowardHughes-Prod : Runway WESTIN Preston lll mixed frontage - [Westin Homes 55 - The Woodlands Hills] [] generated from []
+WARN HowardHughes-Prod : Runway M/I - Design[Quincy] not equal Name[4309] setting to [Quincy]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Radford II] not equal Name[3796] setting to [Radford II]
+WARN HowardHughes-Prod : Runway BEAZER - Design[Reflection] not equal Name[T318] setting to [Reflection]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[Riverdale - 1817] not equal Name[1817] setting to [Riverdale]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Rocklin] not equal Name[5322] setting to [Rocklin]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Russo] not equal Name[3625] setting to [Russo]
+ERROR HowardHughes-Prod : Runway CHESMAR,Sawyer3583,Sawyer3583,Chesmar Homes 45 - Bridgeland - Bad front numeric convert- [] generated from []
+ERROR HowardHughes-Prod : Runway CHESMAR,Sawyer3583,Sawyer3583,Chesmar Homes 45 - Bridgeland - frontage out of scope - [0] generated from []
+ERROR HowardHughes-Prod : Runway CHESMAR,Sawyer3583,Sawyer3583 - Front in range [45] not sames as fits on []
+ERROR HowardHughes-Prod : Runway owner [CHESMAR] name [Sawyer3583] range [Chesmar Homes 45 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] front [] - field empty
+ERROR HowardHughes-Prod : Runway CHESMAR Sawyer3583 mixed frontage - [Chesmar Homes 45 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [] generated from []
+WARN HowardHughes-Prod : Runway BEAZER - Design[Serendipity] not equal Name[T319] setting to [Serendipity]
+WARN HowardHughes-Prod : Runway BEAZER - Design[Spicewood] not equal Name[T362] setting to [Spicewood]
+WARN HowardHughes-Prod : Runway CHESMAR - Design[Springfield - 1756] not equal Name[1756] setting to [Springfield]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Stellar,4836 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Stellar] not equal Name[4836] setting to [Stellar]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Stellar mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+WARN HowardHughes-Prod : Runway CHESMAR - Design[Storybrooke - 1474] not equal Name[1474] setting to [Storybrooke]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Terrazzo II] not equal Name[3755] setting to [Terrazzo II]
+WARN HowardHughes-Prod : Runway WESTIN - Design[The Bellagio II] not equal Name[Bellagio] setting to [The Bellagio II]
+WARN HowardHughes-Prod : Runway WESTIN - Design[The Hopkins] not equal Name[Hopkins] setting to [The Hopkins]
+WARN HowardHughes-Prod : Runway WESTIN - Design[The Preston III-56018] not equal Name[56018] setting to [The Preston III-56018]
+WARN HowardHughes-Prod : Runway WESTIN - Design[The Rowan] not equal Name[Rowan] setting to [The Rowan]
+WARN HowardHughes-Prod : Runway WESTIN - Design[The Sawyer II] not equal Name[Sawyer] setting to [The Sawyer II]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Travertine II] not equal Name[3735] setting to [Travertine II]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Violet] not equal Name[Violet - 6534] setting to [Violet]
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Wales] not equal Name[Wales - Highland Homes] setting to [Wales]
+WARN HowardHughes-Prod : Runway LENNAR - Design[Whitaker] not equal Name[5442] setting to [Whitaker]
+WARN HowardHughes-Prod : Runway COVENTRY - Design[Whitney] not equal Name[5960] setting to [Whitney]
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Windermere] not equal Name[Windermere - Highland Homes] setting to [Windermere]
+WARN HowardHughes-Prod : Runway HIGHLAND - Design[Windsor] not equal Name[Windsor - Highland Homes] setting to [Windsor]
+WARN HowardHughes-Prod : Runway BEAZER - Design[Woodrose] not equal Name[T363] setting to [Woodrose]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Wylie,4887 - Front in range [40] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Wylie] not equal Name[4887] setting to [Wylie]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Wylie mixed frontage - [David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Wylie 60,The Wylie 60 - Front in range [50] not sames as fits on [60]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Wylie 60] not equal Name[The Wylie 60] setting to [Wylie]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Wylie mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [60] generated from [60']
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY,Ziegler,4869 - Front in range [50] not sames as fits on [40]
+WARN HowardHughes-Prod : Runway DAVID WEEKLEY - Design[Ziegler] not equal Name[4869] setting to [Ziegler]
+ERROR HowardHughes-Prod : Runway DAVID WEEKLEY Ziegler mixed frontage - [David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village] [40] generated from [42']
+NOTE HowardHughes-Prod : Found 1031 lines in Runway HowardHughes-Prod.runway.planlist.csv, 405 are available status
+NOTE HowardHughes-Prod : Found 321 unique Runway Builder/Plan recs & 41 multi recs
 
-NOTE --- Processing builder --- Highland-Sandbrock from Highland-Sandbrock.latest.csv
+NOTE --- Processing builder --- David-WoodlandsHills from David-WoodlandsHills.latest.csv
 NOTE Using builder.field.map to map price, size etc
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Alpina~Plan Alpina^0^BasePrice] - traget[BasePrice] - val[386990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Alpina~Plan Alpina : builder[HIGHLAND] plan[ALPINA] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Alpina~Plan Alpina^0^BaseSqft] - traget[BaseSqft] - val[1599]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Maybach~Plan Maybach^1^BasePrice] - traget[BasePrice] - val[397990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Maybach~Plan Maybach : builder[HIGHLAND] plan[MAYBACH] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Maybach~Plan Maybach^1^BaseSqft] - traget[BaseSqft] - val[1782]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Bentley~Plan Bentley^2^BasePrice] - traget[BasePrice] - val[404990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Bentley~Plan Bentley : builder[HIGHLAND] plan[BENTLEY] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Bentley~Plan Bentley^2^BaseSqft] - traget[BaseSqft] - val[1944]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Royce~Plan Royce^3^BasePrice] - traget[BasePrice] - val[407990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Royce~Plan Royce : builder[HIGHLAND] plan[ROYCE] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Royce~Plan Royce^3^BaseSqft] - traget[BaseSqft] - val[1918]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Rover~Plan Rover^4^BasePrice] - traget[BasePrice] - val[407990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Rover~Plan Rover : builder[HIGHLAND] plan[ROVER] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Rover~Plan Rover^4^BaseSqft] - traget[BaseSqft] - val[1953]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Continental~Plan Continental^5^BasePrice] - traget[BasePrice] - val[436990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Continental~Plan Continental : builder[HIGHLAND] plan[CONTINENTAL] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Continental~Plan Continental^5^BaseSqft] - traget[BaseSqft] - val[2310]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Escalade~Plan Escalade^6^BasePrice] - traget[BasePrice] - val[438990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Escalade~Plan Escalade : builder[HIGHLAND] plan[ESCALADE] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Escalade~Plan Escalade^6^BaseSqft] - traget[BaseSqft] - val[2327]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan McLaren~Plan McLaren^7^BasePrice] - traget[BasePrice] - val[451990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan McLaren~Plan McLaren : builder[HIGHLAND] plan[MCLAREN] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan McLaren~Plan McLaren^7^BaseSqft] - traget[BaseSqft] - val[2486]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Ellington~Plan Ellington^8^BasePrice] - traget[BasePrice] - val[456990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Ellington~Plan Ellington : builder[HIGHLAND] plan[ELLINGTON] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Ellington~Plan Ellington^8^BaseSqft] - traget[BaseSqft] - val[2480]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Griffith~Plan Griffith^9^BasePrice] - traget[BasePrice] - val[465990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Griffith~Plan Griffith : builder[HIGHLAND] plan[GRIFFITH] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Griffith~Plan Griffith^9^BaseSqft] - traget[BaseSqft] - val[2613]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Lotus~Plan Lotus^10^BasePrice] - traget[BasePrice] - val[471990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Lotus~Plan Lotus : builder[HIGHLAND] plan[LOTUS] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Lotus~Plan Lotus^10^BaseSqft] - traget[BaseSqft] - val[2651]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Panamera~Plan Panamera^11^BasePrice] - traget[BasePrice] - val[474990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Panamera~Plan Panamera : builder[HIGHLAND] plan[PANAMERA] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Panamera~Plan Panamera^11^BaseSqft] - traget[BaseSqft] - val[2676]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Martin~Plan Martin^12^BasePrice] - traget[BasePrice] - val[474990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Martin~Plan Martin : builder[HIGHLAND] plan[MARTIN] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Martin~Plan Martin^12^BaseSqft] - traget[BaseSqft] - val[2685]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Aston~Plan Aston^13^BasePrice] - traget[BasePrice] - val[461208]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Aston~Plan Aston : builder[HIGHLAND] plan[ASTON] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Aston~Plan Aston^13^BaseSqft] - traget[BaseSqft] - val[1977]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Lyndhurst~Plan Lyndhurst^14^BasePrice] - traget[BasePrice] - val[512120]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Lyndhurst~Plan Lyndhurst : builder[HIGHLAND] plan[LYNDHURST] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Lyndhurst~Plan Lyndhurst^14^BaseSqft] - traget[BaseSqft] - val[2414]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Windermere~Plan Windermere^15^BasePrice] - traget[BasePrice] - val[499551]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Windermere~Plan Windermere : builder[HIGHLAND] plan[WINDERMERE] model/community[SANDBROCK RANCH  45]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 45ft. lots ^0^Plan Windermere~Plan Windermere^15^BaseSqft] - traget[BaseSqft] - val[2262]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Glenhurst~Plan Glenhurst^0^BasePrice] - traget[BasePrice] - val[463990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Glenhurst~Plan Glenhurst : builder[HIGHLAND] plan[GLENHURST] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Glenhurst~Plan Glenhurst^0^BaseSqft] - traget[BaseSqft] - val[1864]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Ashwood~Plan Ashwood^1^BasePrice] - traget[BasePrice] - val[471990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Ashwood~Plan Ashwood : builder[HIGHLAND] plan[ASHWOOD] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Ashwood~Plan Ashwood^1^BaseSqft] - traget[BaseSqft] - val[2133]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Amberley~Plan Amberley^2^BasePrice] - traget[BasePrice] - val[475990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Amberley~Plan Amberley : builder[HIGHLAND] plan[AMBERLEY] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Amberley~Plan Amberley^2^BaseSqft] - traget[BaseSqft] - val[2055]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Dorchester~Plan Dorchester^3^BasePrice] - traget[BasePrice] - val[476990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Dorchester~Plan Dorchester : builder[HIGHLAND] plan[DORCHESTER] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Dorchester~Plan Dorchester^3^BaseSqft] - traget[BaseSqft] - val[2240]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Denton~Plan Denton^4^BasePrice] - traget[BasePrice] - val[483990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Denton~Plan Denton : builder[HIGHLAND] plan[DENTON] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Denton~Plan Denton^4^BaseSqft] - traget[BaseSqft] - val[2263]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Davenport~Plan Davenport^5^BasePrice] - traget[BasePrice] - val[483990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Davenport~Plan Davenport : builder[HIGHLAND] plan[DAVENPORT] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Davenport~Plan Davenport^5^BaseSqft] - traget[BaseSqft] - val[2299]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Richmond~Plan Richmond^6^BasePrice] - traget[BasePrice] - val[517990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Richmond~Plan Richmond : builder[HIGHLAND] plan[RICHMOND] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Richmond~Plan Richmond^6^BaseSqft] - traget[BaseSqft] - val[2593]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Westbury~Plan Westbury^7^BasePrice] - traget[BasePrice] - val[520990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Westbury~Plan Westbury : builder[HIGHLAND] plan[WESTBURY] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Westbury~Plan Westbury^7^BaseSqft] - traget[BaseSqft] - val[2490]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Redford~Plan Redford^8^BasePrice] - traget[BasePrice] - val[538990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Redford~Plan Redford : builder[HIGHLAND] plan[REDFORD] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Redford~Plan Redford^8^BaseSqft] - traget[BaseSqft] - val[2765]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Wakefield~Plan Wakefield^9^BasePrice] - traget[BasePrice] - val[539990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Wakefield~Plan Wakefield : builder[HIGHLAND] plan[WAKEFIELD] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Wakefield~Plan Wakefield^9^BaseSqft] - traget[BaseSqft] - val[2843]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Cambridge~Plan Cambridge^10^BasePrice] - traget[BasePrice] - val[551990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Cambridge~Plan Cambridge : builder[HIGHLAND] plan[CAMBRIDGE] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Cambridge~Plan Cambridge^10^BaseSqft] - traget[BaseSqft] - val[2960]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Middleton~Plan Middleton^11^BasePrice] - traget[BasePrice] - val[552990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Middleton~Plan Middleton : builder[HIGHLAND] plan[MIDDLETON] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Middleton~Plan Middleton^11^BaseSqft] - traget[BaseSqft] - val[2788]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Waverley~Plan Waverley^12^BasePrice] - traget[BasePrice] - val[554990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Waverley~Plan Waverley : builder[HIGHLAND] plan[WAVERLEY] model/community[SANDBROCK RANCH  50]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 50ft. lots ^1^Plan Waverley~Plan Waverley^12^BaseSqft] - traget[BaseSqft] - val[2965]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 233~Plan 233^0^BasePrice] - traget[BasePrice] - val[581990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 233~Plan 233 : builder[HIGHLAND] plan[233] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 233~Plan 233^0^BaseSqft] - traget[BaseSqft] - val[2366]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 230~Plan 230^1^BasePrice] - traget[BasePrice] - val[583990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 230~Plan 230 : builder[HIGHLAND] plan[230] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 230~Plan 230^1^BaseSqft] - traget[BaseSqft] - val[2247]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 234~Plan 234^2^BasePrice] - traget[BasePrice] - val[599990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 234~Plan 234 : builder[HIGHLAND] plan[234] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 234~Plan 234^2^BaseSqft] - traget[BaseSqft] - val[2403]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 213~Plan 213^3^BasePrice] - traget[BasePrice] - val[613990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 213~Plan 213 : builder[HIGHLAND] plan[213] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 213~Plan 213^3^BaseSqft] - traget[BaseSqft] - val[2792]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 204~Plan 204^4^BasePrice] - traget[BasePrice] - val[616990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 204~Plan 204 : builder[HIGHLAND] plan[204] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 204~Plan 204^4^BaseSqft] - traget[BaseSqft] - val[2943]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 200~Plan 200^5^BasePrice] - traget[BasePrice] - val[619990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 200~Plan 200 : builder[HIGHLAND] plan[200] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 200~Plan 200^5^BaseSqft] - traget[BaseSqft] - val[2976]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 214~Plan 214^6^BasePrice] - traget[BasePrice] - val[622990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 214~Plan 214 : builder[HIGHLAND] plan[214] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 214~Plan 214^6^BaseSqft] - traget[BaseSqft] - val[2874]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 215~Plan 215^7^BasePrice] - traget[BasePrice] - val[630990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 215~Plan 215 : builder[HIGHLAND] plan[215] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 215~Plan 215^7^BaseSqft] - traget[BaseSqft] - val[2939]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 216~Plan 216^8^BasePrice] - traget[BasePrice] - val[632990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 216~Plan 216 : builder[HIGHLAND] plan[216] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 216~Plan 216^8^BaseSqft] - traget[BaseSqft] - val[2980]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 218~Plan 218^9^BasePrice] - traget[BasePrice] - val[634990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 218~Plan 218 : builder[HIGHLAND] plan[218] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 218~Plan 218^9^BaseSqft] - traget[BaseSqft] - val[2938]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 232~Plan 232^10^BasePrice] - traget[BasePrice] - val[638990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 232~Plan 232 : builder[HIGHLAND] plan[232] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 232~Plan 232^10^BaseSqft] - traget[BaseSqft] - val[2855]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 208~Plan 208^11^BasePrice] - traget[BasePrice] - val[681990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 208~Plan 208 : builder[HIGHLAND] plan[208] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 208~Plan 208^11^BaseSqft] - traget[BaseSqft] - val[3504]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 227~Plan 227^12^BasePrice] - traget[BasePrice] - val[690990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 227~Plan 227 : builder[HIGHLAND] plan[227] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 227~Plan 227^12^BaseSqft] - traget[BaseSqft] - val[3438]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 222~Plan 222^13^BasePrice] - traget[BasePrice] - val[694990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 222~Plan 222 : builder[HIGHLAND] plan[222] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 222~Plan 222^13^BaseSqft] - traget[BaseSqft] - val[3610]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 221~Plan 221^14^BasePrice] - traget[BasePrice] - val[697990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 221~Plan 221 : builder[HIGHLAND] plan[221] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 221~Plan 221^14^BaseSqft] - traget[BaseSqft] - val[3517]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 229~Plan 229^15^BasePrice] - traget[BasePrice] - val[709990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 229~Plan 229 : builder[HIGHLAND] plan[229] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 229~Plan 229^15^BaseSqft] - traget[BaseSqft] - val[3635]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 224~Plan 224^16^BasePrice] - traget[BasePrice] - val[710990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 224~Plan 224 : builder[HIGHLAND] plan[224] model/community[SANDBROCK RANCH  60]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 60ft. lots ^2^Plan 224~Plan 224^16^BaseSqft] - traget[BaseSqft] - val[3975]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 271~Plan 271^0^BasePrice] - traget[BasePrice] - val[653990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 271~Plan 271 : builder[HIGHLAND] plan[271] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 271~Plan 271^0^BaseSqft] - traget[BaseSqft] - val[2926]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 262~Plan 262^1^BasePrice] - traget[BasePrice] - val[658990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 262~Plan 262 : builder[HIGHLAND] plan[262] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 262~Plan 262^1^BaseSqft] - traget[BaseSqft] - val[3056]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 281~Plan 281^2^BasePrice] - traget[BasePrice] - val[679990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 281~Plan 281 : builder[HIGHLAND] plan[281] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 281~Plan 281^2^BaseSqft] - traget[BaseSqft] - val[2682]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 272~Plan 272^3^BasePrice] - traget[BasePrice] - val[671990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 272~Plan 272 : builder[HIGHLAND] plan[272] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 272~Plan 272^3^BaseSqft] - traget[BaseSqft] - val[3104]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 282~Plan 282^4^BasePrice] - traget[BasePrice] - val[680990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 282~Plan 282 : builder[HIGHLAND] plan[282] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 282~Plan 282^4^BaseSqft] - traget[BaseSqft] - val[2929]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 291~Plan 291^5^BasePrice] - traget[BasePrice] - val[685990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 291~Plan 291 : builder[HIGHLAND] plan[291] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 291~Plan 291^5^BaseSqft] - traget[BaseSqft] - val[3243]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 294~Plan 294^6^BasePrice] - traget[BasePrice] - val[703990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 294~Plan 294 : builder[HIGHLAND] plan[294] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 294~Plan 294^6^BaseSqft] - traget[BaseSqft] - val[3597]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 283~Plan 283^7^BasePrice] - traget[BasePrice] - val[705990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 283~Plan 283 : builder[HIGHLAND] plan[283] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 283~Plan 283^7^BaseSqft] - traget[BaseSqft] - val[3208]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 274~Plan 274^8^BasePrice] - traget[BasePrice] - val[714990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 274~Plan 274 : builder[HIGHLAND] plan[274] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 274~Plan 274^8^BaseSqft] - traget[BaseSqft] - val[3629]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 278~Plan 278^9^BasePrice] - traget[BasePrice] - val[722990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 278~Plan 278 : builder[HIGHLAND] plan[278] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 278~Plan 278^9^BaseSqft] - traget[BaseSqft] - val[3513]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 292~Plan 292^10^BasePrice] - traget[BasePrice] - val[728990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 292~Plan 292 : builder[HIGHLAND] plan[292] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 292~Plan 292^10^BaseSqft] - traget[BaseSqft] - val[3499]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 279~Plan 279^11^BasePrice] - traget[BasePrice] - val[762990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 279~Plan 279 : builder[HIGHLAND] plan[279] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 279~Plan 279^11^BaseSqft] - traget[BaseSqft] - val[3797]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 296~Plan 296^12^BasePrice] - traget[BasePrice] - val[769990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 296~Plan 296 : builder[HIGHLAND] plan[296] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 296~Plan 296^12^BaseSqft] - traget[BaseSqft] - val[3786]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 297~Plan 297^13^BasePrice] - traget[BasePrice] - val[772990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 297~Plan 297 : builder[HIGHLAND] plan[297] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 297~Plan 297^13^BaseSqft] - traget[BaseSqft] - val[3665]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 289~Plan 289^14^BasePrice] - traget[BasePrice] - val[801990]
-DEBUG Using CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 289~Plan 289 : builder[HIGHLAND] plan[289] model/community[SANDBROCK RANCH  70]
-DEBUG: Try Builder [CORPHIGHLAND^Highland^Sandbrock Ranch: 70ft. lots ^3^Plan 289~Plan 289^14^BaseSqft] - traget[BaseSqft] - val[3928]
-SUMMARY Builder Matrix from Highland-Sandbrock.latest.csv done at 4323. Got 62 Keys, 0 OverRide, 122 data pairs 
-MAYBE: Hillwood-Prod Runway Model [45 WOLF RANCH] Builder Model [ SANDBROCK RANCH  45 ] match? Plan BENTLEY & Builder HIGHLAND do match.
-DEBUG Miss Model R[45 WOLF RANCH] == B[SANDBROCK RANCH  45] Plan R[BENTLEY] == B[BENTLEY] r_plan_cnt=1 b_plan_cnt=1 model status=ok
-MAYBE: Hillwood-Prod Runway Model [45 WOLF RANCH] Builder Model [ SANDBROCK RANCH  45 ] match? Plan ROYCE & Builder HIGHLAND do match.
-DEBUG Miss Model R[45 WOLF RANCH] == B[SANDBROCK RANCH  45] Plan R[ROYCE] == B[ROYCE] r_plan_cnt=1 b_plan_cnt=1 model status=ok
-MAYBE: Hillwood-Prod Runway Model [45 WOLF RANCH] Builder Model [ SANDBROCK RANCH  45 ] match? Plan ROVER & Builder HIGHLAND do match.
-DEBUG Miss Model R[45 WOLF RANCH] == B[SANDBROCK RANCH  45] Plan R[ROVER] == B[ROVER] r_plan_cnt=1 b_plan_cnt=1 model status=ok
-MAYBE: Hillwood-Prod Runway Model [45 WOLF RANCH] Builder Model [ SANDBROCK RANCH  45 ] match? Plan ELLINGTON & Builder HIGHLAND do match.
-DEBUG Miss Model R[45 WOLF RANCH] == B[SANDBROCK RANCH  45] Plan R[ELLINGTON] == B[ELLINGTON] r_plan_cnt=1 b_plan_cnt=1 model status=ok
-MAYBE: Hillwood-Prod Runway Model [45 WOLF RANCH] Builder Model [ SANDBROCK RANCH  45 ] match? Plan ASTON & Builder HIGHLAND do match.
-DEBUG Miss Model R[45 WOLF RANCH] == B[SANDBROCK RANCH  45] Plan R[ASTON] == B[ASTON] r_plan_cnt=1 b_plan_cnt=1 model status=ok
-MAYBE: Hillwood-Prod Runway Model [45 WOLF RANCH] Builder Model [ SANDBROCK RANCH  45 ] match? Plan LYNDHURST & Builder HIGHLAND do match.
-DEBUG Miss Model R[45 WOLF RANCH] == B[SANDBROCK RANCH  45] Plan R[LYNDHURST] == B[LYNDHURST] r_plan_cnt=1 b_plan_cnt=1 model status=ok
-MAYBE: Hillwood-Prod Runway Model [45 WOLF RANCH] Builder Model [ SANDBROCK RANCH  45 ] match? Plan WINDERMERE & Builder HIGHLAND do match.
-DEBUG Miss Model R[45 WOLF RANCH] == B[SANDBROCK RANCH  45] Plan R[WINDERMERE] == B[WINDERMERE] r_plan_cnt=1 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[GLENHURST] == B[GLENHURST] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[GLENHURST] == B[GLENHURST] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[ASHWOOD] == B[ASHWOOD] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[ASHWOOD] == B[ASHWOOD] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[AMBERLEY] == B[AMBERLEY] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[AMBERLEY] == B[AMBERLEY] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[DORCHESTER] == B[DORCHESTER] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[DORCHESTER] == B[DORCHESTER] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 UNION PARK] == B[SANDBROCK RANCH  50] Plan R[DORCHESTER] == B[DORCHESTER] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[DENTON] == B[DENTON] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[DENTON] == B[DENTON] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 UNION PARK] == B[SANDBROCK RANCH  50] Plan R[DENTON] == B[DENTON] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[DAVENPORT] == B[DAVENPORT] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 UNION PARK] == B[SANDBROCK RANCH  50] Plan R[DAVENPORT] == B[DAVENPORT] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[DAVENPORT] == B[DAVENPORT] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[RICHMOND] == B[RICHMOND] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[RICHMOND] == B[RICHMOND] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 UNION PARK] == B[SANDBROCK RANCH  50] Plan R[RICHMOND] == B[RICHMOND] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 UNION PARK] == B[SANDBROCK RANCH  50] Plan R[WESTBURY] == B[WESTBURY] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[WESTBURY] == B[WESTBURY] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[WESTBURY] == B[WESTBURY] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[REDFORD] == B[REDFORD] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 UNION PARK] == B[SANDBROCK RANCH  50] Plan R[REDFORD] == B[REDFORD] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[REDFORD] == B[REDFORD] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[WAKEFIELD] == B[WAKEFIELD] r_plan_cnt=1 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[CAMBRIDGE] == B[CAMBRIDGE] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 UNION PARK] == B[SANDBROCK RANCH  50] Plan R[CAMBRIDGE] == B[CAMBRIDGE] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 POMONA] == B[SANDBROCK RANCH  50] Plan R[MIDDLETON] == B[MIDDLETON] r_plan_cnt=5 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[MIDDLETON] == B[MIDDLETON] r_plan_cnt=5 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 UNION PARK] == B[SANDBROCK RANCH  50] Plan R[MIDDLETON] == B[MIDDLETON] r_plan_cnt=5 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 LIBERTY] == B[SANDBROCK RANCH  50] Plan R[MIDDLETON] == B[MIDDLETON] r_plan_cnt=5 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 LILYANA] == B[SANDBROCK RANCH  50] Plan R[MIDDLETON] == B[MIDDLETON] r_plan_cnt=5 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 HARVEST MEADOWS] == B[SANDBROCK RANCH  50] Plan R[WAVERLEY] == B[WAVERLEY] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[50 UNION PARK] == B[SANDBROCK RANCH  50] Plan R[WAVERLEY] == B[WAVERLEY] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[234] == B[234] r_plan_cnt=1 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[213] == B[213] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[213] == B[213] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 UNION PARK] == B[SANDBROCK RANCH  60] Plan R[213] == B[213] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[213] == B[213] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[204] == B[204] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[204] == B[204] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 UNION PARK] == B[SANDBROCK RANCH  60] Plan R[204] == B[204] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[204] == B[204] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[200] == B[200] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 UNION PARK] == B[SANDBROCK RANCH  60] Plan R[200] == B[200] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[200] == B[200] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[200] == B[200] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[214] == B[214] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[214] == B[214] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[214] == B[214] r_plan_cnt=3 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[215] == B[215] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[215] == B[215] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 UNION PARK] == B[SANDBROCK RANCH  60] Plan R[215] == B[215] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[215] == B[215] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[216] == B[216] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 UNION PARK] == B[SANDBROCK RANCH  60] Plan R[216] == B[216] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[216] == B[216] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[216] == B[216] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 POMONA] == B[SANDBROCK RANCH  60] Plan R[232] == B[232] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[232] == B[232] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[208] == B[208] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 UNION PARK] == B[SANDBROCK RANCH  60] Plan R[208] == B[208] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[208] == B[208] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[208] == B[208] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[227] == B[227] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 POMONA] == B[SANDBROCK RANCH  60] Plan R[227] == B[227] r_plan_cnt=2 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[222] == B[222] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 UNION PARK] == B[SANDBROCK RANCH  60] Plan R[222] == B[222] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[222] == B[222] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[222] == B[222] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 UNION PARK] == B[SANDBROCK RANCH  60] Plan R[221] == B[221] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[221] == B[221] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[221] == B[221] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[221] == B[221] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60FT LOTS HARVEST 60] == B[SANDBROCK RANCH  60] Plan R[224] == B[224] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[60 UNION PARK] == B[SANDBROCK RANCH  60] Plan R[224] == B[224] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[65 POMONA] == B[SANDBROCK RANCH  60] Plan R[224] == B[224] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-DEBUG Miss Model R[POMONA 60 LOTS 65] == B[SANDBROCK RANCH  60] Plan R[224] == B[224] r_plan_cnt=4 b_plan_cnt=1 model status=ok
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [DR HORTON] has 12 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [PERRY] has 108 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [HIGHLAND] has 83 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [TRI POINTE] has 18 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [COVENTRY] has 105 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [DAVID WEEKLEY] has 40 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [DEL WEBB] has 9 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [TOLL BROTHERS] has 25 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [LENNAR] has 9 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [TAYLOR MORRISON] has 5 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [CB JENI] has 7 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [ASHTON WOODS] has 7 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [DREES CUSTOM] has 34 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [BLOOMFIELD] has 24 recs
-COUNTS: Hillwood-Prod, Highland-Sandbrock - Runway Builder  [BEAZER] has 7 recs
-COUNTS:: Hillwood-Prod, Highland-Sandbrock - Builder Builder [HIGHLAND] has 61 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [200] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [204] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [206] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [208] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [212] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [213] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [214] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [215] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [216] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [217] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [220] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [221] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [222] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [223] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [224] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [227] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [227M] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [232] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [234] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [235] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [242] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [245H] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [246H] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [247H] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [248H] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [250] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [500] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [501] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [502] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [503] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [504] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [505] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [506] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [510] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [511] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [512] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [513] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [539] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [559H] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [568] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [569] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [AMBERLEY] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [ASHWOOD] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [ASTON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [BAILEY] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [BELMONT] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [BENTLEY] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [CAMBRIDGE] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [CAMDEN] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [CARLTON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [CORBY] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [COTSWOLD] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [DAVENPORT] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [DENTON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [DEVON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [DORCHESTER] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [ELLINGTON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [EVERLEIGH] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [FERRYHILL] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [GLENHURST] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [GRANTHAM] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [GREYTON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [HILTON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [KIMBERLEY] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [KINGSTON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [LYNDHURST] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [LYNNWOOD] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [MERRIVAL] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [MERRIVALE] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [MIDDLETON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [NEWPORT] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [REDFORD] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [RICHMOND] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [ROVER] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [ROYCE] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [STRATFORD] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [WAKEFIELD] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [WALES] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [WARRENTON] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [WAVERLEY] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [WESTBURY] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [WINDERMERE] has 1 recs
-COUNTS::: Hillwood-Prod, Highland-Sandbrock - Runway Plan [WINDSOR] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [ALPINA] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [MAYBACH] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [BENTLEY] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [ROYCE] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [ROVER] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [CONTINENTAL] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [ESCALADE] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [MCLAREN] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [ELLINGTON] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [GRIFFITH] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [LOTUS] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [PANAMERA] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [MARTIN] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [ASTON] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [LYNDHURST] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [WINDERMERE] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [GLENHURST] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [ASHWOOD] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [AMBERLEY] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [DORCHESTER] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [DENTON] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [DAVENPORT] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [RICHMOND] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [WESTBURY] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [REDFORD] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [WAKEFIELD] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [CAMBRIDGE] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [MIDDLETON] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [WAVERLEY] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [233] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [230] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [234] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [213] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [204] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [200] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [214] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [215] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [216] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [218] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [232] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [208] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [227] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [222] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [221] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [229] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [224] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [271] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [262] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [281] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [272] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [282] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [291] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [294] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [283] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [274] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [278] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [292] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [279] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [296] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [297] has 1 recs
-COUNTS:::: Hillwood-Prod, Highland-Sandbrock - Builder Plan [289] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [45 WOLF RANCH] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [50 POMONA] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [50 HARVEST MEADOWS] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [50 UNION PARK] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [50 LIBERTY] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [50 LILYANA] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [65 POMONA] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [60FT LOTS HARVEST 60] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [60 UNION PARK] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [POMONA 60 LOTS 65] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Runway Model MATCH [60 POMONA] has 1 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Builder Model [SANDBROCK RANCH  45] has 16 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Builder Model [SANDBROCK RANCH  50] has 13 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Builder Model [SANDBROCK RANCH  60] has 17 recs
-SUMMARY: Hillwood-Prod, Highland-Sandbrock - Builder Model [SANDBROCK RANCH  70] has 15 recs
-NOTE Compare complete. Matches are: builder=5063 plans=33 models=0
+NOTE target data is [BasePrice]
+NOTE target data is [BaseSqft]
+SUMMARY Builder Matrix from David-WoodlandsHills.latest.csv done at 830. Got 18 Keys, 0 OverRide, 34 data pairs 
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 45 ] match? Plan B001 CLOVERSTONE & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 45 ] match? Plan B002 PENMARK & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 45 ] match? Plan B003 GLADESDALE & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 45 ] match? Plan B004 BAILEYWOOD & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 45 ] match? Plan B682 BRECKEN & Builder DAVID WEEKLEY do match.
+NOTE Hit! Price-Match Size-Match: B[DAVID WEEKLEY][B006 WOODWORTH][THE WOODLANDS HILLS 45] R[DAVID WEEKLEY][B006 WOODWORTH][40 THE WOODLANDS HILLS 45] cnt=1 B=$339990 R=$339990 PriceGap=0 Bsiz=2298 Rsiz=2219.0
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 45 ] match? Plan B007 THORNLEIGH & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 45 ] match? Plan B009 BRINWOOD & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 60 ] match? Plan WARE & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 60 ] match? Plan BYNUM & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 60 ] match? Plan B679 MILBURN & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 60 ] match? Plan B070 BIRKSHIRE & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 60 ] match? Plan B109 BLUFFSTONE & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 60 ] match? Plan BLANCO & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 60 ] match? Plan B680 REDFERN & Builder DAVID WEEKLEY do match.
+MAYBE: HowardHughes-Prod Runway Model [40 THE WOODLANDS HILLS] Builder Model [ THE WOODLANDS HILLS 60 ] match? Plan HILLMONT & Builder DAVID WEEKLEY do match.
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [NEWMARK] has 22 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [CENTURY COMMUNITIES] has 9 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [PERRY] has 58 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [GEHAN] has 8 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [HIGHLAND] has 48 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [DAVID WEEKLEY] has 59 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [RAVENNA] has 13 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [CHESMAR] has 40 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [TAYLOR MORRISON] has 10 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [COVENTRY] has 8 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [WESTIN] has 38 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [LENNAR] has 19 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [BEAZER] has 16 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [TRI POINTE] has 2 recs
+COUNTS: HowardHughes-Prod, David-WoodlandsHills - Runway Builder  [M/I] has 12 recs
+COUNTS:: HowardHughes-Prod, David-WoodlandsHills - Builder Builder [DAVID WEEKLEY] has 17 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [VANNER] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [ALFORD] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BRADEN] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [ARDELL] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [JEWEL] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [THE CONNELLY] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [FANNING] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [ABNEY] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BENEFIELD] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [EDMOND] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BOOKER] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [ANDERS] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [ENTERPRISE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [WYLIE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [PARMA] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [5966] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [6048] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BYNUM] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BLANCO] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [6061] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [FOXMAN] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [WARE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BINGHAM] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BRENTON] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [THOMASVILLE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BURBERRY] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [HILLMONT] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B001 CLOVERSTONE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B002 PENMARK] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B003 GLADESDALE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B004 BAILEYWOOD] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B006 WOODWORTH] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B007 THORNLEIGH] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B009 BRINWOOD] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B030] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B070 BIRKSHIRE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B085 COURTLAND] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B100] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B109 BLUFFSTONE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B546] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B548] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B679 MILBURN] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B680] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B680 REDFERN] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [B682 BRECKEN] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BARRY] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BECKLEY-2165] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BELVILLE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [BRANTLEY] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [COURTLAND] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [CROWSON] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [DANBRIDGE] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [EDGEPORT] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [KEPLEY] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [MAYFLOWER] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [MONTCLAIR] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [PINKLEY] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [STELLAR] has 1 recs
+COUNTS::: HowardHughes-Prod, David-WoodlandsHills - Runway Plan [ZIEGLER] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B001 CLOVERSTONE] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B002 PENMARK] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B003 GLADESDALE] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B004 BAILEYWOOD] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B682 BRECKEN] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B006 WOODWORTH] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B007 THORNLEIGH] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B009 BRINWOOD] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [6080 WARE] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [6048 BYNUM] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B178 BLUFFWOOD] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B679 MILBURN] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B070 BIRKSHIRE] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B109 BLUFFSTONE] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [6049 BLANCO] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [B680 REDFERN] has 1 recs
+COUNTS:::: HowardHughes-Prod, David-WoodlandsHills - Builder Plan [6684 HILLMONT] has 1 recs
+COUNTS::::: HowardHughes-Prod, David-WoodlandsHills - Runway Model MATCH [40 THE WOODLANDS HILLS] has 1 recs
+COUNTS::::: HowardHughes-Prod, David-WoodlandsHills - Runway Model MATCH [40 THE WOODLANDS HILLS 45] has 1 recs
+COUNTS::::: HowardHughes-Prod, David-WoodlandsHills - Runway Model MATCH [40 PRAIRIELAND VILLAGE BRIDGELAND CENTRAL DEFAULT CREEKLAND LAKELAND PARKLAND] has 1 recs
+COUNTS::::: HowardHughes-Prod, David-WoodlandsHills - Runway Model MATCH [50 PARKLAND ROW BRIDGELAND CENTRAL DEFAULT VILLAGE CREEKLAND LAKELAND PRAIRIELAND] has 1 recs
+COUNTS:::::: HowardHughes-Prod, David-WoodlandsHills - Builder Model [THE WOODLANDS HILLS 45] has 8 recs
+COUNTS:::::: HowardHughes-Prod, David-WoodlandsHills - Builder Model [THE WOODLANDS HILLS 60] has 9 recs
+SUMMARY: Compare complete. Matches are: builder=1003 plans=18 models=0
 
-NOTE --- Sending results to Hillwood-Prod.match.csv ---
+NOTE --- Sending results to HowardHughes-Prod.match.csv ---
+NOTE For DAVID WEEKLEY matches=1 misses=70 miss-list--->
+Missed: DAVID WEEKLEY^Vanner:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^Alford:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^Braden:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^Ardell:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^Jewel:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^Jewel:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^The Connelly:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^Fanning:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^Fanning:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Abney:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^Benefield:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^Edmond:David Weekley Homes 35 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^35
+Missed: DAVID WEEKLEY^Edmond:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^Booker:David Weekley Homes 35 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^35
+Missed: DAVID WEEKLEY^Anders:David Weekley Homes 35 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^35
+Missed: DAVID WEEKLEY^Enterprise:David Weekley Homes 35 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^35
+Missed: DAVID WEEKLEY^Wylie:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^Wylie:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^Wylie:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Parma:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^Parma:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^5966:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^6048:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^Bynum:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^Bynum:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Blanco:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^6061:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^Foxman:David Weekley Homes 35 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^35
+Missed: DAVID WEEKLEY^Ware:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^Bingham:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^Brenton:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^Thomasville:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^Burberry:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^Hillmont:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^B001 Cloverstone:David Weekley Homes 40 - The Woodlands Hills^40
+Missed: DAVID WEEKLEY^B002 Penmark:David Weekley Homes 40 - The Woodlands Hills^40
+Missed: DAVID WEEKLEY^B003 Gladesdale:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^B004 Baileywood:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^B007 Thornleigh:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^B009 Brinwood:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^B030:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^B070 Birkshire:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^B085 Courtland:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^B100:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^B109 Bluffstone:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^B546:David Weekley Homes 50 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^B548:David Weekley Homes 50 - Bridgeland , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^B679 Milburn:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^B680:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village
+Missed: DAVID WEEKLEY^B680 Redfern:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^B682 Brecken:David Weekley Homes 40 - The Woodlands Hills
+Missed: DAVID WEEKLEY^Barry:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Beckley-2165:David Weekley Homes 40 - Prairieland Village , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village^40
+Missed: DAVID WEEKLEY^Belville:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Brantley:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^Brantley:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Courtland:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Crowson:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^Crowson:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Danbridge:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^Edgeport:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^Edgeport:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Kepley:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^Kepley:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Mayflower:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Montclair:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village^50
+Missed: DAVID WEEKLEY^Montclair:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Pinkley:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Stellar:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+Missed: DAVID WEEKLEY^Ziegler:David Weekley Homes 50 - Parkland Row , Bridgeland Central , Bridgeland Default Village , Creekland Village , Lakeland Village , Parkland Village , Prairieland Village
+--end for DAVID WEEKLEY

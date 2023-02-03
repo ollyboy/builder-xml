@@ -16,8 +16,7 @@ ini_set('memory_limit', '512M');
 Perry Homes^50' | Pecan Square 50
 */
 
-include "builder_xml_keys.php";  // get the positions in the XML for keys 
-include "clean_builder.php"; // filter out junk from builder name
+include "builder_xml_keys.php";
 
 $runwaySource = get_support_barLin ( "runway.source" ); // get developers
 if ( sizeof( $runwaySource ) == 0 ) {
@@ -115,7 +114,6 @@ foreach ( $runwaySource as $runwayScope ) {
     } else {
        $fieldMap =  "builder.field.map"; 
     }
-    $mapArr = array();
     $mapArr = adj_map ( $fieldMap ); // get the field-map, rotate to useful format
     if ( !is_array( $mapArr ) || count($mapArr) == 0 ) {
       print ( "ERROR No $fieldMap or it's empty\n");
@@ -123,7 +121,6 @@ foreach ( $runwaySource as $runwayScope ) {
     } else {
       print ( "NOTE Using $fieldMap to map price, size etc\n");
     }
-    foreach ( $mapArr as $k22 => $v22 ) { print ( "NOTE target data is [$k22]\n"); }
 
     $builderData=array(); $priority=array(); $buildPlanCnt=array(); // reset these
 
@@ -613,16 +610,13 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
         $csv_key = rtrim ( $csv_key, "^" ); // get rid of all trailing ^ chars
    	    $target = $line[15]; // tag from XML
    	    $val = $line[16];    // value of tag from XML
-        if ( $debugModeArgv ) {
-          //print ( "DEBUG: Try Builder [$csv_key] - target[$target] - val[$val]\n");
-        }
-        //
+
    	    //process the record
         //
         if ( isset ( $mapArr[$target] ) ) { // Only if its a tag we are looking for
 
           if ( $debugModeArgv ) {
-            print ( "DEBUG: Good Target [$target] - val[$val] -key[$csv_key]\n");
+            print ( "DEBUG: Try Builder [$csv_key] - traget[$target] - val[$val]\n");
           }
 
           // different builder feeds
@@ -642,7 +636,7 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
 
           // get matching key data
           $b_pos = 0; $m_pos = 0; $p_pos = 0; $key_len =0; $corp=0;
-          get_xml_key_position ( $corp, $b_pos, $m_pos , $p_pos, $key_len, $latestCsv , "any" ); // last position is tag, see builder_xml_keys.php
+          get_xml_key_position ( $corp, $b_pos, $m_pos , $p_pos, $key_len, $latestCsv , "" );
           $tmp = explode ( "^", $csv_key);
 
           // Now create a safe key ( ie BaseSqft at end of key will cause problems in duplicactes)
@@ -652,9 +646,9 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
 
           // Continue if all good with key positions
           
-          if ( $key_len == 0 ) {
+          if ( $b_pos == 0 ||  $m_pos == 0 || $p_pos == 0 ) {
             if ( $debugModeArgv ) {
-              print ( "DEBUG ERROR $latestCsv Cant process builder key [$key] from [$csv_key]\n"); 
+              print ( "DEBUG ERROR $latestCsv Cant process builder key [$key]\n"); 
               }
           } else {
 
@@ -671,9 +665,25 @@ function build_maxtix_from_csv ( $latestCsv , $mapArr , &$matrix , &$priority , 
               $b_plan = trim( str_replace ( "PLAN", "" , $b_plan ));
               //
               $b_plan = trim ( get_unique_words ( $b_plan)); 
-              
-              // moved to function stuff like $b_model = str_replace ( " LOTS", "" , $b_model );
-              $b_model = clean_builder_model ( $tmp[ $m_pos ] );
+
+              $b_model = str_replace ( "FT.", "" , strtoupper ($tmp[ $m_pos ] ));
+              $b_model = str_replace ( " LOTS", "" , $b_model );
+              $b_model = str_replace ( "TOLL BROTHERS AT" , "" , $b_model );
+              $b_model = str_replace ( " GARDENS" , "" , $b_model );
+              $b_model = str_replace ( "EXECUTIVE COLLECTION" , "" , $b_model );
+              $b_model = str_replace ( "HOMESITES" , "" , $b_model );
+              $b_model = str_replace ( " (WALLER ISD)" , "" , $b_model );
+
+              // nasty taylor Morrison hack
+              $b_model = str_replace ( " 40S", " 40" , $b_model );
+              $b_model = str_replace ( " 45S", " 45" , $b_model );
+              $b_model = str_replace ( " 50S", " 50" , $b_model );
+              $b_model = str_replace ( " 55S", " 55" , $b_model );
+              $b_model = str_replace ( " 60S", " 60" , $b_model );
+              $b_model = str_replace ( " 65S", " 65" , $b_model );
+              $b_model = str_replace ( " 70S", " 70" , $b_model );
+              $b_model = str_replace ( " 74S", " 75" , $b_model );
+              $b_model = str_replace ( " 80S", " 80" , $b_model );
               //
               $b_model = trim ( get_unique_words ( $b_model)); 
               // get rid of "feet" and words like plan, convert numbers to nearest 5 
@@ -1038,13 +1048,13 @@ foreach ( $b_plan_list as $k => $v ) print   ( "COUNTS:::: $devName, $buildName 
 //print ( "--Model Summary--\n");
 if ( count( $r_model_good) == 0 && count ( $r_model_unusable ) == 0 ) { print ( "SUMMARY: $devName, $buildName - No Runway models checked as no builder and plans matched\n"); }
 else {
-  foreach ( $r_model_good as $k => $v ) print   ( "COUNTS::::: $devName, $buildName - Runway Model MATCH [$k] has $v recs\n");
-  foreach ( $r_model_unusable as $k => $v ) print   ( "COUNTS::::: $devName, $buildName - Runway Model POOR [$k] has $v recs\n");
+  foreach ( $r_model_good as $k => $v ) print   ( "SUMMARY: $devName, $buildName - Runway Model MATCH [$k] has $v recs\n");
+  foreach ( $r_model_unusable as $k => $v ) print   ( "SUMMARY: $devName, $buildName - Runway Model POOR [$k] has $v recs\n");
   //print ( "..\n");
-  foreach ( $b_model_list as $k => $v ) print   ( "COUNTS:::::: $devName, $buildName - Builder Model [$k] has $v recs\n");
+  foreach ( $b_model_list as $k => $v ) print   ( "SUMMARY: $devName, $buildName - Builder Model [$k] has $v recs\n");
 }
 
-print ( "SUMMARY: Compare complete. Matches are: builder=$hit_b_cnt plans=$hit_p_cnt models=$hit_m_cnt\n");
+print ( "NOTE Compare complete. Matches are: builder=$hit_b_cnt plans=$hit_p_cnt models=$hit_m_cnt\n");
 return (1);
 }
 

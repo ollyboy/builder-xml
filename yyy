@@ -1,6 +1,79 @@
-ERROR https://r6api.runwayproptech.com/runwaywsrest/crmapi/companysummary/list?clientid=730253786 - No response
-ERROR HorizonDeerCreek-Prod - url https://r6api.runwayproptech.com/runwaywsrest/crmapi/companysummary/list?clientid=730253786 no result
-ERROR https://r6api.runwayproptech.com/runwaywsrest/crmapi/companysummary/list?clientid=363312264 - No response
-ERROR Hillwood-Prod - url https://r6api.runwayproptech.com/runwaywsrest/crmapi/companysummary/list?clientid=363312264 no result
-ERROR https://r6api.runwayproptech.com/runwaywsrest/crmapi/companysummary/list?clientid=760217385 - No response
-ERROR HowardHughes-Prod - url https://r6api.runwayproptech.com/runwaywsrest/crmapi/companysummary/list?clientid=760217385 no result
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [NEWMARK] has 22 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [CENTURY COMMUNITIES] has 9 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [PERRY] has 58 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [GEHAN] has 8 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [HIGHLAND] has 48 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [DAVID WEEKLEY] has 59 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [RAVENNA] has 13 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [CHESMAR] has 40 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [TAYLOR MORRISON] has 10 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [COVENTRY] has 8 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [WESTIN] has 38 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [LENNAR] has 19 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [BEAZER] has 16 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [TRI POINTE] has 2 recs
+COUNTS: HowardHughes-Prod, Ravenna - Runway Builder  [M/I] has 12 recs
+COUNTS:: HowardHughes-Prod, Ravenna - Builder Builder [RAVENNA] has 99 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [2688] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [2855] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [2870] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [2909] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [3030] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [3049] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [3068] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [3326] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [3358] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [3546] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [3663] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [3798] has 1 recs
+COUNTS::: HowardHughes-Prod, Ravenna - Runway Plan [3799] has 1 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [1990] has 1 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2349] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2406] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2440] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2464] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2500] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2688] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2855] has 4 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2899] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2870] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2909] has 4 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [2924] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3030] has 4 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3049] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3054] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3068] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3070] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3099] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3182] has 1 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3276] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3281] has 1 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3326] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3358] has 4 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3546] has 6 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3616] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3663] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3710] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3798] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [3799] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4081] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4082] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4094] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4195] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4198] has 1 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4290] has 3 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4703] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4728] has 2 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4862] has 1 recs
+COUNTS:::: HowardHughes-Prod, Ravenna - Builder Plan [4874] has 1 recs
+COUNTS::::: HowardHughes-Prod, Ravenna - Runway Model MATCH [65 THE WOODLANDS HILLS] has 1 recs
+COUNTS::::: HowardHughes-Prod, Ravenna - Runway Model MATCH [60 BRIDGELAND CENTRAL DEFAULT VILLAGE CREEKLAND LAKELAND PARKLAND PRAIRIELAND] has 1 recs
+COUNTS::::: HowardHughes-Prod, Ravenna - Runway Model MATCH [65 BRIDGELAND CENTRAL DEFAULT VILLAGE CREEKLAND LAKELAND PARKLAND PRAIRIELAND] has 1 recs
+COUNTS:::::: HowardHughes-Prod, Ravenna - Builder Model [NA] has 38 recs
+COUNTS:::::: HowardHughes-Prod, Ravenna - Builder Model [The Highlands] has 11 recs
+COUNTS:::::: HowardHughes-Prod, Ravenna - Builder Model [The Woodlands Hills] has 13 recs
+COUNTS:::::: HowardHughes-Prod, Ravenna - Builder Model [Bridgeland - Parkland] has 12 recs
+COUNTS:::::: HowardHughes-Prod, Ravenna - Builder Model [Mission Ranch] has 3 recs
+COUNTS:::::: HowardHughes-Prod, Ravenna - Builder Model [Artavia] has 9 recs
+COUNTS:::::: HowardHughes-Prod, Ravenna - Builder Model [Towne Lake] has 12 recs
+COUNTS:::::: HowardHughes-Prod, Ravenna - Builder Model [100] has 1 recs

@@ -8,7 +8,7 @@ function get_xml_key_position ( &$corp, &$builder, &$community , &$plan, &$keyPa
 // run the bash script ./findtag.sh to find tags, edit this to find different tag
 // Keyparts should be one greater than the latest position key part
 // may need to add logic for deeper tags, passing blank tag will find stuff at the same level as BasePrice, ie SqrFt, Beds etc	
-if ( $tag == "" ) $tag = "BasePrice"; // The defualt is to match Baseprice
+if ( $tag == "" || $tag == "any" ) $tag = "BasePrice"; // The defualt is to match Baseprice
 
 
 //./Highland-PecanSquare.latest.csv:CORPHIGHLAND,Highland,"Pecan Square: 40ft. lots ","Plan Greyton~Plan Greyton",0,BasePrice,,,,,,,,,,BasePrice,433990
@@ -144,15 +144,16 @@ if ( $filename == "David-WoodlandsHills.latest.csv" && $tag == "BasePrice" ) {
 }
 
 //./Chesmar-Bridgeland.latest.csv:2,"Chesmar Homes Houston",NorthGrove,0,"4582~Ann Arbor",0,BasePrice,,,,,,,,,BasePrice,338990
+//                                2,"Chesmar Homes Houston","The Groves",0,1474~Storybrooke,0,BasePrice,,,,,,,,,BasePrice,313990
 // TODO check why no corp
 if ( $filename == "Chesmar-Bridgeland.latest.csv" && $tag == "BasePrice" ) { 
-	$corp = 0; $builder=0; $community=1; $plan=3; $keyParts =4; return(1);
+	$corp = 0; $builder=1; $community=2; $plan=4; $keyParts =5; return(1);
 }
-
-//./Gehan-WoodlandsHills.latest.csv:PriceLow,,,,,,,,,,,,,,,PriceLow,299990
+//"Gehan Homes~The Woodlands Hills",1584591,"Premier Series - Juniper",PlanBasePrice,,,,,,,,,,,,PlanBasePrice,"Priced From $384,990"
+// PlanBaseSqft      PlanName,"Premier Series - Juniper"    CommunityName,"The Woodlands Hills"
 // TODO nasty flat XML file
 if ( $filename == "Gehan-WoodlandsHills.latest.csv" && $tag == "BasePrice" ) { 
-	$corp = 0; $builder=1; $community=2; $plan=3; $keyParts =4; return(1);
+	$corp = 0; $builder=0; $community=0; $plan=2; $keyParts =3; return(1);
 }
 
 //./Highland-Bridgeland.latest.csv:CORPHIGHLAND,Highland,"Bridgeland: The Patios ",0,"Plan Berkley~Plan Berkley",0,BasePrice,,,,,,,,,BasePrice,349990
@@ -166,6 +167,6 @@ if ( $filename == "TriPointe-UnionPark.latest.csv" && $tag == "BasePrice" ) {
 }
 
 // nothing found
-$corp = 0; $builder=0; $community=0; $plan=0; $keyParts =0; return(1);
+$corp = 0; $builder=0; $community=0; $plan=0; $keyParts =0;
 return(0);
 }
